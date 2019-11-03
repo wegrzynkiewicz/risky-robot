@@ -1,0 +1,11 @@
+<h1>Lista dostępnych rozgrywek</h1>
+
+<ul id="gameList">
+    <li>
+        <button onclick="emit('joinToGame', event, this)" data-game_id="1">
+            Server 1, dołącz do gry
+        </button>
+    </li>
+</ul>
+
+<button onclick="emit('startNewGame', event, this)"></button>
