@@ -1,18 +1,7 @@
-import {assert} from "chai";
-import typeRegistry from "../../lib/binary/typeRegistry";
+import Color from "../../lib/graphic/Color";
 
-const types = [
-    {name: "f32", byteSize: 4},
-    {name: "vec3<s32>", byteSize: 12},
-    {name: "mat4<u16>", byteSize: 32},
-];
-
-describe("typeRegistry", function () {
-    for (let expectedType of types) {
-        it(`should contain valid (${expectedType.name}) type`, function () {
-            const actualType = typeRegistry.getTypeByName(expectedType.name);
-            assert.strictEqual(actualType.prototype["typeName"], expectedType.name);
-            assert.strictEqual(actualType.prototype.getByteSize(), expectedType.byteSize);
-        });
-    }
+describe("Color", function () {
+    it("should created successful", function () {
+        const color = new Color(0, 0, 0, 0);
+    });
 });
