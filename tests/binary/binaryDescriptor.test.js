@@ -1,4 +1,4 @@
-import {assert} from "chai";
+import assert from "assert";
 import BinaryDescriptor from "../../lib/binary/BinaryDescriptor";
 
 describe("BinaryDescriptor", function () {

@@ -1,7 +1,18 @@
-import Color from "../../lib/graphic/Color";
+import assert from "assert";
+import typeRegistry from "../../lib/binary/typeRegistry";
 
-describe("Color", function () {
-    it("should created successful", function () {
-        const color = new Color(0, 0, 0, 0);
-    });
+const types = [
+    {name: "f32", byteLength: 4},
+    {name: "vec3<s32>", byteLength: 12},
+    {name: "mat4<u16>", byteLength: 32},
+];
+
+describe("typeRegistry", function () {
+    for (let expectedType of types) {
+        it(`should contain valid (${expectedType.name}) type`, function () {
+            const actualType = typeRegistry.getTypeByName(expectedType.name);
+            assert.strictEqual(actualType.prototype["typeName"], expectedType.name);
+            assert.strictEqual(actualType.prototype.getByteLength(), expectedType.byteLength);
+        });
+    }
 });
