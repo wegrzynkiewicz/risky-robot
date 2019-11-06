@@ -52,7 +52,7 @@ describe("MessageBinarySerializer", function () {
         const arrayBuffer = new ArrayBuffer(26);
         const dataView = new DataView(arrayBuffer);
         dataView.setUint16(0, 0x00e4, true);
-        dataView.setUint16(2, 0x00f4, true);
+        dataView.setUint16(2, 0x00c4, true);
         dataView.setUint16(4, 4, true);
         dataView.setUint16(6, 5, true);
         dataView.setUint16(8, 6, true);
@@ -64,7 +64,7 @@ describe("MessageBinarySerializer", function () {
         const message = serializer.deserialize(arrayBuffer);
 
         assert(message instanceof ExampleMessage);
-        assert.strictEqual(message.static, 0x00f4);
+        assert.strictEqual(message.static, 0x00c4);
         assert.strictEqual(message.vector[0], 4);
         assert.strictEqual(message.vector[1], 5);
         assert.strictEqual(message.vector[2], 6);
