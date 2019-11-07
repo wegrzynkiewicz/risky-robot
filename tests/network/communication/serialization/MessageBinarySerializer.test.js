@@ -1,6 +1,5 @@
 import assert from "assert";
 import Message from "../../../../lib/network/communication/Message";
-import BinaryDescriptor from "../../../../lib/binary/BinaryDescriptor";
 import MessageBinarySerializer from "../../../../lib/network/communication/serialization/MessageBinarySerializer";
 
 class ExampleMessage {
@@ -15,14 +14,13 @@ Message.bind(ExampleMessage, {
     code: 0x00e4,
     name: "example",
     type: "binary",
-});
-
-BinaryDescriptor.bind(ExampleMessage, {
-    properties: [
-        {type: "u16", property: "static"},
-        {type: "vec3<u16>", property: "vector"},
-        {type: "mat2<f32>", property: "matrix"},
-    ],
+    descriptor: {
+        properties: [
+            {type: "u16", property: "static"},
+            {type: "vec3<u16>", property: "vector"},
+            {type: "mat2<f32>", property: "matrix"},
+        ],
+    }
 });
 
 const message = new ExampleMessage();
@@ -42,10 +40,10 @@ describe("MessageBinarySerializer", function () {
         assert.strictEqual(dataView.getUint16(4, true), 1);
         assert.strictEqual(dataView.getUint16(6, true), 2);
         assert.strictEqual(dataView.getUint16(8, true), 3);
-        assert.equal(dataView.getFloat32(10, true).toFixed(4), "1.1000");
-        assert.equal(dataView.getFloat32(14, true).toFixed(4), "2.2000");
-        assert.equal(dataView.getFloat32(18, true).toFixed(4), "3.3000");
-        assert.equal(dataView.getFloat32(22, true).toFixed(4), "4.4000");
+        assert.strictEqual(dataView.getFloat32(10, true).toFixed(4), "1.1000");
+        assert.strictEqual(dataView.getFloat32(14, true).toFixed(4), "2.2000");
+        assert.strictEqual(dataView.getFloat32(18, true).toFixed(4), "3.3000");
+        assert.strictEqual(dataView.getFloat32(22, true).toFixed(4), "4.4000");
     });
 
     it("deserialize example message", function () {
