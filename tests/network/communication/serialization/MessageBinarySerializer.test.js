@@ -1,6 +1,7 @@
 import assert from "assert";
 import Message from "../../../../lib/network/communication/Message";
 import MessageBinarySerializer from "../../../../lib/network/communication/serialization/MessageBinarySerializer";
+import BinaryDescriptor from "../../../../lib/binary/BinaryDescriptor";
 
 class ExampleMessage {
     constructor() {
@@ -14,13 +15,14 @@ Message.bind(ExampleMessage, {
     code: 0x00e4,
     name: "example",
     type: "binary",
-    descriptor: {
-        properties: [
-            {type: "u16", property: "static"},
-            {type: "vec3<u16>", property: "vector"},
-            {type: "mat2<f32>", property: "matrix"},
-        ],
-    }
+});
+
+BinaryDescriptor.bind(ExampleMessage, {
+    properties: [
+        {type: "u16", property: "static"},
+        {type: "vec3<u16>", property: "vector"},
+        {type: "mat2<f32>", property: "matrix"},
+    ],
 });
 
 const message = new ExampleMessage();
