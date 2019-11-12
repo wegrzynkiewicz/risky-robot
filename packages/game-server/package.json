@@ -1,0 +1,22 @@
+{
+  "name": "robo24-game-server",
+  "version": "0.0.0",
+  "description": "robo24-game-server",
+  "author": "",
+  "license": "UNLICENSED",
+  "main": "lib/game-server.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {
+    "esm": "^3.2.25",
+    "ws": "^7.1.2"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

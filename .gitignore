@@ -1,5 +1,7 @@
+*.log
+*.cache
 .idea
 node_modules
+
+# TODO: temporary
 package-lock.json
-apps/game-client/sprites
-apps/game-client/dist
