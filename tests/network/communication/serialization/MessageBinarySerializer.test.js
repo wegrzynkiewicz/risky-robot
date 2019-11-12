@@ -3,7 +3,6 @@ import Action from "../../../../lib/logic/actions/Action";
 import MessageBinarySerializer from "../../../../lib/network/communication/serialization/MessageBinarySerializer";
 import BinaryDescriptor from "../../../../lib/binary/BinaryDescriptor";
 import Message from "../../../../lib/network/communication/Message";
-import binaryDescriptorSymbol from "../../../../lib/binary/binaryDescriptorSymbol";
 
 class ExampleAction {
     constructor() {
@@ -33,7 +32,7 @@ const actionRegistryMock = {
 };
 const serializer = new MessageBinarySerializer(actionRegistryMock);
 const message = Message.createFromAction(action);
-const messageByteSize = message[binaryDescriptorSymbol].getTotalByteSize(message);
+const messageByteSize = message[BinaryDescriptor.symbol].getTotalByteSize(message);
 
 describe("MessageBinarySerializer", function () {
 

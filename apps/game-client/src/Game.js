@@ -3,12 +3,10 @@ import Canvas from "./Canvas";
 import createSceneManager from "./scene/createSceneManager";
 import ShaderManager from "./shader/ShaderManager";
 import shaderRegistry from "./shader/shaderRegistry";
-import FreeFPSCamera from "./FreeFPSCamera";
 import Keyboard from "./Keyboard";
 import IsometricCamera from "./IsometricCamera";
-import Introduce from "../../../lib/network/communication/messages/control/Introduce";
 import * as glHelper from "./helpers/glHelper";
-import Move from "../../../lib/network/communication/messages/action/Move";
+import Move from "../../../lib/actions/player/Move";
 
 export default class Game {
 

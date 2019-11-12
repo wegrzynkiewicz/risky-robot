@@ -1,7 +1,8 @@
 import WebSocket from "ws";
-import messageRegistry from "../../lib/network/communication/messageRegistry.js";
-import Heartbeat from "../../lib/network/communication/messages/control/Heartbeat";
 import MessageSerializer from "../../lib/network/communication/serialization/MessageSerializer";
+import actionRegistry from "../../lib/logic/actions/actionRegistry";
+import Heartbeat from "../../lib/actions/control/Heartbeat";
+import Message from "../../lib/network/communication/Message";
 
 const webSocketServer = new WebSocket.Server({
     port: 8080,
@@ -37,22 +38,22 @@ const send = function () {
     }
 };
 
-const messageSerializer = new MessageSerializer(messageRegistry);
+const messageSerializer = new MessageSerializer(actionRegistry);
 
 webSocketServer.on('connection', function connection(ws) {
     connections.push(ws);
     ws.on('message', function (data) {
         try {
             const message = messageSerializer.deserialize(data);
-            console.log(message);
         } catch (error) {
             console.error(error);
         }
     });
     let i = 0;
     setInterval(() => {
-        const message = messageSerializer.serialize(new Heartbeat());
-        ws.send(message);
+        const message = Message.createFromAction(new Heartbeat());
+        const data = messageSerializer.serialize(message);
+        ws.send(data);
         i++;
     }, 1000);
 });
