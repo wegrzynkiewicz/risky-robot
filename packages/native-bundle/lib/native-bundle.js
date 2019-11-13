@@ -1,7 +1,5 @@
-'use strict';
+import core from "robo24-core";
 
-module.exports = nativeBundle;
+export default class NativeBundle extends core.Bundle {
 
-function nativeBundle() {
-    // TODO
 }
