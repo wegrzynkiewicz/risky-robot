@@ -1,5 +1,5 @@
 import assert from "assert";
-import typeRegistry from "../../lib/binary/typeRegistry";
+import typeRegistry from "../../src/binary/typeRegistry";
 
 const types = [
     {name: "f32", byteLength: 4},

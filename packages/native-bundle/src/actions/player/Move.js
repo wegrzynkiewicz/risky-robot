@@ -1,5 +1,5 @@
-import Action from "../../../../core/lib/logic/actions/Action";
-import BinaryDescriptor from "../../../../core/lib/binary/BinaryDescriptor";
+import Action from "../../../../core/src/logic/actions/Action";
+import BinaryDescriptor from "../../../../core/src/binary/BinaryDescriptor";
 
 export default class Move {
     constructor({entityId, position, rotate}) {

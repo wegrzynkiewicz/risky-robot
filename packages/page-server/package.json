@@ -4,16 +4,16 @@
   "description": "robo24-page-server",
   "author": "",
   "license": "UNLICENSED",
-  "main": "lib/page-server.js",
+  "main": "src/page-server.js",
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "tests"
   },
   "dependencies": {
     "express": "^4.17.1"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

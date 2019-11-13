@@ -1,7 +1,7 @@
 import assert from "assert";
-import MessageBinarySerializer from "../../../../core/lib/network/communication/serialization/MessageBinarySerializer";
-import Heartbeat from "../../../lib/actions/control/Heartbeat";
-import Message from "../../../../core/lib/network/communication/Message";
+import MessageBinarySerializer from "../../../../core/src/network/communication/serialization/MessageBinarySerializer";
+import Heartbeat from "../../../src/actions/control/Heartbeat";
+import Message from "../../../../core/src/network/communication/Message";
 
 const messageRegistryMock = {
     getConstructorByCode: code => Heartbeat,

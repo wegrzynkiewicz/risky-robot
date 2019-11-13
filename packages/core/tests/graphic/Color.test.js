@@ -1,4 +1,4 @@
-import Color from "../../lib/graphic/Color";
+import Color from "../../src/graphic/Color";
 
 describe("Color", function () {
     it("should created successful", function () {

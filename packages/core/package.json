@@ -4,13 +4,13 @@
   "description": "robo24-core",
   "author": "",
   "license": "UNLICENSED",
-  "main": "lib/core.js",
+  "main": "src/core.js",
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "tests"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

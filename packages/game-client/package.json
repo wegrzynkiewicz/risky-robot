@@ -4,9 +4,9 @@
   "description": "robo24-game-client",
   "author": "",
   "license": "UNLICENSED",
-  "main": "lib/game-client.js",
+  "main": "src/game-client.js",
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "tests"
   },
   "dependencies": {
@@ -21,7 +21,7 @@
     "webpack-cli": "^3.3.9"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

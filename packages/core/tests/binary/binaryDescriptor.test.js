@@ -1,5 +1,5 @@
 import assert from "assert";
-import BinaryDescriptor from "../../lib/binary/BinaryDescriptor";
+import BinaryDescriptor from "../../src/binary/BinaryDescriptor";
 
 describe("BinaryDescriptor", function () {
     it(`should bind binary encoding data to function prototype`, function () {

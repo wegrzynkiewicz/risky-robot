@@ -1,8 +1,8 @@
 import assert from "assert";
-import Action from "../../../../lib/logic/actions/Action";
-import MessageBinarySerializer from "../../../../lib/network/communication/serialization/MessageBinarySerializer";
-import BinaryDescriptor from "../../../../lib/binary/BinaryDescriptor";
-import Message from "../../../../lib/network/communication/Message";
+import Action from "../../../../src/logic/actions/Action";
+import MessageBinarySerializer from "../../../../src/network/communication/serialization/MessageBinarySerializer";
+import BinaryDescriptor from "../../../../src/binary/BinaryDescriptor";
+import Message from "../../../../src/network/communication/Message";
 
 class ExampleAction {
     constructor() {

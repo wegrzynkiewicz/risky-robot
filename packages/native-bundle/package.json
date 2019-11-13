@@ -4,15 +4,18 @@
   "description": "robo24-native-bundle",
   "author": "",
   "license": "UNLICENSED",
-  "main": "lib/native-bundle.js",
+  "main": "src/native-bundle.js",
   "directories": {
-    "lib": "lib",
+    "lib": "src",
     "test": "tests"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "robo24-core": "file:../core"
   }
 }
