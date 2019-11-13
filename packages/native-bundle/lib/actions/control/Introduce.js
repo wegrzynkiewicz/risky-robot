@@ -1,4 +1,4 @@
-import Action from "../../logic/actions/Action";
+import Action from "../../../../core/lib/logic/actions/Action";
 
 export default class Introduce {
     constructor({name, color}) {

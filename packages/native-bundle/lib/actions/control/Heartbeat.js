@@ -1,5 +1,5 @@
-import Action from "../../logic/actions/Action";
-import BinaryDescriptor from "../../binary/BinaryDescriptor";
+import Action from "../../../../core/lib/logic/actions/Action";
+import BinaryDescriptor from "../../../../core/lib/binary/BinaryDescriptor";
 
 export default class Heartbeat {}
 
