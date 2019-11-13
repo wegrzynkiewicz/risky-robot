@@ -1,4 +1,4 @@
-import Network from "./Network";
+// import Network from "./Network";
 import Canvas from "./Canvas";
 import createSceneManager from "./scene/createSceneManager";
 import ShaderManager from "./shader/ShaderManager";
@@ -6,7 +6,6 @@ import shaderRegistry from "./shader/shaderRegistry";
 import Keyboard from "./Keyboard";
 import IsometricCamera from "./IsometricCamera";
 import * as glHelper from "./helpers/glHelper";
-import Move from "../../../lib/actions/player/Move";
 
 export default class Game {
 
@@ -16,7 +15,7 @@ export default class Game {
 
         this.keyboard = new Keyboard({game});
 
-        this.network = new Network({game});
+        // this.network = new Network({game});
 
         this.canvas = new Canvas();
         this.openGL = this.canvas.openGL;
