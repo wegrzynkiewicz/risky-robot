@@ -1,4 +1,4 @@
-import Action from "../../logic/actions/Action";
+import Action from "../../action/Action";
 import BinaryDescriptor from "../../binary/BinaryDescriptor";
 
 export default class Message {

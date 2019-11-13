@@ -1,5 +1,3 @@
-const core = new class Core {
+import Core from "./Core";
 
-};
-
-export default core;
+export default Core;

@@ -1,6 +1,6 @@
 import Message from "../Message";
 import BinaryDescriptor from "../../../binary/BinaryDescriptor";
-import Action from "../../../logic/actions/Action";
+import Action from "../../../action/Action";
 
 export default class MessageBinarySerializer {
 

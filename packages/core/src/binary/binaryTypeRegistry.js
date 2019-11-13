@@ -53,7 +53,7 @@ const getByteLength = function () {
     return this.byteLength;
 };
 
-export default new class TypeRegistry {
+const binaryTypeRegistry = new class TypeRegistry {
 
     constructor() {
         this.types = {};
@@ -146,4 +146,6 @@ export default new class TypeRegistry {
         }
         return this.types[typeName];
     }
-}
+};
+
+export default binaryTypeRegistry;

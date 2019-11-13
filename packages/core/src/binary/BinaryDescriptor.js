@@ -1,4 +1,4 @@
-import typeRegistry from "./typeRegistry";
+import typeRegistry from "./binaryTypeRegistry";
 
 const regex = new RegExp(`(?<mainType>\\w+)(?:<(?<subType>\\w+)>)?(?:\\[(?<count>\\w*)\\])?`);
 
