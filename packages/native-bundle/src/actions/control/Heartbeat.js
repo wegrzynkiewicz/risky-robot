@@ -1,14 +1,13 @@
-import Action from "../../../../core/src/logic/actions/Action";
-import BinaryDescriptor from "../../../../core/src/binary/BinaryDescriptor";
+import Core from "robo24-core";
 
 export default class Heartbeat {}
 
-Action.bind(Heartbeat, {
+Core.Action.bind(Heartbeat, {
     code: 0x0001,
     name: "heartbeat",
     type: "binary",
 });
 
-BinaryDescriptor.bind(Heartbeat, {
+Core.BinaryDescriptor.bind(Heartbeat, {
     properties: [],
 });

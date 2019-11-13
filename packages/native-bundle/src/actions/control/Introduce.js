@@ -1,4 +1,4 @@
-import Action from "../../../../core/src/logic/actions/Action";
+import Core from "robo24-core";
 
 export default class Introduce {
     constructor({name, color}) {
@@ -7,7 +7,7 @@ export default class Introduce {
     }
 }
 
-Action.bind(Introduce, {
+Core.Action.bind(Introduce, {
     code: 0x02,
     name: "introduce",
     type: "json",
