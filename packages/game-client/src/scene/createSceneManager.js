@@ -46,11 +46,11 @@ export default function createSceneManager(game) {
     primaryScene.addSceneNodeChild(chunkLayerScene);
     primaryScene.addSceneNodeChild(guiLayerScene);
     primaryScene.addSceneNodeChild(debugLayerScene);
-    terrainLayerScene.addSceneNodeChild(terrainSceneNode);
+    // terrainLayerScene.addSceneNodeChild(terrainSceneNode);
     // debugLayerScene.addSceneNodeChild(pivotSceneNode);
-    // chunkLayerScene.addSceneNodeChild(cubeSceneNode);
+    chunkLayerScene.addSceneNodeChild(cubeSceneNode);
     // chunkLayerScene.addSceneNodeChild(chunkSceneNode);
-    chunkLayerScene.addSceneNodeChild(tankSceneNode);
+    // chunkLayerScene.addSceneNodeChild(tankSceneNode);
 
     return sceneManager;
 }

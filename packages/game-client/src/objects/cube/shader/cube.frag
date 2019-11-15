@@ -1,8 +1,10 @@
-varying lowp vec3 fragmentPosition;
-varying lowp vec3 fragmentNormal;
-varying lowp vec3 fragmentColor;
+#version 300 es
 
-// out lowp vec4 fragColor;
+in lowp vec3 fragmentPosition;
+in lowp vec3 fragmentNormal;
+in lowp vec3 fragmentColor;
+
+out lowp vec4 fragColor;
 
 void main(void) {
 
@@ -30,7 +32,7 @@ void main(void) {
 
     lowp vec3 result = (ambient + diffuse) * objectColor;
 
-    gl_FragColor = vec4(result, 1.0);
+    fragColor = vec4(result, 1.0);
 
 /*
     // ambient
