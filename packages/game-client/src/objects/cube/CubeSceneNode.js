@@ -12,9 +12,6 @@ export default class CubeSceneNode extends SceneNode {
         this.shader = game.shaderManager.getShaderByName("cube");
 
         this.modelMatrix = glMatrix.mat4.create();
-        glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, [1, 1, 1]);
-        glMatrix.mat4.multiplyScalar(this.modelMatrix, this.modelMatrix, 1 / 16);
-        glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, [2*7, 0, 2*7]);
 
         const data = cube.data();
         this.buffers = {};
@@ -25,11 +22,10 @@ export default class CubeSceneNode extends SceneNode {
     }
 
     render(game) {
-
         const {openGL: gl} = game;
 
         {
-            const pointer = this.shader.attributes['_vertexPosition'];
+            const pointer = this.shader.attributes['a_VertexPosition'];
             const size = 3;
             const type = gl.FLOAT;
             const normalize = false;
@@ -41,7 +37,7 @@ export default class CubeSceneNode extends SceneNode {
         }
 
         {
-            const pointer = this.shader.attributes['_vertexNormal'];
+            const pointer = this.shader.attributes['a_VertexNormal'];
             const size = 3;
             const type = gl.FLOAT;
             const normalize = false;
