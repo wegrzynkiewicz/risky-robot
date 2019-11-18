@@ -16,7 +16,6 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "robo24-core": "file:../core",
-    "robo24-engine": "file:../engine"
+    "robo24-core": "file:../core"
   }
 }

@@ -1,6 +1,8 @@
 import SceneNode from "../../scene/SceneNode";
 import cube from "./cube";
 import * as glMatrix from "gl-matrix";
+import terrainOrientationUniformBuffer from "../../terrainOrientationUniformBuffer";
+import terrainGenerator from "../../terrainGenerator";
 
 export default class CubeSceneNode extends SceneNode {
 
@@ -15,10 +17,16 @@ export default class CubeSceneNode extends SceneNode {
 
         const data = cube.data();
         this.buffers = {};
-        this.buffers.data = gl.createBuffer();
-        console.log(data);
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.data);
-        gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+
+        this.buffers.vertices = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
+        gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.vertices, gl.STATIC_DRAW);
+
+        console.log(terrainGenerator);
+
+        this.buffers.planes = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.planes);
+        gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.planes, gl.STATIC_DRAW);
 
         // var blockIndex_1 = gl.getUniformBlockIndex(program, "UBOData");
         // var blockSize_1 = gl.getActiveUniformBlockParameter(program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
@@ -30,6 +38,7 @@ export default class CubeSceneNode extends SceneNode {
         // var uniformOffsets_2 = gl.getActiveUniforms(program, uniformIndices_2, gl.UNIFORM_OFFSET);
         // wtu.glErrorShouldBe(gl, gl.NO_ERROR, "should be able to query uniform block information without error");
 
+        console.log(terrainOrientationUniformBuffer);
 
         const blockIndex_1 = gl.getUniformBlockIndex(this.shader.program, "UniformBlock");
         const blockSize_1 = gl.getActiveUniformBlockParameter(this.shader.program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
@@ -42,15 +51,9 @@ export default class CubeSceneNode extends SceneNode {
         console.log(uniformIndices_1);
         console.log('offsets', uniformOffsets_1);
 
-        var uboArray_1 = new ArrayBuffer(blockSize_1);
-        var uboFloatView_1 = new Float32Array(uboArray_1);
-        uboFloatView_1[0] = 4;
-        uboFloatView_1[1] = 4;
-        uboFloatView_1[2] = 8;
-        uboFloatView_1[3] = 4;
         var b_1 = gl.createBuffer();
         gl.bindBuffer(gl.UNIFORM_BUFFER, b_1);
-        gl.bufferData(gl.UNIFORM_BUFFER, uboFloatView_1, gl.DYNAMIC_DRAW);
+        gl.bufferData(gl.UNIFORM_BUFFER, terrainOrientationUniformBuffer, gl.DYNAMIC_DRAW);
         gl.uniformBlockBinding(this.shader.program, blockIndex_1, 1);
         gl.bindBufferBase(gl.UNIFORM_BUFFER, 1, b_1);
     }
@@ -59,26 +62,38 @@ export default class CubeSceneNode extends SceneNode {
         const {openGL: gl} = game;
 
         {
-            const pointer = this.shader.attributes['a_VertexPosition'];
-            const size = 3;
-            const type = gl.FLOAT;
+            const pointer = this.shader.attributes['a_VertexOrientIndex'];
+            const size = 1;
+            const type = gl.BYTE;
             const normalize = false;
-            const stride = 24;
+            const stride = 2;
             const offset = 0;
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.data);
-            gl.vertexAttribPointer(pointer, size, type, normalize, stride, offset);
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
+            gl.vertexAttribIPointer(pointer, size, type, normalize, stride, offset);
             gl.enableVertexAttribArray(pointer);
         }
 
         {
-            const pointer = this.shader.attributes['a_VertexNormal'];
-            const size = 3;
-            const type = gl.FLOAT;
+            const pointer = this.shader.attributes['a_VertexHeight'];
+            const size = 1;
+            const type = gl.BYTE;
             const normalize = false;
-            const stride = 24;
-            const offset = 12;
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.data);
-            gl.vertexAttribPointer(pointer, size, type, normalize, stride, offset);
+            const stride = 2;
+            const offset = 1;
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
+            gl.vertexAttribIPointer(pointer, size, type, normalize, stride, offset);
+            gl.enableVertexAttribArray(pointer);
+        }
+
+        {
+            const pointer = this.shader.attributes['a_Index'];
+            const size = 1;
+            const type = gl.SHORT;
+            const normalize = false;
+            const stride = 4;
+            const offset = 0;
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.planes);
+            gl.vertexAttribIPointer(pointer, size, type, normalize, stride, offset);
             gl.enableVertexAttribArray(pointer);
         }
 
@@ -88,7 +103,7 @@ export default class CubeSceneNode extends SceneNode {
         gl.uniformMatrix4fv(this.shader.uniforms['viewMatrix'], false, game.camera.getViewMatrix());
         gl.uniformMatrix4fv(this.shader.uniforms['modelMatrix'], false, this.modelMatrix);
 
-        const vertexCount = 36;
+        const vertexCount = 32 * 32;
         const type = gl.UNSIGNED_SHORT;
         const offset = 0;
         {
