@@ -1,70 +1,72 @@
 import VAOAttributeLayout from "./VAOAttributeLayout";
 import VAOBufferLayout from "./VAOBufferLayout";
-import VertexBuffer from "../graphic/VertexBuffer";
-
-const availableTypes = [];
 
 export default class VAOLayout {
 
-    constructor(options) {
-        Object.assign(this, options);
-        this.attributes.map(attribute => ({
-            normalize: false,
-            ...attribute
-        });
-        this.calculateSize();
-        this.triangle = [];
-        this.offset = 0;
+    constructor({vertices, buffers}) {
+        this.vertices = vertices;
+        this.buffers = buffers;
     }
 
-    calculateSize() {
-        let offset = 0;
-        this.singleVertexByteSize = 0;
+    createVAO({shader, buffers, openGL}) {
+        const gl = openGL;
 
-        for (let attribute of this.attributes) {
-            attribute.byteSize = (attribute.components * types[attribute.type].byteSize);
-            attribute.offset = offset;
-            offset += attribute.byteSize;
-            this.singleVertexByteSize += attribute.byteSize;
+        const vao = gl.createVertexArray();
+        gl.bindVertexArray(vao);
+
+        const bufferLength = buffers.length;
+        if (bufferLength !== this.buffers.length) {
+            throw new Error("Invalid number of passed openGL buffers");
         }
 
-        for (let attribute of this.attributes) {
-            attribute.stride = this.singleVertexByteSize;
-        }
+        for (let bufferIndex = 0; bufferIndex < bufferLength; bufferIndex++) {
 
-        this.byteSize = this.vertices * this.singleVertexByteSize;
-    }
+            const glBufferPointer = buffers[bufferIndex];
+            const bufferLayout = this.buffers[bufferIndex];
+            const vaoAllocation = bufferLayout.createVAOAllocation(this.vertices);
 
-    bind(shader, buffer, gl) {
-        for (let attribute of this.attributes) {
-            const pointer = shader.attributes[attribute.name];
-            if (pointer < 0) {
-                continue;
+            gl.bindBuffer(bufferLayout.type, glBufferPointer);
+
+            for (let attribute of bufferLayout.attributes) {
+
+                const pointer = shader.attributes[attribute.name];
+                if (pointer < 0) {
+                    continue;
+                }
+                const {stride, offset} = vaoAllocation.getAttributeAllocation(attribute.name);
+
+                gl.enableVertexAttribArray(pointer);
+
+                if (attribute.type.glType === gl.FLOAT || attribute.normalize) {
+                    gl.vertexAttribPointer(
+                        pointer,
+                        attribute.components,
+                        attribute.glType,
+                        attribute.normalize,
+                        stride,
+                        offset
+                    );
+                } else {
+                    gl.vertexAttribIPointer(
+                        pointer,
+                        attribute.components,
+                        attribute.glType,
+                        stride,
+                        offset
+                    );
+                }
+
+                gl.vertexAttribDivisor(
+                    pointer,
+                    attribute.divisor
+                );
             }
-            const components = attribute.components;
-            const type = gl.FLOAT;
-            const normalize = attribute.normalize;
-            const stride = attribute.stride;
-            const offset = attribute.offset;
-            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-            gl.vertexAttribPointer(pointer, components, type, normalize, stride, offset);
-            gl.enableVertexAttribArray(pointer);
         }
+        gl.bindVertexArray(null);
+
+        return vao;
     }
 }
 
 VAOLayout.Buffer = VAOBufferLayout;
 VAOLayout.Attribute = VAOAttributeLayout;
-
-const vertex = new VAOLayout({
-    vertices: 6,
-    buffers: [
-        new VAOLayout.Buffer({
-            schema: "ab",
-            attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_VertexTextureCoords", type: "vec2<f32>"}),
-            ],
-        }),
-    ],
-});

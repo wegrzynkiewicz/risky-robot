@@ -1,4 +1,5 @@
 import assert from "assert";
+import VAOLayout from "../../src/layout/VAOLayout";
 import VAOBufferLayout from "../../src/layout/VAOBufferLayout";
 
 function assertAllocation(vaoAllocation, attributeName, stride, offset) {
@@ -19,21 +20,21 @@ describe("VAOBufferLayout", function () {
         const vaoBufferLayout = new VAOBufferLayout({
             schema: "abc/de/f/g/hijk",
             attributes: [
-                new VAOBufferLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-                new VAOBufferLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
-                new VAOBufferLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}),
 
-                new VAOBufferLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>"}),
-                new VAOBufferLayout.Attribute({name: "a_VertexNegativeColor", type: "f32"}),
+                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexNegativeColor", type: "f32"}),
 
-                new VAOBufferLayout.Attribute({name: "a_VertexWeight", type: "s16"}),
+                new VAOLayout.Attribute({name: "a_VertexWeight", type: "s16"}),
 
-                new VAOBufferLayout.Attribute({name: "a_VertexVisibility", type: "s8"}),
+                new VAOLayout.Attribute({name: "a_VertexVisibility", type: "s8"}),
 
-                new VAOBufferLayout.Attribute({name: "a_VertexAdditional1", type: "u8"}),
-                new VAOBufferLayout.Attribute({name: "a_VertexAdditional2", type: "u16"}),
-                new VAOBufferLayout.Attribute({name: "a_VertexAdditional3", type: "u32"}),
-                new VAOBufferLayout.Attribute({name: "a_VertexAdditional4", type: "vec4<s16>"}),
+                new VAOLayout.Attribute({name: "a_VertexAdditional1", type: "u8"}),
+                new VAOLayout.Attribute({name: "a_VertexAdditional2", type: "u16"}),
+                new VAOLayout.Attribute({name: "a_VertexAdditional3", type: "u32"}),
+                new VAOLayout.Attribute({name: "a_VertexAdditional4", type: "vec4<s16>"}),
             ],
         });
 
