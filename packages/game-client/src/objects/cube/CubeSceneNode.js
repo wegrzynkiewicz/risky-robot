@@ -107,7 +107,7 @@ export default class CubeSceneNode extends SceneNode {
         const type = gl.UNSIGNED_SHORT;
         const offset = 0;
         {
-            gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+            gl.drawArrays(gl.POINTS, 0, vertexCount);
         }
     }
 }

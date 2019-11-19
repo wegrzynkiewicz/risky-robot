@@ -1,10 +1,9 @@
+import vertexAttributeTypes from "./vertexAttributeTypes";
+
 export default class VAOAttributeLayout {
-
-    constructor({name, type, normalized, components}) {
+    constructor({name, type, normalize}) {
         this.name = name;
-        this.type = type;
-        this.normalized = normalized;
-        this.components = components;
+        this.type = vertexAttributeTypes.getTypeByName(type);
+        this.normalize = normalize === undefined ? false : normalize;
     }
-
 };

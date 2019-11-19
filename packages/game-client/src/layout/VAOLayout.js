@@ -1,5 +1,6 @@
 import VAOAttributeLayout from "./VAOAttributeLayout";
 import VAOBufferLayout from "./VAOBufferLayout";
+import VertexBuffer from "../graphic/VertexBuffer";
 
 const availableTypes = [];
 
@@ -54,3 +55,16 @@ export default class VAOLayout {
 
 VAOLayout.Buffer = VAOBufferLayout;
 VAOLayout.Attribute = VAOAttributeLayout;
+
+const vertex = new VAOLayout({
+    vertices: 6,
+    buffers: [
+        new VAOLayout.Buffer({
+            schema: "ab",
+            attributes: [
+                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexTextureCoords", type: "vec2<f32>"}),
+            ],
+        }),
+    ],
+});
