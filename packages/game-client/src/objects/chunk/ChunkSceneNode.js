@@ -1,5 +1,5 @@
 import SceneNode from "../../scene/SceneNode";
-import cube from "../cube/cube";
+import cube from "../legacyCube/cube";
 import * as glMatrix from "gl-matrix";
 
 export default class ChunkSceneNode extends SceneNode {

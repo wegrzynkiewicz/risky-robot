@@ -1,5 +1,5 @@
 import SceneNode from "../../scene/SceneNode";
-import cube from "../legacyCube/cube";
+import cube from "./cube";
 import * as glMatrix from "gl-matrix";
 import terrainOrientationUniformBuffer from "../../terrainOrientationUniformBuffer";
 import terrainGenerator from "../../terrainGenerator";

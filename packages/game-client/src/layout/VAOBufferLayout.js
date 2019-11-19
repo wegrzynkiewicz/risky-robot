@@ -20,7 +20,9 @@ export default class VAOBufferLayout {
 
     createVAOAllocation(verticesCount) {
         const blocks = this.parseSchema();
-        const vaoAllocation = new VAOAllocation();
+        const vaoAllocation = new VAOAllocation({
+            vertices: verticesCount,
+        });
 
         let blockOffset = 0;
         for (let block of blocks) {

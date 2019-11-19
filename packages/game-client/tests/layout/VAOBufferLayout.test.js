@@ -2,15 +2,16 @@ import assert from "assert";
 import VAOLayout from "../../src/layout/VAOLayout";
 import VAOBufferLayout from "../../src/layout/VAOBufferLayout";
 
-function assertAllocation(vaoAllocation, attributeName, stride, offset) {
+function assertAllocation(vaoAllocation, attributeName, expectedStride, expectedOffset) {
+    const {stride, offset} = vaoAllocation.getAttributeAllocationByName(attributeName);
     assert.strictEqual(
-        vaoAllocation.getStride(attributeName),
         stride,
+        expectedStride,
         `Invalid stride attribute named (${attributeName})`
     );
     assert.strictEqual(
-        vaoAllocation.getOffset(attributeName),
         offset,
+        expectedOffset,
         `Invalid offset attribute named (${attributeName})`
     );
 }

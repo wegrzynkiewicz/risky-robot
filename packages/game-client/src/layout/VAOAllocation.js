@@ -1,6 +1,7 @@
 export default class VAOAllocation {
 
-    constructor() {
+    constructor({vertices}) {
+        this.vertives = vertices;
         this.attributes = Object.create(null);
     }
 
@@ -8,15 +9,7 @@ export default class VAOAllocation {
         this.attributes[name] = {stride, offset};
     }
 
-    getStride(name) {
-        return this.getAttributeAllocation(name).stride;
-    }
-
-    getOffset(name) {
-        return this.getAttributeAllocation(name).offset;
-    }
-
-    getAttributeAllocation(name) {
+    getAttributeAllocationByName(name) {
         const attribute = this.attributes[name];
         if (attribute === undefined) {
             throw new Error(`Not found attribute's allocation named (${name})`);
