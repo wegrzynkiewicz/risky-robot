@@ -14,6 +14,7 @@ export default function createSceneManager(game) {
     const primaryScene = new Scene({
         id: "primary"
     });
+    primaryScene.init(game);
 
     const chunkLayerScene = new SceneLayer({
         id: "chunks"

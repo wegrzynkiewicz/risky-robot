@@ -91,10 +91,7 @@ export default class Game {
             this.camera.update(this, deltaTime);
             this.sceneManager.update(this, deltaTime);
             this.sceneManager.render(this);
+            window.requestAnimationFrame(this.loop);
         }
-
-        // this.scene.render(deltaTime);
-
-        window.requestAnimationFrame(this.loop);
     }
 }

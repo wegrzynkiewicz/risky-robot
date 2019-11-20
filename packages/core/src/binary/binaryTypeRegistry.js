@@ -101,7 +101,8 @@ const binaryTypeRegistry = new class TypeRegistry {
         for (let {power, glType} of glIntegerMapper) {
             this.createStaticType({
                 char: "s",
-                power, glType,
+                power,
+                glType,
                 arrayType: "Int"
             });
             this.createStaticType({

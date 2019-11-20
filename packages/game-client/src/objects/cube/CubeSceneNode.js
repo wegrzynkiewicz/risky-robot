@@ -76,7 +76,7 @@ export default class CubeSceneNode extends SceneNode {
         openGL.uniformMatrix4fv(this.shader.uniforms['u_viewMatrix'], false, game.camera.getViewMatrix());
         openGL.uniformMatrix4fv(this.shader.uniforms['u_modelMatrix'], false, this.modelMatrix);
 
-        const vertexCount = 36;
-        openGL.drawArrays(openGL.TRIANGLES, 0, vertexCount);
+        const {glDrawType, vertices} = this.vao.vaoLayout;
+        openGL.drawArrays(glDrawType, 0, vertices);
     }
 }

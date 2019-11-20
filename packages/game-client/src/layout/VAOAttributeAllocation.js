@@ -13,8 +13,8 @@ export default class VAOAttributeAllocation {
 
     getByteLength() {
         return this.attributeLayout.getByteLength({
-            elementsCount: this.vaoLayout.getElementsCount(),
-            verticesCount: this.vaoLayout.getVerticesCount(),
+            elementsCount: this.vaoLayout.elements,
+            verticesCount: this.vaoLayout.vertices,
         });
     }
 
