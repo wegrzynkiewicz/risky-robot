@@ -1,9 +1,9 @@
 import VAOAllocation from "./VAOAllocation";
-import webGLRenderingContext from "../graphic/webGLRenderingContext";
+import Core from "robo24-core";
 
 const glBufferMapper = {
-    "element_array": webGLRenderingContext.ELEMENT_ARRAY_BUFFER,
-    "array": webGLRenderingContext.ARRAY_BUFFER,
+    "element_array": Core.WebGLRenderingContext.ELEMENT_ARRAY_BUFFER,
+    "array": Core.WebGLRenderingContext.ARRAY_BUFFER,
 };
 
 export default class VAOBufferLayout {

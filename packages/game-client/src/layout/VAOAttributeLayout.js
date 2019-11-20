@@ -1,10 +1,14 @@
-import vertexAttributeTypes from "./vertexAttributeTypes";
+import Core from "robo24-core";
 
 export default class VAOAttributeLayout {
 
     constructor({name, type, normalize, divisor}) {
         this.name = name;
-        this.type = vertexAttributeTypes.getTypeByName(type);
+        const typeConstructor = Core.binaryTypeRegistry.getTypeByName(type);
+        if (!typeConstructor.prototype.glTypeName) {
+            throw new Error(`Cannot use type (${type}) in vertex attribute`);
+        }
+        this.type = new typeConstructor();
         this.normalize = normalize === undefined ? false : normalize;
         this.divisor = divisor === undefined ? 0 : divisor;
     }

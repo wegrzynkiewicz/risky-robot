@@ -1,3 +1,5 @@
+import WebGLRenderingContext from "../graphic/WebGLRenderingContext";
+
 const createConstructor = function () {
     return function (options) {
         Object.assign(this, options);
@@ -39,6 +41,22 @@ const decodeGeneric = function (dataView, instance) {
     instance[this.propertyName] = arrayType;
 };
 
+const writeGeneric = function (dataView, offset, value) {
+    for (let i = 0; i < this.axisLength; i++) {
+        const subOffset = offset + (i * this.byteLength);
+        this.dataViewSetter.call(dataView, subOffset, value[i], true);
+    }
+};
+
+const readGeneric = function (dataView, offset) {
+    const arrayType = new (this.arrayType)(this.axisLength);
+    for (let i = 0; i < this.axisLength; i++) {
+        const subOffset = offset + (i * this.byteLength);
+        const value = this.dataViewGetter.call(dataView, subOffset, true);
+        arrayType[i] = value;
+    }
+};
+
 const decodeStatic = function (dataView, instance) {
     const value = this.dataViewGetter.call(dataView, this.byteOffset, true);
     instance[this.propertyName] = value;
@@ -49,92 +67,132 @@ const encodeStatic = function (dataView, instance) {
     return this.dataViewSetter.call(dataView, this.byteOffset, value, true);
 };
 
+const writeStatic = function (dataView, offset, value) {
+    this.dataViewSetter.call(dataView, offset, value, true);
+};
+
+const readStatic = function (dataView, offset) {
+    this.dataViewGetter.call(dataView, offset, true);
+};
+
 const getByteLength = function () {
     return this.byteLength;
 };
+
+const glIntegerMapper = [
+    {power: 0, glType: "BYTE"},
+    {power: 1, glType: "SHORT"},
+    {power: 2, glType: "INT"},
+    {power: 3, glType: undefined},
+];
+
+const glFloatMapper = [
+    {power: 2, glType: "FLOAT"},
+    {power: 3, glType: undefined},
+];
+
+const staticTypes = [];
 
 const binaryTypeRegistry = new class TypeRegistry {
 
     constructor() {
         this.types = {};
-        this.staticTypes = {};
-        this.createStaticTypes();
-        this.createVectorTypes();
-        this.createMatrixTypes();
-    }
 
-    createStaticTypes() {
-        for (let power of [0, 1, 2, 3]) {
-            this.createStaticType("s", power, "Int");
-            this.createStaticType("u", power, "Uint");
+        for (let {power, glType} of glIntegerMapper) {
+            this.createStaticType({
+                char: "s",
+                power, glType,
+                arrayType: "Int"
+            });
+            this.createStaticType({
+                char: "u",
+                power,
+                glType: `UNSIGNED_${glType}`,
+                arrayType: "Uint"
+            });
         }
-        for (let power of [2, 3]) {
-            this.createStaticType("f", power, "Float");
+
+        for (let {power, glType} of glFloatMapper) {
+            this.createStaticType({
+                char: "f",
+                power,
+                glType,
+                arrayType: "Float"
+            });
         }
-    }
 
-    createStaticType(char, power, mapped) {
-        const byteLength = 2 ** power;
-        const bitSize = byteLength * 8;
-        const typeName = `${char}${bitSize}`;
-        const dataViewType = `${mapped}${bitSize}`;
-
-        const constructor = createConstructor();
-        const {prototype} = constructor;
-
-        Object.defineProperty(prototype, 'typeName', {value: typeName});
-        Object.defineProperty(prototype, 'byteLength', {value: byteLength});
-
-        Object.defineProperty(prototype, 'arrayType', {value: typedArrays[`${mapped}${bitSize}Array`]});
-        Object.defineProperty(prototype, 'dataViewGetter', {value: DataView.prototype[`get${dataViewType}`]});
-        Object.defineProperty(prototype, 'dataViewSetter', {value: DataView.prototype[`set${dataViewType}`]});
-
-        prototype.encode = encodeStatic;
-        prototype.decode = decodeStatic;
-        prototype.getByteLength = getByteLength;
-
-        this.staticTypes[typeName] = constructor;
-        this.types[typeName] = constructor;
-    }
-
-    createVectorTypes() {
         for (let vectorWidth = 2; vectorWidth <= 4; vectorWidth++) {
-            for (let staticType of Object.values(this.staticTypes)) {
+            for (let staticType of staticTypes) {
                 this.createGenericType('vec', vectorWidth, vectorWidth, staticType)
             }
         }
-    }
 
-    createMatrixTypes() {
         for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
-            for (let staticType of Object.values(this.staticTypes)) {
+            for (let staticType of staticTypes) {
                 this.createGenericType("mat", matrixWidth, matrixWidth ** 2, staticType)
             }
         }
     }
 
-    createGenericType(prefix, width, axisLength, staticType) {
-        const {typeName: staticTypeName, byteLength: staticByteLength} = staticType.prototype;
-        const genericTypeName = `${prefix}${width}<${staticTypeName}>`;
-        const genericByteLength = axisLength * staticByteLength;
+    createStaticType({char, power, glType, arrayType}) {
+        const byteLength = 2 ** power;
+        const bitSize = byteLength * 8;
+        const typeName = `${char}${bitSize}`;
+        const dataViewType = `${arrayType}${bitSize}`;
 
         const constructor = createConstructor();
         const {prototype} = constructor;
 
-        Object.defineProperty(prototype, 'typeName', {value: genericTypeName});
-        Object.defineProperty(prototype, 'byteLength', {value: genericByteLength});
+        Object.defineProperties(prototype, {
+            'typeName': {value: typeName},
+            'byteLength': {value: byteLength},
 
-        Object.defineProperty(prototype, 'axisType', {value: staticType});
-        Object.defineProperty(prototype, 'axisLength', {value: axisLength});
-        Object.defineProperty(prototype, 'axisByteLength', {value: staticByteLength});
+            'components': {value: 1},
+            'glType': {value: WebGLRenderingContext[glType]},
+            'glTypeName': {value: glType},
 
-        Object.defineProperty(prototype, 'arrayType', {value: staticType.prototype['arrayType']});
-        Object.defineProperty(prototype, 'dataViewGetter', {value: staticType.prototype[`dataViewGetter`]});
-        Object.defineProperty(prototype, 'dataViewSetter', {value: staticType.prototype[`dataViewSetter`]});
+            'arrayType': {value: typedArrays[`${arrayType}${bitSize}Array`]},
+            'dataViewGetter': {value: DataView.prototype[`get${dataViewType}`]},
+            'dataViewSetter': {value: DataView.prototype[`set${dataViewType}`]},
 
-        prototype.decode = decodeGeneric;
-        prototype.encode = encodeGeneric;
-        prototype.getByteLength = getByteLength;
+            'encode': {value: encodeStatic},
+            'decode': {value: decodeStatic},
+            'write': {value: writeStatic},
+            'read': {value: readStatic},
+            'getByteLength': {value: getByteLength},
+        });
+
+        this.types[typeName] = constructor;
+        staticTypes.push(constructor);
+    }
+
+    createGenericType(prefix, width, axisLength, staticType) {
+        const genericTypeName = `${prefix}${width}<${staticType.prototype.typeName}>`;
+        const genericByteLength = axisLength * staticType.prototype.byteLength;
+
+        const constructor = createConstructor();
+        const {prototype} = constructor;
+
+        Object.defineProperties(prototype, {
+            'typeName': {value: genericTypeName},
+            'byteLength': {value: genericByteLength},
+
+            'axisType': {value: staticType},
+            'axisLength': {value: axisLength},
+            'axisByteLength': {value: staticType.prototype.byteLength},
+
+            'components': {value: axisLength},
+            'glType': {value: staticType.prototype.glType},
+            'glTypeName': {value: staticType.prototype.glTypeName},
+
+            'arrayType': {value: staticType.prototype.arrayType},
+            'dataViewGetter': {value: staticType.prototype.dataViewGetter},
+            'dataViewSetter': {value: staticType.prototype.dataViewSetter},
+
+            'encode': {value: encodeGeneric},
+            'decode': {value: decodeGeneric},
+            'getByteLength': {value: getByteLength},
+        });
 
         this.types[genericTypeName] = constructor;
     }
