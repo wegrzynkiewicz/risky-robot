@@ -3,8 +3,8 @@ import VAOAllocation from "./VAOAllocation";
 import VAOAttributeAllocation from "./VAOAttributeAllocation";
 
 const glBufferMapper = {
-    "element_array": Core.WebGLRenderingContext.ELEMENT_ARRAY_BUFFER,
-    "array": Core.WebGLRenderingContext.ARRAY_BUFFER,
+    "element_array": Core.WebGLRenderingContext["ELEMENT_ARRAY_BUFFER"],
+    "array": Core.WebGLRenderingContext["ARRAY_BUFFER"],
 };
 
 export default class VAOBufferLayout {
@@ -13,8 +13,10 @@ export default class VAOBufferLayout {
         if (!Array.isArray(attributes)) {
             throw new Error("Property attributes must be array");
         }
-
-        this.type = glBufferMapper[type];
+        this.glBufferType = glBufferMapper[type];
+        if (this.glBufferType === undefined) {
+            throw new Error("Invalid buffer type");
+        }
         this.schema = schema;
         this.attributes = attributes;
     }
@@ -49,6 +51,12 @@ export default class VAOBufferLayout {
         let blockStride = 0;
         for (let {attributeLayout} of block) {
             blockStride += attributeLayout.type.getByteLength();
+        }
+
+        for (let {attributeLayout} of block) {
+            if (blockStride % attributeLayout.type.getByteLength() !== 0) {
+                throw new Error("Invalid stride or offset data pack");
+            }
         }
         return blockStride;
     }

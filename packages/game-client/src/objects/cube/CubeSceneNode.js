@@ -14,10 +14,17 @@ export default class CubeSceneNode extends SceneNode {
         const {openGL: gl} = game;
 
         this.shader = game.shaderManager.getShaderByName("cube");
+
+
+        const dataBuffer = cubeBufferProvider();
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, dataBuffer, gl.STATIC_DRAW);
+
         this.vao = cubeVAOLayout.createVAO({
             openGL: gl,
             shader: this.shader,
-            buffers: [cubeBufferProvider()],
+            buffers: [buffer],
         });
 
         this.modelMatrix = glMatrix.mat4.create();

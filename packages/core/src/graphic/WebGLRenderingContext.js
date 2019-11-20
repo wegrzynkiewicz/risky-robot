@@ -9,6 +9,6 @@ const webGLRenderingContext = (function () {
     }
 
     return {};
-});
+})();
 
 export default webGLRenderingContext;

@@ -10,7 +10,7 @@ const cubeVAOLayout = new VAOLayout({
             attributes: [
                 new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
                 new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec3<u8>", normalize: true}),
+                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec3<u32>", normalize: true}),
             ],
         }),
     ],

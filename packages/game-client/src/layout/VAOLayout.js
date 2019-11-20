@@ -43,32 +43,32 @@ export default class VAOLayout {
             const bufferLayout = this.buffers[bufferIndex];
             const vaoAllocation = bufferLayout.createVAOAllocation(this);
 
-            gl.bindBuffer(bufferLayout.type, glBufferPointer);
+            gl.bindBuffer(bufferLayout.glBufferType, glBufferPointer);
 
-            for (let attribute of bufferLayout.attributes) {
+            for (let attributeLayout of bufferLayout.attributes) {
 
-                const pointer = shader.attributes[attribute.name];
+                const pointer = shader.attributes[attributeLayout.name];
                 if (pointer < 0) {
                     continue;
                 }
-                const {stride, offset} = vaoAllocation.getAttributeAllocation(attribute.name);
+                const {stride, offset} = vaoAllocation.getAttributeAllocationByName(attributeLayout.name);
 
                 gl.enableVertexAttribArray(pointer);
-
-                if (attribute.type.glType === gl.FLOAT || attribute.normalize) {
+                console.log(attributeLayout);
+                if (attributeLayout.type.glType === gl.FLOAT || attributeLayout.normalize) {
                     gl.vertexAttribPointer(
                         pointer,
-                        attribute.components,
-                        attribute.glType,
-                        attribute.normalize,
+                        attributeLayout.type.components,
+                        attributeLayout.type.glType,
+                        attributeLayout.normalize,
                         stride,
                         offset
                     );
                 } else {
                     gl.vertexAttribIPointer(
                         pointer,
-                        attribute.components,
-                        attribute.glType,
+                        attributeLayout.type.components,
+                        attributeLayout.type.glType,
                         stride,
                         offset
                     );
@@ -76,7 +76,7 @@ export default class VAOLayout {
 
                 gl.vertexAttribDivisor(
                     pointer,
-                    attribute.divisor
+                    attributeLayout.divisor
                 );
             }
         }

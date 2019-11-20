@@ -8,7 +8,7 @@ export default class VAOAttributeLayout {
         if (!typeConstructor.prototype.glTypeName) {
             throw new Error(`Cannot use type (${type}) in vertex attribute`);
         }
-        this.type = new typeConstructor();
+        this.type = typeConstructor.prototype;
         this.normalize = normalize === undefined ? false : normalize;
         this.divisor = divisor === undefined ? 0 : divisor;
     }
