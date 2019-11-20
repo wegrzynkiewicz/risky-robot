@@ -1,12 +1,11 @@
 export default class VAOAllocation {
 
-    constructor({vertices}) {
-        this.vertives = vertices;
+    constructor() {
         this.allocations = Object.create(null);
     }
 
-    add({attribute, stride, offset}) {
-        this.allocations[attribute.name] = {attribute, stride, offset};
+    add(allocation) {
+        this.allocations[allocation.attributeLayout.name] = allocation;
     }
 
     getAttributesAllocations() {
@@ -21,11 +20,19 @@ export default class VAOAllocation {
         return allocation;
     }
 
-    getByteLength(verticesPerPrimitive) {
+    getByteLength() {
         let count = 0;
-        for (let {attribute} of Object.values(this.allocations)) {
-            count += attribute.getByteLength(this.vertives, verticesPerPrimitive);
+        for (let allocation of Object.values(this.allocations)) {
+            count += allocation.getByteLength();
         }
         return count;
+    }
+
+    createArrayBufferByDataView() {
+        const bufferLength = this.getByteLength();
+        const buffer = new ArrayBuffer(bufferLength);
+        const dataView = new DataView(buffer);
+
+        return dataView;
     }
 }

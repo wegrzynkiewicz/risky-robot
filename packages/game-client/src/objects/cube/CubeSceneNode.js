@@ -3,6 +3,8 @@ import cube from "../legacyCube/cube";
 import * as glMatrix from "gl-matrix";
 import terrainOrientationUniformBuffer from "../../terrainOrientationUniformBuffer";
 import terrainGenerator from "../../terrainGenerator";
+import cubeVAOLayout from "./cubeVAOLayout";
+import cubeBufferProvider from "./cubeBufferProvider";
 
 export default class CubeSceneNode extends SceneNode {
 
@@ -12,12 +14,17 @@ export default class CubeSceneNode extends SceneNode {
         const {openGL: gl} = game;
 
         this.shader = game.shaderManager.getShaderByName("cube");
+        this.vao = cubeVAOLayout.createVAO({
+            openGL: gl,
+            shader: this.shader,
+            buffers: [cubeBufferProvider()],
+        });
 
         this.modelMatrix = glMatrix.mat4.create();
 
+        /*
         const data = cube.data();
         this.buffers = {};
-
         this.buffers.vertices = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
         gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.vertices, gl.STATIC_DRAW);
@@ -56,58 +63,20 @@ export default class CubeSceneNode extends SceneNode {
         gl.bufferData(gl.UNIFORM_BUFFER, terrainOrientationUniformBuffer, gl.DYNAMIC_DRAW);
         gl.uniformBlockBinding(this.shader.program, blockIndex_1, 1);
         gl.bindBufferBase(gl.UNIFORM_BUFFER, 1, b_1);
+         */
     }
 
     render(game) {
         const {openGL: gl} = game;
 
-        {
-            const pointer = this.shader.attributes['a_VertexOrientIndex'];
-            const size = 1;
-            const type = gl.BYTE;
-            const normalize = false;
-            const stride = 2;
-            const offset = 0;
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
-            gl.vertexAttribIPointer(pointer, size, type, normalize, stride, offset);
-            gl.enableVertexAttribArray(pointer);
-        }
-
-        {
-            const pointer = this.shader.attributes['a_VertexHeight'];
-            const size = 1;
-            const type = gl.BYTE;
-            const normalize = false;
-            const stride = 2;
-            const offset = 1;
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
-            gl.vertexAttribIPointer(pointer, size, type, normalize, stride, offset);
-            gl.enableVertexAttribArray(pointer);
-        }
-
-        {
-            const pointer = this.shader.attributes['a_Index'];
-            const size = 1;
-            const type = gl.SHORT;
-            const normalize = false;
-            const stride = 4;
-            const offset = 0;
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.planes);
-            gl.vertexAttribIPointer(pointer, size, type, normalize, stride, offset);
-            gl.enableVertexAttribArray(pointer);
-        }
-
+        gl.bindVertexArray(this.vao);
         gl.useProgram(this.shader.program);
 
         gl.uniformMatrix4fv(this.shader.uniforms['projectionMatrix'], false, game.camera.getProjectionMatrix());
         gl.uniformMatrix4fv(this.shader.uniforms['viewMatrix'], false, game.camera.getViewMatrix());
         gl.uniformMatrix4fv(this.shader.uniforms['modelMatrix'], false, this.modelMatrix);
 
-        const vertexCount = 32 * 32;
-        const type = gl.UNSIGNED_SHORT;
-        const offset = 0;
-        {
-            gl.drawArrays(gl.POINTS, 0, vertexCount);
-        }
+        const vertexCount = 36;
+        gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
     }
 }

@@ -13,13 +13,19 @@ export default class VAOAttributeLayout {
         this.divisor = divisor === undefined ? 0 : divisor;
     }
 
-    getByteLength(verticesCount, verticesPerPrimitive) {
+    getByteLength({elementsCount, verticesCount}) {
         if (this.divisor === 0) {
             return this.type.byteLength * verticesCount;
         }
 
-        const divider = verticesPerPrimitive * this.divisor;
+        return Math.ceil(this.type.byteLength * (elementsCount / this.divisor));
+    }
 
-        return this.type.byteLength * (verticesCount / divider);
+    write(dataView, offset, value) {
+        this.type.write(dataView, offset, value);
+    }
+
+    read(dataView, offset) {
+        return this.type.read(dataView, offset);
     }
 };

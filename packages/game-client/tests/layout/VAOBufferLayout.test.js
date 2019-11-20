@@ -19,47 +19,62 @@ function assertAllocation(vaoAllocation, attributeName, expectedStride, expected
 describe("VAOBufferLayout", function () {
 
     it("should calculate valid buffer byte length", function () {
-        const vaoBufferLayout = new VAOBufferLayout({
-            schema: "ab/c/d",
-            attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
-                new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}), // 8
-                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>", divisor: 1}), // 12
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>", divisor: 2}), // 16
+        const vaoLayout = new VAOLayout({
+            primitive: "triangle",
+            elements: 2,
+            buffers: [
+                new VAOBufferLayout({
+                    schema: "ab/c/d",
+                    attributes: [
+                        new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
+                        new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}), // 8
+                        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>", divisor: 1}), // 12
+                        new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>", divisor: 2}), // 16
+                    ],
+                })
             ],
         });
+        const [vaoBufferLayout] = vaoLayout.buffers;
 
-        const verticesCount = 12;
-        const verticesPerPrimitive = 3;
-        const vaoAllocation = vaoBufferLayout.createVAOAllocation(verticesCount);
+        const verticesCount = 6;
+        const vaoAllocation = vaoBufferLayout.createVAOAllocation(vaoLayout);
         const expectedLength = v => (v * 12) + (v * 8) + (v / 3 * 12) + (v / 6 * 16);
-        assert.strictEqual(vaoAllocation.getByteLength(verticesPerPrimitive), expectedLength(verticesCount));
+        assert.strictEqual(vaoLayout.getVerticesCount(), verticesCount, "Invalid vertices count");
+        assert.strictEqual(vaoAllocation.getByteLength(), expectedLength(verticesCount));
     });
 
     it("should calculate valid stride and offset", function () {
-        const vaoBufferLayout = new VAOBufferLayout({
-            schema: "abc/de/f/g/hijk",
-            attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
-                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}), // 12
-                new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}), // 8
+        const vaoLayout = new VAOLayout({
+            primitive: "triangle",
+            elements: 10,
+            buffers: [
+                new VAOBufferLayout({
+                    schema: "abc/de/f/g/hijk",
+                    attributes: [
+                        new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
+                        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}), // 12
+                        new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}), // 8
 
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>"}), // 16
-                new VAOLayout.Attribute({name: "a_VertexNegativeColor", type: "f32"}), // 4
+                        new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>"}), // 16
+                        new VAOLayout.Attribute({name: "a_VertexNegativeColor", type: "f32"}), // 4
 
-                new VAOLayout.Attribute({name: "a_VertexWeight", type: "s16"}), // 2
+                        new VAOLayout.Attribute({name: "a_VertexWeight", type: "s16"}), // 2
 
-                new VAOLayout.Attribute({name: "a_VertexVisibility", type: "s8"}), // 1
+                        new VAOLayout.Attribute({name: "a_VertexVisibility", type: "s8"}), // 1
 
-                new VAOLayout.Attribute({name: "a_VertexAdditional1", type: "u8"}), // 1
-                new VAOLayout.Attribute({name: "a_VertexAdditional2", type: "u16"}), // 2
-                new VAOLayout.Attribute({name: "a_VertexAdditional3", type: "u32"}), // 4
-                new VAOLayout.Attribute({name: "a_VertexAdditional4", type: "vec4<s16>"}), // 8
+                        new VAOLayout.Attribute({name: "a_VertexAdditional1", type: "u8"}), // 1
+                        new VAOLayout.Attribute({name: "a_VertexAdditional2", type: "u16"}), // 2
+                        new VAOLayout.Attribute({name: "a_VertexAdditional3", type: "u32"}), // 4
+                        new VAOLayout.Attribute({name: "a_VertexAdditional4", type: "vec4<s16>"}), // 8
+                    ],
+                }),
             ],
         });
 
+
+        const [vaoBufferLayout] = vaoLayout.buffers;
+        const vaoAllocation = vaoBufferLayout.createVAOAllocation(vaoLayout);
         const verticesCount = 30;
-        const vaoAllocation = vaoBufferLayout.createVAOAllocation(verticesCount);
 
         assertAllocation(vaoAllocation, "a_VertexPosition", 32, 0);
         assertAllocation(vaoAllocation, "a_VertexNormal", 32, 12);
@@ -85,5 +100,6 @@ describe("VAOBufferLayout", function () {
         const vertexByteLength = 70;
         const byteLength = verticesCount * vertexByteLength;
         assert.strictEqual(vaoAllocation.getByteLength(verticesPerPrimitive), byteLength);
+    })
+        ;
     });
-});

@@ -1,5 +1,6 @@
-import VAOAllocation from "./VAOAllocation";
 import Core from "robo24-core";
+import VAOAllocation from "./VAOAllocation";
+import VAOAttributeAllocation from "./VAOAttributeAllocation";
 
 const glBufferMapper = {
     "element_array": Core.WebGLRenderingContext.ELEMENT_ARRAY_BUFFER,
@@ -18,23 +19,25 @@ export default class VAOBufferLayout {
         this.attributes = attributes;
     }
 
-    createVAOAllocation(verticesCount) {
+    createVAOAllocation(vaoLayout) {
+        const verticesCount = vaoLayout.getVerticesCount();
+
         const blocks = this.parseSchema();
-        const vaoAllocation = new VAOAllocation({
-            vertices: verticesCount,
-        });
+        const vaoAllocation = new VAOAllocation();
 
         let blockOffset = 0;
         for (let block of blocks) {
             let attributeOffset = 0;
             const blockStride = this.calculateBlockStride(block);
-            for (let {attribute} of block) {
-                vaoAllocation.add({
-                    attribute,
+            for (let {attributeLayout} of block) {
+                const vaoAttributeAllocation = new VAOAttributeAllocation({
+                    vaoLayout,
+                    attributeLayout,
                     stride: blockStride,
                     offset: blockOffset + attributeOffset,
                 });
-                attributeOffset += attribute.type.byteLength;
+                vaoAllocation.add(vaoAttributeAllocation);
+                attributeOffset += attributeLayout.type.getByteLength();
             }
             blockOffset += (blockStride * verticesCount);
         }
@@ -44,8 +47,8 @@ export default class VAOBufferLayout {
 
     calculateBlockStride(block) {
         let blockStride = 0;
-        for (let {attribute} of block) {
-            blockStride += attribute.type.byteLength;
+        for (let {attributeLayout} of block) {
+            blockStride += attributeLayout.type.getByteLength();
         }
         return blockStride;
     }
@@ -63,12 +66,12 @@ export default class VAOBufferLayout {
                 continue;
             }
 
-            const attribute = this.attributes[attributeCounter];
-            if (attribute === undefined) {
+            const attributeLayout = this.attributes[attributeCounter];
+            if (attributeLayout === undefined) {
                 throw new Error("Invalid schema. Not enough attributes.");
             }
 
-            blocks[blockCounter].push({char, attribute});
+            blocks[blockCounter].push({char, attributeLayout});
             attributeCounter++;
         }
 
