@@ -52,7 +52,6 @@ export default class VAOBufferLayout {
         for (let {attributeLayout} of block) {
             blockStride += attributeLayout.type.getByteLength();
         }
-
         for (let {attributeLayout} of block) {
             if (blockStride % attributeLayout.type.getByteLength() !== 0) {
                 throw new Error("Invalid stride or offset data pack");

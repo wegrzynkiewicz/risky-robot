@@ -5,25 +5,27 @@ import terrainOrientationUniformBuffer from "../../terrainOrientationUniformBuff
 import terrainGenerator from "../../terrainGenerator";
 import cubeVAOLayout from "./cubeVAOLayout";
 import cubeBufferProvider from "./cubeBufferProvider";
+import VAO from "../../layout/VAO";
 
 export default class CubeSceneNode extends SceneNode {
 
     constructor(game) {
         super({});
 
-        const {openGL: gl} = game;
+        const {openGL} = game;
 
         this.shader = game.shaderManager.getShaderByName("cube");
 
         const dataBuffer = cubeBufferProvider();
-        const buffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.bufferData(gl.ARRAY_BUFFER, dataBuffer, gl.STATIC_DRAW);
+        const buffer = openGL.createBuffer();
+        openGL.bindBuffer(openGL.ARRAY_BUFFER, buffer);
+        openGL.bufferData(openGL.ARRAY_BUFFER, dataBuffer, openGL.STATIC_DRAW);
 
-        this.vao = cubeVAOLayout.createVAO({
-            openGL: gl,
+        this.vao = new VAO(cubeVAOLayout);
+        this.vao.intialize({
+            openGL,
             shader: this.shader,
-            buffers: [buffer],
+            glBufferPointers: [buffer],
         });
 
         this.modelMatrix = glMatrix.mat4.create();
@@ -31,50 +33,50 @@ export default class CubeSceneNode extends SceneNode {
         /*
         const data = cube.data();
         this.buffers = {};
-        this.buffers.vertices = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
-        gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.vertices, gl.STATIC_DRAW);
+        this.buffers.vertices = openGL.createBuffer();
+        openGL.bindBuffer(openGL.ARRAY_BUFFER, this.buffers.vertices);
+        openGL.bufferData(openGL.ARRAY_BUFFER, terrainGenerator.vertices, openGL.STATIC_DRAW);
 
-        this.buffers.planes = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.planes);
-        gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.planes, gl.STATIC_DRAW);
+        this.buffers.planes = openGL.createBuffer();
+        openGL.bindBuffer(openGL.ARRAY_BUFFER, this.buffers.planes);
+        openGL.bufferData(openGL.ARRAY_BUFFER, terrainGenerator.planes, openGL.STATIC_DRAW);
 
-        // var blockIndex_1 = gl.getUniformBlockIndex(program, "UBOData");
-        // var blockSize_1 = gl.getActiveUniformBlockParameter(program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
-        // var uniformIndices_1 = gl.getUniformIndices(program, ["UBORed", "UBOGreen", "UBOBlue"]);
-        // var uniformOffsets_1 = gl.getActiveUniforms(program, uniformIndices_1, gl.UNIFORM_OFFSET);
-        // var blockIndex_2 = gl.getUniformBlockIndex(program, "UBOD");
-        // var blockSize_2 = gl.getActiveUniformBlockParameter(program, blockIndex_2, gl.UNIFORM_BLOCK_DATA_SIZE);
-        // var uniformIndices_2 = gl.getUniformIndices(program, ["UBOR", "UBOG", "UBOB"]);
-        // var uniformOffsets_2 = gl.getActiveUniforms(program, uniformIndices_2, gl.UNIFORM_OFFSET);
-        // wtu.glErrorShouldBe(gl, gl.NO_ERROR, "should be able to query uniform block information without error");
+        // var blockIndex_1 = openGL.getUniformBlockIndex(program, "UBOData");
+        // var blockSize_1 = openGL.getActiveUniformBlockParameter(program, blockIndex_1, openGL.UNIFORM_BLOCK_DATA_SIZE);
+        // var uniformIndices_1 = openGL.getUniformIndices(program, ["UBORed", "UBOGreen", "UBOBlue"]);
+        // var uniformOffsets_1 = openGL.getActiveUniforms(program, uniformIndices_1, openGL.UNIFORM_OFFSET);
+        // var blockIndex_2 = openGL.getUniformBlockIndex(program, "UBOD");
+        // var blockSize_2 = openGL.getActiveUniformBlockParameter(program, blockIndex_2, openGL.UNIFORM_BLOCK_DATA_SIZE);
+        // var uniformIndices_2 = openGL.getUniformIndices(program, ["UBOR", "UBOG", "UBOB"]);
+        // var uniformOffsets_2 = openGL.getActiveUniforms(program, uniformIndices_2, openGL.UNIFORM_OFFSET);
+        // wtu.glErrorShouldBe(gl, openGL.NO_ERROR, "should be able to query uniform block information without error");
 
-        const blockIndex_1 = gl.getUniformBlockIndex(this.shader.program, "UniformBlock");
-        const blockSize_1 = gl.getActiveUniformBlockParameter(this.shader.program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
-        const uniformIndices_1 = gl.getUniformIndices(this.shader.program, [
+        const blockIndex_1 = openGL.getUniformBlockIndex(this.shader.program, "UniformBlock");
+        const blockSize_1 = openGL.getActiveUniformBlockParameter(this.shader.program, blockIndex_1, openGL.UNIFORM_BLOCK_DATA_SIZE);
+        const uniformIndices_1 = openGL.getUniformIndices(this.shader.program, [
             "offsets[0]",
         ]);
-        const uniformOffsets_1 = gl.getActiveUniforms(this.shader.program, uniformIndices_1, gl.UNIFORM_OFFSET);
+        const uniformOffsets_1 = openGL.getActiveUniforms(this.shader.program, uniformIndices_1, openGL.UNIFORM_OFFSET);
 
-        var b_1 = gl.createBuffer();
-        gl.bindBuffer(gl.UNIFORM_BUFFER, b_1);
-        gl.bufferData(gl.UNIFORM_BUFFER, terrainOrientationUniformBuffer, gl.DYNAMIC_DRAW);
-        gl.uniformBlockBinding(this.shader.program, blockIndex_1, 1);
-        gl.bindBufferBase(gl.UNIFORM_BUFFER, 1, b_1);
+        var b_1 = openGL.createBuffer();
+        openGL.bindBuffer(openGL.UNIFORM_BUFFER, b_1);
+        openGL.bufferData(openGL.UNIFORM_BUFFER, terrainOrientationUniformBuffer, openGL.DYNAMIC_DRAW);
+        openGL.uniformBlockBinding(this.shader.program, blockIndex_1, 1);
+        openGL.bindBufferBase(openGL.UNIFORM_BUFFER, 1, b_1);
          */
     }
 
     render(game) {
-        const {openGL: gl} = game;
+        const {openGL} = game;
 
-        gl.bindVertexArray(this.vao);
-        gl.useProgram(this.shader.program);
+        this.vao.use(openGL);
+        openGL.useProgram(this.shader.program);
 
-        gl.uniformMatrix4fv(this.shader.uniforms['u_projectionMatrix'], false, game.camera.getProjectionMatrix());
-        gl.uniformMatrix4fv(this.shader.uniforms['u_viewMatrix'], false, game.camera.getViewMatrix());
-        gl.uniformMatrix4fv(this.shader.uniforms['u_modelMatrix'], false, this.modelMatrix);
+        openGL.uniformMatrix4fv(this.shader.uniforms['u_projectionMatrix'], false, game.camera.getProjectionMatrix());
+        openGL.uniformMatrix4fv(this.shader.uniforms['u_viewMatrix'], false, game.camera.getViewMatrix());
+        openGL.uniformMatrix4fv(this.shader.uniforms['u_modelMatrix'], false, this.modelMatrix);
 
         const vertexCount = 36;
-        gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+        openGL.drawArrays(openGL.TRIANGLES, 0, vertexCount);
     }
 }

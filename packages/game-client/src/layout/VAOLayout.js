@@ -25,64 +25,6 @@ export default class VAOLayout {
     getVerticesCount() {
         return primitivesType[this.primitive].getVerticesCount(this.elements);
     }
-
-    createVAO({shader, buffers, openGL}) {
-        const gl = openGL;
-
-        const vao = gl.createVertexArray();
-        gl.bindVertexArray(vao);
-
-        const bufferLength = buffers.length;
-        if (bufferLength !== this.buffers.length) {
-            throw new Error("Invalid number of passed openGL buffers");
-        }
-
-        for (let bufferIndex = 0; bufferIndex < bufferLength; bufferIndex++) {
-
-            const glBufferPointer = buffers[bufferIndex];
-            const bufferLayout = this.buffers[bufferIndex];
-            const vaoAllocation = bufferLayout.createVAOAllocation(this);
-
-            gl.bindBuffer(bufferLayout.glBufferType, glBufferPointer);
-
-            for (let attributeLayout of bufferLayout.attributes) {
-
-                const pointer = shader.attributes[attributeLayout.name];
-                if (pointer < 0 || pointer === undefined) {
-                    continue;
-                }
-                const {stride, offset} = vaoAllocation.getAttributeAllocationByName(attributeLayout.name);
-
-                if (attributeLayout.type.glType === gl.FLOAT || attributeLayout.normalize) {
-                    gl.vertexAttribPointer(
-                        pointer,
-                        attributeLayout.type.components,
-                        attributeLayout.type.glType,
-                        attributeLayout.normalize,
-                        stride,
-                        offset
-                    );
-                } else {
-                    gl.vertexAttribIPointer(
-                        pointer,
-                        attributeLayout.type.components,
-                        attributeLayout.type.glType,
-                        stride,
-                        offset
-                    );
-                }
-                gl.enableVertexAttribArray(pointer);
-
-                gl.vertexAttribDivisor(
-                    pointer,
-                    attributeLayout.divisor
-                );
-            }
-        }
-        gl.bindVertexArray(null);
-
-        return vao;
-    }
 }
 
 VAOLayout.Buffer = VAOBufferLayout;
