@@ -191,6 +191,8 @@ const binaryTypeRegistry = new class TypeRegistry {
 
             'encode': {value: encodeGeneric},
             'decode': {value: decodeGeneric},
+            'write': {value: writeGeneric},
+            'read': {value: readGeneric},
             'getByteLength': {value: getByteLength},
         });
 
