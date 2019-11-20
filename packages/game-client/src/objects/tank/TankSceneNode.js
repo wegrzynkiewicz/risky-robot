@@ -48,8 +48,6 @@ export default class TankSceneNode extends SceneNode {
 
         planeData.bind(this.shader, this.buffers.data, gl);
 
-        // console.log(this);
-
         gl.useProgram(this.shader.program);
 
         // Tell WebGL we want to affect texture unit 0

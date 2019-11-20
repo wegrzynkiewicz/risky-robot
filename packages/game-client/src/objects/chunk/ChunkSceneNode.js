@@ -25,8 +25,6 @@ export default class ChunkSceneNode extends SceneNode {
         const arrayBuffer = new ArrayBuffer(countBlocks * 4 * 80);
         const dataView = new DataView(arrayBuffer);
 
-        console.log(this.shader);
-
         for (let i = 0; i < countBlocks; i++) {
             const count = i * 16;
             dataView.setFloat32(count + 0, i, true);

@@ -18,9 +18,6 @@ function initBuffers() {
     this.openGL.bindBuffer(this.openGL.ELEMENT_ARRAY_BUFFER, indexBuffer);
     this.openGL.bufferData(this.openGL.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), this.openGL.STATIC_DRAW);
 
-    console.log(vertices);
-    console.log(normals);
-
     return {
         position: positionBuffer,
         indices: indexBuffer,
@@ -40,7 +37,6 @@ export default class SceneX {
         Object.assign(this, options);
         this.openGL = this.canvas.openGL;
         this.programInfo = this.shaderManager.getShaderByName("terrain");
-        console.log('test', this.programInfo);
         this.buffers = initBuffers.call(this);
         this.previousTimestamp = 0;
 

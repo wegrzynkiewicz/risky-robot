@@ -20,7 +20,6 @@ export default class VAOAttributeAllocation {
 
     write(dataView, vertexIndex, value) {
         const index = this.calculateOffset(vertexIndex);
-        console.log(this, vertexIndex, index);
         this.attributeLayout.write(dataView, index, value);
     }
 

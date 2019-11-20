@@ -89,8 +89,6 @@ export default {
         verticesBuffer[vertexBufferIndex++] = 0.0;
         verticesBuffer[vertexBufferIndex++] = 1.0;
 
-        console.log(verticesBuffer);
-
         return verticesBuffer;
     }
 }

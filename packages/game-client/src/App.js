@@ -19,7 +19,6 @@ export default class App extends EventEmitter {
     }
 
     async setCurrentStage(stageName, args) {
-        console.log("stage", stageName);
         const stage = this.stages[stageName];
         const previousStage = this.currentStage;
         const nextStage = stage;

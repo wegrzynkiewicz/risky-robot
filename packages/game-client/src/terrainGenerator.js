@@ -166,7 +166,5 @@ class Test {
 const test = new Test();
 test.calculate();
 const buffers = test.makeBuffers();
-console.log(test);
-console.log(buffers);
 
 export default buffers;

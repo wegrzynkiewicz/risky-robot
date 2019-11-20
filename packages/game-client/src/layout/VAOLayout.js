@@ -48,13 +48,11 @@ export default class VAOLayout {
             for (let attributeLayout of bufferLayout.attributes) {
 
                 const pointer = shader.attributes[attributeLayout.name];
-                if (pointer < 0) {
+                if (pointer < 0 || pointer === undefined) {
                     continue;
                 }
                 const {stride, offset} = vaoAllocation.getAttributeAllocationByName(attributeLayout.name);
 
-                gl.enableVertexAttribArray(pointer);
-                console.log(attributeLayout);
                 if (attributeLayout.type.glType === gl.FLOAT || attributeLayout.normalize) {
                     gl.vertexAttribPointer(
                         pointer,
@@ -73,6 +71,7 @@ export default class VAOLayout {
                         offset
                     );
                 }
+                gl.enableVertexAttribArray(pointer);
 
                 gl.vertexAttribDivisor(
                     pointer,

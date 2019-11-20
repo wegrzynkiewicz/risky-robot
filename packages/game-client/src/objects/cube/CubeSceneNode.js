@@ -15,7 +15,6 @@ export default class CubeSceneNode extends SceneNode {
 
         this.shader = game.shaderManager.getShaderByName("cube");
 
-
         const dataBuffer = cubeBufferProvider();
         const buffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -36,8 +35,6 @@ export default class CubeSceneNode extends SceneNode {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.vertices);
         gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.vertices, gl.STATIC_DRAW);
 
-        console.log(terrainGenerator);
-
         this.buffers.planes = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.planes);
         gl.bufferData(gl.ARRAY_BUFFER, terrainGenerator.planes, gl.STATIC_DRAW);
@@ -52,18 +49,12 @@ export default class CubeSceneNode extends SceneNode {
         // var uniformOffsets_2 = gl.getActiveUniforms(program, uniformIndices_2, gl.UNIFORM_OFFSET);
         // wtu.glErrorShouldBe(gl, gl.NO_ERROR, "should be able to query uniform block information without error");
 
-        console.log(terrainOrientationUniformBuffer);
-
         const blockIndex_1 = gl.getUniformBlockIndex(this.shader.program, "UniformBlock");
         const blockSize_1 = gl.getActiveUniformBlockParameter(this.shader.program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
         const uniformIndices_1 = gl.getUniformIndices(this.shader.program, [
             "offsets[0]",
         ]);
         const uniformOffsets_1 = gl.getActiveUniforms(this.shader.program, uniformIndices_1, gl.UNIFORM_OFFSET);
-
-        console.log(blockSize_1);
-        console.log(uniformIndices_1);
-        console.log('offsets', uniformOffsets_1);
 
         var b_1 = gl.createBuffer();
         gl.bindBuffer(gl.UNIFORM_BUFFER, b_1);
@@ -79,9 +70,9 @@ export default class CubeSceneNode extends SceneNode {
         gl.bindVertexArray(this.vao);
         gl.useProgram(this.shader.program);
 
-        gl.uniformMatrix4fv(this.shader.uniforms['projectionMatrix'], false, game.camera.getProjectionMatrix());
-        gl.uniformMatrix4fv(this.shader.uniforms['viewMatrix'], false, game.camera.getViewMatrix());
-        gl.uniformMatrix4fv(this.shader.uniforms['modelMatrix'], false, this.modelMatrix);
+        gl.uniformMatrix4fv(this.shader.uniforms['u_projectionMatrix'], false, game.camera.getProjectionMatrix());
+        gl.uniformMatrix4fv(this.shader.uniforms['u_viewMatrix'], false, game.camera.getViewMatrix());
+        gl.uniformMatrix4fv(this.shader.uniforms['u_modelMatrix'], false, this.modelMatrix);
 
         const vertexCount = 36;
         gl.drawArrays(gl.TRIANGLES, 0, vertexCount);

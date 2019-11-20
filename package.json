@@ -11,5 +11,8 @@
   },
   "scripts": {
     "test": "./bin/test-unit.sh"
+  },
+  "dependencies": {
+    "esm": "^3.2.25"
   }
 }
