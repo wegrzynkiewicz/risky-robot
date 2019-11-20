@@ -9,7 +9,7 @@ export default class VAO {
         openGL.bindVertexArray(this.vaoPointer);
     }
 
-    intialize({openGL, shader, glBufferPointers}) {
+    initialize({openGL, shader, glBufferPointers}) {
         this.vaoPointer = openGL.createVertexArray();
         openGL.bindVertexArray(this.vaoPointer);
         this.bind(openGL, shader, glBufferPointers);

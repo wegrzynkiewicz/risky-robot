@@ -22,7 +22,7 @@ export default class CubeSceneNode extends SceneNode {
         openGL.bufferData(openGL.ARRAY_BUFFER, dataBuffer, openGL.STATIC_DRAW);
 
         this.vao = new VAO(cubeVAOLayout);
-        this.vao.intialize({
+        this.vao.initialize({
             openGL,
             shader: this.shader,
             glBufferPointers: [buffer],
