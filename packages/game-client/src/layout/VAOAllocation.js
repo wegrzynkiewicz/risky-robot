@@ -24,6 +24,8 @@ export default class VAOAllocation {
         let count = 0;
         for (let allocation of Object.values(this.allocations)) {
             count += allocation.getByteLength();
+            console.log(allocation);
+            console.log(allocation.getByteLength());
         }
         return count;
     }

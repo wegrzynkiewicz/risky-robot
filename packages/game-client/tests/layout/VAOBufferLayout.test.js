@@ -96,10 +96,8 @@ describe("VAOBufferLayout", function () {
         assertAllocation(vaoAllocation, "a_VertexAdditional3", 15, block4Offset + 3);
         assertAllocation(vaoAllocation, "a_VertexAdditional4", 15, block4Offset + 7);
 
-        const verticesPerPrimitive = 3;
         const vertexByteLength = 70;
         const byteLength = verticesCount * vertexByteLength;
-        assert.strictEqual(vaoAllocation.getByteLength(verticesPerPrimitive), byteLength);
-    })
-        ;
+        assert.strictEqual(vaoAllocation.getByteLength(), byteLength);
     });
+});

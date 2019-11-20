@@ -43,7 +43,7 @@ const decodeGeneric = function (dataView, instance) {
 
 const writeGeneric = function (dataView, offset, value) {
     for (let i = 0; i < this.axisLength; i++) {
-        const subOffset = offset + (i * this.byteLength);
+        const subOffset = offset + (i * this.axisByteLength);
         this.dataViewSetter.call(dataView, subOffset, value[i], true);
     }
 };
@@ -51,7 +51,7 @@ const writeGeneric = function (dataView, offset, value) {
 const readGeneric = function (dataView, offset) {
     const arrayType = new (this.arrayType)(this.axisLength);
     for (let i = 0; i < this.axisLength; i++) {
-        const subOffset = offset + (i * this.byteLength);
+        const subOffset = offset + (i * this.axisByteLength);
         const value = this.dataViewGetter.call(dataView, subOffset, true);
         arrayType[i] = value;
     }
