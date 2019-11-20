@@ -30,7 +30,7 @@ export default class VAOBufferLayout {
             const blockStride = this.calculateBlockStride(block);
             for (let {attribute} of block) {
                 vaoAllocation.add({
-                    name: attribute.name,
+                    attribute,
                     stride: blockStride,
                     offset: blockOffset + attributeOffset,
                 });

@@ -1,44 +1,22 @@
 import cubeVAOLayout from "./cubeVAOLayout";
+import cubeVertexDataset from "./cubeVertexDataset";
 
 export default function cubeBufferProvider() {
 
     const [bufferLayout] = cubeVAOLayout.buffers;
     const vaoAllocation = bufferLayout.createVAOAllocation(cubeVAOLayout.vertices);
-    const builder = new VAOPlusBufferBuilder(vaoAllocation);
+    const builder = vaoAllocation.createVAOBufferBuilder();
 
-    // top
-    builder.add("-++");
-    builder.add("+++");
-    builder.add("++-");
-    builder.add("-+-");
-
-    // bottom
-    builder.add("---");
-    builder.add("+--");
-    builder.add("+-+");
-    builder.add("--+");
-
-    // front
-    builder.add("--+");
-    builder.add("+-+");
-    builder.add("+++");
-    builder.add("-++");
-
-    // back
-    builder.add("+--");
-    builder.add("---");
-    builder.add("-+-");
-    builder.add("++-");
-
-    // left
-    builder.add("---");
-    builder.add("--+");
-    builder.add("-++");
-    builder.add("-+-");
-
-    // right
-    builder.add("+-+");
-    builder.add("+--");
-    builder.add("++-");
-    builder.add("+++");
+    const verticesIndex = 0;
+    for (let i = 0; i < 6; i++) {
+        for (let index of [0, 1, 2, 0, 2, 3]) {
+            const vertexAxis = cubeVertexDataset.vertices[i * 4 + index];
+            vaoAllocation.put({
+                buffer,
+                attribute: "a_VertexPosition",
+                index: verticesIndex++,
+                data: vertexAxis,
+            });
+        }
+    }
 }

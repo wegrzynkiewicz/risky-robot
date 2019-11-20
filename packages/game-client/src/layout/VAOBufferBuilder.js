@@ -1,11 +1,15 @@
-export default class VAOAllocation {
+export default class VAOBufferBuilder {
 
-    constructor({vertices}) {
+    constructor({vaoAllocation, buffer}) {
         this.vertives = vertices;
-        this.allocations = Object.create(null);
+        this.vaoAllocation = vaoAllocation;
+        this.counters = Object.create(null);
+        for (let {attribute} of this.vaoAllocation.getAttributesAllocations()) {
+            this.counters[attribute.name] = 0;
+        }
     }
 
-    add({attribute, stride, offset}) {
+    put({attribute, stride, offset}) {
         this.allocations[attribute.name] = {attribute, stride, offset};
     }
 
