@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://rawgithub.com/jwagner/simplex-noise.js/master/simplex-noise.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-position: center center;
+            background-repeat: repeat;
+            position: relative;
+        }
+
+        #border {
+            margin: 0 auto;
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    const TAU = 2 * Math.PI;
+
+    const simplex = new SimplexNoise(1);
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 512;
+    const width = canvas.width;
+    const height = canvas.height;
+    const border = document.createElement('div');
+    border.id = "border";
+    border.style.width = `${width}px`;
+    border.style.height = `${height}px`;
+    border.style.top = `${(window.screen.height - height) / 2}px`;
+    border.style.left = `${window.screen.width / 2 - width / 2}px`;
+    document.body.append(border);
+    const ctx = canvas.getContext('2d');
+    const image = ctx.getImageData(0, 0, width, height);
+    const data = image.data;
+    let t = 0;
+
+    let a = 8;
+    let b = 8;
+
+    const generate = function () {
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                const nx = x / width;
+                const ny = y / height;
+
+                //const r = simplex.noise2D(a * nx, b * ny);
+
+                let r =
+                    1 * torusnoise(nx, ny);
+                    + 0.5 * torusnoise(2 * nx, 2 * ny)
+                    + 0.25 * torusnoise(4 * a * nx, 4 * b * ny);
+                    + 0.125 * torusnoise(8 * a * nx, 8 * b * ny)
+                    + 0.075 * torusnoise(16 * a * nx, 16 * b * ny);
+
+                // r = Math.abs(r);
+
+                data[(x + y * width) * 4 + 0] = r * 255;
+                data[(x + y * width) * 4 + 1] = r * 255;
+                data[(x + y * width) * 4 + 2] = r * 255;
+                data[(x + y * width) * 4 + 3] = 255;
+            }
+        }
+        t++;
+        ctx.putImageData(image, 0, 0);
+        const url = canvas.toDataURL("image/png");
+        console.log(url);
+        document.body.style.backgroundImage = `url('${url}')`;
+    };
+
+    function cylindernoise(nx, ny) {
+        const angle_x = TAU * nx;
+        return simplex.noise3D(
+            Math.cos(angle_x) / TAU,
+            Math.sin(angle_x) / TAU,
+            ny
+        );
+    }
+
+    function torusnoise(nx, ny) {
+        const angle_x = TAU * nx;
+        const angle_y = TAU * ny;
+        const noise = simplex.noise4D(
+            4 * Math.cos(angle_x) / TAU,
+            4 * Math.sin(angle_x) / TAU,
+            4 * Math.cos(angle_y) / TAU,
+            4 * Math.sin(angle_y) / TAU
+        );
+        return (noise + 0.7) / 2.3;
+    }
+
+    generate();
+</script>
+</body>
+</html>
