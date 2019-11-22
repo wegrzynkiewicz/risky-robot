@@ -9,39 +9,48 @@
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            color: red;
         }
 
         body {
+            background-color: blue;
+        }
+
+        #map {
+            margin: 0 auto;
             background-position: center center;
             background-repeat: repeat;
-            position: relative;
         }
 
         #border {
-            margin: 0 auto;
             border: 1px solid rgba(255, 0, 0, 0.4);
-            position: absolute;
         }
     </style>
 </head>
 <body>
+<div id="map">
+    <div id="border"></div>
+</div>
 <script>
 
     const TAU = 2 * Math.PI;
 
     const simplex = new SimplexNoise(1);
     const canvas = document.createElement('canvas');
+    const worldWidth = 512;
+    const worldHeight = 512;
     canvas.width = 512;
-    canvas.height = 512;
+    canvas.height = 256;
     const width = canvas.width;
     const height = canvas.height;
-    const border = document.createElement('div');
-    border.id = "border";
+    const map = document.getElementById('map');
+    map.style.width = `${width * 2}px`;
+    map.style.height = `${height * 2}px`;
+    map.style.padding = `${height / 2}px ${width / 2}px`;
+    const border = document.getElementById('border');
     border.style.width = `${width}px`;
     border.style.height = `${height}px`;
-    border.style.top = `${(window.screen.height - height) / 2}px`;
-    border.style.left = `${window.screen.width / 2 - width / 2}px`;
-    document.body.append(border);
     const ctx = canvas.getContext('2d');
     const image = ctx.getImageData(0, 0, width, height);
     const data = image.data;
@@ -49,57 +58,91 @@
 
     let a = 8;
     let b = 8;
+    let manipulator = 0;
+    let offsetY = 256;
+    let offsetX = 256;
 
-    const generate = function () {
+    const generate = function (ox, oy) {
         for (let x = 0; x < width; x++) {
             for (let y = 0; y < height; y++) {
-                const nx = x / width;
-                const ny = y / height;
+
+
+                const nx = (x + offsetX) / worldWidth;
+                const ny = (y + offsetY) / worldHeight;
 
                 //const r = simplex.noise2D(a * nx, b * ny);
 
                 let r =
-                    1 * torusnoise(nx, ny);
-                    + 0.5 * torusnoise(2 * nx, 2 * ny)
-                    + 0.25 * torusnoise(4 * a * nx, 4 * b * ny);
-                    + 0.125 * torusnoise(8 * a * nx, 8 * b * ny)
-                    + 0.075 * torusnoise(16 * a * nx, 16 * b * ny);
+                    0.70 * torusnoise(nx, ny, 0.5)
+                    //+ 0.25 * torusnoise(nx, ny, 4)
+                    //+ 0.25 * torusnoise(nx, ny, 5)
+                    //+ 0.25 * torusnoise(nx, ny, 6)
+                    // - 1 / 4 * torusnoise(nx, ny, 5)
+                    //+ 1 / 4 * torusnoise(1 * nx, 1 * ny, 0.01)
+                    //+ 1 / 11 * torusnoise(11 * nx, 11 * ny, 11)
+                    //- 1 / 13 * torusnoise(13 * nx, 13 * ny, 13)
+                ;
+
+                r /= (1.00);
+                r= Math.pow(r, 1.40);
 
                 // r = Math.abs(r);
 
                 data[(x + y * width) * 4 + 0] = r * 255;
                 data[(x + y * width) * 4 + 1] = r * 255;
                 data[(x + y * width) * 4 + 2] = r * 255;
-                data[(x + y * width) * 4 + 3] = 255;
+                data[(x + y * width) * 4 + 3] = r * 255  >= 255 ? 0 : 255;
             }
         }
         t++;
         ctx.putImageData(image, 0, 0);
         const url = canvas.toDataURL("image/png");
-        console.log(url);
-        document.body.style.backgroundImage = `url('${url}')`;
+        map.style.backgroundImage = `url('${url}')`;
     };
 
     function cylindernoise(nx, ny) {
         const angle_x = TAU * nx;
         return simplex.noise3D(
-            Math.cos(angle_x) / TAU,
-            Math.sin(angle_x) / TAU,
-            ny
+            manipulator * Math.cos(angle_x) / TAU,
+            manipulator * Math.sin(angle_x) / TAU,
+            manipulator * ny
         );
     }
 
-    function torusnoise(nx, ny) {
+    function torusnoise(nx, ny, manip) {
         const angle_x = TAU * nx;
         const angle_y = TAU * ny;
         const noise = simplex.noise4D(
-            4 * Math.cos(angle_x) / TAU,
-            4 * Math.sin(angle_x) / TAU,
-            4 * Math.cos(angle_y) / TAU,
-            4 * Math.sin(angle_y) / TAU
+            (manipulator + manip) * Math.cos(angle_x) / TAU,
+            (manipulator + manip) * Math.sin(angle_x) / TAU,
+            (manipulator + manip) * Math.cos(angle_y) / TAU,
+            (manipulator + manip) * Math.sin(angle_y) / TAU
         );
-        return (noise + 0.7) / 2.3;
+        return (noise + 1.0) / 2.0 ;
     }
+
+    window.document.addEventListener('wheel', (event) => {
+        manipulator += event.deltaY * 0.01;
+
+        generate();
+    });
+
+    window.document.addEventListener('keydown', (event) => {
+        if (event.key === "w") {
+            offsetY -= 32
+        }
+        if (event.key === "s") {
+            offsetY += 32
+        }
+        if (event.key === "a") {
+            offsetX += 32
+        }
+        if (event.key === "d") {
+            offsetX -= 32
+        }
+
+        generate();
+    });
 
     generate();
 </script>

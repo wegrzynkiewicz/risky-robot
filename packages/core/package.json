@@ -14,5 +14,8 @@
   ],
   "scripts": {
     "test": "./bin/test.sh"
+  },
+  "dependencies": {
+    "simplex-noise": "^2.4.0"
   }
 }
