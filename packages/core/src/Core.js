@@ -4,6 +4,7 @@ import BinaryDescriptor from "./binary/BinaryDescriptor";
 import binaryTypeRegistry from "./binary/binaryTypeRegistry";
 import Bundle from "./bundle/Bundle";
 import Color from "./graphic/Color";
+import NoiseGenerator from "./noise/NoiseGenerator";
 import WebGLRenderingContext from "./graphic/WebGLRenderingContext";
 
 export default class Core {
@@ -18,4 +19,5 @@ Core.BinaryDescriptor = BinaryDescriptor;
 Core.binaryTypeRegistry = binaryTypeRegistry;
 Core.Bundle = Bundle;
 Core.Color = Color;
+Core.NoiseGenerator = NoiseGenerator;
 Core.WebGLRenderingContext = WebGLRenderingContext;

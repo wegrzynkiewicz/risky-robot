@@ -3,8 +3,8 @@ import SimplexNoise from "simplex-noise";
 const TAU = 2 * Math.PI;
 
 const simplex = new SimplexNoise(1);
-const worldWidth = 512;
-const worldHeight = 512;
+const worldWidth = 256;
+const worldHeight = 256;
 
 const width = 256;
 const height = 256;
@@ -62,4 +62,8 @@ function torusnoise(nx, ny, manip) {
     return (noise + 1.0) / 2.0;
 }
 
-export default buffer;
+generate();
+
+const NoiseGenerator = buffer;
+
+export default NoiseGenerator;

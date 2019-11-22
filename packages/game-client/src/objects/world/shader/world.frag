@@ -4,7 +4,7 @@ in lowp vec3 v_fragmentPosition;
 in lowp vec3 v_fragmentNormal;
 in lowp vec3 v_fragmentColor;
 
-out lowp vec4 o_fragmentColor;
+out lowp vec4 fragmentColor;
 
 void main(void) {
 
@@ -32,20 +32,5 @@ void main(void) {
 
     lowp vec3 result = (ambient + diffuse) * objectColor;
 
-    o_fragmentColor = vec4(result, 1.0);
-
-/*
-    // ambient
-    float ambientStrength = 0.1;
-    vec3 ambient = ambientStrength * lightColor;
-
-    // diffuse
-    vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(lightPos - FragPos);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
-
-    vec3 result = (ambient + diffuse) * objectColor;
-    FragColor = vec4(result, 1.0);
-*/
+    fragmentColor = vec4(result, 1.0);
 }

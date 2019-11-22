@@ -1,8 +1,6 @@
 import SceneNode from "../../scene/SceneNode";
 import cube from "../legacyCube/cube";
 import * as glMatrix from "gl-matrix";
-import terrainOrientationUniformBuffer from "../../terrainOrientationUniformBuffer";
-import terrainGenerator from "../../terrainGenerator";
 import cubeVAOLayout from "./cubeVAOLayout";
 import cubeBufferProvider from "./cubeBufferProvider";
 import VAO from "../../layout/VAO";
