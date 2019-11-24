@@ -3,11 +3,11 @@ import SimplexNoise from "simplex-noise";
 const TAU = 2 * Math.PI;
 
 const simplex = new SimplexNoise(1);
-const worldWidth = 256;
-const worldHeight = 256;
+const worldWidth = 17;
+const worldHeight = 17;
 
-const width = 256;
-const height = 256;
+const width = 17;
+const height = 17;
 
 let manipulator = 0;
 let offsetY = 256;

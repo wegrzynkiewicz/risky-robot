@@ -15,7 +15,7 @@ export default class IsometricCamera {
         this.yaw = 0.0;
         this.pitch = 180 / Math.PI;
         this.zoom = 64.0;
-        this.zoomSpeed = 0.3;
+        this.zoomSpeed = 0.2;
 
         const {width, height} = game.canvas.element;
         const ratio = width / height;

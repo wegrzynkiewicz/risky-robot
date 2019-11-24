@@ -11,10 +11,11 @@ void main(void) {
     lowp float conv = 1.0/255.0;
     lowp vec3 lightPos = vec3(-1, 2, -1);
     lowp vec3 lightColor = vec3(1.0, 1.0, 1.0);
-    lowp vec3 objectColor = vec3(255.0*conv, 77.0*conv, 56.0*conv);
+    //lowp vec3 objectColor = vec3(255.0*conv, 255.0*conv, 255.0*conv);
+    lowp vec3 objectColor = v_fragmentColor;
 
     // ambient color
-    lowp float ambientStrength = 0.8;
+    lowp float ambientStrength = 0.2;
     lowp vec3 ambient = ambientStrength * lightColor;
 
     // diffuse color
@@ -32,5 +33,5 @@ void main(void) {
 
     lowp vec3 result = (ambient + diffuse) * objectColor;
 
-    fragmentColor = vec4(result, 1.0);
+    fragmentColor = vec4(v_fragmentColor, 1.0);
 }

@@ -42,7 +42,8 @@ export default class VAO {
             if (pointer < 0 || pointer === undefined) {
                 continue;
             }
-            const {stride, offset} = vaoAllocation.getAttributeAllocationByName(attributeLayout.name);
+            const attributeAllocation = vaoAllocation.getAttributeAllocationByName(attributeLayout.name);
+            const {stride, offset} = attributeAllocation;
 
             if (attributeLayout.type.glType === openGL.FLOAT || attributeLayout.normalize) {
                 openGL.vertexAttribPointer(

@@ -1,11 +1,10 @@
 import Core from "robo24-core";
 import VAOLayout from "../../layout/VAOLayout";
-import cubeVAOLayout from "../cube/cubeVAOLayout";
 
 const noise = Core.NoiseGenerator;
 
-const noiseChunkSize = 256;
-const chunkSize = 256;
+const noiseChunkSize = 16;
+const chunkSize = 16;
 const chunkSizeLess = chunkSize - 1;
 const chunkSizeSquare = chunkSize ** 2;
 
@@ -26,16 +25,16 @@ for (let z = 0; z < chunkSize; z++) {
     for (let x = 0; x < chunkSize; x++) {
         line += bufferWorld[2 * chunkSizeSquare + z * chunkSize + x] ? "x" : "."
     }
-    console.log(line);
+    console.log(`${z} ${line}`);
 }
 
 const orientCalc = [
-    {orient: {label: "top", index: 0}, dx: 0, dy: 1, dz: 0},
-    {orient: {label: "bottom", index: 1}, dx: 0, dy: -1, dz: 0},
-    {orient: {label: "front", index: 2}, dx: 0, dy: 0, dz: 1},
-    {orient: {label: "back", index: 3}, dx: 0, dy: 0, dz: -1},
-    {orient: {label: "left", index: 4}, dx: -1, dy: 0, dz: 0},
-    {orient: {label: "right", index: 5}, dx: 1, dy: 0, dz: 0},
+    {label: "top", orientIndex: 0, dx: 0, dy: 1, dz: 0},
+    {label: "bottom", orientIndex: 1, dx: 0, dy: -1, dz: 0},
+    {label: "front", orientIndex: 2, dx: 0, dy: 0, dz: 1},
+    {label: "back", orientIndex: 3, dx: 0, dy: 0, dz: -1},
+    {label: "left", orientIndex: 4, dx: -1, dy: 0, dz: 0},
+    {label: "right", orientIndex: 5, dx: 1, dy: 0, dz: 0},
 ];
 
 class Test {
@@ -45,13 +44,15 @@ class Test {
         this.planes = [];
     }
 
-    putTriangleVertices({orient, index}) {
-        const orientIndex = orient.index * 6;
+    putTriangleVertices({label, index, orientIndex, dx, dy, dz}) {
+        const globalOrientIndex = orientIndex * 6;
+
         for (let i = 0; i < 6; i++) {
             this.vertices.push({
                 gl_VertexID: i,
-                orientIndex: orientIndex + i,
-                orientLabel: orient.label,
+                globalOrientIndex: globalOrientIndex + i,
+                orientLabel: label,
+                orientIndex: orientIndex,
                 index,
                 y: Math.floor(index / chunkSizeSquare),
                 z: Math.floor(index % chunkSizeSquare / chunkSize),
@@ -60,9 +61,9 @@ class Test {
         }
     }
 
-    putMesh({element, index, orient, height}) {
-        this.putTriangleVertices({orient, index});
-        this.planes.push({orient, index, element});
+    putMesh({element, index, orientIndex, label, dx, dy, dz}) {
+        this.putTriangleVertices({label, orientIndex, index, dx, dy, dz});
+        this.planes.push({label, index, element, dx, dy, dz});
     }
 
     getElement(x, y, z) {
@@ -72,6 +73,9 @@ class Test {
         }
         if (y > chunkSize) {
             return 0;
+        }
+        if (y <= 0) {
+            return 1;
         }
         if (z > chunkSize) {
             return 0;
@@ -91,49 +95,30 @@ class Test {
                     if (element === 0) {
                         continue;
                     }
-                    for (let {orient, dx, dy, dz, height} of orientCalc) {
+                    for (let {label, orientIndex, dx, dy, dz} of orientCalc) {
                         if (!this.getElement(x + dx, y + dy, z + dz)) {
-                            this.putMesh({element, index, orient, height});
+                            this.putMesh({element, orientIndex, label, index, dx, dy, dz});
                         }
                     }
                 }
             }
         }
     }
-
-    makeBuffers() {
-        const vertices = new Uint8Array(this.vertices.length * 2);
-        let index = 0;
-        for (let vertex of this.vertices) {
-            vertices[index++] = vertex.orientIndex;
-            vertices[index++] = vertex.height;
-        }
-
-        const planes = new Uint16Array(this.vertices.length * 2);
-        let indexPlanes = 0;
-        for (let plane of this.planes) {
-            planes[indexPlanes++] = plane.index;
-            planes[indexPlanes++] = plane.element;
-        }
-
-        return {
-            vertices,
-            planes
-        }
-    }
 }
 
 const test = new Test();
 test.calculate();
-const buffers = test.makeBuffers();
 
 console.log(test);
 
 const bufferLayout = new VAOLayout.Buffer({
     type: "array",
-    schema: "a",
+    schema: "ab/c/d",
     attributes: [
         new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
+        new VAOLayout.Attribute({name: "a_VertexColor", type: "vec3<f32>"}),
+        new VAOLayout.Attribute({name: "a_VertexOrientation", type: "s32"}),
+        new VAOLayout.Attribute({name: "a_VertexPositionIndex", type: "s32"}),
     ],
 });
 
@@ -145,13 +130,29 @@ const vaoLayout = new VAOLayout({
     ]
 });
 
+const colors = {
+    0: [0,255,0],
+    1: [0,128,0],
+    2: [0,0,255],
+    3: [0,0,128],
+    4: [255,0,0],
+    5: [128,0,0],
+};
+
 const vaoAllocation = bufferLayout.createVAOAllocation(vaoLayout);
 const dataView = vaoAllocation.createArrayBufferByDataView();
-const positionAllocation = vaoAllocation.getAttributeAllocationByName("a_VertexPosition");
+const a_VertexPosition = vaoAllocation.getAttributeAllocationByName("a_VertexPosition");
+const a_VertexOrientation = vaoAllocation.getAttributeAllocationByName("a_VertexOrientation");
+const a_VertexPositionIndex = vaoAllocation.getAttributeAllocationByName("a_VertexPositionIndex");
+const a_VertexColor = vaoAllocation.getAttributeAllocationByName("a_VertexColor");
 
 for (let v = 0; v < test.vertices.length; v++) {
     const pos = [test.vertices[v].x, test.vertices[v].y, test.vertices[v].z];
-    positionAllocation.write(dataView, v, pos);
+    a_VertexPosition.write(dataView, v, pos);
+    a_VertexOrientation.write(dataView, v, test.vertices[v].orientIndex);
+    a_VertexColor.write(dataView, v, colors[test.vertices[v].orientIndex]);
+    a_VertexPositionIndex.write(dataView, v, test.vertices[v].index);
 }
+
 
 export default {vaoLayout, dataView};
