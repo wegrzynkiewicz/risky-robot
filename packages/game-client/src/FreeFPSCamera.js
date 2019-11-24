@@ -1,19 +1,21 @@
 import getPerspectiveMatrix from "./graphic/getPerspectiveMatrix";
+import * as glMatrix from "gl-matrix";
 import * as glHelper from "./helpers/glHelper";
 
 export default class FreeFPSCamera {
 
     constructor({game}) {
         this.game = game;
-        this.position = [0.0, 0.0, 0.0];
+        this.position = [8.0, 16.0, 8.0];
         this.front = [0.0, 0.0, 0.0];
         this.up = [0.0, 1.0, 0.0];
         this.right = [1.0, 0.0, 0.0];
         this.worldUp = [0.0, 1.0, 0.0];
         this.movementSpeed = 31.0;
-        this.yaw = 0.0;
-        this.pitch = 0.0;
-        this.viewMatrix = mat4.create();
+        this.yaw = -90.0;
+        this.pitch = -90.0;
+        this.viewMatrix = glMatrix.mat4.create();
+        this.updateCameraVectors();
         this.updateCameraVectors();
 
         const {width, height} = game.canvas.element;
@@ -44,7 +46,7 @@ export default class FreeFPSCamera {
         }
     }
 
-    update(deltaTime) {
+    update(game, deltaTime) {
         const {pressed} = this.game.keyboard;
         const velocity = deltaTime * this.movementSpeed;
 
@@ -69,16 +71,16 @@ export default class FreeFPSCamera {
     }
 
     moveVector(vector, velocity) {
-        const next = math.create();
-        math.mul(next, vector, [velocity, velocity, velocity]);
-        math.add(this.position, this.position, next);
+        const next = glMatrix.vec3.create();
+        glMatrix.vec3.mul(next, vector, [velocity, velocity, velocity]);
+        glMatrix.vec3.add(this.position, this.position, next);
         this.updateCameraVectors();
     }
 
     updateCameraVectors() {
-        const front = math.create();
-        const pitch = glMatrix.toRadian(this.pitch);
-        const yaw = radian(this.yaw);
+        const front = glMatrix.vec3.create();
+        const pitch = glHelper.radian(this.pitch);
+        const yaw = glHelper.radian(this.yaw);
         const yawCos = Math.cos(yaw);
         const pitchCos = Math.cos(pitch);
         const yawSin = Math.sin(yaw);
@@ -88,20 +90,20 @@ export default class FreeFPSCamera {
         front[1] = pitchSin;
         front[2] = yawSin * pitchCos;
 
-        math.normalize(this.front, front);
+        glMatrix.vec3.normalize(this.front, front);
 
-        const cross1 = math.create();
-        const cross2 = math.create();
+        const cross1 = glMatrix.vec3.create();
+        const cross2 = glMatrix.vec3.create();
 
-        math.cross(cross1, this.front, this.worldUp);
-        math.cross(cross2, this.right, this.front);
+        glMatrix.vec3.cross(cross1, this.front, this.worldUp);
+        glMatrix.vec3.cross(cross2, this.right, this.front);
 
-        math.normalize(this.right, cross1);
-        math.normalize(this.up, cross2);
+        glMatrix.vec3.normalize(this.right, cross1);
+        glMatrix.vec3.normalize(this.up, cross2);
 
-        const center = math.create();
-        math.add(center, this.position, this.front);
+        const center = glMatrix.vec3.create();
+        glMatrix.vec3.add(center, this.position, this.front);
 
-        mat4.lookAt(this.viewMatrix, this.position, center, this.up);
+        glMatrix.mat4.lookAt(this.viewMatrix, this.position, center, this.up);
     }
 }

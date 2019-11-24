@@ -3,11 +3,11 @@ import SimplexNoise from "simplex-noise";
 const TAU = 2 * Math.PI;
 
 const simplex = new SimplexNoise(1);
-const worldWidth = 17;
-const worldHeight = 17;
+const worldWidth = 16;
+const worldHeight = 16;
 
-const width = 17;
-const height = 17;
+const width = 16;
+const height = 16;
 
 let manipulator = 0;
 let offsetY = 256;
@@ -23,14 +23,9 @@ const generate = function () {
             const ny = (y + offsetY) / worldHeight;
 
             let r =
-                0.90 * torusnoise(nx, ny, 0.5)
-                //+ 0.25 * torusnoise(nx, ny, 4)
-                //+ 0.25 * torusnoise(nx, ny, 5)
-                //+ 0.25 * torusnoise(nx, ny, 6)
-                // - 1 / 4 * torusnoise(nx, ny, 5)
-                //+ 1 / 4 * torusnoise(1 * nx, 1 * ny, 0.01)
-                //+ 1 / 11 * torusnoise(11 * nx, 11 * ny, 11)
-                //- 1 / 13 * torusnoise(13 * nx, 13 * ny, 13)
+                0.70 * torusnoise(nx, ny, 0.5)
+                - 0.40 * torusnoise(nx, ny, 2)
+                + 0.40 * torusnoise(nx, ny, 3)
             ;
 
             r /= (1.00);

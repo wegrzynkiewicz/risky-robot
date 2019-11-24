@@ -12,9 +12,9 @@ export default class IsometricCamera {
         this.up = glHelper.vec3(0.0, 1.0, 0.0);
         this.right = glHelper.vec3(1.0, 0.0, 0.0);
         this.movementSpeed = 20.0;
-        this.yaw = 0.0;
-        this.pitch = 180 / Math.PI;
-        this.zoom = 64.0;
+        this.yaw = -45.0;
+        this.pitch = 160 / Math.PI;
+        this.zoom = 32.0;
         this.zoomSpeed = 0.2;
 
         const {width, height} = game.canvas.element;

@@ -38,10 +38,10 @@
 
     const simplex = new SimplexNoise(1);
     const canvas = document.createElement('canvas');
-    const worldWidth = 16;
-    const worldHeight = 16;
-    canvas.width = 16;
-    canvas.height = 16;
+    const worldWidth = 256;
+    const worldHeight = 256;
+    canvas.width = 256;
+    canvas.height = 256;
     const width = canvas.width;
     const height = canvas.height;
     const map = document.getElementById('map');
@@ -74,9 +74,8 @@
 
                 let r =
                     0.70 * torusnoise(nx, ny, 0.5)
-                    //+ 0.25 * torusnoise(nx, ny, 4)
-                    //+ 0.25 * torusnoise(nx, ny, 5)
-                    //+ 0.25 * torusnoise(nx, ny, 6)
+                    - 0.40 * torusnoise(nx, ny, 2)
+                    + 0.40 * torusnoise(nx, ny, 3)
                     // - 1 / 4 * torusnoise(nx, ny, 5)
                     //+ 1 / 4 * torusnoise(1 * nx, 1 * ny, 0.01)
                     //+ 1 / 11 * torusnoise(11 * nx, 11 * ny, 11)

@@ -66,7 +66,9 @@ const vec3[8] boxOrderToPosition = vec3[8](
 /*  7 = top; back; left      */ vec3(-0.5, 0.5, -0.5)
 );
 
-const float step = 1.02;
+const int chunkSize = 16;
+const int chunkSizeSquare = chunkSize * chunkSize;
+const float step = 1.03;
 
 vec3 calculatePosition(int cubeIndex, int a_VertexOrientation) {
 
@@ -75,9 +77,9 @@ vec3 calculatePosition(int cubeIndex, int a_VertexOrientation) {
     int boxOrder = planeOrderWithOrientationToBoxOrder[planeOrder + (4 * a_VertexOrientation)];
     vec3 boxPosition = boxOrderToPosition[boxOrder];
 
-    float y = float(cubeIndex / 256);
-    float z = float(cubeIndex % 256 / 16);
-    float x = float(cubeIndex % 16);
+    float y = float(cubeIndex / chunkSizeSquare);
+    float z = float(cubeIndex % chunkSizeSquare / chunkSize);
+    float x = float(cubeIndex % chunkSize);
 
     vec3 positionOffset = vec3(x, y, z) * step - 8.0;
 

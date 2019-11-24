@@ -26,6 +26,7 @@ export default class WorldSceneNode extends SceneNode {
         });
 
         this.modelMatrix = glMatrix.mat4.create();
+        this.modelMatrix = glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, [0.0, 8.0, 0.0]);
     }
 
     render(game) {

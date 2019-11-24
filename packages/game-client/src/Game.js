@@ -6,6 +6,7 @@ import shaderRegistry from "./shader/shaderRegistry";
 import Keyboard from "./Keyboard";
 import IsometricCamera from "./IsometricCamera";
 import * as glHelper from "./helpers/glHelper";
+import FreeFPSCamera from "./FreeFPSCamera";
 
 export default class Game {
 
@@ -34,7 +35,7 @@ export default class Game {
             viewMatrix: getIsometricMatrix(this.posX, this.posY),
         };*/
 
-        this.camera = new IsometricCamera({game});
+        this.camera = new FreeFPSCamera({game});
 
         this.sceneManager = createSceneManager(game);
         this.sceneManager.debug(console.log);
