@@ -3,6 +3,14 @@ const planet = {
 
 };
 
+const region = {
+    width: 64,
+    height: 64,
+    depth: 16,
+};
+
 const chunk = {
-    width:
+    width: 16,
+    height: 16,
+    depth: 1,
 };

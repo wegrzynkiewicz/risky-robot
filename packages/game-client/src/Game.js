@@ -35,7 +35,7 @@ export default class Game {
             viewMatrix: getIsometricMatrix(this.posX, this.posY),
         };*/
 
-        this.camera = new FreeFPSCamera({game});
+        this.camera = new IsometricCamera({game});
 
         this.sceneManager = createSceneManager(game);
         this.sceneManager.debug(console.log);
