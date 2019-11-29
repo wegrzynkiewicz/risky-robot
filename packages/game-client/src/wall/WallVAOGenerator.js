@@ -2,6 +2,7 @@ import wallTestingRegionData from "./wallTestingRegionData";
 import WallVertices from "./WallVertices";
 import {wallVariants} from "./wallTypes";
 import VAOLayout from "../layout/VAOLayout";
+import * as glMatrix from "gl-matrix";
 
 const chunkReader = {
     getValue(chunk, x, y, z) {
@@ -19,6 +20,19 @@ const chunkReader = {
     }
 };
 
+const calculateNormal = function (a, b, c) {
+    const s1 = glMatrix.vec3.create();
+    const s2 = glMatrix.vec3.create();
+    const s3 = glMatrix.vec3.create();
+    const s4 = glMatrix.vec3.create();
+    glMatrix.vec3.sub(s1, b, a);
+    glMatrix.vec3.sub(s2, c, a);
+    glMatrix.vec3.cross(s3, s2, s1);
+    glMatrix.vec3.normalize(s4, s3);
+
+    return s4;
+};
+
 const orientations = [
     {label: "front", bitShift: 0b1000, dx: 0, dz: 1},
     {label: "back", bitShift: 0b0100, dx: 0, dz: -1},
@@ -27,7 +41,7 @@ const orientations = [
 ];
 
 const wallVertices = new WallVertices({
-    bevel: 0.3,
+    bevel: 0.2,
     step: 0.5,
     yOffset: 0
 });
@@ -50,9 +64,10 @@ console.log(objects);
 
 const bufferLayout = new VAOLayout.Buffer({
     type: "array",
-    schema: "a",
+    schema: "ab",
     attributes: [
         new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
+        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
     ],
 });
 
@@ -67,11 +82,13 @@ const vaoLayout = new VAOLayout({
 const vaoAllocation = bufferLayout.createVAOAllocation(vaoLayout);
 const dataView = vaoAllocation.createArrayBufferByDataView();
 const a_VertexPosition = vaoAllocation.getAttributeAllocationByName("a_VertexPosition");
+const a_VertexNormal = vaoAllocation.getAttributeAllocationByName("a_VertexNormal");
 
 class WallVAOGenerator {
 
     constructor() {
         this.offset = 0;
+        this.offsetN = 0;
         this.vertices = 0;
     }
 
@@ -103,6 +120,7 @@ class WallVAOGenerator {
     addMesh({x, y, z}, bitMask) {
         const object = objects[bitMask];
         for (let triangle of object) {
+            const normal = calculateNormal(...triangle);
             for (let vertex of triangle) {
                 const types = [
                     vertex[0] + x,
@@ -112,6 +130,9 @@ class WallVAOGenerator {
                 a_VertexPosition.write(dataView, this.offset++, types);
                 this.vertices++;
             }
+            a_VertexNormal.write(dataView, this.offsetN++, normal);
+            a_VertexNormal.write(dataView, this.offsetN++, normal);
+            a_VertexNormal.write(dataView, this.offsetN++, normal);
         }
     }
 }

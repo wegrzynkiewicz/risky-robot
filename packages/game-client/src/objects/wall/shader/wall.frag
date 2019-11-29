@@ -2,7 +2,7 @@
 
 in lowp vec3 v_fragmentPosition;
 in lowp vec3 v_fragmentNormal;
-in lowp vec3 v_fragmentColor;
+// in lowp vec3 v_fragmentColor;
 
 out lowp vec4 fragmentColor;
 
@@ -33,5 +33,5 @@ void main(void) {
 
     lowp vec3 result = (ambient + diffuse) * objectColor;
 
-    fragmentColor = vec4(objectColor, 1.0);
+    fragmentColor = vec4(result, 1.0);
 }

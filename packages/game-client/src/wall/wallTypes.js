@@ -26,13 +26,13 @@ const leftBackFlatTrapeze = plane("left", [3, 0, 8, 17]);
 const rightFrontFlatTrapeze = plane("right", [1, 2, 10, 13]);
 const rightBackFlatTrapeze = plane("right", [1, 2, 16, 9]);
 
-const frontWall = plane("front", [1, 2, 16, 13]);
+const frontWall = plane("front", [0, 1, 14, 19]);
 const backWall = plane("back", [2, 3, 18, 15]);
-const leftWall = plane("left", [3, 0, 4, 7]);
+const leftWall = plane("left", [3, 0, 12, 17]);
 const rightWall = plane("right", [1, 2, 16, 13]);
 
 const horizontalTopWall = plane("top", [19, 14, 15, 18]);
-const verticalTopWall = plane("top", [19, 14, 15, 18]);
+const verticalTopWall = plane("top", [12, 13, 16, 17]);
 
 const topCPlane = plane("top", [8, 9, 10, 11]);
 const top8CPlane = plane("top", [8, 9, 16, 17]);

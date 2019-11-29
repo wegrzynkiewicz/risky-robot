@@ -13,7 +13,7 @@ export default class IsometricCamera {
         this.right = glHelper.vec3(1.0, 0.0, 0.0);
         this.movementSpeed = 20.0;
         this.yaw = 0.0;
-        this.pitch = 170 / Math.PI;
+        this.pitch = 180 / Math.PI;
         this.zoom = 32.0;
         this.zoomSpeed = 0.2;
 
