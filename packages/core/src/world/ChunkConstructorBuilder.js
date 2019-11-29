@@ -3,21 +3,12 @@ import createIndexEncoderFunction from "./createIndexEncoderFunction";
 import createIndexDecoderFunction from "./createIndexDecoderFunction";
 import Chunk from "./Chunk";
 
-const createChunkConstructor = function () {
-    const constructor = function () {
-        Chunk.prototype.constructor.call(this);
-    };
+const createChunkConstructor = new Function ("Chunk", "return class extends Chunk {};");
 
-    constructor.prototype = Object.create(Chunk.prototype);
-    constructor.prototype.constructor = constructor;
+export default class ChunkConstructorBuilder {
 
-    return constructor;
-};
-
-export default class ChunkConstructorCreator {
-
-    create({widthBitShift, heightBitShift, depthBitShift}) {
-        const constructor = createChunkConstructor();
+    build({widthBitShift, heightBitShift, depthBitShift}) {
+        const constructor = createChunkConstructor(Chunk);
         const {prototype} = constructor;
 
         Object.defineProperties(prototype, {
@@ -31,5 +22,7 @@ export default class ChunkConstructorCreator {
             'encodeIndex': {value: createIndexEncoderFunction({widthBitShift, heightBitShift})},
             'decodeIndex': {value: createIndexDecoderFunction({widthBitShift, heightBitShift})},
         });
+
+        return constructor;
     }
 }
