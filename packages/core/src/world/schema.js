@@ -1,10 +1,9 @@
 const planet = {
     seed: "",
-
 };
 
-const region = {
-    width: 64,
+const StorageChunk = {
+    width: 512,
     height: 64,
     depth: 16,
 };
