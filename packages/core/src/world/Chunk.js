@@ -4,6 +4,8 @@
  * @property {Number} depth
  * @property {Number} elements
  * @property {DataView} dataView
+ * @property {Function} encodeIndex
+ * @property {Function} decodeIndex
  * @property {ArrayBuffer} arrayBuffer
  */
 export default class Chunk {
@@ -23,5 +25,17 @@ export default class Chunk {
             this.arrayBuffer = null;
             this.dataView = null;
         }
+    }
+
+    getElementByAxis(x, y, z) {
+        if (this.arrayBuffer === null) {
+            return 0;
+        }
+
+        const index = this.encodeIndex(x, y, z);
+        // TODO: make dynamic read data
+        const value = this.dataView.getInt8(index);
+
+        return value;
     }
 }

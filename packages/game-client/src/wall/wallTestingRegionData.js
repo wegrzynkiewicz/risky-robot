@@ -31,4 +31,7 @@ for (let row of regionData) {
         chunk.dataView.setInt8(offset++, char === "X" ? 1 : 0);
     }
 }
-console.log(chunk.dataView);
+
+const wallTestingRegionData = chunk;
+
+export default wallTestingRegionData;

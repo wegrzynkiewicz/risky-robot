@@ -1,33 +1,3 @@
-/**
- *   Top:
- *           BACK
- *    7-----17----16----6
- *    |     | TOP |     |
- *    |     |  8  |     |
- *  L 18----11----10----15 R
- *  E | TOP |     | TOP |  I
- *  F |  4  |     |  6  |  G
- *  T 19----8-----9-----14 H
- *    |     | TOP |     |  T
- *    |     |  2  |     |
- *    4-----12----13----5
- *           FRONT
- *
- *    Bottom:
- *
- *    3-----------------2
- *    |                 |
- *    |                 |
- *    |                 |
- *    |                 |
- *    |                 |
- *    |                 |
- *    |                 |
- *    |                 |
- *    0-----------------1
- *
- */
-
 const plane = (direction, [i0, i1, i2, i3]) => {
     return [
         {direction, indices: [i0, i1, i2]},
@@ -91,7 +61,7 @@ const corner3 = [
     {direction: "left", indices:[3, 11, 17]},
 ];
 
-const wallVariants = [
+export const wallVariants = [
     {
         bitMask: 0x0000,
         name: "alone",

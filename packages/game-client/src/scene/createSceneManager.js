@@ -7,6 +7,7 @@ import CubeSceneNode from "../objects/cube/CubeSceneNode";
 import ChunkSceneNode from "../objects/chunk/ChunkSceneNode";
 import TankSceneNode from "../objects/tank/TankSceneNode";
 import WorldSceneNode from "../objects/world/WorldSceneNode";
+import WallSceneNode from "../objects/wall/WallSceneNode";
 
 export default function createSceneManager(game) {
 
@@ -41,6 +42,7 @@ export default function createSceneManager(game) {
     });
 
     const worldSceneNode = new WorldSceneNode(game);
+    const wallSceneNode = new WallSceneNode(game);
 
 
     const pivotSceneNode = new PivotSceneNode(game);
@@ -52,7 +54,8 @@ export default function createSceneManager(game) {
     primaryScene.addSceneNodeChild(debugLayerScene);
     // terrainLayerScene.addSceneNodeChild(terrainSceneNode);
     // debugLayerScene.addSceneNodeChild(pivotSceneNode);
-    chunkLayerScene.addSceneNodeChild(worldSceneNode);
+    //chunkLayerScene.addSceneNodeChild(worldSceneNode);
+    chunkLayerScene.addSceneNodeChild(wallSceneNode);
     // chunkLayerScene.addSceneNodeChild(chunkSceneNode);
     // chunkLayerScene.addSceneNodeChild(tankSceneNode);
 

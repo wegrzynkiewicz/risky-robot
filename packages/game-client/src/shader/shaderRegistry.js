@@ -14,6 +14,8 @@ import cubeVert from "../objects/cube/shader/cube.vert";
 import cubeFrag from "../objects/cube/shader/cube.frag";
 import worldVert from "../objects/world/shader/world.vert";
 import worldFrag from "../objects/world/shader/world.frag";
+import wallVert from "../objects/wall/shader/wall.vert";
+import wallFrag from "../objects/wall/shader/wall.frag";
 
 const shaderRegistry = new ShaderRepository();
 
@@ -24,5 +26,6 @@ shaderRegistry.register("chunk", {vertex: chunkVert, fragment: chunkFrag});
 shaderRegistry.register("tank", {vertex: tankVert, fragment: tankFrag});
 shaderRegistry.register("cube", {vertex: cubeVert, fragment: cubeFrag});
 shaderRegistry.register("world", {vertex: worldVert, fragment: worldFrag});
+shaderRegistry.register("wall", {vertex: wallVert, fragment: wallFrag});
 
 export default shaderRegistry;
