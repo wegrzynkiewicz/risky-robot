@@ -6,7 +6,6 @@ import Bundle from "./bundle/Bundle";
 import ChunkConstructorBuilder from "./world/ChunkConstructorBuilder";
 import Color from "./graphic/Color";
 import NoiseGenerator from "./noise/NoiseGenerator";
-import WebGLRenderingContext from "./graphic/WebGLRenderingContext";
 
 export default class Core {
 
@@ -22,4 +21,3 @@ Core.Bundle = Bundle;
 Core.ChunkConstructorBuilder = ChunkConstructorBuilder;
 Core.Color = Color;
 Core.NoiseGenerator = NoiseGenerator;
-Core.WebGLRenderingContext = WebGLRenderingContext;

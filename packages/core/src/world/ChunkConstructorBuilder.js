@@ -1,4 +1,3 @@
-import WebGLRenderingContext from "../graphic/WebGLRenderingContext";
 import createIndexEncoderFunction from "./createIndexEncoderFunction";
 import createIndexDecoderFunction from "./createIndexDecoderFunction";
 import Chunk from "./Chunk";

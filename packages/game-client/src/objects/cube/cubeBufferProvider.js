@@ -2,7 +2,7 @@ import cubeVAOLayout from "./cubeVAOLayout";
 import cubeVertexDataset from "./cubeVertexDataset";
 
 export default function cubeBufferProvider() {
-    const verticesCount = cubeVAOLayout.getVerticesCount();
+    const verticesCount = cubeVAOLayout.vertices;
     const [bufferLayout] = cubeVAOLayout.buffers;
     const vaoAllocation = bufferLayout.createVAOAllocation(cubeVAOLayout);
     const dataView = vaoAllocation.createArrayBufferByDataView();

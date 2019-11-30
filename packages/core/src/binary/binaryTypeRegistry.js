@@ -1,5 +1,3 @@
-import WebGLRenderingContext from "../graphic/WebGLRenderingContext";
-
 const createConstructor = function () {
     return function (options) {
         Object.assign(this, options);
@@ -151,6 +149,7 @@ const binaryTypeRegistry = new class TypeRegistry {
             'components': {value: 1},
             'glType': {value: WebGLRenderingContext[glType]},
             'glTypeName': {value: glType},
+            'glTypeStride': {value: byteLength},
 
             'arrayType': {value: typedArrays[`${arrayType}${bitSize}Array`]},
             'dataViewGetter': {value: DataView.prototype[`get${dataViewType}`]},
@@ -185,6 +184,7 @@ const binaryTypeRegistry = new class TypeRegistry {
             'components': {value: axisLength},
             'glType': {value: staticType.prototype.glType},
             'glTypeName': {value: staticType.prototype.glTypeName},
+            'glTypeStride': {value: staticType.prototype.glTypeStride},
 
             'arrayType': {value: staticType.prototype.arrayType},
             'dataViewGetter': {value: staticType.prototype.dataViewGetter},

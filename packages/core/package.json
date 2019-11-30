@@ -17,5 +17,8 @@
   },
   "dependencies": {
     "simplex-noise": "^2.4.0"
+  },
+  "devDependencies": {
+    "webgl-mock": "^0.1.7"
   }
 }

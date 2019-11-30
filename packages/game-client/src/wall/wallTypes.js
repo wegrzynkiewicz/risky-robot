@@ -1,3 +1,5 @@
+export default WallTriangle
+
 const plane = (direction, [i0, i1, i2, i3]) => {
     return [
         {direction, indices: [i0, i1, i2]},

@@ -10,7 +10,7 @@
     "mocha": "^6.2.2"
   },
   "scripts": {
-    "test": "./bin/test-unit.sh"
+    "test": "./runtime/local/bin/test.sh"
   },
   "dependencies": {
     "esm": "^3.2.25"

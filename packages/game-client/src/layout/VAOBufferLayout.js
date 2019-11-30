@@ -1,11 +1,5 @@
-import Core from "robo24-core";
 import VAOAllocation from "./VAOAllocation";
 import VAOAttributeAllocation from "./VAOAttributeAllocation";
-
-const glBufferMapper = {
-    "element_array": Core.WebGLRenderingContext["ELEMENT_ARRAY_BUFFER"],
-    "array": Core.WebGLRenderingContext["ARRAY_BUFFER"],
-};
 
 export default class VAOBufferLayout {
 
@@ -13,16 +7,12 @@ export default class VAOBufferLayout {
         if (!Array.isArray(attributes)) {
             throw new Error("Property attributes must be array");
         }
-        this.glBufferType = glBufferMapper[type];
-        if (this.glBufferType === undefined) {
-            throw new Error("Invalid buffer type");
-        }
         this.schema = schema;
         this.attributes = attributes;
     }
 
     createVAOAllocation(vaoLayout) {
-        const verticesCount = vaoLayout.getVerticesCount();
+        const verticesCount = vaoLayout.vertices;
 
         const blocks = this.parseSchema();
         const vaoAllocation = new VAOAllocation();
@@ -53,7 +43,7 @@ export default class VAOBufferLayout {
             blockStride += attributeLayout.type.getByteLength();
         }
         for (let {attributeLayout} of block) {
-            if (blockStride % attributeLayout.type.getByteLength() !== 0) {
+            if (blockStride % attributeLayout.type.glTypeStride !== 0) {
                 throw new Error("Invalid stride or offset data pack");
             }
         }

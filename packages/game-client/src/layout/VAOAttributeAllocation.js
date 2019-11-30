@@ -1,3 +1,6 @@
+/**
+ * @property {VAOAttributeLayout} attributeLayout
+ */
 export default class VAOAttributeAllocation {
 
     constructor({vaoLayout, attributeLayout, stride, offset}) {
