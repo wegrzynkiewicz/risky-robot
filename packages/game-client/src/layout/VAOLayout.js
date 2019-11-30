@@ -1,3 +1,4 @@
+import VAOAllocation from "./VAOAllocation";
 import VAOAttributeLayout from "./VAOAttributeLayout";
 import VAOBufferLayout from "./VAOBufferLayout";
 
@@ -11,12 +12,36 @@ const primitivesType = {
 
 export default class VAOLayout {
 
-    constructor({elements, primitive}) {
-        this.elements = elements;
+    constructor({primitive, buffers}) {
+
+        if (!Array.isArray(buffers)) {
+            throw new Error("Property buffers must be array");
+        }
+
+        if (primitivesType[primitive] === undefined) {
+            throw new Error("Invalid VAO allocation primitive type.");
+        }
+
+        this.bufferLayouts = buffers;
         this.primitive = primitive;
-        this.vertices = primitivesType[this.primitive].calculateVerticesCount(this.elements);
-        this.glDrawType = primitivesType[this.primitive].glType;
-        this.glDrawTypeName = primitivesType[this.primitive].glTypeName;
+    }
+
+    createVAOAllocation(elements) {
+        const type = primitivesType[this.primitive];
+        const vaoAllocation = new VAOAllocation({
+            elements,
+            vaoLayout: this,
+            vertices: type.calculateVerticesCount(elements),
+            glDrawType: type.glType,
+            glDrawTypeName: type.glTypeName,
+        });
+
+        for (let bufferLayout of this.bufferLayouts) {
+            const vaoBufferAllocation = bufferLayout.createVAOBufferAllocation(vaoAllocation);
+            vaoAllocation.addVAOBufferAllocation(vaoBufferAllocation);
+        }
+
+        return vaoAllocation;
     }
 }
 

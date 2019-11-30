@@ -1,39 +1,27 @@
 export default class VAOAllocation {
 
-    constructor({vaoLayout}) {
+    constructor({elements, vaoLayout, vertices, glDrawType, glDrawTypeName}) {
+        this.elements = elements;
         this.vaoLayout = vaoLayout;
-        this.allocations = Object.create(null);
+        this.vertices = vertices;
+        this.glDrawType = glDrawType;
+        this.glDrawTypeName = glDrawTypeName;
+        this.bufferAllocations = Object.create(null);
     }
 
-    add(allocation) {
-        this.allocations[allocation.attributeLayout.name] = allocation;
+    getVAOBufferAllocations() {
+        return Object.value(this.bufferAllocations);
     }
 
-    getAttributesAllocations() {
-        return Object.values(this.allocations);
+    addVAOBufferAllocation(vaoBufferAllocation) {
+        this.bufferAllocations[vaoBufferAllocation.vaoBufferLayout.name] = vaoBufferAllocation;
     }
 
-    getAttributeAllocationByName(name) {
-        const allocation = this.allocations[name];
-        if (allocation === undefined) {
-            throw new Error(`Not found attribute's allocation named (${name})`);
+    getVAOBufferAllocationByName(vaoBufferAllocationName) {
+        const vaoBufferAllocation = this.bufferAllocations[vaoBufferAllocationName];
+        if (vaoBufferAllocation === undefined) {
+            throw new Error(`Not found VAO Buffer Allocation named ${vaoBufferAllocationName}`);
         }
-        return allocation;
-    }
-
-    getByteLength() {
-        let count = 0;
-        for (let allocation of Object.values(this.allocations)) {
-            count += allocation.getByteLength();
-        }
-        return count;
-    }
-
-    createArrayBufferByDataView() {
-        const bufferLength = this.getByteLength();
-        const buffer = new ArrayBuffer(bufferLength);
-        const dataView = new DataView(buffer);
-
-        return dataView;
+        return vaoBufferAllocation;
     }
 }

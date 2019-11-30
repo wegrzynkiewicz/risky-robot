@@ -3,10 +3,8 @@ import SceneLayer from "./SceneLayer";
 import Scene from "./Scene";
 import TerrainSceneNode from "../objects/legacyTerrain/TerrainSceneNode";
 import PivotSceneNode from "../objects/pivot/PivotSceneNode";
-import CubeSceneNode from "../objects/cube/CubeSceneNode";
 import ChunkSceneNode from "../objects/chunk/ChunkSceneNode";
 import TankSceneNode from "../objects/tank/TankSceneNode";
-import WorldSceneNode from "../objects/world/WorldSceneNode";
 import WallSceneNode from "../objects/wall/WallSceneNode";
 
 export default function createSceneManager(game) {

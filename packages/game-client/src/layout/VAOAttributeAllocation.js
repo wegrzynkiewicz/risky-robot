@@ -1,11 +1,12 @@
 /**
- * @property {VAOAttributeLayout} attributeLayout
+ * @property {VAOAllocation} vaoAllocation
+ * @property {VAOAttributeLayout} vaoAttributeLayout
  */
 export default class VAOAttributeAllocation {
 
-    constructor({vaoLayout, attributeLayout, stride, offset}) {
-        this.vaoLayout = vaoLayout;
-        this.attributeLayout = attributeLayout;
+    constructor({vaoAllocation, vaoAttributeLayout, stride, offset}) {
+        this.vaoAllocation = vaoAllocation;
+        this.vaoAttributeLayout = vaoAttributeLayout;
         this.stride = stride;
         this.offset = offset;
     }
@@ -15,19 +16,19 @@ export default class VAOAttributeAllocation {
     }
 
     getByteLength() {
-        return this.attributeLayout.getByteLength({
-            elementsCount: this.vaoLayout.elements,
-            verticesCount: this.vaoLayout.vertices,
+        return this.vaoAttributeLayout.getByteLength({
+            elementsCount: this.vaoAllocation.elements,
+            verticesCount: this.vaoAllocation.vertices,
         });
     }
 
     write(dataView, vertexIndex, value) {
         const index = this.calculateOffset(vertexIndex);
-        this.attributeLayout.write(dataView, index, value);
+        this.vaoAttributeLayout.write(dataView, index, value);
     }
 
     read(dataView, vertexIndex) {
         const index = this.calculateOffset(vertexIndex);
-        return this.attributeLayout.read(dataView, index);
+        return this.vaoAttributeLayout.read(dataView, index);
     }
 }

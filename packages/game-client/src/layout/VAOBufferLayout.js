@@ -1,4 +1,4 @@
-import VAOAllocation from "./VAOAllocation";
+import VAOBufferAllocation from "./VAOBufferAllocation";
 import VAOAttributeAllocation from "./VAOAttributeAllocation";
 
 const glBufferMapper = {
@@ -8,51 +8,58 @@ const glBufferMapper = {
 
 export default class VAOBufferLayout {
 
-    constructor({type, schema, attributes}) {
+    constructor({name, type, schema, attributes}) {
+
         if (!Array.isArray(attributes)) {
             throw new Error("Property attributes must be array");
         }
+
         this.glBufferType = glBufferMapper[type];
         if (this.glBufferType === undefined) {
             throw new Error("Invalid buffer type");
         }
+
+        this.name = name;
         this.schema = schema;
         this.attributes = attributes;
     }
 
-    createVAOAllocation(vaoLayout) {
-        const verticesCount = vaoLayout.vertices;
+    createVAOBufferAllocation(vaoAllocation) {
+
+        const vaoBufferAllocation = new VAOBufferAllocation({
+            vaoAllocation,
+            vaoBufferLayout: this,
+        });
 
         const blocks = this.parseSchema();
-        const vaoAllocation = new VAOAllocation({vaoLayout});
 
         let blockOffset = 0;
         for (let block of blocks) {
             let attributeOffset = 0;
             const blockStride = this.calculateBlockStride(block);
-            for (let {attributeLayout} of block) {
+            for (let {vaoAttributeLayout} of block) {
                 const vaoAttributeAllocation = new VAOAttributeAllocation({
-                    vaoLayout,
-                    attributeLayout,
+                    vaoAllocation,
+                    vaoAttributeLayout,
                     stride: blockStride,
                     offset: blockOffset + attributeOffset,
                 });
-                vaoAllocation.add(vaoAttributeAllocation);
-                attributeOffset += attributeLayout.type.getByteLength();
+                vaoBufferAllocation.addAttributeAllocation(vaoAttributeAllocation);
+                attributeOffset += vaoAttributeLayout.type.getByteLength();
             }
-            blockOffset += (blockStride * verticesCount);
+            blockOffset += (blockStride * vaoBufferAllocation.vertices);
         }
 
-        return vaoAllocation;
+        return vaoBufferAllocation;
     }
 
     calculateBlockStride(block) {
         let blockStride = 0;
-        for (let {attributeLayout} of block) {
-            blockStride += attributeLayout.type.getByteLength();
+        for (let {vaoAttributeLayout} of block) {
+            blockStride += vaoAttributeLayout.type.getByteLength();
         }
-        for (let {attributeLayout} of block) {
-            if (blockStride % attributeLayout.type.glTypeStride !== 0) {
+        for (let {vaoAttributeLayout} of block) {
+            if (blockStride % vaoAttributeLayout.type.glTypeStride !== 0) {
                 throw new Error("Invalid stride or offset data pack");
             }
         }
@@ -72,12 +79,12 @@ export default class VAOBufferLayout {
                 continue;
             }
 
-            const attributeLayout = this.attributes[attributeCounter];
-            if (attributeLayout === undefined) {
+            const vaoAttributeLayout = this.attributes[attributeCounter];
+            if (vaoAttributeLayout === undefined) {
                 throw new Error("Invalid schema. Not enough attributes.");
             }
 
-            blocks[blockCounter].push({char, attributeLayout});
+            blocks[blockCounter].push({char, vaoAttributeLayout});
             attributeCounter++;
         }
 

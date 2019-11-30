@@ -24,27 +24,27 @@ const orientations = [
     {bit: 0b0001, dx: 1, dz: 0},
 ];
 
-const bufferLayout = new VAOLayout.Buffer({
-    type: "array",
-    schema: "ab/c",
-    attributes: [
-        new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-        new VAOLayout.Attribute({name: "a_VertexTextureCoords", type: "vec2<f32>"}),
-        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
+const vaoLayout = new VAOLayout({
+    primitive: "triangle",
+    buffers: [
+        new VAOLayout.Buffer({
+            name: "vertices",
+            type: "array",
+            schema: "abc",
+            attributes: [
+                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexTextureCoords", type: "vec2<f32>"}),
+                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
+            ],
+        }),
     ],
 });
 
-const vaoLayout = new VAOLayout({
-    elements: 8200,
-    primitive: "triangle",
-});
-
-const buffers = [bufferLayout];
-
-const vaoAllocation = bufferLayout.createVAOAllocation(vaoLayout);
-const dataView = vaoAllocation.createArrayBufferByDataView();
-const a_VertexPosition = vaoAllocation.getAttributeAllocationByName("a_VertexPosition");
-const a_VertexNormal = vaoAllocation.getAttributeAllocationByName("a_VertexNormal");
+const vaoAllocation = vaoLayout.createVAOAllocation(8600);
+const vaoBufferAllocation = vaoAllocation.getVAOBufferAllocationByName("vertices");
+const dataView = vaoBufferAllocation.createArrayBufferByDataView();
+const a_VertexPosition = vaoBufferAllocation.getAttributeAllocationByName("a_VertexPosition");
+const a_VertexNormal = vaoBufferAllocation.getAttributeAllocationByName("a_VertexNormal");
 
 const wallMeshesGenerator = new WallMeshesGenerator({bevel: 0.3, flat: true});
 const meshes = wallMeshesGenerator.generateWallMeshes();
@@ -101,4 +101,4 @@ class WallVAOGenerator {
 const wallVAOGenerator = new WallVAOGenerator(meshes);
 wallVAOGenerator.generate(wallTestingRegionData);
 
-export default {vaoLayout, wallVAOGenerator, dataView, buffers};
+export default {vaoAllocation, wallVAOGenerator, dataView};
