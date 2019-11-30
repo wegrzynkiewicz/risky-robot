@@ -10,7 +10,7 @@ export default class VAOAllocation {
     }
 
     getVAOBufferAllocations() {
-        return Object.value(this.bufferAllocations);
+        return Object.values(this.bufferAllocations);
     }
 
     addVAOBufferAllocation(vaoBufferAllocation) {
