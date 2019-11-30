@@ -22,7 +22,7 @@ export default function createSceneManager(game) {
         id: "chunks"
     });
 
-    const cubeSceneNode = new CubeSceneNode(game);
+    //const cubeSceneNode = new CubeSceneNode(game);
 
     const chunkSceneNode = new ChunkSceneNode(game);
     const terrainLayerScene = new SceneLayer({
@@ -41,7 +41,7 @@ export default function createSceneManager(game) {
         id: "debug"
     });
 
-    const worldSceneNode = new WorldSceneNode(game);
+    //const worldSceneNode = new WorldSceneNode(game);
     const wallSceneNode = new WallSceneNode(game);
 
 

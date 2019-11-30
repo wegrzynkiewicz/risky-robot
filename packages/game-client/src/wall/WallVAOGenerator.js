@@ -1,5 +1,6 @@
 import wallTestingRegionData from "./wallTestingRegionData";
 import VAOLayout from "../layout/VAOLayout";
+import WallMeshesGenerator from "./WallMeshesGenerator";
 
 const chunkReader = {
     getValue(chunk, x, y, z) {
@@ -29,7 +30,7 @@ const bufferLayout = new VAOLayout.Buffer({
     attributes: [
         new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
         new VAOLayout.Attribute({name: "a_VertexTextureCoords", type: "vec2<f32>"}),
-        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>", divisor: 1}),
+        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
     ],
 });
 
@@ -38,10 +39,15 @@ const vaoLayout = new VAOLayout({
     primitive: "triangle",
 });
 
+const buffers = [bufferLayout];
+
 const vaoAllocation = bufferLayout.createVAOAllocation(vaoLayout);
 const dataView = vaoAllocation.createArrayBufferByDataView();
 const a_VertexPosition = vaoAllocation.getAttributeAllocationByName("a_VertexPosition");
 const a_VertexNormal = vaoAllocation.getAttributeAllocationByName("a_VertexNormal");
+
+const wallMeshesGenerator = new WallMeshesGenerator({bevel: 0.3, flat: true});
+const meshes = wallMeshesGenerator.generateWallMeshes();
 
 class WallVAOGenerator {
 
@@ -83,17 +89,16 @@ class WallVAOGenerator {
                     vertex.position[1] + y,
                     vertex.position[2] + z,
                 ];
-                a_VertexPosition.write(dataView, this.offset++, types);
+                a_VertexPosition.write(dataView, this.offset, types);
+                a_VertexNormal.write(dataView, this.offset, vertex.normal);
+                this.offset++;
                 this.vertices++;
             }
-            a_VertexNormal.write(dataView, this.offsetN++, normal);
-            a_VertexNormal.write(dataView, this.offsetN++, normal);
-            a_VertexNormal.write(dataView, this.offsetN++, normal);
         }
     }
 }
 
-const wallVAOGenerator = new WallVAOGenerator();
+const wallVAOGenerator = new WallVAOGenerator(meshes);
 wallVAOGenerator.generate(wallTestingRegionData);
 
-export default {vaoLayout, wallVAOGenerator, dataView};
+export default {vaoLayout, wallVAOGenerator, dataView, buffers};

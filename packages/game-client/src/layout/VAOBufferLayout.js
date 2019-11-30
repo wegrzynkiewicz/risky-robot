@@ -1,11 +1,20 @@
 import VAOAllocation from "./VAOAllocation";
 import VAOAttributeAllocation from "./VAOAttributeAllocation";
 
+const glBufferMapper = {
+    "element_array": WebGLRenderingContext["ELEMENT_ARRAY_BUFFER"],
+    "array": WebGLRenderingContext["ARRAY_BUFFER"],
+};
+
 export default class VAOBufferLayout {
 
     constructor({type, schema, attributes}) {
         if (!Array.isArray(attributes)) {
             throw new Error("Property attributes must be array");
+        }
+        this.glBufferType = glBufferMapper[type];
+        if (this.glBufferType === undefined) {
+            throw new Error("Invalid buffer type");
         }
         this.schema = schema;
         this.attributes = attributes;
@@ -15,7 +24,7 @@ export default class VAOBufferLayout {
         const verticesCount = vaoLayout.vertices;
 
         const blocks = this.parseSchema();
-        const vaoAllocation = new VAOAllocation();
+        const vaoAllocation = new VAOAllocation({vaoLayout});
 
         let blockOffset = 0;
         for (let block of blocks) {

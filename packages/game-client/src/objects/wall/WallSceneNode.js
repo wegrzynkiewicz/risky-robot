@@ -12,7 +12,7 @@ export default class WallSceneNode extends SceneNode {
 
         this.shader = game.shaderManager.getShaderByName("wall");
 
-        const {vaoLayout, wallVAOGenerator, dataView} = WallVAOGenerator;
+        const {vaoLayout, wallVAOGenerator, dataView, buffers} = WallVAOGenerator;
 
         this.wallVAOGenerator = wallVAOGenerator;
         const buffer = openGL.createBuffer();
@@ -24,6 +24,7 @@ export default class WallSceneNode extends SceneNode {
             openGL,
             shader: this.shader,
             glBufferPointers: [buffer],
+            buffers,
         });
 
         this.modelMatrix = glMatrix.mat4.create();
@@ -43,6 +44,6 @@ export default class WallSceneNode extends SceneNode {
         const vertices = this.wallVAOGenerator.vertices;
         const {glDrawType} = this.vao.vaoLayout;
         openGL.drawArrays(glDrawType, 0, vertices);
-        // openGL.drawArrays(openGL.POINTS, 0, vertices);
+        openGL.drawArrays(openGL.POINTS, 0, vertices);
     }
 }

@@ -1,6 +1,7 @@
 export default class VAOAllocation {
 
-    constructor() {
+    constructor({vaoLayout}) {
+        this.vaoLayout = vaoLayout;
         this.allocations = Object.create(null);
     }
 

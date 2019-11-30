@@ -9,24 +9,30 @@ export default class VAO {
         openGL.bindVertexArray(this.vaoPointer);
     }
 
-    initialize({openGL, shader, glBufferPointers}) {
+    initialize({openGL, shader, glBufferPointers, buffers}) {
         this.vaoPointer = openGL.createVertexArray();
+        if (process.env.INSPECTOR_METADATA) {
+            this.vaoPointer.__SPECTOR_Metadata = {
+                vao: this.vaoLayout,
+                name: "cubeVerticesColorBuffer"
+            };
+        }
         openGL.bindVertexArray(this.vaoPointer);
-        this.bind(openGL, shader, glBufferPointers);
+        this.bind(openGL, shader, glBufferPointers, buffers);
         openGL.bindVertexArray(null);
 
         return this.vaoPointer;
     }
 
-    bind(openGL, shader, glBufferPointers) {
+    bind(openGL, shader, glBufferPointers, buffers) {
         const bufferLength = glBufferPointers.length;
-        if (bufferLength !== this.vaoLayout.buffers.length) {
+        if (bufferLength !== buffers.length) {
             throw new Error("Invalid number of passed openGL buffers");
         }
 
         for (let bufferIndex = 0; bufferIndex < bufferLength; bufferIndex++) {
             const glBufferPointer = glBufferPointers[bufferIndex];
-            const bufferLayout = this.vaoLayout.buffers[bufferIndex];
+            const bufferLayout = buffers[bufferIndex];
             this.bindBuffer(openGL, shader, glBufferPointer, bufferLayout);
         }
     }
