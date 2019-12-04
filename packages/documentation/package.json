@@ -1,0 +1,16 @@
+{
+  "name": "robo24-documentation",
+  "version": "0.0.0",
+  "description": "robo24-documentation",
+  "author": "",
+  "license": "UNLICENSED",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
