@@ -78,10 +78,10 @@ const getByteLength = function () {
 };
 
 const glIntegerMapper = [
-    {power: 0, glType: "BYTE"},
-    {power: 1, glType: "SHORT"},
-    {power: 2, glType: "INT"},
-    {power: 3, glType: undefined},
+    {power: 0, glType: "BYTE", arrayTypePrefix: ""},
+    {power: 1, glType: "SHORT", arrayTypePrefix: ""},
+    {power: 2, glType: "INT", arrayTypePrefix: ""},
+    {power: 3, glType: undefined, arrayTypePrefix: "Big"},
 ];
 
 const glFloatMapper = [
@@ -96,18 +96,18 @@ const binaryTypeRegistry = new class TypeRegistry {
     constructor() {
         this.types = {};
 
-        for (let {power, glType} of glIntegerMapper) {
+        for (let {power, glType, arrayTypePrefix} of glIntegerMapper) {
             this.createStaticType({
                 char: "s",
                 power,
                 glType,
-                arrayType: "Int"
+                arrayType: `${arrayTypePrefix}Int`
             });
             this.createStaticType({
                 char: "u",
                 power,
                 glType: `UNSIGNED_${glType}`,
-                arrayType: "Uint"
+                arrayType: `${arrayTypePrefix}Uint`
             });
         }
 

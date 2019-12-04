@@ -21,6 +21,7 @@ describe("VAOBufferLayout", function () {
     it("should calculate valid buffer byte length", function () {
 
         const vaoBufferLayout = new VAOBufferLayout({
+            type: "array",
             schema: "ab/c/d",
             attributes: [
                 new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
@@ -46,6 +47,7 @@ describe("VAOBufferLayout", function () {
 
 
         const vaoBufferLayout = new VAOBufferLayout({
+            type: "array",
             schema: "abc/de/f/g/hijk",
             attributes: [
                 new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
