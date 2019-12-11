@@ -1,0 +1,16 @@
+{
+  "name": "robo24-benchmark",
+  "version": "0.0.0",
+  "description": "robo24-benchmark",
+  "author": "",
+  "license": "UNLICENSED",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "benchmark": "^2.1.4"
+  }
+}
