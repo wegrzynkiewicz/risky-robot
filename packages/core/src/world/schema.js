@@ -1,15 +1,41 @@
+const universe = {
+
+};
+
+const zone = {
+    properties: [
+        {type: "u16", property: "chunkCount"},
+    ],
+};
+
 const planet = {
-    seed: "",
+
 };
 
-const StorageChunk = {
-    width: 512,
-    height: 64,
-    depth: 16,
+const region = {
+    properties: [
+    ],
 };
 
-const chunk = {
-    width: 16,
-    height: 16,
-    depth: 1,
+const regionHeader = {
+    properties: [
+        {type: "u16", property: "chunkCount"},
+        {type: "blob", property: "chunkHeaders"}
+    ],
+};
+
+const chunkHeader = {
+    properties: [
+        {type: "u32", property: "offset"},
+        {type: "u32", property: "length"},
+        {type: "u8", property: "algorithm"},
+    ],
+};
+
+const layer = {
+
+};
+
+const unit = {
+
 };
