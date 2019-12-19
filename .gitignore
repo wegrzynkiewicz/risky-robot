@@ -1,5 +1,6 @@
 *.log
 *.cache
+.env
 .idea
 node_modules
 

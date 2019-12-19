@@ -15,7 +15,7 @@ module.exports = {
             template: './templates/index.html'
         }),
         new webpack.EnvironmentPlugin([
-            'INSPECTOR_METADATA'
+            'INSPECTOR_METADATA_ENABLED'
         ]),
     ],
     module: {

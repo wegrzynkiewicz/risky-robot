@@ -13,7 +13,7 @@ export default class VAOCreator {
             vaoAllocation
         });
 
-        if (process.env.INSPECTOR_METADATA) {
+        if (process.env.INSPECTOR_METADATA_ENABLED) {
             const allocation = {
                 elements: vaoAllocation.elements,
                 vertices: vaoAllocation.vertices,
