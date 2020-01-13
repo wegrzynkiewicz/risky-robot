@@ -12,9 +12,6 @@
   "files": [
     "src"
   ],
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "dependencies": {
     "robo24-core": "file:../core"
   }
