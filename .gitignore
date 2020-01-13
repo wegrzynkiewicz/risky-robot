@@ -8,3 +8,4 @@ node_modules
 package-lock.json
 
 packages/game-client/dist
+packages/visual-diff/dist
