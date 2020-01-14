@@ -41,7 +41,7 @@ class CubeVertexDataset {
     }
 
     put(plus) {
-        const vertex = Vertex.fromArray(plus.split("").map(axis => axis === "+" ? 1 : -1));
+        const vertex = Vector3.fromArray(plus.split("").map(axis => axis === "+" ? 1 : -1));
         this.vertices.push(vertex);
     }
 }

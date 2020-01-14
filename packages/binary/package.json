@@ -1,10 +1,10 @@
 {
-  "name": "robo24-graphic",
+  "name": "robo24-binary",
   "version": "0.0.0",
-  "description": "robo24-graphic",
+  "description": "robo24-binary",
   "author": "",
   "license": "UNLICENSED",
-  "main": "src/graphic.js",
+  "main": "src/binary.js",
   "directories": {
     "lib": "src",
     "test": "tests"
@@ -12,7 +12,7 @@
   "files": [
     "src"
   ],
-  "dependencies": {
-    "robo24-binary": "file:../binary"
+  "devDependencies": {
+    "webgl-mock": "^0.1.7"
   }
 }
