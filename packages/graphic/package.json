@@ -4,7 +4,7 @@
   "description": "robo24-graphic",
   "author": "",
   "license": "UNLICENSED",
-  "main": "src/index.js",
+  "main": "src/graphic.js",
   "directories": {
     "lib": "src",
     "test": "tests"

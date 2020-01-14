@@ -1,4 +1,4 @@
-const cubeVertexDataset = new class CubeVertexDataset {
+class CubeVertexDataset {
 
     constructor() {
         this.vertices = [];
@@ -9,7 +9,7 @@ const cubeVertexDataset = new class CubeVertexDataset {
         this.put("++-");
         this.put("-+-");
 
-        // bottom
+        // down
         this.put("---");
         this.put("+--");
         this.put("+-+");
@@ -41,9 +41,10 @@ const cubeVertexDataset = new class CubeVertexDataset {
     }
 
     put(plus) {
-        const vertex = plus.split("").map(c => parseFloat(`${c}0.5`));
+        const vertex = Vertex.fromArray(plus.split("").map(axis => axis === "+" ? 1 : -1));
         this.vertices.push(vertex);
     }
-};
+}
 
+const cubeVertexDataset = new CubeVertexDataset();
 export default cubeVertexDataset;

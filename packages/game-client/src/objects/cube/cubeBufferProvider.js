@@ -24,3 +24,5 @@ export default function cubeBufferProvider() {
 
     return dataView.buffer;
 }
+
+SharpIndexedCube
