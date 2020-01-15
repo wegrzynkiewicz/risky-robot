@@ -1,2 +1,3 @@
-export default function generateSharpCubeGeometry({subdivision}) {
+export default function generateSharpCubeGeometry() {
+
 }

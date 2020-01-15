@@ -6,7 +6,7 @@
  * @property {DataView} dataView
  * @property {Function} encodeIndex
  * @property {Function} decodeIndex
- * @property {ArrayBuffer} arrayBuffer
+ * @property {ArrayBufferLayout} arrayBuffer
  */
 export default class Chunk {
 
