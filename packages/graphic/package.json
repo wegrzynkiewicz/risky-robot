@@ -15,5 +15,8 @@
   "dependencies": {
     "gl-matrix": "^3.1.0",
     "robo24-binary": "file:../binary"
+  },
+  "devDependencies": {
+    "webgl-mock": "^0.1.7"
   }
 }

@@ -1,33 +1,7 @@
-export default class VAOBufferAllocation {
+export default class ArrayBufferAllocation {
 
     constructor() {
-        this.attributeAllocations = [];
-        this.attributeAllocationsByName = Object.create(null);
-    }
-
-    addAttributeAllocation(attributeAllocation) {
-        this.attributeAllocations.push(attributeAllocation);
-        this.attributeAllocationsByName[attributeAllocation.name] = attributeAllocation;
-    }
-
-    getVAOAttributeAllocations() {
-        return this.attributeAllocations;
-    }
-
-    getAttributeAllocationByName(name) {
-        const attributeAllocation = this.attributeAllocationsByName[name];
-        if (attributeAllocation === undefined) {
-            throw new Error(`Not found attribute's attributeAllocation named (${name})`);
-        }
-        return attributeAllocation;
-    }
-
-    calculateByteLength() {
-        let count = 0;
-        for (let attributeAllocation of this.attributeAllocations) {
-            count += attributeAllocation.getByteLength();
-        }
-        return count;
+        this.attributeBatchAllocationSet = new Set();
     }
 
     createArrayBufferByDataView() {

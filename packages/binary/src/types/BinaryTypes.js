@@ -46,7 +46,7 @@ const staticTypes = [];
 export default class BinaryTypes {
 
     constructor() {
-        this.types = {};
+        this.types = Object.create(null);
 
         for (let {power, glType, arrayTypePrefix} of glIntegerMapper) {
             this.createStaticType({
@@ -120,8 +120,8 @@ export default class BinaryTypes {
     }
 
     createGenericType({prefix, width, axisLength, staticType}) {
-        const genericTypeName = `${prefix}${width}<${staticType.prototype.typeName}>`;
-        const genericByteLength = axisLength * staticType.prototype.byteLength;
+        const genericTypeName = `${prefix}${width}<${staticType.typeName}>`;
+        const genericByteLength = axisLength * staticType.byteLength;
 
         const instance = createInstance();
 
@@ -130,13 +130,13 @@ export default class BinaryTypes {
         instance.components = axisLength;
         instance.axisType = staticType;
         instance.axisLength = axisLength;
-        instance.axisByteLength = staticType.prototype.byteLength;
-        instance.glType = staticType.prototype.glType;
-        instance.glTypeName = staticType.prototype.glTypeName;
-        instance.glTypeStride = staticType.prototype.glTypeStride;
-        instance.arrayType = staticType.prototype.arrayType;
-        instance.dataViewGetter = staticType.prototype.dataViewGetter;
-        instance.dataViewSetter = staticType.prototype.dataViewSetter;
+        instance.axisByteLength = staticType.byteLength;
+        instance.glType = staticType.glType;
+        instance.glTypeName = staticType.glTypeName;
+        instance.glTypeStride = staticType.glTypeStride;
+        instance.arrayType = staticType.arrayType;
+        instance.dataViewGetter = staticType.dataViewGetter;
+        instance.dataViewSetter = staticType.dataViewSetter;
         instance.write = writeGeneric;
         instance.read = readGeneric;
 

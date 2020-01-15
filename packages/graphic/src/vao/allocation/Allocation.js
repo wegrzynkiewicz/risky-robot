@@ -21,24 +21,8 @@ export default class Allocation {
         this.elementsCount = elementsCount;
         this.verticesCount = calculateVerticesCount(elementsCount);
 
-        this.bufferAllocationsByName = Object.create(null);
-        this.bufferAllocations = [];
-    }
-
-    getBufferAllocations() {
-        return this.bufferAllocations;
-    }
-
-    addBufferAllocation(bufferAllocation) {
-        this.bufferAllocations.push(bufferAllocation);
-        this.bufferAllocationsByName[bufferAllocation.bufferLayout.name] = bufferAllocation;
-    }
-
-    getBufferAllocationByName(bufferAllocationName) {
-        const bufferAllocation = this.bufferAllocationsByName[bufferAllocationName];
-        if (bufferAllocation === undefined) {
-            throw new Error(`Not found  Buffer Allocation named ${bufferAllocationName}`);
-        }
-        return bufferAllocation;
+        this.bufferAllocationMap = new Map();
+        this.attributeAllocationMap = new Map();
+        this.accessorMap = new Map();
     }
 }

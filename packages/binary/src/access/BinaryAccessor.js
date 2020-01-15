@@ -1,6 +1,6 @@
 export default class BinaryAccessor {
 
-    constructor(type, byteOffset, byteStride) {
+    constructor({type, byteOffset, byteStride}) {
         this.type = type;
         this.byteOffset = byteOffset;
         this.byteStride = byteStride;

@@ -1,19 +1,12 @@
+import AttributeBatchAllocation from "../allocation/AttributeBatchAllocation";
+
 export default class AttributeBatchLayout {
 
-    constructor() {
-        this.attributeLayouts = [];
+    constructor({attributes}) {
+        this.attributeLayouts = [...attributes];
     }
 
-    addAttributeLayout(attributeLayout) {
-        for (let existsAttributeLayout of this.attributeLayouts) {
-            if (existsAttributeLayout.divisor !== attributeLayout.divisor) {
-                throw new Error("Cannot merge interleaved attributes with different divisor property");
-            }
-        }
-        this.attributeLayouts.push(attributeLayout);
-    }
-
-    calculateBlockStride() {
+    calculateByteStride() {
         let blockStride = 0;
         for (let attributeLayout of this.attributeLayouts) {
             blockStride += attributeLayout.type.byteLength;
@@ -26,11 +19,43 @@ export default class AttributeBatchLayout {
         return blockStride;
     }
 
-    createAttributeBatchAllocation() {
+    assertSameDivisor() {
+        if (this.attributeLayouts.length > 1) {
+            const expectedDivisor = this.attributeLayouts[0].divisor;
+            for (let attributeLayout of this.attributeLayouts) {
+                if (attributeLayout.divisor !== expectedDivisor) {
+                    throw new Error("Cannot merge interleaved attributes with different divisor property");
+                }
+            }
+        }
+    }
 
+    createAttributeBatchAllocation({allocation, batchOffset}) {
+        this.assertSameDivisor();
+
+        const byteStride = this.calculateByteStride();
+        const attributeBatchAllocation = new AttributeBatchAllocation();
+
+        let byteOffset = batchOffset;
+        for (let attributeLayout of this.attributeLayouts) {
+            const {name, type} = attributeLayout;
+            const attributeAllocation = attributeLayout.createAttributeAllocation({
+                allocation,
+                byteOffset,
+                byteStride,
+            });
+            byteOffset += type.byteLength;
+            attributeBatchAllocation.attributeAllocationMap.set(name, attributeAllocation);
+        }
+
+        return attributeBatchAllocation;
     }
 
     calculateTotalByteLength(allocation) {
-
+        let totalByteLength = 0;
+        for (let attributeLayout of this.attributeLayouts) {
+            totalByteLength += attributeLayout.calculateTotalByteLength(allocation);
+        }
+        return totalByteLength;
     }
 }
