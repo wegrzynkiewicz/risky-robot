@@ -13,8 +13,11 @@ export default class ArrayBufferLayout {
     }
 
     createBufferAllocation({allocation}) {
+        const bufferAllocation = new ArrayBufferAllocation({
+            byteLength: this.calculateTotalByteLength(allocation)
+        });
+
         let batchOffset = 0;
-        const bufferAllocation = new ArrayBufferAllocation();
         for (let batchLayout of this.batchLayouts) {
             const batchAllocation = batchLayout.createAttributeBatchAllocation({
                 allocation,
@@ -26,5 +29,13 @@ export default class ArrayBufferLayout {
         allocation.bufferAllocationMap.set(this.name, bufferAllocation);
 
         return bufferAllocation;
+    }
+
+    calculateTotalByteLength(allocation) {
+        let totalByteLength = 0;
+        for (let batchLayout of this.batchLayouts) {
+            totalByteLength += batchLayout.calculateTotalByteLength(allocation);
+        }
+        return totalByteLength;
     }
 }

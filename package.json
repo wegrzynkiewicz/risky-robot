@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "devDependencies": {
-    "lerna": "^3.18.4",
+    "lerna": "^3.19.0",
     "mocha": "^6.2.2"
   },
   "scripts": {

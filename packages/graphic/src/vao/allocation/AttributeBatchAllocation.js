@@ -1,5 +1,6 @@
 export default class AttributeBatchAllocation {
-    constructor() {
+    constructor({byteOffset}) {
+        this.byteOffset = byteOffset;
         this.attributeAllocationMap = new Map();
     }
 }

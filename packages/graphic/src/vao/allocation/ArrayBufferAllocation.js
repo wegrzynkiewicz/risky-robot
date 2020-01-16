@@ -1,6 +1,7 @@
 export default class ArrayBufferAllocation {
 
-    constructor() {
+    constructor({byteLength}) {
+        this.byteLength = byteLength;
         this.attributeBatchAllocationSet = new Set();
     }
 

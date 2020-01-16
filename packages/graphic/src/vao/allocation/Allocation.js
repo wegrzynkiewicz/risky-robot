@@ -1,4 +1,9 @@
 const primitivesType = {
+    "point": {
+        glType: WebGLRenderingContext["POINTS"],
+        glTypeName: "POINTS",
+        calculateVerticesCount: elements => elements,
+    },
     "triangle": {
         glType: WebGLRenderingContext["TRIANGLES"],
         glTypeName: "TRIANGLES",

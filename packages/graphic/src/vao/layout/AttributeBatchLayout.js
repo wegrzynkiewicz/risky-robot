@@ -34,7 +34,10 @@ export default class AttributeBatchLayout {
         this.assertSameDivisor();
 
         const byteStride = this.calculateByteStride();
-        const attributeBatchAllocation = new AttributeBatchAllocation();
+        const attributeBatchAllocation = new AttributeBatchAllocation({
+            byteOffset: batchOffset,
+            byteLength: this.calculateTotalByteLength(allocation),
+        });
 
         let byteOffset = batchOffset;
         for (let attributeLayout of this.attributeLayouts) {
