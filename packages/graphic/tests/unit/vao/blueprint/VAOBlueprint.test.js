@@ -1,28 +1,28 @@
 import assert from "assert";
-import Layout from "../../../../src/vao/layout/Layout";
+import VAOBlueprint from "../../../../src/vao/blueprint/VAOBlueprint";
 
-describe("Layout", function () {
+describe("VAOBlueprint", function () {
     it("should create valid allocation object", function () {
-        const layout = new Layout({
+        const blueprint = new VAOBlueprint({
             buffers: [
-                new Layout.ArrayBuffer({
+                new VAOBlueprint.ArrayBuffer({
                     name: "primary",
                     batches: [
-                        new Layout.AttributeBatch({
+                        new VAOBlueprint.AttributeBatch({
                             attributes: [
-                                new Layout.Attribute({
+                                new VAOBlueprint.Attribute({
                                     name: "a_VertexPosition",
                                     type: "vec3<f32>"
                                 }),
-                                new Layout.Attribute({
+                                new VAOBlueprint.Attribute({
                                     name: "a_VertexNormal",
                                     type: "vec3<f32>"
                                 }),
                             ],
                         }),
-                        new Layout.AttributeBatch({
+                        new VAOBlueprint.AttributeBatch({
                             attributes: [
-                                new Layout.Attribute({
+                                new VAOBlueprint.Attribute({
                                     name: "a_VertexColor",
                                     type: "vec3<u8>",
                                     normalize: true
@@ -31,13 +31,13 @@ describe("Layout", function () {
                         }),
                     ],
                 }),
-                new Layout.ElementArrayBuffer({
+                new VAOBlueprint.ElementArrayBuffer({
                     name: "indices",
                 }),
             ],
         });
 
-        const allocation = layout.createAllocation({
+        const layout = blueprint.createLayout({
             primitive: "triangle",
             elementsCount: 4,
         });

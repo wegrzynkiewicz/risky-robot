@@ -1,5 +1,5 @@
 /**
- * @property {Allocation} vaoAllocation
+ * @property {Layout} vaoAllocation
  * @property {VAOAttributeLayout} vaoAttributeLayout
  */
 export default class VAOAttributeAllocation {

@@ -25,9 +25,5 @@ export default class Allocation {
         this.primitive = primitive;
         this.elementsCount = elementsCount;
         this.verticesCount = calculateVerticesCount(elementsCount);
-
-        this.bufferAllocationMap = new Map();
-        this.attributeAllocationMap = new Map();
-        this.accessorMap = new Map();
     }
 }

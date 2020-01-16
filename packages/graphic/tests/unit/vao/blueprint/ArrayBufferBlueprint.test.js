@@ -1,35 +1,35 @@
 import assert from "assert";
-import Layout from "../../../../src/vao/layout/Layout";
-import Allocation from "../../../../src/vao/allocation/Allocation";
+import Allocation from "../../../../src/vao/layout/Allocation";
+import VAOBlueprint from "../../../../src/vao/blueprint/VAOBlueprint";
 
-describe("ArrayBufferLayout", function () {
+describe("ArrayBufferBlueprint", function () {
     it("should create valid ArrayBufferAllocation object", function () {
-        const bufferLayout = new Layout.ArrayBuffer({
+        const bufferBlueprint = new VAOBlueprint.ArrayBuffer({
             batches: [
-                new Layout.AttributeBatch({
+                new VAOBlueprint.AttributeBatch({
                     attributes: [
-                        new Layout.Attribute({
+                        new VAOBlueprint.Attribute({
                             name: "a_VertexPosition",
                             type: "vec3<f32>"
                         }),
-                        new Layout.Attribute({
+                        new VAOBlueprint.Attribute({
                             name: "a_VertexTexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
                 }),
-                new Layout.AttributeBatch({
+                new VAOBlueprint.AttributeBatch({
                     attributes: [
-                        new Layout.Attribute({
+                        new VAOBlueprint.Attribute({
                             name: "a_VertexNormal",
                             type: "vec3<f32>",
                             divisor: 1
                         }),
                     ],
                 }),
-                new Layout.AttributeBatch({
+                new VAOBlueprint.AttributeBatch({
                     attributes: [
-                        new Layout.Attribute({
+                        new VAOBlueprint.Attribute({
                             name: "a_VertexColor",
                             type: "vec4<f32>",
                             divisor: 2
@@ -44,9 +44,9 @@ describe("ArrayBufferLayout", function () {
             elementsCount: 2,
         });
 
-        const bufferAllocation = bufferLayout.createBufferAllocation({allocation});
+        const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
         const verticesCount = 6;
         const expectedLength = v => (v * 12) + (v * 8) + (v / 3 * 12) + (v / 6 * 16);
-        assert.strictEqual(bufferAllocation.byteLength, expectedLength(verticesCount));
+        assert.strictEqual(bufferLayout.byteLength, expectedLength(verticesCount));
     });
 });

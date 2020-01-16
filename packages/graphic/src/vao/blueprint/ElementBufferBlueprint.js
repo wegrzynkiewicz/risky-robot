@@ -1,6 +1,4 @@
-import ArrayBufferAllocation from "../allocation/ArrayBufferAllocation";
-
-export default class ElementBufferLayout {
+export default class ElementBufferBlueprint {
 
     constructor({name}) {
         this.name = name;
@@ -8,7 +6,7 @@ export default class ElementBufferLayout {
         this.glBufferTypeName = 'ELEMENT_ARRAY_BUFFER';
     }
 
-    createBufferAllocation({allocation}) {
+    createBufferLayout({allocation}) {
 
         return undefined;
     }

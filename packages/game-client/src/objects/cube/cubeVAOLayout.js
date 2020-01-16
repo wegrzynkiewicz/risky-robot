@@ -2,7 +2,7 @@ import VAOLayout from "../../layout/VAOLayout";
 
 const cubeVAOLayout = new VAOLayout({
     buffers: [
-        new VAOLayout.ArrayBufferLayout({
+        new VAOLayout.ArrayBufferBlueprint({
             name: "primary",
             schema: "ab/c",
             attributes: [
@@ -19,7 +19,7 @@ const cubeVAOLayout = new VAOLayout({
 
 new VAOLayout({
     buffers: [
-        new VAOLayout.ArrayBufferLayout({
+        new VAOLayout.ArrayBufferBlueprint({
             name: "primary",
             batches: [
                 new VAOLayout.AttributeBatch({
