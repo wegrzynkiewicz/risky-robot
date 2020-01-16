@@ -1,4 +1,4 @@
-export default class Layout {
+export default class VertexLayout {
 
     constructor({allocation}) {
         this.allocation = allocation;

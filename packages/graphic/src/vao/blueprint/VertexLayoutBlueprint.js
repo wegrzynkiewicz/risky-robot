@@ -3,9 +3,9 @@ import ArrayBufferBlueprint from "./ArrayBufferBlueprint";
 import AttributeBatchBlueprint from "./AttributeBatchBlueprint";
 import AttributeBlueprint from "./AttributeBlueprint";
 import ElementBufferBlueprint from "./ElementBufferBlueprint";
-import Layout from "../layout/Layout";
+import VertexLayout from "../layout/VertexLayout";
 
-export default class VAOBlueprint {
+export default class VertexLayoutBlueprint {
 
     constructor({buffers}) {
         if (!Array.isArray(buffers)) {
@@ -16,7 +16,7 @@ export default class VAOBlueprint {
 
     createLayout({primitive, elementsCount}) {
         const allocation = new Allocation({primitive, elementsCount});
-        const layout = new Layout({primitive, elementsCount});
+        const layout = new VertexLayout({primitive, elementsCount});
 
         for (let bufferBlueprint of this.bufferBlueprints) {
             const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
@@ -26,7 +26,7 @@ export default class VAOBlueprint {
     }
 }
 
-VAOBlueprint.ArrayBuffer = ArrayBufferBlueprint;
-VAOBlueprint.Attribute = AttributeBlueprint;
-VAOBlueprint.AttributeBatch = AttributeBatchBlueprint;
-VAOBlueprint.ElementArrayBuffer = ElementBufferBlueprint;
+VertexLayoutBlueprint.ArrayBuffer = ArrayBufferBlueprint;
+VertexLayoutBlueprint.Attribute = AttributeBlueprint;
+VertexLayoutBlueprint.AttributeBatch = AttributeBatchBlueprint;
+VertexLayoutBlueprint.ElementArrayBuffer = ElementBufferBlueprint;

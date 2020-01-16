@@ -1,35 +1,35 @@
 import assert from "assert";
 import Allocation from "../../../../src/vao/layout/Allocation";
-import VAOBlueprint from "../../../../src/vao/blueprint/VAOBlueprint";
+import VertexLayoutBlueprint from "../../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 describe("ArrayBufferBlueprint", function () {
     it("should create valid ArrayBufferAllocation object", function () {
-        const bufferBlueprint = new VAOBlueprint.ArrayBuffer({
+        const bufferBlueprint = new VertexLayoutBlueprint.ArrayBuffer({
             batches: [
-                new VAOBlueprint.AttributeBatch({
+                new VertexLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VAOBlueprint.Attribute({
+                        new VertexLayoutBlueprint.Attribute({
                             name: "a_VertexPosition",
                             type: "vec3<f32>"
                         }),
-                        new VAOBlueprint.Attribute({
+                        new VertexLayoutBlueprint.Attribute({
                             name: "a_VertexTexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
                 }),
-                new VAOBlueprint.AttributeBatch({
+                new VertexLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VAOBlueprint.Attribute({
+                        new VertexLayoutBlueprint.Attribute({
                             name: "a_VertexNormal",
                             type: "vec3<f32>",
                             divisor: 1
                         }),
                     ],
                 }),
-                new VAOBlueprint.AttributeBatch({
+                new VertexLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VAOBlueprint.Attribute({
+                        new VertexLayoutBlueprint.Attribute({
                             name: "a_VertexColor",
                             type: "vec4<f32>",
                             divisor: 2
