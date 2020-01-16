@@ -3,16 +3,17 @@ import Allocation from "../../../../src/vao/layout/Allocation";
 import VertexLayoutBlueprint from "../../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expectedOffset) {
-    const {stride, offset} = bufferLayout.getAttributeLayoutByName(attributeName);
+    const attributeLayout = bufferLayout.getAttributeLayoutByName(attributeName);
+    const {byteOffset, byteStride} = attributeLayout;
     assert.strictEqual(
-        stride,
+        byteStride,
         expectedStride,
-        `Invalid stride attribute named (${attributeName})`
+        `Invalid stride attribute named (${attributeName}) expected (${expectedStride}) actual (${byteStride})`
     );
     assert.strictEqual(
-        offset,
+        byteOffset,
         expectedOffset,
-        `Invalid offset attribute named (${attributeName})`
+        `Invalid offset attribute named (${attributeName}) expected (${expectedOffset}) actual (${byteOffset})`
     );
 }
 
@@ -143,7 +144,7 @@ describe("ArrayBufferBlueprint", function () {
             elements: 10,
         });
 
-        const bufferLayout = bufferBlueprint.createBufferLayout(allocation);
+        const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
         const verticesCount = 30;
 
         assertAttributeLayout(bufferLayout, "a_VertexPosition", 32, 0);
