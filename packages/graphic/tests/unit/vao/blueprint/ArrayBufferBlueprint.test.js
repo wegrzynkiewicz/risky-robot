@@ -68,8 +68,6 @@ describe("ArrayBufferBlueprint", function () {
 
     it("should create valid complex ArrayBufferLayout object", function () {
         const bufferBlueprint = new VertexLayoutBlueprint.ArrayBuffer({
-            type: "array",
-            schema: "abc/de/f/g/hijk",
             batches: [
                 new VertexLayoutBlueprint.AttributeBatch({
                     attributes: [
