@@ -57,7 +57,8 @@ export default class AttributeBatchBlueprint {
     calculateTotalByteLength(allocation) {
         let totalByteLength = 0;
         for (let attributeBlueprint of this.attributeBlueprints) {
-            totalByteLength += attributeBlueprint.calculateTotalByteLength(allocation);
+            const attributeByteLength = attributeBlueprint.calculateTotalByteLength(allocation);
+            totalByteLength += attributeByteLength;
         }
         return totalByteLength;
     }

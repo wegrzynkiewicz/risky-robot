@@ -23,7 +23,8 @@ export default class ArrayBufferBlueprint {
                 allocation,
                 batchOffset
             });
-            batchOffset += batchBlueprint.calculateTotalByteLength(allocation);
+            const batchByteLength = batchBlueprint.calculateTotalByteLength(allocation);
+            batchOffset += batchByteLength;
             bufferLayout.attributeBatchLayoutSet.add(batchAllocation);
         }
 
@@ -33,7 +34,8 @@ export default class ArrayBufferBlueprint {
     calculateTotalByteLength(allocation) {
         let totalByteLength = 0;
         for (let batchBlueprint of this.batchBlueprints) {
-            totalByteLength += batchBlueprint.calculateTotalByteLength(allocation);
+            const batchByteLength = batchBlueprint.calculateTotalByteLength(allocation);
+            totalByteLength += batchByteLength
         }
         return totalByteLength;
     }

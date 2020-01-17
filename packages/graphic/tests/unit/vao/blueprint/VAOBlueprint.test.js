@@ -2,7 +2,7 @@ import assert from "assert";
 import VertexLayoutBlueprint from "../../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 describe("VertexLayoutBlueprint", function () {
-    it("should create valid allocation object", function () {
+    it("should create valid layout object", function () {
         const blueprint = new VertexLayoutBlueprint({
             buffers: [
                 new VertexLayoutBlueprint.ArrayBuffer({

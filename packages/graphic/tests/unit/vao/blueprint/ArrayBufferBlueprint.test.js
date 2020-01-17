@@ -141,7 +141,7 @@ describe("ArrayBufferBlueprint", function () {
 
         const allocation = new Allocation({
             primitive: "triangle",
-            elements: 10,
+            elementsCount: 10,
         });
 
         const bufferLayout = bufferBlueprint.createBufferLayout({allocation});

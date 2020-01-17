@@ -20,10 +20,14 @@ export default class Allocation {
             throw new Error("Invalid  allocation primitive type.");
         }
 
+        this.elementsCount = parseInt(elementsCount);
+        if (isNaN(this.elementsCount)) {
+            throw new Error("Invalid  allocation primitive type.");
+        }
+
         this.glType = glType;
         this.glTypeName = glTypeName;
         this.primitive = primitive;
-        this.elementsCount = elementsCount;
         this.verticesCount = calculateVerticesCount(elementsCount);
     }
 }
