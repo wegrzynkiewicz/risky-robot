@@ -66,6 +66,7 @@ export default function generateSharpCubeGeometry() {
 
     for (let i = 0; i < 6; i++) {
         for (let index of indicesOffsets) {
+            const vertexIndex = i * 4 + index;
             indicesAccessor.write(indicesDataView, indicesOrder, vertexIndex);
             indicesOrder++;
         }

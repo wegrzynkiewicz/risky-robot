@@ -1,12 +1,30 @@
+const glob = require('glob');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const plugins = [];
+const entries = {};
+const dataset = [];
+glob.sync('./dataset/**/entry.js').map(filepath => {
+    const name = path.dirname(filepath).substr(10);
+    entries[name] = filepath;
+
+    const plugin = new HtmlWebpackPlugin({
+        template: './src/entry/suite.html',
+        filename: `${name}.html`,
+        chunks: ['commons', name],
+    });
+    plugins.push(plugin);
+
+    dataset.push(name);
+});
 
 module.exports = {
     mode: "development",
     entry: {
         index: './src/entry/index.js',
-        suite: './src/entry/suite.js',
+        ...entries,
     },
     watch: true,
     output: {
@@ -19,14 +37,13 @@ module.exports = {
             filename: 'index.html',
             chunks: ["index"],
         }),
-        new HtmlWebpackPlugin({
-            template: './src/entry/suite.html',
-            filename: 'suite.html',
-            chunks: ["suite"],
-        }),
+        ...plugins,
         new webpack.EnvironmentPlugin([
             'INSPECTOR_METADATA_ENABLED'
         ]),
+        new webpack.DefinePlugin({
+            'process.env.DATASET': JSON.stringify(dataset)
+        }),
     ],
     module: {
         rules: [
@@ -39,5 +56,17 @@ module.exports = {
                 loader: "html-loader"
             }
         ]
-    }
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    minSize: 0,
+                    test: /core/,
+                    name: "commons",
+                    chunks: 'all'
+                }
+            }
+        }
+    },
 };
