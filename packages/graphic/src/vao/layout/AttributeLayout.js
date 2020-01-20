@@ -1,3 +1,5 @@
+import Binary from "robo24-binary";
+
 export default class AttributeLayout{
 
     constructor({name, type, divisor, normalize, byteStride, byteOffset}) {
@@ -7,5 +9,13 @@ export default class AttributeLayout{
         this.normalize = normalize;
         this.byteStride = byteStride;
         this.byteOffset = byteOffset;
+    }
+
+    getAccessor() {
+        return new Binary.Accessor({
+            type: this.type,
+            byteOffset: this.byteOffset,
+            byteStride: this.byteStride,
+        });
     }
 }
