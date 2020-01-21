@@ -1,10 +1,10 @@
 {
-  "name": "robo24-core",
+  "name": "robo24-frontend",
   "version": "0.0.0",
-  "description": "robo24-core",
+  "description": "robo24-frontend",
   "author": "",
   "license": "UNLICENSED",
-  "main": "src/Core.js",
+  "main": "src/frontend.js",
   "directories": {
     "lib": "src",
     "test": "tests"
@@ -13,7 +13,8 @@
     "src"
   ],
   "dependencies": {
-    "simplex-noise": "^2.4.0"
+    "events": "^3.1.0",
+    "robo24-graphic": "file:../graphic"
   },
   "devDependencies": {
     "webgl-mock": "^0.1.7"

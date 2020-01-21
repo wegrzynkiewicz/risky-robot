@@ -1,15 +1,10 @@
-import * as math from "./math";
-import VertexLayoutBlueprint from "./vao/blueprint/VertexLayoutBlueprint";
+export {default as CameraRenderer} from "./renderer/CameraRenderer";
 
-const graphic = {};
+export {default as Viewer} from "./view/Viewer";
+export {default as Viewport} from "./view/Viewport";
 
-graphic.Vector2 = math.Vector2;
-graphic.Vector3 = math.Vector3;
-graphic.Vector4 = math.Vector4;
-graphic.Matrix2 = math.Matrix2;
-graphic.Matrix3 = math.Matrix3;
-graphic.Matrix4 = math.Matrix4;
+export {default as Scene} from "./scene/Scene";
+export {default as SceneManager} from "./scene/SceneManager";
 
-graphic.VertexLayoutBlueprint = VertexLayoutBlueprint;
-
-export default graphic;
+export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4} from "./math";
+export {default as VertexLayoutBlueprint} from "./vao/blueprint/VertexLayoutBlueprint";

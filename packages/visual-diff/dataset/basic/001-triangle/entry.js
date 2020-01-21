@@ -1,5 +1,4 @@
-import Core from "robo24-core";
+import * as Frontend from "robo24-frontend";
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log(Core);
 });

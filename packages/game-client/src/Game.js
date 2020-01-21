@@ -42,7 +42,6 @@ export default class Game {
 
         this.previousTimestampSeconds = 0;
         this.loop = this.loop.bind(this);
-        this.loop(0);
     }
 
     async init() {

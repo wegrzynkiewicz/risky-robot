@@ -19,6 +19,7 @@
     "webpack": "^4.41.5"
   },
   "dependencies": {
-    "robo24-core": "file:../core"
+    "robo24-core": "file:../core",
+    "robo24-frontend": "file:../frontend"
   }
 }
