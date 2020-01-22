@@ -1,6 +1,6 @@
 import Viewport from "./Viewport";
 
-export default class Viewer {
+export default class View {
 
     constructor({canvas}) {
         this.canvas = canvas;
@@ -10,7 +10,7 @@ export default class Viewer {
             throw new Error('Unable to initialize WebGL2. Your browser or machine may not support it.');
         }
 
-        this.viewports = new Map();
+        this.pipeline = new Pipeline();
     }
 
     createViewport({name, renderer, x, y, width, height}) {

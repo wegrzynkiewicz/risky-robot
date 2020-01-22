@@ -1,6 +1,6 @@
 import {Matrix4} from "../math";
 
-export default class CameraRenderer {
+export default class Camera {
 
     constructor() {
         this.viewMatrix = Matrix4.create();

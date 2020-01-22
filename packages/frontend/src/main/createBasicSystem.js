@@ -11,9 +11,15 @@ export default function createBasicSystem({window, canvas}) {
     const scene = new Graphic.Scene({id: "primary"});
     scene.setParent(sceneManager);
 
-    const renderer = new Graphic.CameraRenderer();
+    const camera = new Graphic.Camera();
+    const fieldOfView = Graphic.radian(45);
+    const aspect = canvas.width / canvas.height;
+    const near = 1;
+    const far = 1000;
+    Graphic.Matrix4.perspective(camera.projectionMatrix, fieldOfView, aspect, near, far);
+    const renderer = new Graphic.CameraRenderer({camera});
 
-    const viewer = new Graphic.Viewer({canvas});
+    const viewer = new Graphic.View({canvas});
     viewer.createViewport({
         name: "primary",
         renderer,
