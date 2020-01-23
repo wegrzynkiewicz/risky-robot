@@ -6,24 +6,24 @@ export default class Scene extends SceneNode {
         super({id});
     }
 
-    init(game) {
-        const {openGL} = game;
-        openGL.clearColor(0.0, 0.0, 0.0, 1.0);
-        openGL.clearDepth(1.0);
-        openGL.enable(openGL.DEPTH_TEST);
-        openGL.depthFunc(openGL.LEQUAL);
-        openGL.enable(openGL.CULL_FACE);
-        openGL.cullFace(openGL.BACK);
-        openGL.frontFace(openGL.CCW);
-        openGL.blendFunc(openGL.SRC_ALPHA, openGL.ONE_MINUS_SRC_ALPHA);
-        openGL.enable(openGL.BLEND);
-    }
+    render(system, context) {
+        const {stateMachine, openGL} = system.view;
 
-    render(game) {
-        const {openGL} = game;
+        stateMachine.clearDepth(1.0);
+        stateMachine.depthFunc(openGL.LEQUAL);
+        stateMachine.enable(openGL.DEPTH_TEST);
+
+        stateMachine.frontFace(openGL.CCW);
+        stateMachine.cullFace(openGL.BACK);
+        stateMachine.enable(openGL.CULL_FACE);
+
+        stateMachine.blendFunc(openGL.SRC_ALPHA, openGL.ONE_MINUS_SRC_ALPHA);
+        stateMachine.enable(openGL.BLEND);
+
+        stateMachine.clearColor(0.0, 0.0, 0.0, 1.0);
 
         openGL.clear(openGL.COLOR_BUFFER_BIT | openGL.DEPTH_BUFFER_BIT);
 
-        super.render(game);
+        super.render(system, context);
     }
 }

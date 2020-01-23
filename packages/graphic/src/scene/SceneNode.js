@@ -35,32 +35,32 @@ export default class SceneNode {
         this.parent = newParentNode;
     }
 
-    update(game, deltaTime) {
-        this.updateChildren(game, deltaTime);
+    update(system, context) {
+        this.updateChildren(system, context);
     }
 
-    updateChildren(game, deltaTime) {
+    updateChildren(system, context) {
         const length = this.children.length;
         for (let i = 0; i < length; i++) {
             const child = this.children[i];
-            child.update(game, deltaTime);
+            child.update(system, context);
         }
     }
 
-    shouldRender(game) {
+    shouldRender(system, context) {
         return true;
     }
 
-    render(game) {
-        this.renderChildren(game);
+    render(system, context) {
+        this.renderChildren(system, context);
     }
 
-    renderChildren(game) {
+    renderChildren(system, context) {
         const length = this.children.length;
         for (let i = 0; i < length; i++) {
             const child = this.children[i];
-            if (child.shouldRender(game)) {
-                child.render(game);
+            if (child.shouldRender(system, context)) {
+                child.render(system, context);
             }
         }
     }

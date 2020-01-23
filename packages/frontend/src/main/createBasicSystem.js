@@ -17,21 +17,28 @@ export default function createBasicSystem({window, canvas}) {
     const near = 1;
     const far = 1000;
     Graphic.Matrix4.perspective(camera.projectionMatrix, fieldOfView, aspect, near, far);
-    const renderer = new Graphic.CameraRenderer({camera});
 
-    const viewer = new Graphic.View({canvas});
-    viewer.createViewport({
-        name: "primary",
-        renderer,
+    const viewport = new Graphic.Viewport({
         x: 0,
         y: 0,
         width: canvas.width,
         height: canvas.height,
     });
+    const renderer = new Graphic.SingleCameraRenderer({camera, viewport});
+
+    const view = new Graphic.View({canvas});
+    const primaryRenderingTask = new Graphic.RenderingTask({
+        enabled: true,
+        weight: 1.0000,
+        render(system, context) {
+            renderer.render(system, context);
+        }
+    });
+    view.renderingFlow.registerTask(primaryRenderingTask);
 
     const system = new System({
         window,
-        viewer,
+        view,
         sceneManager,
         loop,
     });

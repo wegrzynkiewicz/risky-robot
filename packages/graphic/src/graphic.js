@@ -1,7 +1,7 @@
 export {default as Camera} from "./render/Camera";
-export {default as CameraRenderer} from "./render/CameraRenderer";
-
-export {default as Viewer} from "./view/Viewer";
+export {default as RenderingTask} from "./render/RenderingTask";
+export {default as SingleCameraRenderer} from "./render/SingleCameraRenderer";
+export {default as View} from "./render/View";
 export {default as Viewport} from "./render/Viewport";
 
 export {default as Scene} from "./scene/Scene";

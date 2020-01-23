@@ -1,4 +1,5 @@
-import Viewport from "./Viewport";
+import RenderingFlow from "./RenderingFlow";
+import createStateMachine from "../state/createStateMachine";
 
 export default class View {
 
@@ -10,13 +11,11 @@ export default class View {
             throw new Error('Unable to initialize WebGL2. Your browser or machine may not support it.');
         }
 
-        this.pipeline = new Pipeline();
+        this.stateMachine = createStateMachine(this.openGL);
+        this.renderingFlow = new RenderingFlow();
     }
 
-    createViewport({name, renderer, x, y, width, height}) {
-        const viewer = this;
-        const viewport = new Viewport({name, renderer, viewer, x, y, width, height});
-        this.viewports.set(name, viewport);
-        return viewport;
+    render(system, context) {
+        this.renderingFlow.render(system, context);
     }
 }
