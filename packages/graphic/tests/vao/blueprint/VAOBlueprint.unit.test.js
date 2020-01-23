@@ -1,5 +1,5 @@
 import assert from "assert";
-import VertexLayoutBlueprint from "../../../../src/vao/blueprint/VertexLayoutBlueprint";
+import VertexLayoutBlueprint from "../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 describe("VertexLayoutBlueprint", function () {
     it("should create valid layout object", function () {

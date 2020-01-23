@@ -17,6 +17,7 @@
     "robo24-binary": "file:../binary"
   },
   "devDependencies": {
+    "sinon": "^8.1.1",
     "webgl-mock": "^0.1.7"
   }
 }

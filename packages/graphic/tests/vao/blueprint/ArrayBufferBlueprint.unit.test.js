@@ -1,6 +1,6 @@
 import assert from "assert";
-import Allocation from "../../../../src/vao/layout/Allocation";
-import VertexLayoutBlueprint from "../../../../src/vao/blueprint/VertexLayoutBlueprint";
+import Allocation from "../../../src/vao/layout/Allocation";
+import VertexLayoutBlueprint from "../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expectedOffset) {
     const attributeLayout = bufferLayout.getAttributeLayoutByName(attributeName);
