@@ -10,6 +10,20 @@ export default class ProxyCreator {
         }
     }
 
+    createNumberStateProxy(parameter, functionName) {
+        const modifier = function () {
+            this.state[parameter] = undefined;
+            this.proxies[functionName] = (number) => {
+                const value = this.state[parameter];
+                if (value !== number) {
+                    this.state[parameter] = number;
+                    this.openGL[functionName](number);
+                }
+            };
+        };
+        this.modifiers.push(modifier);
+    }
+
     createColorStateProxy(parameter, functionName) {
         const modifier = function () {
             this.state[parameter] = new Float32Array(4);
@@ -21,6 +35,23 @@ export default class ProxyCreator {
                     value[2] = b;
                     value[3] = a;
                     this.openGL[functionName](r, g, b, a);
+                }
+            };
+        };
+        this.modifiers.push(modifier);
+    }
+
+    createBoxStateProxy(parameter, functionName) {
+        const modifier = function () {
+            this.state[parameter] = new Int32Array(4);
+            this.proxies[functionName] = (a = 0, b = 0, c = 0, d = 0) => {
+                const value = this.state[parameter];
+                if (value[0] !== a || value[1] !== b || value[2] !== c || value[3] !== d) {
+                    value[0] = a;
+                    value[1] = b;
+                    value[2] = c;
+                    value[3] = d;
+                    this.openGL[functionName](a, b, c, d);
                 }
             };
         };

@@ -1,10 +1,10 @@
-import Loop from "../flow/Loop";
+import AnimationLoop from "../flow/AnimationLoop";
 import System from "./System";
 import * as Graphic from "robo24-graphic";
 
 export default function createBasicSystem({window, canvas}) {
 
-    const loop = new Loop({window});
+    const animationLoop = new AnimationLoop({window});
 
     const sceneManager = new Graphic.SceneManager();
 
@@ -24,7 +24,7 @@ export default function createBasicSystem({window, canvas}) {
         width: canvas.width,
         height: canvas.height,
     });
-    const renderer = new Graphic.SingleCameraRenderer({camera, viewport});
+    const renderer = new Graphic.SingleCameraRenderer({camera, viewport, scene});
 
     const view = new Graphic.View({canvas});
     const primaryRenderingTask = new Graphic.RenderingTask({
@@ -40,8 +40,10 @@ export default function createBasicSystem({window, canvas}) {
         window,
         view,
         sceneManager,
-        loop,
+        animationLoop,
     });
+
+    animationLoop.start();
 
     return system;
 }

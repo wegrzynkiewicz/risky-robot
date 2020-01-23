@@ -1,6 +1,6 @@
 import EventEmitter from "events"
 
-export default class Loop extends EventEmitter {
+export default class AnimationLoop extends EventEmitter {
 
     constructor({window}) {
         super();

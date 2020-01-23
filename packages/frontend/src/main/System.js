@@ -1,11 +1,11 @@
 export default class System {
 
-    constructor({view, sceneManager, loop}) {
+    constructor({view, sceneManager, animationLoop}) {
         this.view = view;
         this.sceneManager = sceneManager;
         this.context = Object.create(null);
-        this.loop = loop;
-        this.loop.on("frame", this.loop.bind(this));
+        this.animationLoop = animationLoop;
+        this.animationLoop.on("frame", this.loop.bind(this));
     }
 
     loop(deltaTime) {

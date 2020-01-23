@@ -2,8 +2,17 @@ import ProxyCreator from "./ProxyCreator";
 
 const proxyCreator = new ProxyCreator();
 proxyCreator.createEnableStateProxy();
+
 proxyCreator.createColorStateProxy("BLEND_COLOR", "blendColor");
+proxyCreator.createBoxStateProxy("X_BLEND_FUNC", "blendFunc");
+
 proxyCreator.createColorStateProxy("COLOR_CLEAR_VALUE", "clearColor");
+
+proxyCreator.createNumberStateProxy("DEPTH_CLEAR_VALUE", "clearDepth");
+proxyCreator.createNumberStateProxy("DEPTH_FUNC", "depthFunc");
+
+proxyCreator.createNumberStateProxy("FRONT_FACE", "frontFace");
+proxyCreator.createNumberStateProxy("CULL_FACE_MODE", "cullFace");
 
 class StateMachine {
     constructor(openGL) {
