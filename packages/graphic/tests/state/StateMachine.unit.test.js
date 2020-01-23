@@ -1,13 +1,13 @@
 import assert from "assert";
 import sinon from "sinon";
-import StateMachine from "../../src/state/StateMachine";
+import createStateMachine from "../../src/state/createStateMachine";
 
 describe("StateMachine", function () {
 
     it("should contain valid enable state modifier", function () {
         const enable = sinon.fake();
         const disable = sinon.fake();
-        const stateMachine = new StateMachine({enable, disable});
+        const stateMachine = createStateMachine({enable, disable});
 
         stateMachine.enable(4);
         assert.strictEqual(enable.callCount, 1);
@@ -27,7 +27,7 @@ describe("StateMachine", function () {
 
     it("should contain valid color state modifier", function () {
         const clearColor = sinon.fake();
-        const stateMachine = new StateMachine({clearColor});
+        const stateMachine = createStateMachine({clearColor});
 
         stateMachine.clearColor(1, 1, 1, 1);
         assert.strictEqual(clearColor.callCount, 1);

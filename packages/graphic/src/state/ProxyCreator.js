@@ -1,19 +1,19 @@
-export default class MementoCreator {
+export default class ProxyCreator {
 
     constructor() {
         this.modifiers = [];
     }
 
-    applyStateMementos(object) {
+    applyStateModifiers(object) {
         for (const modifier of this.modifiers) {
             modifier.call(object);
         }
     }
 
-    createColorStateMemento(parameter, functionName) {
+    createColorStateProxy(parameter, functionName) {
         const modifier = function () {
             this.state[parameter] = new Float32Array(4);
-            this[functionName] = function (r, g, b, a) {
+            this.proxies[functionName] = (r, g, b, a) => {
                 const value = this.state[parameter];
                 if (value[0] !== r || value[1] !== g || value[2] !== b || value[3] !== a) {
                     value[0] = r;
@@ -27,24 +27,24 @@ export default class MementoCreator {
         this.modifiers.push(modifier);
     }
 
-    createEnableStateMemento() {
+    createEnableStateProxy() {
         const modifier = function () {
             this.state["ENABLED"] = Object.create(null);
-            this["enable"] = function (enumerable) {
+            this.proxies["enable"] = (enumerable) => {
                 const values = this.state["ENABLED"];
                 if (values[enumerable] !== true) {
                     values[enumerable] = true;
                     this.openGL.enable(enumerable);
                 }
             };
-            this["disable"] = function (enumerable) {
+            this.proxies["disable"] = (enumerable) => {
                 const values = this.state["ENABLED"];
                 if (values[enumerable] !== false) {
                     values[enumerable] = false;
                     this.openGL.disable(enumerable);
                 }
             };
-            this["isEnabled"] = function (enumerable) {
+            this.proxies["isEnabled"] = (enumerable) => {
                 const values = this.state["ENABLED"];
                 let value = values[enumerable];
                 if (value === undefined) {
@@ -53,15 +53,6 @@ export default class MementoCreator {
                 }
                 return value;
             };
-        };
-        this.modifiers.push(modifier);
-    }
-
-    createDummyStateMemento(functionName) {
-        const modifier = function () {
-            this[functionName] = function (...args) {
-                this.openGL[functionName](...args);
-            }
         };
         this.modifiers.push(modifier);
     }
