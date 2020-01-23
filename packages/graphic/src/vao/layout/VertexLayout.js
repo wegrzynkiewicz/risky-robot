@@ -1,3 +1,5 @@
+import createBasicLayout from "./createBasicLayout";
+
 export default class VertexLayout {
 
     constructor({allocation}) {
@@ -9,3 +11,5 @@ export default class VertexLayout {
         return this.bufferLayoutMap.get(bufferName);
     }
 }
+
+VertexLayout.createBasicLayout = createBasicLayout;
