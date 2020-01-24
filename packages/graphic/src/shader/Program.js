@@ -1,17 +1,47 @@
 export default class Program {
 
-    constructor({name, openGL, vertexShader, fragmentShader}) {
+    constructor({name, view, vertexShader, fragmentShader}) {
         this.name = name;
-        this.openGL = openGL;
-        this.openGLProgramPointer = openGL.createProgram();
+        this.view = view;
+        this.openGL = view.openGL;
         this.vertexShader = vertexShader;
         this.fragmentShader = fragmentShader;
 
         this.uniformLocations = Object.create(null);
         this.attributeLocations = Object.create(null);
 
+        this.openGLProgramPointer = this.openGL.createProgram();
+        if (process.env.INSPECTOR_METADATA_ENABLED) {
+            attachProgramInspectorData.call(this);
+        }
+
         this.link();
         this.bindLayoutLocation();
+    }
+
+    bindLayoutLocation() {
+        const {openGL, openGLProgramPointer, vertexShader, fragmentShader} = this;
+        for (const attributeName of vertexShader.shaderContent.attributeNames) {
+            const attributeLocation = openGL.getAttribLocation(openGLProgramPointer, attributeName);
+            this.attributeLocations[attributeName] = attributeLocation;
+        }
+
+        const uniformNames = new Set([
+            ...vertexShader.shaderContent.uniformNames,
+            ...fragmentShader.shaderContent.uniformNames,
+        ]);
+
+        for (const uniformName of uniformNames.values()) {
+            const uniformLocation = openGL.getUniformLocation(openGLProgramPointer, uniformName);
+            this.uniformLocations[attributeName] = uniformLocation;
+        }
+    }
+
+    deleteProgram() {
+        this.openGL.deleteProgram(this.openGLProgramPointer);
+        this.openGLProgramPointer = null;
+        this.vertexShader = null;
+        this.fragmentShader = null;
     }
 
     link() {
@@ -27,28 +57,12 @@ export default class Program {
         }
     }
 
-    bindLayoutLocation() {
-        const {openGL, openGLProgramPointer, vertexShader, fragmentShader} = this;
-        for (const attributeName of vertexShader.shaderContent.attributes) {
-            const attributeLocation = openGL.getAttribLocation(openGLProgramPointer, attributeName);
-            this.attributeLocations.push(attributeLocation);
-        }
-
-        const uniformNames = new Set([
-            ...vertexShader.shaderContent.uniformNames,
-            ...fragmentShader.shaderContent.uniformNames,
-        ]);
-
-        for (const uniformName of uniformNames.values()) {
-            const uniformLocation = openGL.getUniformLocation(openGLProgramPointer, uniformName);
-            this.uniformLocations.push(uniformLocation);
-        }
-    }
-
-    deleteProgram() {
-        this.openGL.deleteProgram(this.openGLProgramPointer);
-        this.openGLProgramPointer = null;
-        this.vertexShader = null;
-        this.fragmentShader = null;
+    use() {
+        this.view.stateMachine.useProgram(this.openGLProgramPointer);
     }
 }
+
+function attachProgramInspectorData() {
+    this.openGLProgramPointer.__SPECTOR_Object_TAG.displayText += ", Name: " + this.name;
+}
+

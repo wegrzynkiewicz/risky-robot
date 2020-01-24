@@ -37,6 +37,11 @@ export default class OpenGLBuffer {
     unbind() {
         this.openGL.bindBuffer(this.openGLBufferType, null);
     }
+
+    setDataView(dataView) {
+        this.bind();
+        this.openGL.bufferData(this.openGLBufferType, dataView, this.openGL.STATIC_DRAW);
+    }
 }
 
 function attachBufferInspectorData() {

@@ -12,8 +12,8 @@ export default class ProgramManager {
     }
 
     createProgram({name, vertexShader, fragmentShader}) {
-        const {stateMachine} = this.view;
-        const program = new Program({stateMachine, name, vertexShader, fragmentShader});
+        const {view} = this;
+        const program = new Program({view, name, vertexShader, fragmentShader});
         this.programs[name] = program;
         return program;
     }
@@ -44,9 +44,9 @@ export default class ProgramManager {
     getShaderByName(code) {
         let shader = this.shaders[code];
         if (shader === undefined) {
-            const [name, type] = name.split(".");
+            const [name, type] = code.split(".");
             const shaderContent = this.getShaderContentByName(code);
-            shader = this.createShader({name, type, shaderContent});
+            shader = this.createShader({name: code, type, shaderContent});
         }
         return shader;
     }

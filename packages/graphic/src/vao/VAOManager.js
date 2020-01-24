@@ -1,10 +1,9 @@
-import VAOCreator from "./VAOCreator";
+import VAO from "./VAO";
 
 export default class VAOManager {
 
     constructor({view}) {
         this.view = view;
-        this.creator = new VAOCreator({view});
         this.vaos = Object.create(null);
     }
 
@@ -12,8 +11,9 @@ export default class VAOManager {
         return this.vaos[vaoName];
     }
 
-    createVAO({name, shader, vertexLayout, buffers}) {
-        const vao = this.creator.createVAO({name, shader, vertexLayout, buffers});
+    createVAO({name, program, vaoLayout, buffers}) {
+        const {view} = this;
+        const vao = new VAO({view, program, name, vaoLayout, buffers});
         this.vaos[name] = vao;
         return vao;
     }

@@ -10,8 +10,8 @@ export default class ArrayBufferLayout {
 
     getAttributeLayouts() {
         const attributeLayouts = [];
-        for (const attributeBatchLayout of attributeBatchLayoutSet.values()) {
-            for (const attributeLayout of attributeBatch.attributeLayoutMap.values()) {
+        for (const attributeBatchLayout of this.attributeBatchLayoutSet.values()) {
+            for (const attributeLayout of attributeBatchLayout.attributeLayoutMap.values()) {
                 attributeLayouts.push(attributeLayout);
             }
         }
