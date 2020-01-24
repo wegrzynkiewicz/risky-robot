@@ -1,5 +1,8 @@
 import * as Frontend from "robo24-frontend";
 
+import triangleVertex from "./triangle.vert";
+import triangleFragment from "./triangle.frag";
+
 const {Graphic} = Frontend;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -23,16 +26,20 @@ document.addEventListener("DOMContentLoaded", () => {
     accessor.write(dataView, 1, [0.5, -0.5, 0]);
     accessor.write(dataView, 2, [-0.5, 0.5, 0]);
 
-    const buffer = system.view.bufferManager.createBuffer({
+    const {bufferManager, vaoManager, programManager} = system.view;
+
+    const buffer = bufferManager.createBuffer({
         name: "triangle",
         type: "array",
         bufferLayout
     });
 
-    const vao = system.view.vaoManager.createVAO({
+    const vao = vaoManager.createVAO({
         name: "triangle",
+    });
 
-    })
+    programManager.registerShaderContent("triangle", triangleVertex, triangleFragment);
+    programManager.getProgramByName("triangle");
 
     console.log(buffer);
 });

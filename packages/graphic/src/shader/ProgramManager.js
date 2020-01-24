@@ -12,8 +12,8 @@ export default class ProgramManager {
     }
 
     createProgram({name, vertexShader, fragmentShader}) {
-        const {openGL} = this.view;
-        const program = new Program({openGL, name, vertexShader, fragmentShader});
+        const {stateMachine} = this.view;
+        const program = new Program({stateMachine, name, vertexShader, fragmentShader});
         this.programs[name] = program;
         return program;
     }
@@ -26,9 +26,48 @@ export default class ProgramManager {
     }
 
     createShaderContent({name, content}) {
-        const {openGL} = this.view;
         const shaderContent = new ShaderContent({name, content});
         this.shaderContents[name] = shaderContent;
         return shaderContent;
+    }
+
+    getProgramByName(name) {
+        let program = this.programs[name];
+        if (program === undefined) {
+            const vertexShader = this.getShaderByName(`${name}.vertex`);
+            const fragmentShader = this.getShaderByName(`${name}.fragment`);
+            program = this.createProgram({name, vertexShader, fragmentShader});
+        }
+        return program;
+    }
+
+    getShaderByName(code) {
+        let shader = this.shaders[code];
+        if (shader === undefined) {
+            const [name, type] = name.split(".");
+            const shaderContent = this.getShaderContentByName(code);
+            shader = this.createShader({name, type, shaderContent});
+        }
+        return shader;
+    }
+
+    getShaderContentByName(name) {
+        const shaderContent = this.shaderContents[name];
+        if (shaderContent === undefined) {
+            throw new Error(`Shader content named (${name}) not exists.`);
+        }
+        return shaderContent;
+    }
+
+    makeProgram({programName, vertexShaderName, fragmentShaderName}) {
+        const vertexShader = this.getShaderByName(vertexShaderName);
+        const fragmentShader = this.getShaderByName(fragmentShaderName);
+        const program = this.createProgram({name: programName, vertexShader, fragmentShader});
+        return progra;
+    }
+
+    registerShaderContent(name, vertexContent, fragmentContent) {
+        this.createShaderContent({name: `${name}.vertex`, content: vertexContent});
+        this.createShaderContent({name: `${name}.fragment`, content: fragmentContent});
     }
 }
