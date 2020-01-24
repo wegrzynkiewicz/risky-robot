@@ -21,7 +21,7 @@ glob.sync('./dataset/**/entry.js').map(filepath => {
 });
 
 module.exports = {
-    mode: "development",
+    mode: process.env.NODE_ENV || "development",
     entry: {
         index: './src/entry/index.js',
         ...entries,

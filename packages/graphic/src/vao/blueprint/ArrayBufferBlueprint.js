@@ -8,12 +8,11 @@ export default class ArrayBufferBlueprint {
         }
         this.name = name;
         this.batchBlueprints = batches;
-        this.glBufferType = WebGLRenderingContext["ARRAY_BUFFER"];
-        this.glBufferTypeName = "ARRAY_BUFFER";
     }
 
     createBufferLayout({allocation}) {
         const bufferLayout = new ArrayBufferLayout({
+            name: this.name,
             byteLength: this.calculateTotalByteLength(allocation)
         });
 

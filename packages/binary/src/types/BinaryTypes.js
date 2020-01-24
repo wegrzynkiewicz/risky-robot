@@ -29,16 +29,16 @@ const readStatic = function (dataView, offset) {
     return this.dataViewGetter.call(dataView, offset, true);
 };
 
-const glIntegerMapper = [
-    {power: 0, glType: "BYTE", arrayTypePrefix: ""},
-    {power: 1, glType: "SHORT", arrayTypePrefix: ""},
-    {power: 2, glType: "INT", arrayTypePrefix: ""},
-    {power: 3, glType: undefined, arrayTypePrefix: "Big"},
+const openGLIntegerMapper = [
+    {power: 0, openGLType: "BYTE", arrayTypePrefix: ""},
+    {power: 1, openGLType: "SHORT", arrayTypePrefix: ""},
+    {power: 2, openGLType: "INT", arrayTypePrefix: ""},
+    {power: 3, openGLType: undefined, arrayTypePrefix: "Big"},
 ];
 
-const glFloatMapper = [
-    {power: 2, glType: "FLOAT"},
-    {power: 3, glType: undefined},
+const openGLFloatMapper = [
+    {power: 2, openGLType: "FLOAT"},
+    {power: 3, openGLType: undefined},
 ];
 
 const staticTypes = [];
@@ -48,26 +48,26 @@ export default class BinaryTypes {
     constructor() {
         this.types = Object.create(null);
 
-        for (let {power, glType, arrayTypePrefix} of glIntegerMapper) {
+        for (let {power, openGLType, arrayTypePrefix} of openGLIntegerMapper) {
             this.createStaticType({
                 char: "s",
                 power,
-                glType,
+                openGLType,
                 arrayType: `${arrayTypePrefix}Int`
             });
             this.createStaticType({
                 char: "u",
                 power,
-                glType: `UNSIGNED_${glType}`,
+                openGLType: `UNSIGNED_${openGLType}`,
                 arrayType: `${arrayTypePrefix}Uint`
             });
         }
 
-        for (let {power, glType} of glFloatMapper) {
+        for (let {power, openGLType} of openGLFloatMapper) {
             this.createStaticType({
                 char: "f",
                 power,
-                glType,
+                openGLType,
                 arrayType: "Float"
             });
         }
@@ -95,7 +95,7 @@ export default class BinaryTypes {
         }
     }
 
-    createStaticType({char, power, glType, arrayType}) {
+    createStaticType({char, power, openGLType, arrayType}) {
         const byteLength = 2 ** power;
         const bitSize = byteLength * 8;
         const typeName = `${char}${bitSize}`;
@@ -106,9 +106,9 @@ export default class BinaryTypes {
         instance.typeName = typeName;
         instance.byteLength = byteLength;
         instance.components = 1;
-        instance.glType = WebGLRenderingContext[glType];
-        instance.glTypeName = glType;
-        instance.glTypeStride = byteLength;
+        instance.openGLType = WebGLRenderingContext[openGLType];
+        instance.openGLTypeName = openGLType;
+        instance.openGLTypeStride = byteLength;
         instance.arrayType = typedArrays[`${arrayType}${bitSize}Array`];
         instance.dataViewGetter = DataView.prototype[`get${dataViewType}`];
         instance.dataViewSetter = DataView.prototype[`set${dataViewType}`];
@@ -131,9 +131,9 @@ export default class BinaryTypes {
         instance.axisType = staticType;
         instance.axisLength = axisLength;
         instance.axisByteLength = staticType.byteLength;
-        instance.glType = staticType.glType;
-        instance.glTypeName = staticType.glTypeName;
-        instance.glTypeStride = staticType.glTypeStride;
+        instance.openGLType = staticType.openGLType;
+        instance.openGLTypeName = staticType.openGLTypeName;
+        instance.openGLTypeStride = staticType.openGLTypeStride;
         instance.arrayType = staticType.arrayType;
         instance.dataViewGetter = staticType.dataViewGetter;
         instance.dataViewSetter = staticType.dataViewSetter;

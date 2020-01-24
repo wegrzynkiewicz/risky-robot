@@ -11,12 +11,12 @@ export default class BinaryAccessor {
     }
 
     write(dataView, index, source) {
-        const offset = this.calculateOffset(vertexIndex);
-        this.type.read(dataView, offset, source);
+        const offset = this.calculateOffset(index);
+        this.type.write(dataView, offset, source);
     }
 
     read(dataView, index, destination) {
-        const offset = this.calculateOffset(vertexIndex);
+        const offset = this.calculateOffset(index);
         return this.type.read(dataView, offset, destination);
     }
 }

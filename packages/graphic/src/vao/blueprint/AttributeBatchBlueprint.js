@@ -12,7 +12,7 @@ export default class AttributeBatchBlueprint {
             blockStride += attributeBlueprint.type.byteLength;
         }
         for (let attributeBlueprint of this.attributeBlueprints) {
-            if (blockStride % attributeBlueprint.type.glTypeStride !== 0) {
+            if (blockStride % attributeBlueprint.type.openGLTypeStride !== 0) {
                 throw new Error("Invalid stride or offset data pack");
             }
         }

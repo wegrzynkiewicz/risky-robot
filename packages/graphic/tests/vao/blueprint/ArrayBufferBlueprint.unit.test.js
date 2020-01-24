@@ -1,6 +1,6 @@
 import assert from "assert";
 import Allocation from "../../../src/vao/layout/Allocation";
-import VertexLayoutBlueprint from "../../../src/vao/blueprint/VertexLayoutBlueprint";
+import VAOLayoutBlueprint from "../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expectedOffset) {
     const attributeLayout = bufferLayout.getAttributeLayoutByName(attributeName);
@@ -20,32 +20,32 @@ function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expe
 describe("ArrayBufferBlueprint", function () {
 
     it("should create valid ArrayBufferLayout object", function () {
-        const bufferBlueprint = new VertexLayoutBlueprint.ArrayBuffer({
+        const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
             batches: [
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexPosition",
                             type: "vec3<f32>"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexTexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexNormal",
                             type: "vec3<f32>",
                             divisor: 1
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexColor",
                             type: "vec4<f32>",
                             divisor: 2
@@ -67,67 +67,67 @@ describe("ArrayBufferBlueprint", function () {
     });
 
     it("should create valid complex ArrayBufferLayout object", function () {
-        const bufferBlueprint = new VertexLayoutBlueprint.ArrayBuffer({
+        const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
             batches: [
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexPosition",
                             type: "vec3<f32>"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexNormal",
                             type: "vec3<f32>"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexTexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexColor",
                             type: "vec4<f32>"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexNegativeColor",
                             type: "f32"
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexWeight",
                             type: "s16"
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexVisibility",
                             type: "s8"
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.AttributeBatch({
+                new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexAdditional1",
                             type: "u16"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexAdditional2",
                             type: "u16"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexAdditional3",
                             type: "u32"
                         }),
-                        new VertexLayoutBlueprint.Attribute({
+                        new VAOLayoutBlueprint.Attribute({
                             name: "a_VertexAdditional4",
                             type: "vec4<s16>"
                         }),

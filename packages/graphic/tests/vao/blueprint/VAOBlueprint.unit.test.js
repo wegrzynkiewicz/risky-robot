@@ -1,28 +1,28 @@
 import assert from "assert";
-import VertexLayoutBlueprint from "../../../src/vao/blueprint/VertexLayoutBlueprint";
+import VAOLayoutBlueprint from "../../../src/vao/blueprint/VertexLayoutBlueprint";
 
 describe("VertexLayoutBlueprint", function () {
     it("should create valid layout object", function () {
-        const blueprint = new VertexLayoutBlueprint({
+        const blueprint = new VAOLayoutBlueprint({
             buffers: [
-                new VertexLayoutBlueprint.ArrayBuffer({
+                new VAOLayoutBlueprint.ArrayBuffer({
                     name: "primary",
                     batches: [
-                        new VertexLayoutBlueprint.AttributeBatch({
+                        new VAOLayoutBlueprint.AttributeBatch({
                             attributes: [
-                                new VertexLayoutBlueprint.Attribute({
+                                new VAOLayoutBlueprint.Attribute({
                                     name: "a_VertexPosition",
                                     type: "vec3<f32>"
                                 }),
-                                new VertexLayoutBlueprint.Attribute({
+                                new VAOLayoutBlueprint.Attribute({
                                     name: "a_VertexNormal",
                                     type: "vec3<f32>"
                                 }),
                             ],
                         }),
-                        new VertexLayoutBlueprint.AttributeBatch({
+                        new VAOLayoutBlueprint.AttributeBatch({
                             attributes: [
-                                new VertexLayoutBlueprint.Attribute({
+                                new VAOLayoutBlueprint.Attribute({
                                     name: "a_VertexColor",
                                     type: "vec3<u8>",
                                     normalize: true
@@ -31,7 +31,7 @@ describe("VertexLayoutBlueprint", function () {
                         }),
                     ],
                 }),
-                new VertexLayoutBlueprint.ElementArrayBuffer({
+                new VAOLayoutBlueprint.ElementArrayBuffer({
                     name: "indices",
                 }),
             ],

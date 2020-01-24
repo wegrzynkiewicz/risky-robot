@@ -2,7 +2,7 @@ import ArrayBufferBlueprint from "../blueprint/ArrayBufferBlueprint";
 import AttributeBatchBlueprint from "../blueprint/AttributeBatchBlueprint";
 import AttributeBlueprint from "../blueprint/AttributeBlueprint";
 import ElementBufferBlueprint from "../blueprint/ElementBufferBlueprint";
-import VertexLayoutBlueprint from "../blueprint/VertexLayoutBlueprint";
+import VAOLayoutBlueprint from "../blueprint/VAOLayoutBlueprint";
 
 export default function createBasicLayout({primitive, elementsCount, indices, attributes}) {
 
@@ -34,7 +34,7 @@ export default function createBasicLayout({primitive, elementsCount, indices, at
         buffers.push(indicesBuffer);
     }
 
-    const blueprint = new VertexLayoutBlueprint({buffers});
+    const blueprint = new VAOLayoutBlueprint({buffers});
     const layout = blueprint.createLayout({primitive, elementsCount});
 
     return layout;

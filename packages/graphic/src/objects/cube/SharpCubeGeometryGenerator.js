@@ -1,23 +1,23 @@
 import emitVertexDataset from "./emitVertexDataset";
-import VertexLayoutBlueprint from "../../vao/blueprint/VertexLayoutBlueprint";
+import VAOLayoutBlueprint from "../../vao/blueprint/VertexLayoutBlueprint";
 
 function getCubeBufferLayout() {
-    const cubeBlueprint = new VertexLayoutBlueprint({
+    const cubeBlueprint = new VAOLayoutBlueprint({
         buffers: [
-            new VertexLayoutBlueprint.ArrayBuffer({
+            new VAOLayoutBlueprint.ArrayBuffer({
                 name: "primary",
                 batches: [
-                    new VertexLayoutBlueprint.AttributeBatch({
+                    new VAOLayoutBlueprint.AttributeBatch({
                         attributes: [
-                            new VertexLayoutBlueprint.Attribute({
+                            new VAOLayoutBlueprint.Attribute({
                                 name: "a_VertexPosition_0",
                                 type: "vec3<f32>"
                             }),
-                            new VertexLayoutBlueprint.Attribute({
+                            new VAOLayoutBlueprint.Attribute({
                                 name: "a_VertexNormal_0",
                                 type: "vec3<f32>"
                             }),
-                            new VertexLayoutBlueprint.Attribute({
+                            new VAOLayoutBlueprint.Attribute({
                                 name: "a_VertexTextureCoords_0",
                                 type: "vec2<f32>"
                             }),
@@ -25,7 +25,7 @@ function getCubeBufferLayout() {
                     }),
                 ],
             }),
-            new VertexLayoutBlueprint.ElementArrayBuffer({
+            new VAOLayoutBlueprint.ElementArrayBuffer({
                 name: "indices",
             }),
         ],

@@ -6,7 +6,7 @@ export default class AttributeBlueprint {
     constructor({name, type, normalize, divisor}) {
         this.name = name;
         this.type = Binary.types.getTypeByName(type);
-        if (!this.type.glTypeName) {
+        if (!this.type.openGLTypeName) {
             throw new Error(`Cannot use type (${type}) in vertex attribute`);
         }
         this.normalize = normalize === undefined ? false : normalize;

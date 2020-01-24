@@ -1,6 +1,6 @@
 import createBasicLayout from "./createBasicLayout";
 
-export default class VertexLayout {
+export default class VAOLayout {
 
     constructor({allocation}) {
         this.allocation = allocation;
@@ -12,4 +12,4 @@ export default class VertexLayout {
     }
 }
 
-VertexLayout.createBasicLayout = createBasicLayout;
+VAOLayout.createBasicLayout = createBasicLayout;
