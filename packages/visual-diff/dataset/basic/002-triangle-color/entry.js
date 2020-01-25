@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         indices: false,
         attributes: [
             {buffer: "primary", batch: 0, name: "a_VertexPosition", type: "vec3<f32>"},
+            {buffer: "primary", batch: 0, name: "a_VertexColor", type: "vec3<f32>"},
         ],
     });
 
@@ -25,6 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
     positionAccessor.write(dataView, 0, [-0.5, -0.5, 0]);
     positionAccessor.write(dataView, 1, [0.5, -0.5, 0]);
     positionAccessor.write(dataView, 2, [-0.5, 0.5, 0]);
+
+    const colorAccessor = bufferLayout.getAccessorByName("a_VertexColor");
+
+    colorAccessor.write(dataView, 0, [1, 0, 0]);
+    colorAccessor.write(dataView, 1, [0, 1, 0]);
+    colorAccessor.write(dataView, 2, [0, 0, 1]);
 
     const {bufferManager, vaoManager, programManager} = system.view;
 
