@@ -56,6 +56,7 @@ export default class Shader {
 }
 
 function attachShaderInspectorData() {
-    this.openGLShaderPointer.__SPECTOR_Object_TAG.displayText += ", Name: " + this.name;
+    const tag = this.openGLShaderPointer.__SPECTOR_Object_TAG || {};
+    tag.displayText += ", Name: " + this.name;
 }
 

@@ -52,6 +52,4 @@ document.addEventListener("DOMContentLoaded", () => {
         const {openGLPrimitiveType, verticesCount} = vao.vaoLayout.allocation;
         system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
     });
-
-    console.log(vao);
 });

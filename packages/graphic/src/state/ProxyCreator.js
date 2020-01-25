@@ -10,7 +10,7 @@ export default class ProxyCreator {
         }
     }
 
-    createNumberStateProxy(parameter, functionName) {
+    createValueStateProxy(parameter, functionName) {
         const modifier = function () {
             this.state[parameter] = undefined;
             this.proxies[functionName] = (number) => {

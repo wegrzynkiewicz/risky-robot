@@ -63,6 +63,7 @@ export default class Program {
 }
 
 function attachProgramInspectorData() {
-    this.openGLProgramPointer.__SPECTOR_Object_TAG.displayText += ", Name: " + this.name;
+    const tag = this.openGLProgramPointer.__SPECTOR_Object_TAG || {};
+    tag.displayText += ", Name: " + this.name;
 }
 

@@ -2,6 +2,7 @@ const glob = require('glob');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 const plugins = [];
 const entries = {};
@@ -38,6 +39,9 @@ module.exports = {
             chunks: ["index"],
         }),
         ...plugins,
+        new ScriptExtHtmlWebpackPlugin({
+            defaultAttribute: 'defer'
+        }),
         new webpack.EnvironmentPlugin([
             'INSPECTOR_METADATA_ENABLED'
         ]),
