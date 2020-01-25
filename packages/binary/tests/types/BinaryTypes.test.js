@@ -1,5 +1,5 @@
 import assert from "assert";
-import BinaryTypes from "../../src/types/BinaryTypes.js";
+import BinaryTypes from "../../src/types/binaryTypes.js";
 
 const expectedTypes = [
     {name: "f32", byteLength: 4, components: 1},

@@ -43,7 +43,7 @@ const openGLFloatMapper = [
 
 const staticTypes = [];
 
-export default class BinaryTypes {
+class BinaryTypes {
 
     constructor() {
         this.types = Object.create(null);
@@ -151,3 +151,7 @@ export default class BinaryTypes {
         return this.types[typeName];
     }
 }
+
+const binaryTypes = new BinaryTypes();
+
+export default binaryTypes;

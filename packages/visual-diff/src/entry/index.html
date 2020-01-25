@@ -1,18 +1,66 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Visual Diff</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Visual differences</title>
+
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y="
+          crossorigin="anonymous"
+    />
 </head>
-<body>
-<canvas id="game" width="200" height="200"></canvas>
+<body class="bg-light">
+
+<div id="app"></div>
+
+<script id="template-main" type="text/template">
+    <div>
+        <header>
+            <div class="navbar navbar-dark bg-dark shadow-sm">
+                <div class="container d-flex justify-content-between">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <strong>Visual differences</strong>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main role="main">
+            <div class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <item v-for="itemName of dataset"
+                              v-bind:key="itemName"
+                              v-bind:name="itemName">
+                        </item>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</script>
+
+<script id="template-item" type="text/template">
+    <div class="col-md-4">
+        <div class="card mb-3 shadow-sm">
+            <div class="embed-responsive embed-responsive-4by3">
+                <iframe class="embed-responsive-item"
+                        v-bind:src="source">
+                </iframe>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a v-bind:href="source"
+                       target="_blank">{{ name }}</a>
+                    <small class="text-success">Valid</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"
+        crossorigin="anonymous"></script>
 </body>
 </html>

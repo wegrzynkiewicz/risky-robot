@@ -7,12 +7,13 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const plugins = [];
 const entries = {};
 const dataset = [];
-glob.sync('./dataset/**/entry.js').map(filepath => {
+glob.sync('./dataset/**/*.entry.js').map(filepath => {
     const name = path.dirname(filepath).substr(10);
     entries[name] = filepath;
 
     const plugin = new HtmlWebpackPlugin({
-        template: './src/entry/suite.html',
+        title: name,
+        template: './src/entry/suite.ejs',
         filename: `${name}.html`,
         chunks: ['commons', name],
     });
