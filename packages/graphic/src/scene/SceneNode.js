@@ -20,10 +20,35 @@ function removeChild(child) {
  */
 export default class SceneNode {
 
-    constructor({id}) {
-        this.id = id;
+    constructor({name}) {
+        this.name = name;
         this.parent = null;
         this.children = [];
+    }
+
+    getRoot() {
+        let node = this;
+        while (true) {
+            if (node.parent === null) {
+                return node;
+            }
+            node = node.parent;
+        }
+    }
+
+    getSceneNodeByName(name) {
+        if (this.name === name) {
+            return this;
+        }
+        const length = this.children.length;
+        for (let i = 0; i < length; i++) {
+            const child = this.children[i];
+            const searchedSceneNode = child.getSceneNodeByName(name);
+            if (searchedSceneNode) {
+                return searchedSceneNode;
+            }
+        }
+        throw new Error(`SceneNode named (${name}) not exists.`);
     }
 
     setParent(newParentNode) {

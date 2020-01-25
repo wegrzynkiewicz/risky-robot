@@ -8,7 +8,7 @@ export default function createBasicSystem({window, canvas}) {
 
     const sceneManager = new Graphic.SceneManager();
 
-    const scene = new Graphic.Scene({id: "primary"});
+    const scene = new Graphic.Scene({name: "primary-scene"});
     scene.setParent(sceneManager);
 
     const camera = new Graphic.Camera();

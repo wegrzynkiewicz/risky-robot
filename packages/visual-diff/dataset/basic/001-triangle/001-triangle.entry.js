@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
 
+    const {view, sceneManager} = system;
+
     const vaoLayout = Graphic.VAOLayout.createBasicLayout({
         primitive: "triangle",
         elementsCount: 1,
@@ -26,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     positionAccessor.write(dataView, 1, [0.5, -0.5, 0]);
     positionAccessor.write(dataView, 2, [-0.5, 0.5, 0]);
 
-    const {bufferManager, vaoManager, programManager} = system.view;
+    const {bufferManager, vaoManager, programManager} = view;
 
     const buffer = bufferManager.createBuffer({
         name: "triangle",
@@ -45,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
         vaoLayout,
         buffers: [buffer],
     });
+
+    const primaryScene = sceneManager.getSceneNodeByName("primary-scene");
+    const triangleSceneNode = new Graphic.StaticSceneNode({});
+    triangleSceneNode.setParent(primaryScene);
 
     system.animationLoop.on("frame", () => {
         program.use();

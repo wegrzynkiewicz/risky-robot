@@ -2,8 +2,8 @@ import SceneNode from "./SceneNode"
 
 export default class Scene extends SceneNode {
 
-    constructor({id}) {
-        super({id});
+    constructor({name}) {
+        super({name});
     }
 
     render(system, context) {
