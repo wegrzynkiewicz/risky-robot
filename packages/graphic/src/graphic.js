@@ -9,6 +9,8 @@ export {default as SceneNode} from "./scene/SceneNode";
 export {default as SceneManager} from "./scene/SceneManager";
 export {default as StaticSceneNode} from "./scene/StaticSceneNode";
 
+export {default as loadImage} from "./texture/loadImage";
+
 export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, radian} from "./math";
 export {default as VAOLayout} from "./vao/layout/VAOLayout";
 export {default as VAOLayoutBlueprint} from "./vao/blueprint/VAOLayoutBlueprint";

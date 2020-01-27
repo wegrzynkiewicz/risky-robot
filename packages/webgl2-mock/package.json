@@ -1,0 +1,17 @@
+{
+  "name": "robo24-webgl2-mock",
+  "version": "0.0.0",
+  "description": "robo24-webgl2-mock",
+  "author": {
+    "name": "Kevin Birk",
+    "email": "birk.kevin@gmail.com"
+  },
+  "license": "MIT",
+  "main": "src/exports.js",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "src"
+  ]
+}
