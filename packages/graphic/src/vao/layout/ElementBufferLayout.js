@@ -1,6 +1,7 @@
 export default class ElementBufferLayout {
 
-    constructor({byteLength}) {
+    constructor({name, byteLength}) {
+        this.name = name;
         this.byteLength = byteLength;
         this.openGLBufferType = WebGLRenderingContext['ELEMENT_ARRAY_BUFFER'];
         this.openGLBufferTypeName = 'ELEMENT_ARRAY_BUFFER';

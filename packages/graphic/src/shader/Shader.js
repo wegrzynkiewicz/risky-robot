@@ -1,34 +1,22 @@
-const shaderTypes = {
-    vertex: {
-        openGLShaderType: WebGLRenderingContext["VERTEX_SHADER"],
-        openGLShaderTypeName: "VERTEX_SHADER",
-    },
-    fragment: {
-        openGLShaderType: WebGLRenderingContext["FRAGMENT_SHADER"],
-        openGLShaderTypeName: "FRAGMENT_SHADER"
-    }
-};
-
 export default class Shader {
 
     constructor({name, type, openGL, shaderContent}) {
-        const {openGLShaderType, openGLShaderTypeName} = shaderTypes[type];
-        if (openGLShaderTypeName === undefined) {
+
+        const openGLShaderType = openGL[type];
+        if (openGLShaderType === undefined) {
             throw new Error("Invalid shader type.");
         }
 
         this.name = name;
         this.openGL = openGL;
         this.openGLShaderType = openGLShaderType;
-        this.openGLShaderTypeName = openGLShaderTypeName;
+        this.openGLShaderTypeName = type;
         this.shaderContent = shaderContent;
 
         this.openGLShaderPointer = openGL.createShader(openGLShaderType);
         if (process.env.INSPECTOR_METADATA_ENABLED) {
             attachShaderInspectorData.call(this);
         }
-
-        this.compile();
     }
 
     compile() {

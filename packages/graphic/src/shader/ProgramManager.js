@@ -21,6 +21,7 @@ export default class ProgramManager {
     createShader({name, type, shaderContent}) {
         const {openGL} = this.view;
         const shader = new Shader({openGL, name, type, shaderContent});
+        shader.compile();
         this.shaders[name] = shader;
         return shader;
     }

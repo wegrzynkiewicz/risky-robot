@@ -1,3 +1,5 @@
+import ElementBufferLayout from "../layout/ElementBufferLayout";
+
 export default class ElementBufferBlueprint {
 
     constructor({name}) {
@@ -5,7 +7,16 @@ export default class ElementBufferBlueprint {
     }
 
     createBufferLayout({allocation}) {
+        const bufferLayout = new ElementBufferLayout({
+            name: this.name,
+            byteLength: this.calculateTotalByteLength(allocation)
+        });
 
-        return undefined;
+        return bufferLayout;
+    }
+
+    calculateTotalByteLength(allocation) {
+        // TODO: refactor
+        return allocation.verticesCount * 3;
     }
 }

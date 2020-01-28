@@ -13,6 +13,7 @@ export default class HTMLCanvasElement {
             case '2d':
                 return new CanvasRenderingContext2D(this);
             case 'webgl':
+            case 'webgl2':
             case 'experimental-webgl':
                 return new WebGLRenderingContext(this);
         }
