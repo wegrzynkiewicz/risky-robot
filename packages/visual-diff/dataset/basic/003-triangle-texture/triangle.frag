@@ -1,9 +1,11 @@
 #version 300 es
 
-in lowp vec3 v_FragmentColor;
+in lowp vec2 v_FragmentTextureCoords;
+
+uniform sampler2D u_Example;
 
 layout(location = 0) out lowp vec4 o_FragmentColor;
 
 void main(void) {
-    o_FragmentColor = vec4(1.0, 0.1, 0.1, 1.0);
+    o_FragmentColor = texture(u_Example, v_FragmentTextureCoords);
 }

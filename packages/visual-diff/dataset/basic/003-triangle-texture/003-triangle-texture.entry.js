@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     positionAccessor.write(dataView, 1, [0.5, -0.5, 0]);
     positionAccessor.write(dataView, 2, [-0.5, 0.5, 0]);
 
-    const colorAccessor = bufferLayout.getAccessorByName("a_VertexTextureCoords");
+    const textureCoordsAccessor = bufferLayout.getAccessorByName("a_VertexTextureCoords");
 
-    colorAccessor.write(dataView, 0, [1, 0, 0]);
-    colorAccessor.write(dataView, 1, [0, 1, 0]);
-    colorAccessor.write(dataView, 2, [0, 0, 1]);
+    textureCoordsAccessor.write(dataView, 0, [0, 1]);
+    textureCoordsAccessor.write(dataView, 1, [1, 1]);
+    textureCoordsAccessor.write(dataView, 2, [0, 0]);
 
     const {bufferManager, vaoManager, programManager} = system.view;
 
@@ -53,10 +53,19 @@ document.addEventListener("DOMContentLoaded", () => {
         buffers: [buffer],
     });
 
+    const texture = new Texture2D({
+        name: "test",
+        openGL: system.view.openGL,
+        width: 1024,
+        height: 1024,
+        internalFormat: "RGBA"
+    });
+
     system.animationLoop.on("frame", () => {
         program.use();
         vao.bind();
         const {openGLPrimitiveType, verticesCount} = vao.vaoLayout.allocation;
+        // openGL.uniform1iv(program.uniformLocations['textureSampler']);
         system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
     });
 });
