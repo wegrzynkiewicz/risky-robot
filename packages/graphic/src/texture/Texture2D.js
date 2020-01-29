@@ -1,6 +1,6 @@
 export default class Texture2D {
 
-    constructor({name, openGL, width, height, internalFormat}) {
+    constructor({name, openGL, width, height, internalFormat, parameters}) {
 
         const openGLTextureInternalFormat = openGL[internalFormat];
         if (openGLBufferTypeName === undefined) {
@@ -10,12 +10,13 @@ export default class Texture2D {
         this.name = name;
         this.width = width;
         this.height = height;
-        this.openGLPointer = openGL.createTexture();
-        this.openGLType = openGL['TEXTURE_2D'];
-        this.openGLTypeName = "TEXTURE_2D";
-        this.openGLInternalFormat = openGLTextureInternalFormat;
-        this.openGLInternalFormatName = internalFormat;
         this.openGL = openGL;
+        this.openGLTexturePointer = openGL.createTexture();
+        this.openGLTextureType = openGL['TEXTURE_2D'];
+        this.openGLTextureTypeName = "TEXTURE_2D";
+        this.openGLTextureInternalFormat = openGLTextureInternalFormat;
+        this.openGLTextureInternalFormatName = internalFormat;
+        this.parameters = parameters;
     }
 
     bind() {
@@ -47,5 +48,11 @@ export default class Texture2D {
             openGLTextureType,
             dataView
         );
+    }
+
+    applyParameters() {
+        this.bind();
+        const {openGL, openGLTextureType} = this;
+        this.parameters.apply({openGL, openGLTextureType});
     }
 }
