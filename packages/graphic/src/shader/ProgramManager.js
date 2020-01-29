@@ -45,7 +45,8 @@ export default class ProgramManager {
     getShaderByName(code) {
         let shader = this.shaders[code];
         if (shader === undefined) {
-            const [name, type] = code.split(".");
+            let [, type] = code.split(".");
+            type = type.toUpperCase() + "_SHADER";
             const shaderContent = this.getShaderContentByName(code);
             shader = this.createShader({name: code, type, shaderContent});
         }

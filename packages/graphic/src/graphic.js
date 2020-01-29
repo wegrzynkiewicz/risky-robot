@@ -10,6 +10,8 @@ export {default as SceneManager} from "./scene/SceneManager";
 export {default as StaticSceneNode} from "./scene/StaticSceneNode";
 
 export {default as loadImage} from "./texture/loadImage";
+export {default as Texture2D} from "./texture/Texture2D";
+export {default as TextureParameters} from "./texture/TextureParameters";
 
 export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, radian} from "./math";
 export {default as VAOLayout} from "./vao/layout/VAOLayout";

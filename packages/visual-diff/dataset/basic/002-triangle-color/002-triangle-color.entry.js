@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const buffer = bufferManager.createBuffer({
         name: "triangle",
-        type: "array",
+        type: "ARRAY_BUFFER",
         bufferLayout
     });
 

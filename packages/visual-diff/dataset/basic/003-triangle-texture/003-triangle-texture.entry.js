@@ -5,7 +5,7 @@ import triangleFragment from "./triangle.frag";
 
 const {Graphic} = Frontend;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
 
@@ -29,15 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const textureCoordsAccessor = bufferLayout.getAccessorByName("a_VertexTextureCoords");
 
-    textureCoordsAccessor.write(dataView, 0, [0, 1]);
-    textureCoordsAccessor.write(dataView, 1, [1, 1]);
+    textureCoordsAccessor.write(dataView, 0, [0, 0.5]);
+    textureCoordsAccessor.write(dataView, 1, [0.5, 0.5]);
     textureCoordsAccessor.write(dataView, 2, [0, 0]);
 
     const {bufferManager, vaoManager, programManager} = system.view;
 
     const buffer = bufferManager.createBuffer({
         name: "triangle",
-        type: "array",
+        type: "ARRAY_BUFFER",
         bufferLayout
     });
 
@@ -53,13 +53,25 @@ document.addEventListener("DOMContentLoaded", () => {
         buffers: [buffer],
     });
 
-    const texture = new Texture2D({
+    const image = await Graphic.loadImage("../../common/textures/color-grid.png");
+    const texture = new Graphic.Texture2D({
         name: "test",
         openGL: system.view.openGL,
         width: 1024,
         height: 1024,
-        internalFormat: "RGBA"
+        internalFormat: "RGBA",
+        parameters: new Graphic.TextureParameters(),
     });
+
+    texture.putData({
+        level: 0,
+        format: "RGBA",
+        type: "UNSIGNED_BYTE",
+        data: image,
+    });
+
+    texture.bind();
+    texture.applyParameters();
 
     system.animationLoop.on("frame", () => {
         program.use();

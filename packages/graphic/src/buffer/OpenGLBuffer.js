@@ -3,8 +3,8 @@ export default class OpenGLBuffer {
     constructor({openGL, name, type, bufferLayout}) {
         const openGLBufferType = openGL[type];
 
-        if (openGLBufferTypeName === undefined) {
-            throw new Error("Invalid  allocation primitive type.");
+        if (openGLBufferType === undefined) {
+            throw new Error("Invalid buffer type.");
         }
 
         this.name = name;

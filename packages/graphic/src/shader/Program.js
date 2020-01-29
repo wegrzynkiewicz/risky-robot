@@ -33,7 +33,7 @@ export default class Program {
 
         for (const uniformName of uniformNames.values()) {
             const uniformLocation = openGL.getUniformLocation(openGLProgramPointer, uniformName);
-            this.uniformLocations[attributeName] = uniformLocation;
+            this.uniformLocations[uniformName] = uniformLocation;
         }
     }
 
@@ -51,7 +51,7 @@ export default class Program {
         openGL.linkProgram(openGLProgramPointer);
 
         if (!openGL.getProgramParameter(openGLProgramPointer, openGL.LINK_STATUS)) {
-            const message = openGL.getProgramInfoLog(program);
+            const message = openGL.getProgramInfoLog(openGLProgramPointer);
             this.deleteProgram();
             throw new Error(`Unable to initialize the shader program: ${message}`);
         }

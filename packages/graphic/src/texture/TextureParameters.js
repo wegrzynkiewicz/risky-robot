@@ -2,7 +2,7 @@ export default class TextureParameters {
 
     constructor() {
         this.magnifyingFilter = "LINEAR";
-        this.minifyingFilter = "NEAREST_MIPMAP_LINEAR";
+        this.minifyingFilter = "LINEAR";
         this.wrapS = "REPEAT";
         this.wrapT = "REPEAT";
         this.wrapR = "REPEAT";

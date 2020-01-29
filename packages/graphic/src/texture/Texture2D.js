@@ -3,7 +3,7 @@ export default class Texture2D {
     constructor({name, openGL, width, height, internalFormat, parameters}) {
 
         const openGLTextureInternalFormat = openGL[internalFormat];
-        if (openGLBufferTypeName === undefined) {
+        if (openGLTextureInternalFormat === undefined) {
             throw new Error("Invalid texture internal format.");
         }
 
@@ -20,34 +20,38 @@ export default class Texture2D {
     }
 
     bind() {
-        const {openGL, openGLType, openGLPointer} = this;
-        openGL.bindTexture(openGLType, openGLPointer);
+        this.openGL.bindTexture(this.openGLTextureType, this.openGLTexturePointer);
     }
 
-    putData({level, format, type, dataView}) {
-        const {openGL, openGLType, openGLPointer, width, height} = this;
-
-        const openGLTextureFormat = openGL[format];
-        if (openGLTextureFormat === undefined) {
+    putData({level, format, type, data}) {
+        const openGLDataFormat = this.openGL[format];
+        if (openGLDataFormat === undefined) {
             throw new Error("Invalid texture data format.");
         }
 
-        const openGLTextureType = openGL[type];
-        if (openGLTextureType === undefined) {
+        const openGLDataType = this.openGL[type];
+        if (openGLDataType === undefined) {
             throw new Error("Invalid texture data type.");
         }
 
-        openGL.bindTexture(openGLType, openGLPointer);
-        openGL.texImage2D(
-            openGLType,
+        this.bind();
+
+        const border = 0;
+        this.openGL.texImage2D(
+            this.openGLTextureType,
             level,
-            openGLInternalFormat,
-            width,
-            height,
-            openGLTextureFormat,
-            openGLTextureType,
-            dataView
+            this.openGLTextureInternalFormat,
+            this.width,
+            this.height,
+            border,
+            openGLDataFormat,
+            openGLDataType,
+            data
         );
+
+        console.log(this);
+
+        //this.openGL.generateMipmap(this.openGLTextureType);
     }
 
     applyParameters() {
