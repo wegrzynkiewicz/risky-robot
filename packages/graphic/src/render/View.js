@@ -2,6 +2,7 @@ import createStateMachine from "../state/createStateMachine";
 import OpenGLBufferManager from "../buffer/OpenGLBufferManager";
 import ProgramManager from "../shader/ProgramManager";
 import RenderingFlow from "./RenderingFlow";
+import RenderingOrder from "./RenderingOrder";
 import VAOManager from "../vao/VAOManager";
 
 export default class View {
@@ -20,9 +21,12 @@ export default class View {
         this.bufferManager = new OpenGLBufferManager({view});
         this.vaoManager = new VAOManager({view});
         this.programManager = new ProgramManager({view});
+        this.renderingOrder = new RenderingOrder();
     }
 
     render(system, context) {
+        context.view = this;
+        context.renderingOrder = this.renderingOrder;
         this.renderingFlow.render(system, context);
     }
 }

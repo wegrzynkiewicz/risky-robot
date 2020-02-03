@@ -7,7 +7,7 @@ export {default as Viewport} from "./render/Viewport";
 export {default as Scene} from "./scene/Scene";
 export {default as SceneNode} from "./scene/SceneNode";
 export {default as SceneManager} from "./scene/SceneManager";
-export {default as StaticSceneNode} from "./scene/StaticSceneNode";
+export {default as ModelSceneNode} from "./scene/ModelSceneNode";
 
 export {default as loadImage} from "./texture/loadImage";
 export {default as Texture2D} from "./texture/Texture2D";

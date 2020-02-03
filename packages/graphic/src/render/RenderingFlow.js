@@ -11,9 +11,8 @@ export default class RenderingFlow {
     }
 
     render(system, context) {
-        const length = this.sortedTasks.length;
-        for (let i = 0; i < length; i++) {
-            const task = this.sortedTasks[i];
+        context.renderingFlow = this;
+        for (const task of this.sortedTasks) {
             task.render(system, context);
         }
     }

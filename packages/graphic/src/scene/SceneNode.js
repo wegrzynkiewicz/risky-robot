@@ -61,32 +61,20 @@ export default class SceneNode {
     }
 
     update(system, context) {
-        this.updateChildren(system, context);
-    }
-
-    updateChildren(system, context) {
-        const length = this.children.length;
-        for (let i = 0; i < length; i++) {
-            const child = this.children[i];
+        for (const child of this.children) {
             child.update(system, context);
         }
     }
 
     shouldRender(system, context) {
-        return true;
+        for (const child of this.children) {
+            child.shouldRender(system, context);
+        }
     }
 
     render(system, context) {
-        this.renderChildren(system, context);
-    }
-
-    renderChildren(system, context) {
-        const length = this.children.length;
-        for (let i = 0; i < length; i++) {
-            const child = this.children[i];
-            if (child.shouldRender(system, context)) {
-                child.render(system, context);
-            }
+        for (const child of this.children) {
+            child.render(system, context);
         }
     }
 

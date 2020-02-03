@@ -24,15 +24,18 @@ export default function createBasicSystem({window, canvas}) {
         width: canvas.width,
         height: canvas.height,
     });
-    const renderer = new Graphic.SingleCameraRenderer({camera, viewport, scene});
+
+    const renderer = new Graphic.SingleCameraRenderer({
+        camera,
+        viewport,
+        sceneNode: scene
+    });
 
     const view = new Graphic.View({canvas});
     const primaryRenderingTask = new Graphic.RenderingTask({
         enabled: true,
         weight: 1.0000,
-        render(system, context) {
-            renderer.render(system, context);
-        }
+        renderer,
     });
     view.renderingFlow.registerTask(primaryRenderingTask);
 

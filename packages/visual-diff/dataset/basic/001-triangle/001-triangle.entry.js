@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         buffers: [buffer],
     });
 
+    const triangleSceneNode = new Graphic.ModelSceneNode({});
     const primaryScene = sceneManager.getSceneNodeByName("primary-scene");
-    const triangleSceneNode = new Graphic.StaticSceneNode({});
     triangleSceneNode.setParent(primaryScene);
 
     system.animationLoop.on("frame", () => {
