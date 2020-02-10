@@ -1,6 +1,7 @@
 import AnimationLoop from "../flow/AnimationLoop";
 import System from "./System";
 import * as Graphic from "robo24-graphic";
+import * as Assets from "robo24-assets";
 
 export default function createBasicSystem({window, canvas}) {
 
@@ -39,11 +40,14 @@ export default function createBasicSystem({window, canvas}) {
     });
     view.renderingFlow.registerTask(primaryRenderingTask);
 
+    const resourceManager = new Assets.ResourceManager();
+
     const system = new System({
         window,
         view,
         sceneManager,
         animationLoop,
+        resourceManager,
     });
 
     animationLoop.start();

@@ -1,6 +1,6 @@
-const dataset = process.env.DATASET;
-
 document.addEventListener('DOMContentLoaded', () => {
+
+    const config = JSON.parse(document.getElementById("config").innerHTML);
 
     Vue.component("item", {
         props: ["name"],
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         template: "#template-main",
         data() {
             return {
-                dataset: dataset,
+                dataset: config.dataset,
             };
         }
     })

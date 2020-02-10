@@ -1,10 +1,10 @@
 {
-  "name": "robo24-gltf-loader",
+  "name": "robo24-assets",
   "version": "0.0.0",
-  "description": "robo24-gltf-loader",
+  "description": "robo24-assets",
   "author": "",
   "license": "UNLICENSED",
-  "main": "src/gltf-loader.js",
+  "main": "src/assets.js",
   "directories": {
     "lib": "src",
     "test": "tests"

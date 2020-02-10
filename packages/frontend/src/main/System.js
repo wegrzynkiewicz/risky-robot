@@ -1,9 +1,10 @@
 export default class System {
 
-    constructor({view, sceneManager, animationLoop}) {
+    constructor({view, sceneManager, animationLoop, resourceManager}) {
         this.view = view;
         this.sceneManager = sceneManager;
         this.context = Object.create(null);
+        this.resourceManager = resourceManager;
         this.animationLoop = animationLoop;
         this.animationLoop.on("frame", this.loop.bind(this));
     }

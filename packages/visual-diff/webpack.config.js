@@ -7,19 +7,25 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const plugins = [];
 const entries = {};
 const dataset = [];
+
 glob.sync('./dataset/**/*.entry.js').map(filepath => {
-    const name = path.dirname(filepath).substr(10);
-    entries[name] = filepath;
+    const baseName = path.basename(filepath, ".entry.js");
+    const suiteName = path.dirname(filepath).substr(10);
+    entries[suiteName] = filepath;
 
     const plugin = new HtmlWebpackPlugin({
-        title: name,
+        title: suiteName,
         template: './src/entry/suite.ejs',
-        filename: `${name}.html`,
-        chunks: ['commons', name],
+        filename: `${suiteName}.html`,
+        chunks: ['commons', suiteName],
+        config: JSON.stringify({
+            baseName,
+            suiteName,
+        }),
     });
     plugins.push(plugin);
 
-    dataset.push(name);
+    dataset.push(suiteName);
 });
 
 module.exports = {
@@ -35,9 +41,12 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/entry/index.html',
+            template: './src/entry/index.ejs',
             filename: 'index.html',
             chunks: ["index"],
+            config: JSON.stringify({
+                dataset: dataset
+            }),
         }),
         ...plugins,
         new ScriptExtHtmlWebpackPlugin({
@@ -46,9 +55,6 @@ module.exports = {
         new webpack.EnvironmentPlugin([
             'INSPECTOR_METADATA_ENABLED'
         ]),
-        new webpack.DefinePlugin({
-            'process.env.DATASET': JSON.stringify(dataset)
-        }),
     ],
     module: {
         rules: [
