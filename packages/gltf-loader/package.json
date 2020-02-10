@@ -13,6 +13,7 @@
     "src"
   ],
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "robo24-graphic": "file:../graphic"
   }
 }
