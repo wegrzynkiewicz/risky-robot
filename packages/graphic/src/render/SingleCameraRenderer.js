@@ -1,5 +1,3 @@
-import CullingManager from "../culling/CullingManager";
-
 export default class SingleCameraRenderer {
 
     constructor({camera, viewport, sceneNode}) {
@@ -10,7 +8,6 @@ export default class SingleCameraRenderer {
 
     render(system, context) {
         context.renderer = this;
-        context.cullingManager.clear();
         this.sceneNode.shouldRender(system, context);
         this.sceneNode.render(system, context);
     }
