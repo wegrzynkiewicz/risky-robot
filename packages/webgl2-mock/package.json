@@ -2,11 +2,14 @@
   "name": "robo24-webgl2-mock",
   "version": "0.0.0",
   "description": "robo24-webgl2-mock",
-  "author": {
-    "name": "Kevin Birk",
-    "email": "birk.kevin@gmail.com"
-  },
-  "license": "MIT",
+  "author": "",
+  "license": "CC-BY-NC-4.0",
+  "contributors": [
+    {
+      "name": "Kevin Birk",
+      "url": "https://github.com/kbirk/webgl-mock"
+    }
+  ],
   "main": "src/exports.js",
   "directories": {
     "lib": "src"

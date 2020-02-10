@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "description": "robo24",
   "author": "",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-4.0",
+  "contributors": [
+    {
+      "name": "The Khronos Group Inc. 2020",
+      "url": "https://github.com/KhronosGroup/glTF-Sample-Models"
+    },
+    {
+      "name": "Kevin Birk",
+      "url": "https://github.com/kbirk/webgl-mock"
+    }
+  ],
   "main": "index.js",
   "devDependencies": {
     "lerna": "^3.19.0",

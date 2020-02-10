@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "robo24-gltf-loader",
   "author": "",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-4.0",
   "main": "src/gltf-loader.js",
   "directories": {
     "lib": "src",

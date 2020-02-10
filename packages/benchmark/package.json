@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "robo24-benchmark",
   "author": "",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-4.0",
   "directories": {
     "lib": "src"
   },
