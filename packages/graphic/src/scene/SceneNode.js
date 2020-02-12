@@ -36,19 +36,17 @@ export default class SceneNode {
         }
     }
 
-    getSceneNodeByName(name) {
-        if (this.name === name) {
+    find(callback, thisArg) {
+        if (callback.call(thisArg, this)) {
             return this;
         }
-        const length = this.children.length;
-        for (let i = 0; i < length; i++) {
-            const child = this.children[i];
-            const searchedSceneNode = child.getSceneNodeByName(name);
+        for (const child of this.children) {
+            const searchedSceneNode = child.find(callback, thisArg);
             if (searchedSceneNode) {
                 return searchedSceneNode;
             }
         }
-        throw new Error(`SceneNode named (${name}) not exists.`);
+        return null;
     }
 
     setParent(newParentNode) {
