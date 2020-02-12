@@ -25,9 +25,16 @@ export default class Asset {
     }
 
     createSceneNode(nodeNumber) {
-        const node = this.gltfData.nodes[0];
-        const sceneNode = Graphic.SceneNode({name: node.name});
+        const node = this.gltfData.nodes[nodeNumber];
+        const {children, name, matrix} = node;
+        const sceneNode = Graphic.SceneNode({name});
 
+        if (children && children.length > 0) {
+            for (const childNodeNumber of children) {
+                const node = this.createSceneNode(nodeNumber);
+                node.setParent(scene);
+            }
+        }
 
     }
 }
