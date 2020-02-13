@@ -1,7 +1,7 @@
 import * as Frontend from "robo24-frontend";
 
-import vertexShaderContent from "./triangle.vert";
-import fragmentShaderContent from "./triangle.frag";
+import vertexShaderContent from "./shader.vert";
+import fragmentShaderContent from "./shader.frag";
 
 const {Graphic} = Frontend;
 

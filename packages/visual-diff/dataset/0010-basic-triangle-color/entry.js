@@ -1,7 +1,7 @@
 import * as Frontend from "robo24-frontend";
 
-import vertexShaderContent from "./triangle.vert";
-import frafragmentShaderContent from "./triangle.frag";
+import vertexShaderContent from "./shader.vert";
+import fragmentShaderContent from "./shader.frag";
 
 const {Graphic} = Frontend;
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buffer.setDataView(dataView);
 
-    programManager.registerShaderContent("triangle", vertexShaderContent, frafragmentShaderContent);
+    programManager.registerShaderContent("triangle", vertexShaderContent, fragmentShaderContent);
     const program = programManager.getProgramByName("triangle");
 
     const vao = vaoManager.createVAO({

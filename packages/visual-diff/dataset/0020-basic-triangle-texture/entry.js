@@ -1,7 +1,7 @@
 import * as Frontend from "robo24-frontend";
 
-import vertexShaderContent from "./triangle.vert";
-import fragmentShaderContent from "./triangle.frag";
+import vertexShaderContent from "./shader.vert";
+import fragmentShaderContent from "./shader.frag";
 
 const {Graphic} = Frontend;
 
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         buffers: [buffer],
     });
 
-    const image = await Graphic.loadImage("../../common/textures/color-grid.png");
+    const image = await Graphic.loadImage("../common/textures/color-grid.png");
     const texture = new Graphic.Texture2D({
         name: "test",
         openGL: system.view.openGL,

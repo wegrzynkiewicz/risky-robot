@@ -9,8 +9,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const resource = new Frontend.Assets.Resource({
         vendor: "@base",
         mimeType: "model/gltf+json",
-        uri: `${config["suiteName"]}/${config["baseName"]}.${format}`,
+        uri: `${config["suiteName"]}/model.${format}`,
     });
 
-    const resourceData = await system.resourceManager.download(resource);
+    const asset = await system.gltfManager.load(resource);
+    const scene = asset.getScene(0);
+
+    scene.debug(console.log);
 });

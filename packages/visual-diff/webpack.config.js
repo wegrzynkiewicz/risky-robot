@@ -8,8 +8,7 @@ const plugins = [];
 const entries = {};
 const dataset = [];
 
-glob.sync('./dataset/**/*.entry.js').map(filepath => {
-    const baseName = path.basename(filepath, ".entry.js");
+glob.sync('./dataset/**/entry.js').map(filepath => {
     const suiteName = path.dirname(filepath).substr(10);
     entries[suiteName] = filepath;
 
@@ -19,7 +18,6 @@ glob.sync('./dataset/**/*.entry.js').map(filepath => {
         filename: `${suiteName}.html`,
         chunks: ['commons', suiteName],
         config: JSON.stringify({
-            baseName,
             suiteName,
         }),
     });
