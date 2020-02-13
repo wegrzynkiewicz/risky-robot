@@ -17,7 +17,7 @@ export default class Asset {
     createScene(sceneNumber) {
         const scene = this.gltfData.scenes[sceneNumber];
         const {nodes} = scene;
-        const sceneNode = new Graphic.SceneNode({name: ""});
+        const sceneNode = new Graphic.SceneNode({name: `GLTFScene/${sceneNumber}`});
         for (const nodeNumber of nodes) {
             const node = this.createSceneNode(nodeNumber);
             node.setParent(sceneNode);
@@ -45,8 +45,8 @@ export default class Asset {
 
         if (children && children.length > 0) {
             for (const childNodeNumber of children) {
-                const node = this.createSceneNode(nodeNumber);
-                node.setParent(scene);
+                const childNode = this.createSceneNode(childNodeNumber);
+                childNode.setParent(sceneNode);
             }
         }
 
@@ -67,11 +67,11 @@ export default class Asset {
         }
 
         if (skin) {
-            const skin = this.createSkin(skin);
+            this.createSkin(skin);
         }
 
         if (mesh) {
-            const mesh = this.createMesh(mesh);
+            this.createMesh(mesh);
         }
 
         return sceneNode;

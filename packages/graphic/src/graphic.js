@@ -4,6 +4,7 @@ export {default as SingleCameraRenderer} from "./render/SingleCameraRenderer";
 export {default as View} from "./render/View";
 export {default as Viewport} from "./render/Viewport";
 
+export {default as printSceneNode} from "./scene/printSceneNode";
 export {default as Scene} from "./scene/Scene";
 export {default as SceneNode} from "./scene/SceneNode";
 export {default as SceneManager} from "./scene/SceneManager";

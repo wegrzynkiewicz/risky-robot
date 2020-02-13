@@ -17,12 +17,15 @@ function removeChild(child) {
     child.parent = null;
 }
 
+let sceneNodeId = 0;
+
 /**
  * @property {SceneNode[]} children
  */
 export default class SceneNode {
 
     constructor({name}) {
+        this.sceneNodeId = sceneNodeId++;
         this.name = name;
         this.parent = null;
         this.children = [];
@@ -49,7 +52,7 @@ export default class SceneNode {
                 return searchedSceneNode;
             }
         }
-        return null;
+        return undefined;
     }
 
     setParent(newParentNode) {
@@ -76,16 +79,6 @@ export default class SceneNode {
     render(system, context) {
         for (const child of this.children) {
             child.render(system, context);
-        }
-    }
-
-    debug(writer, depth = 0) {
-        const space = "  ".repeat(depth);
-        const id = this.id ? `#${this.id} ` : '';
-        const type = Object.getPrototypeOf(this).constructor.name;
-        writer(`${space}${type} ${id}`);
-        for (let child of this.children) {
-            child.debug(writer, depth + 1);
         }
     }
 }
