@@ -1,4 +1,7 @@
 import * as Graphic from "robo24-graphic";
+import * as Binary from "robo24-binary";
+import VAOLayoutBlueprint from "../../graphic/src/vao/blueprint/VAOLayoutBlueprint";
+import accessorTypeTranslate from "./accessorTypeTranlate";
 
 export default class Asset {
 
@@ -26,20 +29,8 @@ export default class Asset {
     }
 
     createSceneNode(nodeNumber) {
-        const {
-            camera, // TODO: support camera
-            children,
-            matrix,
-            mesh,
-            name,
-            rotation,
-            scale,
-            skin,
-            translation,
-            weights,
-            extensions,
-            extras
-        } = this.gltfData.nodes[nodeNumber];
+        let node = this.gltfData.nodes[nodeNumber];
+        let {camera, children, matrix, mesh, name, rotation, scale, skin, translation, weights} = node;
 
         const sceneNode = new Graphic.SceneNode({name});
 
@@ -82,6 +73,126 @@ export default class Asset {
     }
 
     createMesh(meshNumber) {
+        let meshData = this.gltfData.meshes[meshNumber];
+        let {primitives, weights, name} = meshData;
+
+        primitives = primitives.map(primitiveNumber => this.createPrimitive(meshData, primitiveNumber));
+
+        const mesh = new Graphic.Mesh({name, primitives, weights});
+
+        return mesh;
+    }
+
+    createPrimitive(meshData, primitiveNumber) {
+        const {attributes, indices, material, mode, targets} = mesh.primitives[primitiveNumber];
+
+        const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
+            batches: [
+                new VAOLayoutBlueprint.AttributeBatch({
+                    attributes: [
+                        new VAOLayoutBlueprint.Attribute({
+                            name: "a_VertexPosition",
+                            type: "vec3<f32>"
+                        }),
+                        new VAOLayoutBlueprint.Attribute({
+                            name: "a_VertexTexCoords",
+                            type: "vec2<f32>"
+                        }),
+                    ],
+                }),
+            ]
+        });
+
+        for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
+            const attributeName = this.translateAttributeName(attributeKey);
+
+            const accessor = this.createAccessor(accessorNumber);
+
+            new VAOLayoutBlueprint.Attribute({
+                name: attributeName,
+                type: "vec2<f32>"
+            });
+        }
+    }
+
+    createAccessor(accessorNumber) {
+
+        const accessorData = this.gltfData.accessors[accessorNumber];
+        const {
+            bufferView: bufferViewNumber,
+            byteOffset: accessorByteOffset,
+            componentType,
+            count,
+            type: accessorType
+        } = accessorData;
+
+        const bufferViewData = this.gltfData.bufferViews[bufferViewNumber];
+        const {
+            buffer: bufferNumber,
+            byteOffset: bufferViewByteOffset,
+            byteLength: bufferViewByteLength,
+            byteStride,
+        } = bufferViewData;
+
+        const typeName = accessorTypeTranslate(accessorType, componentType);
+        const type = Binary.types.getTypeByName(typeName);
+
+        const accessor  = new Binary.Accessor({
+            type,
+            byteOffset: bufferViewByteOffset + accessorByteOffset,
+            byteStride,
+        });
+
+        return accessor;
+    }
+
+    createBuffer(bufferNumber) {
         return undefined;
+    }
+
+    translateAttributeName(attributeKey) {
+        const map = {
+            "POSITION": "a_VertexPosition",
+            "NORMAL": "a_VertexNormal",
+            "TANGENT": "a_VertexTangent",
+            "TEXCOORD_0": "a_VertexTextureCoords",
+            "COLOR_0": "a_VertexColor",
+            "JOINTS_0": "a_VertexJoints",
+            "WEIGHTS_0": "a_VertexWeights",
+        };
+
+        const mapped = map[attributeKey];
+
+        if (mapped === undefined) {
+            throw new Error(`Not supported attribute name (${attributeKey}).`);
+        }
+
+        return mapped;
+    }
+}
+
+
+class Accessor {
+
+    constructor({arrayBuffer, type, count, byteOffset, byteStride}) {
+        this.arrayBuffer = arrayBuffer;
+        this.type = type;
+        this.count = count;
+        this.byteOffset = byteOffset;
+        this.byteStride = byteStride;
+    }
+
+    calculateOffset(index) {
+        return this.byteOffset + (this.byteStride * index);
+    }
+
+    write(dataView, index, source) {
+        const offset = this.calculateOffset(index);
+        this.type.write(dataView, offset, source);
+    }
+
+    read(dataView, index, destination) {
+        const offset = this.calculateOffset(index);
+        return this.type.read(dataView, offset, destination);
     }
 }

@@ -8,7 +8,9 @@ export {default as printSceneNode} from "./scene/printSceneNode";
 export {default as Scene} from "./scene/Scene";
 export {default as SceneNode} from "./scene/SceneNode";
 export {default as SceneManager} from "./scene/SceneManager";
-export {default as ModelSceneNode} from "./scene/ModelSceneNode";
+
+export {default as Mesh} from "./mesh/Mesh";
+export {default as Primitive} from "./mesh/Primitive";
 
 export {default as loadImage} from "./texture/loadImage";
 export {default as Texture2D} from "./texture/Texture2D";
