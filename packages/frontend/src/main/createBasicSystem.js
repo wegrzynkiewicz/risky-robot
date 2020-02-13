@@ -2,6 +2,7 @@ import AnimationLoop from "../flow/AnimationLoop";
 import System from "./System";
 import * as Graphic from "robo24-graphic";
 import * as Assets from "robo24-assets";
+import * as GLTFLoader from "robo24-gltf-loader";
 
 export default function createBasicSystem({window, canvas}) {
 
@@ -41,6 +42,7 @@ export default function createBasicSystem({window, canvas}) {
     view.renderingFlow.registerTask(primaryRenderingTask);
 
     const resourceManager = new Assets.ResourceManager();
+    const gltfManager = new GLTFLoader.GLTFManager({resourceManager});
 
     const system = new System({
         window,
@@ -48,6 +50,7 @@ export default function createBasicSystem({window, canvas}) {
         sceneManager,
         animationLoop,
         resourceManager,
+        gltfManager,
     });
 
     animationLoop.start();

@@ -1,7 +1,7 @@
 import * as Frontend from "robo24-frontend";
 
-import triangleVertex from "./triangle.vert";
-import triangleFragment from "./triangle.frag";
+import vertexShaderContent from "./triangle.vert";
+import fragmentShaderContent from "./triangle.frag";
 
 const {Graphic} = Frontend;
 
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buffer.setDataView(dataView);
 
-    programManager.registerShaderContent("triangle", triangleVertex, triangleFragment);
+    programManager.registerShaderContent("triangle", vertexShaderContent, fragmentShaderContent);
     const program = programManager.getProgramByName("triangle");
 
     const vao = vaoManager.createVAO({
@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
         buffers: [buffer],
     });
 
-    const triangleSceneNode = new Graphic.ModelSceneNode({});
-    const primaryScene = sceneManager.getSceneNodeByName("primary-scene");
-    triangleSceneNode.setParent(primaryScene);
+    //const triangleSceneNode = new Graphic.ModelSceneNode({});
+    // const primaryScene = sceneManager.getSceneNodeByName("primary-scene");
+    //triangleSceneNode.setParent(primaryScene);
 
     system.animationLoop.on("frame", () => {
         program.use();

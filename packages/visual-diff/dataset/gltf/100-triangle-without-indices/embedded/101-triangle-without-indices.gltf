@@ -57,7 +57,6 @@
     }
   ],
   "asset": {
-    "version": "2.0",
-    "copyright": "The Khronos Group Inc. 2020 (https://github.com/KhronosGroup/glTF-Sample-Models)"
+    "version": "2.0"
   }
 }

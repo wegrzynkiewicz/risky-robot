@@ -30,6 +30,13 @@ export default class Transformation {
         Matrix4.identity(this.modelMatrix);
     }
 
+    decompose(matrix) {
+        Matrix4.getTranslation(this.translation, matrix);
+        Matrix4.getRotation(this.rotation, matrix);
+        Matrix4.getScaling(this.scale, matrix);
+        Matrix4.copy(this.localMatrix, matrix);
+    }
+
     updateLocalMatrix() {
         Matrix4.fromRotationTranslationScale(
             this.localMatrix,

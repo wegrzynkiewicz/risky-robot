@@ -1,3 +1,5 @@
+import Transformation from "./Transformation";
+
 function addChild(child) {
     if (child.parent) {
         removeChild.call(child.parent, child);
@@ -24,6 +26,7 @@ export default class SceneNode {
         this.name = name;
         this.parent = null;
         this.children = [];
+        this.transformation = new Transformation();
     }
 
     getRoot() {

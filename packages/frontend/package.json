@@ -15,6 +15,7 @@
   "dependencies": {
     "events": "^3.1.0",
     "robo24-assets": "file:../assets",
+    "robo24-gltf-loader": "file:../gltf-loader",
     "robo24-graphic": "file:../graphic"
   },
   "devDependencies": {

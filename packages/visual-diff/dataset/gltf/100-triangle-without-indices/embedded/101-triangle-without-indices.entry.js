@@ -12,5 +12,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         uri: `${config["suiteName"]}/${config["baseName"]}.${format}`,
     });
 
-    const asset = await system.gltfLoader.download(resource);
+    const asset = await system.gltfManager.load(resource);
+    const scene = asset.getScene(0);
+
+    scene.debug(console.log);
 });
