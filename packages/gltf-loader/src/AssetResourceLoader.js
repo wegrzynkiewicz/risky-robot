@@ -2,7 +2,7 @@ import Asset from "./Asset";
 import MimeTypes from "mime-types";
 import * as Assets from "robo24-assets";
 
-export default class AssetBuilder {
+export default class AssetResourceLoader {
 
     constructor({resource, resourceManager}) {
         this.resource = resource;
