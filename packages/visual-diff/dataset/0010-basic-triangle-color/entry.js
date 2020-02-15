@@ -21,17 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const bufferLayout = vaoLayout.getBufferLayout("primary");
     const dataView = bufferLayout.createDataView();
-    const positionAccessor = bufferLayout.getAccessorByName("a_VertexPosition");
 
-    positionAccessor.write(dataView, 0, [-0.5, -0.5, 0]);
-    positionAccessor.write(dataView, 1, [0.5, -0.5, 0]);
-    positionAccessor.write(dataView, 2, [-0.5, 0.5, 0]);
+    const positionAccessor = bufferLayout.createAccessor({name: "a_VertexPosition", dataView});
+    positionAccessor.write(0, [-0.5, -0.5, 0]);
+    positionAccessor.write(1, [0.5, -0.5, 0]);
+    positionAccessor.write(2, [-0.5, 0.5, 0]);
 
-    const colorAccessor = bufferLayout.getAccessorByName("a_VertexColor");
-
-    colorAccessor.write(dataView, 0, [1, 0, 0]);
-    colorAccessor.write(dataView, 1, [0, 1, 0]);
-    colorAccessor.write(dataView, 2, [0, 0, 1]);
+    const colorAccessor = bufferLayout.createAccessor({name: "a_VertexColor", dataView});
+    colorAccessor.write(0, [1, 0, 0]);
+    colorAccessor.write(1, [0, 1, 0]);
+    colorAccessor.write(2, [0, 0, 1]);
 
     const {bufferManager, vaoManager, programManager} = system.view;
 

@@ -14,6 +14,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const asset = await system.gltfManager.load(resource);
     const scene = asset.getScene(0);
-
-    scene.debug(console.log);
 });

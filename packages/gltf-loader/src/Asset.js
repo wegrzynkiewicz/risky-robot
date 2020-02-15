@@ -5,11 +5,12 @@ import accessorTypeTranslate from "./accessorTypeTranlate";
 
 export default class Asset {
 
-    constructor({gltfData}) {
+    constructor({gltfData, referencedData}) {
         if (!gltfData) {
             throw new Error("Invalid GLTF data.");
         }
         this.gltfData = gltfData;
+        this.referencedData = referencedData;
     }
 
     getScene(sceneNumber) {
@@ -30,7 +31,18 @@ export default class Asset {
 
     createSceneNode(nodeNumber) {
         let node = this.gltfData.nodes[nodeNumber];
-        let {camera, children, matrix, mesh, name, rotation, scale, skin, translation, weights} = node;
+        let {
+            camera,
+            children,
+            matrix,
+            mesh: meshNumber,
+            name,
+            rotation,
+            scale,
+            skin,
+            translation,
+            weights
+        } = node;
 
         const sceneNode = new Graphic.SceneNode({name});
 
@@ -57,12 +69,12 @@ export default class Asset {
             transformation.updateLocalMatrix();
         }
 
-        if (skin) {
+        if (skin !== undefined) {
             this.createSkin(skin);
         }
 
-        if (mesh) {
-            this.createMesh(mesh);
+        if (meshNumber !== undefined) {
+            this.createMesh(meshNumber);
         }
 
         return sceneNode;
@@ -76,15 +88,15 @@ export default class Asset {
         let meshData = this.gltfData.meshes[meshNumber];
         let {primitives, weights, name} = meshData;
 
-        primitives = primitives.map(primitiveNumber => this.createPrimitive(meshData, primitiveNumber));
+        primitives = primitives.map(this.createPrimitive, this);
 
         const mesh = new Graphic.Mesh({name, primitives, weights});
 
         return mesh;
     }
 
-    createPrimitive(meshData, primitiveNumber) {
-        const {attributes, indices, material, mode, targets} = mesh.primitives[primitiveNumber];
+    createPrimitive(primitiveData) {
+        const {attributes, indices, material, mode, targets} = primitiveData;
 
         const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
             batches: [
@@ -105,13 +117,7 @@ export default class Asset {
 
         for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
             const attributeName = this.translateAttributeName(attributeKey);
-
             const accessor = this.createAccessor(accessorNumber);
-
-            new VAOLayoutBlueprint.Attribute({
-                name: attributeName,
-                type: "vec2<f32>"
-            });
         }
     }
 
@@ -137,8 +143,11 @@ export default class Asset {
         const typeName = accessorTypeTranslate(accessorType, componentType);
         const type = Binary.types.getTypeByName(typeName);
 
+        const dataView = new DataView(this.referencedData.buffers[bufferNumber].data);
+
         const accessor  = new Binary.Accessor({
             type,
+            dataView,
             byteOffset: bufferViewByteOffset + accessorByteOffset,
             byteStride,
         });

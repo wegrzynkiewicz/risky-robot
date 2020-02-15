@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const bufferLayout = vaoLayout.getBufferLayout("primary");
     const dataView = bufferLayout.createDataView();
-    const positionAccessor = bufferLayout.getAccessorByName("a_VertexPosition");
 
-    positionAccessor.write(dataView, 0, [-0.5, -0.5, 0]);
-    positionAccessor.write(dataView, 1, [0.5, -0.5, 0]);
-    positionAccessor.write(dataView, 2, [-0.5, 0.5, 0]);
+    const positionAccessor = bufferLayout.createAccessor({name: "a_VertexPosition", dataView});
+    positionAccessor.write(0, [-0.5, -0.5, 0]);
+    positionAccessor.write(1, [0.5, -0.5, 0]);
+    positionAccessor.write(2, [-0.5, 0.5, 0]);
 
     const {bufferManager, vaoManager, programManager} = view;
 

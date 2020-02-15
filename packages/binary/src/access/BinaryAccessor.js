@@ -1,22 +1,23 @@
 export default class BinaryAccessor {
 
-    constructor({type, byteOffset, byteStride}) {
+    constructor({dataView, type, byteOffset, byteStride}) {
         this.type = type;
-        this.byteOffset = byteOffset;
-        this.byteStride = byteStride;
+        this.dataView = dataView;
+        this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
+        this.byteStride = byteStride === undefined ? type.byteLength : byteStride;
     }
 
     calculateOffset(index) {
         return this.byteOffset + (this.byteStride * index);
     }
 
-    write(dataView, index, source) {
+    write(index, source) {
         const offset = this.calculateOffset(index);
-        this.type.write(dataView, offset, source);
+        this.type.write(this.dataView, offset, source);
     }
 
-    read(dataView, index, destination) {
+    read(index, destination) {
         const offset = this.calculateOffset(index);
-        return this.type.read(dataView, offset, destination);
+        return this.type.read(this.dataView, offset, destination);
     }
 }
