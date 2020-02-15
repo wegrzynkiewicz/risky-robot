@@ -1,4 +1,4 @@
-import Asset from "./Asset";
+import AssetBuilder from "./AssetBuilder";
 
 export default class GLTFManager {
 
@@ -7,13 +7,10 @@ export default class GLTFManager {
     }
 
     async load(resource) {
-        const response = await this.resourceManager.download(resource);
-        if (resource.mimeType === "model/gltf+json") {
-            const gltfData = await response.json();
-            const asset = new Asset({gltfData});
-            return asset;
-        } else if (resource.mimeType === "model/gltf-binary") {
+        const {resourceManager} = this;
+        const assetBuilder = new AssetBuilder({resource, resourceManager});
+        const asset = await assetBuilder.load();
 
-        }
+        return asset;
     }
 }

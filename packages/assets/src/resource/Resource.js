@@ -1,11 +1,9 @@
 export default class Resource {
 
-    constructor({vendor, version, mimeType, uri}) {
+    constructor({vendor, version, mimeType, url}) {
         this.vendor = vendor;
         this.mimeType = mimeType;
         this.version = version;
-        this.uri = uri;
+        this.url = url;
     }
-
-
 }

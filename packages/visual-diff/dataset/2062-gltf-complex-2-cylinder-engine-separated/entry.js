@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const resource = new Frontend.Assets.Resource({
         vendor: "@base",
         mimeType: "model/gltf+json",
-        uri: `${config["suiteName"]}/model.${format}`,
+        url: `/visual-diff/dataset/${config["suiteName"]}/model.${format}`,
     });
 
     const asset = await system.gltfManager.load(resource);

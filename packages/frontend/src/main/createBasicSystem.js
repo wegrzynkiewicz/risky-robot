@@ -41,7 +41,7 @@ export default function createBasicSystem({window, canvas}) {
     });
     view.renderingFlow.registerTask(primaryRenderingTask);
 
-    const resourceManager = new Assets.ResourceManager();
+    const resourceManager = new Assets.ResourceManager({window});
     const gltfManager = new GLTFLoader.GLTFManager({resourceManager});
 
     const system = new System({

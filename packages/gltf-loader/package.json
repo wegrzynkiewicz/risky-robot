@@ -13,7 +13,9 @@
     "src"
   ],
   "dependencies": {
+    "mime-types": "^2.1.26",
     "node-fetch": "^2.6.0",
+    "robo24-assets": "file:../assets",
     "robo24-binary": "file:../binary",
     "robo24-graphic": "file:../graphic"
   }

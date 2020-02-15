@@ -1,6 +1,7 @@
 export default class ResourceManager {
 
-    constructor() {
+    constructor({window}) {
+        this.window = window;
     }
 
     async download(resource) {
@@ -9,7 +10,9 @@ export default class ResourceManager {
     }
 
     resolveURL(resource) {
-        const {uri} = resource;
-        return `/visual-diff/dataset/${uri}`;
+        const {url} = resource;
+        const resourceURL = new URL(url, this.window.location.href);
+
+        return resourceURL;
     }
 }
