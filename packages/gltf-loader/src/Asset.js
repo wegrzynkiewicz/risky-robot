@@ -121,16 +121,16 @@ export default class Asset {
 
         if (indices) {
             const indicesBuffer = layout.getBufferLayout("indices");
+            const dataView = indicesBuffer.createDataView();
             const sourceAccessor = this.createAccessor(indices);
-            const attributeLayout = indicesBuffer.getAttributeLayoutByName(attributeName);
-            const destinationAccessor = attributeLayout.createAccessor({dataView, count});
+            const count = sourceAccessor.count;
+            const destinationAccessor = indicesBuffer.createAccessor({dataView, count});
 
             for (let i = 0; i < count; i++) {
-                const typedArray = sourceAccessor.getTypedArray(i);
-                destinationAccessor.write(i, typedArray);
+                const value = sourceAccessor.read(i);
+                destinationAccessor.write(i, value);
             }
         }
-
 
         const primitive = new Graphic.Primitive({vao, material});
     }

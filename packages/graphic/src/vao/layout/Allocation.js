@@ -27,6 +27,6 @@ export default class Allocation {
             throw new Error("Invalid  allocation primitive type.");
         }
 
-        this.elementsCount = primitivesType[openGLPrimitiveType].calculateElementsCount(this.verticesCount);
+        this.primitiveCount = primitivesType[openGLPrimitiveType].calculateElementsCount(this.verticesCount);
     }
 }

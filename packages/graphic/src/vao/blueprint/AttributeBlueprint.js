@@ -25,11 +25,11 @@ export default class AttributeBlueprint {
         });
     }
 
-    calculateTotalByteLength({verticesCount, elementsCount}) {
+    calculateTotalByteLength({verticesCount, primitiveCount}) {
         const {byteLength} = this.type;
         if (this.divisor === 0) {
             return byteLength * verticesCount;
         }
-        return Math.ceil(byteLength * (elementsCount / this.divisor));
+        return Math.ceil(byteLength * (primitiveCount / this.divisor));
     }
 };
