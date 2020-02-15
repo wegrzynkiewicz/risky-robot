@@ -1,9 +1,9 @@
 #version 300 es
 
-// layout(location=0) in vec3 a_VertexPosition;
-layout(location=1) in vec3 a_VertexColor;
+// layout(location=0) in vec3 a_Position;
+layout(location=1) in vec3 a_Color;
 layout(location=2) in int a_VertexOrientation;
-layout(location=3) in int a_VertexPositionIndex;
+layout(location=3) in int a_PositionIndex;
 
 uniform highp mat4 u_modelMatrix;
 uniform highp mat4 u_viewMatrix;
@@ -87,8 +87,8 @@ vec3 calculatePosition(int cubeIndex, int a_VertexOrientation) {
 }
 
 void main(void) {
-    vec3 vertexPosition = calculatePosition(a_VertexPositionIndex, a_VertexOrientation);
-    v_fragmentColor = a_VertexColor;
+    vec3 vertexPosition = calculatePosition(a_PositionIndex, a_VertexOrientation);
+    v_fragmentColor = a_Color;
     v_fragmentPosition = vec3(u_modelMatrix * vec4(vertexPosition, 1.0));
     gl_Position = u_projectionMatrix * u_viewMatrix * vec4(v_fragmentPosition, 1.0);
 }

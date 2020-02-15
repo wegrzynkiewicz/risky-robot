@@ -14,20 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
         elementsCount: 1,
         indices: false,
         attributes: [
-            {buffer: "primary", batch: 0, name: "a_VertexPosition", type: "vec3<f32>"},
-            {buffer: "primary", batch: 0, name: "a_VertexColor", type: "vec3<f32>"},
+            {buffer: "primary", batch: 0, name: "a_Position", type: "vec3<f32>"},
+            {buffer: "primary", batch: 0, name: "a_Color", type: "vec3<f32>"},
         ],
     });
 
     const bufferLayout = vaoLayout.getBufferLayout("primary");
     const dataView = bufferLayout.createDataView();
 
-    const positionAccessor = bufferLayout.createAccessor({name: "a_VertexPosition", dataView});
+    const positionAccessor = bufferLayout.createAccessor({name: "a_Position", dataView});
     positionAccessor.write(0, [-0.5, -0.5, 0]);
     positionAccessor.write(1, [0.5, -0.5, 0]);
     positionAccessor.write(2, [-0.5, 0.5, 0]);
 
-    const colorAccessor = bufferLayout.createAccessor({name: "a_VertexColor", dataView});
+    const colorAccessor = bufferLayout.createAccessor({name: "a_Color", dataView});
     colorAccessor.write(0, [1, 0, 0]);
     colorAccessor.write(1, [0, 1, 0]);
     colorAccessor.write(2, [0, 0, 1]);

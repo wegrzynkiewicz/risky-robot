@@ -31,7 +31,7 @@ export default class TerrainSceneNode extends SceneNode {
         const {openGL: gl} = game;
 
         {
-            const pointer = this.shader.attributes['a_VertexPosition'];
+            const pointer = this.shader.attributes['a_Position'];
             const size = 3;
             const type = gl.FLOAT;
             const normalize = false;
@@ -43,7 +43,7 @@ export default class TerrainSceneNode extends SceneNode {
         }
 
         {
-            const pointer = this.shader.attributes['a_VertexNormal'];
+            const pointer = this.shader.attributes['a_Normal'];
             const size = 3;
             const type = gl.FLOAT;
             const normalize = false;

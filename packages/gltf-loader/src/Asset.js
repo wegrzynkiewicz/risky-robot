@@ -103,11 +103,11 @@ export default class Asset {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexPosition",
+                            name: "a_Position",
                             type: "vec3<f32>"
                         }),
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexTexCoords",
+                            name: "a_TexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
@@ -161,13 +161,13 @@ export default class Asset {
 
     translateAttributeName(attributeKey) {
         const map = {
-            "POSITION": "a_VertexPosition",
-            "NORMAL": "a_VertexNormal",
-            "TANGENT": "a_VertexTangent",
-            "TEXCOORD_0": "a_VertexTextureCoords",
-            "COLOR_0": "a_VertexColor",
-            "JOINTS_0": "a_VertexJoints",
-            "WEIGHTS_0": "a_VertexWeights",
+            "POSITION": "a_Position",
+            "NORMAL": "a_Normal",
+            "TANGENT": "a_Tangent",
+            "TEXCOORD_0": "a_TexCoords",
+            "COLOR_0": "a_Color",
+            "JOINTS_0": "a_Joints",
+            "WEIGHTS_0": "a_Weights",
         };
 
         const mapped = map[attributeKey];

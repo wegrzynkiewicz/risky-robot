@@ -7,7 +7,7 @@ new VAOLayout.Buffer({
         new VAOLayout.Attribute({name: "a_VertexOrientation", type: "u8"}),
         new VAOLayout.Attribute({name: "a_VertexHeight", type: "u8"}),
 
-        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>", divisor: 1}),
+        new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>", divisor: 1}),
         new VAOLayout.Attribute({name: "a_PositionIndex", type: "u16", divisor: 2}),
     ],
 });

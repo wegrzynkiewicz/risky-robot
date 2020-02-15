@@ -10,15 +10,15 @@ function getCubeBufferLayout() {
                     new VAOLayoutBlueprint.AttributeBatch({
                         attributes: [
                             new VAOLayoutBlueprint.Attribute({
-                                name: "a_VertexPosition_0",
+                                name: "a_Position_0",
                                 type: "vec3<f32>"
                             }),
                             new VAOLayoutBlueprint.Attribute({
-                                name: "a_VertexNormal_0",
+                                name: "a_Normal_0",
                                 type: "vec3<f32>"
                             }),
                             new VAOLayoutBlueprint.Attribute({
-                                name: "a_VertexTextureCoords_0",
+                                name: "a_TexCoords_0",
                                 type: "vec2<f32>"
                             }),
                         ],
@@ -46,9 +46,9 @@ export default function generateSharpCubeGeometry() {
 
     const primaryBufferLayout = cubeLayout.getBufferLayout("primary");
     const primaryDataView = primaryBufferLayout.createDataView();
-    const vertexPositionAccessor = primaryBufferLayout.getAccessorByName("a_VertexPosition_0");
-    const vertexNormalAccessor = primaryBufferLayout.getAccessorByName("a_VertexNormal_0");
-    const vertexTextureCordsAccessor = primaryBufferLayout.getAccessorByName("a_VertexTextureCoords_0");
+    const vertexPositionAccessor = primaryBufferLayout.getAccessorByName("a_Position_0");
+    const vertexNormalAccessor = primaryBufferLayout.getAccessorByName("a_Normal_0");
+    const vertexTextureCordsAccessor = primaryBufferLayout.getAccessorByName("a_TexCoords_0");
 
     let vertexIndex = 0;
     const put = (positionAxes, textureCoordsAxes, normalCodeAxes) => {

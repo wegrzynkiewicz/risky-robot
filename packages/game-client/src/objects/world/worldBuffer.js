@@ -115,10 +115,10 @@ const bufferLayout = new VAOLayout.Buffer({
     type: "array",
     schema: "ab/c/d",
     attributes: [
-        new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-        new VAOLayout.Attribute({name: "a_VertexColor", type: "vec3<f32>"}),
+        new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
+        new VAOLayout.Attribute({name: "a_Color", type: "vec3<f32>"}),
         new VAOLayout.Attribute({name: "a_VertexOrientation", type: "s32"}),
-        new VAOLayout.Attribute({name: "a_VertexPositionIndex", type: "s32"}),
+        new VAOLayout.Attribute({name: "a_PositionIndex", type: "s32"}),
     ],
 });
 
@@ -141,17 +141,17 @@ const colors = {
 
 const vaoAllocation = bufferLayout.createVAOAllocation(vaoLayout);
 const dataView = vaoAllocation.createArrayBufferByDataView();
-const a_VertexPosition = vaoAllocation.getAttributeAllocationByName("a_VertexPosition");
+const a_Position = vaoAllocation.getAttributeAllocationByName("a_Position");
 const a_VertexOrientation = vaoAllocation.getAttributeAllocationByName("a_VertexOrientation");
-const a_VertexPositionIndex = vaoAllocation.getAttributeAllocationByName("a_VertexPositionIndex");
-const a_VertexColor = vaoAllocation.getAttributeAllocationByName("a_VertexColor");
+const a_PositionIndex = vaoAllocation.getAttributeAllocationByName("a_PositionIndex");
+const a_Color = vaoAllocation.getAttributeAllocationByName("a_Color");
 
 for (let v = 0; v < test.vertices.length; v++) {
     const pos = [test.vertices[v].x, test.vertices[v].y, test.vertices[v].z];
-    a_VertexPosition.write(dataView, v, pos);
+    a_Position.write(dataView, v, pos);
     a_VertexOrientation.write(dataView, v, test.vertices[v].orientIndex);
-    a_VertexColor.write(dataView, v, colors[test.vertices[v].orientIndex]);
-    a_VertexPositionIndex.write(dataView, v, test.vertices[v].index);
+    a_Color.write(dataView, v, colors[test.vertices[v].orientIndex]);
+    a_PositionIndex.write(dataView, v, test.vertices[v].index);
 }
 
 

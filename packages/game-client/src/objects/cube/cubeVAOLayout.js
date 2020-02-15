@@ -6,9 +6,9 @@ const cubeVAOLayout = new VAOLayout({
             name: "primary",
             schema: "ab/c",
             attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec3<u8>", normalize: true}),
+                new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_Color", type: "vec3<u8>", normalize: true}),
             ],
         }),
         new VAOLayout.ElementBuffer({
@@ -24,11 +24,11 @@ new VAOLayout({
             batches: [
                 new VAOLayout.AttributeBatch({
                     attributes: [
-                        new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-                        new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
+                        new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
+                        new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}),
                     ],
                 }),
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec3<u8>", normalize: true}),
+                new VAOLayout.Attribute({name: "a_Color", type: "vec3<u8>", normalize: true}),
             ],
         }),
         new VAOLayout.ElementBuffer({

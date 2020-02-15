@@ -24,10 +24,10 @@ describe("VAOBufferLayout", function () {
             type: "array",
             schema: "ab/c/d",
             attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
-                new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}), // 8
-                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>", divisor: 1}), // 12
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>", divisor: 2}), // 16
+                new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}), // 12
+                new VAOLayout.Attribute({name: "a_TexCoords", type: "vec2<f32>"}), // 8
+                new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>", divisor: 1}), // 12
+                new VAOLayout.Attribute({name: "a_Color", type: "vec4<f32>", divisor: 2}), // 16
             ],
         });
 
@@ -50,11 +50,11 @@ describe("VAOBufferLayout", function () {
             type: "array",
             schema: "abc/de/f/g/hijk",
             attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}), // 12
-                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}), // 12
-                new VAOLayout.Attribute({name: "a_VertexTexCoords", type: "vec2<f32>"}), // 8
+                new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}), // 12
+                new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}), // 12
+                new VAOLayout.Attribute({name: "a_TexCoords", type: "vec2<f32>"}), // 8
 
-                new VAOLayout.Attribute({name: "a_VertexColor", type: "vec4<f32>"}), // 16
+                new VAOLayout.Attribute({name: "a_Color", type: "vec4<f32>"}), // 16
                 new VAOLayout.Attribute({name: "a_VertexNegativeColor", type: "f32"}), // 4
 
                 new VAOLayout.Attribute({name: "a_VertexWeight", type: "s16"}), // 2
@@ -77,12 +77,12 @@ describe("VAOBufferLayout", function () {
         createVAOAllocation(vaoLayout);
         const verticesCount = 30;
 
-        assertAllocation(vaoAllocation, "a_VertexPosition", 32, 0);
-        assertAllocation(vaoAllocation, "a_VertexNormal", 32, 12);
-        assertAllocation(vaoAllocation, "a_VertexTexCoords", 32, 24);
+        assertAllocation(vaoAllocation, "a_Position", 32, 0);
+        assertAllocation(vaoAllocation, "a_Normal", 32, 12);
+        assertAllocation(vaoAllocation, "a_TexCoords", 32, 24);
 
         const block1Offset = verticesCount * 32;
-        assertAllocation(vaoAllocation, "a_VertexColor", 20, block1Offset);
+        assertAllocation(vaoAllocation, "a_Color", 20, block1Offset);
         assertAllocation(vaoAllocation, "a_VertexNegativeColor", 20, block1Offset + 16);
 
         const block2Offset = block1Offset + (verticesCount * 20);

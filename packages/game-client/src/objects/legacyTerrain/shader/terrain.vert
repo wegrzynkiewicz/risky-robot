@@ -1,5 +1,5 @@
-attribute vec3 a_VertexPosition;
-attribute vec3 a_VertexNormal;
+attribute vec3 a_Position;
+attribute vec3 a_Normal;
 
 uniform highp mat4 viewMatrix;
 uniform highp mat4 modelMatrix;
@@ -10,8 +10,8 @@ varying vec3 fragmentNormal;
 varying vec3 fragmentColor;
 
 void main(void) {
-    fragmentPosition = vec3(modelMatrix * vec4(a_VertexPosition, 1.0));
-    fragmentNormal = a_VertexNormal;
+    fragmentPosition = vec3(modelMatrix * vec4(a_Position, 1.0));
+    fragmentNormal = a_Normal;
     fragmentColor = fragmentPosition;
     gl_Position = projectionMatrix * viewMatrix * vec4(fragmentPosition, 1.0);
 

@@ -32,9 +32,9 @@ const vaoLayout = new VAOLayout({
             type: "array",
             schema: "abc",
             attributes: [
-                new VAOLayout.Attribute({name: "a_VertexPosition", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_VertexTextureCoords", type: "vec2<f32>"}),
-                new VAOLayout.Attribute({name: "a_VertexNormal", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: "a_TexCoords", type: "vec2<f32>"}),
+                new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}),
             ],
         }),
     ],
@@ -43,8 +43,8 @@ const vaoLayout = new VAOLayout({
 const vaoAllocation = vaoLayout.createVAOAllocation(8600);
 const vaoBufferAllocation = vaoAllocation.getVAOBufferAllocationByName("vertices");
 const dataView = vaoBufferAllocation.createArrayBufferByDataView();
-const a_VertexPosition = vaoBufferAllocation.getAttributeAllocationByName("a_VertexPosition");
-const a_VertexNormal = vaoBufferAllocation.getAttributeAllocationByName("a_VertexNormal");
+const a_Position = vaoBufferAllocation.getAttributeAllocationByName("a_Position");
+const a_Normal = vaoBufferAllocation.getAttributeAllocationByName("a_Normal");
 
 const wallMeshesGenerator = new WallMeshesGenerator({bevel: 0.3, flat: true});
 const meshes = wallMeshesGenerator.generateWallMeshes();
@@ -89,8 +89,8 @@ class WallVAOGenerator {
                     vertex.position[1] + y,
                     vertex.position[2] + z,
                 ];
-                a_VertexPosition.write(dataView, this.offset, types);
-                a_VertexNormal.write(dataView, this.offset, vertex.normal);
+                a_Position.write(dataView, this.offset, types);
+                a_Normal.write(dataView, this.offset, vertex.normal);
                 this.offset++;
                 this.vertices++;
             }

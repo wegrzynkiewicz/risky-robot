@@ -25,11 +25,11 @@ describe("ArrayBufferBlueprint", function () {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexPosition",
+                            name: "a_Position",
                             type: "vec3<f32>"
                         }),
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexTexCoords",
+                            name: "a_TexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
@@ -37,7 +37,7 @@ describe("ArrayBufferBlueprint", function () {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexNormal",
+                            name: "a_Normal",
                             type: "vec3<f32>",
                             divisor: 1
                         }),
@@ -46,7 +46,7 @@ describe("ArrayBufferBlueprint", function () {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexColor",
+                            name: "a_Color",
                             type: "vec4<f32>",
                             divisor: 2
                         }),
@@ -72,15 +72,15 @@ describe("ArrayBufferBlueprint", function () {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexPosition",
+                            name: "a_Position",
                             type: "vec3<f32>"
                         }),
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexNormal",
+                            name: "a_Normal",
                             type: "vec3<f32>"
                         }),
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexTexCoords",
+                            name: "a_TexCoords",
                             type: "vec2<f32>"
                         }),
                     ],
@@ -88,7 +88,7 @@ describe("ArrayBufferBlueprint", function () {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
-                            name: "a_VertexColor",
+                            name: "a_Color",
                             type: "vec4<f32>"
                         }),
                         new VAOLayoutBlueprint.Attribute({
@@ -145,12 +145,12 @@ describe("ArrayBufferBlueprint", function () {
         const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
         const verticesCount = 30;
 
-        assertAttributeLayout(bufferLayout, "a_VertexPosition", 32, 0);
-        assertAttributeLayout(bufferLayout, "a_VertexNormal", 32, 12);
-        assertAttributeLayout(bufferLayout, "a_VertexTexCoords", 32, 24);
+        assertAttributeLayout(bufferLayout, "a_Position", 32, 0);
+        assertAttributeLayout(bufferLayout, "a_Normal", 32, 12);
+        assertAttributeLayout(bufferLayout, "a_TexCoords", 32, 24);
 
         const block1Offset = verticesCount * 32;
-        assertAttributeLayout(bufferLayout, "a_VertexColor", 20, block1Offset);
+        assertAttributeLayout(bufferLayout, "a_Color", 20, block1Offset);
         assertAttributeLayout(bufferLayout, "a_VertexNegativeColor", 20, block1Offset + 16);
 
         const block2Offset = block1Offset + (verticesCount * 20);
