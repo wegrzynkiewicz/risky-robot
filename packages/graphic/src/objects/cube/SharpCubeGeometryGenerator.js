@@ -33,7 +33,7 @@ function getCubeBufferLayout() {
 
     const cubeLayout = cubeBlueprint.createLayout({
         primitive: "triangle",
-        elementsCount: 6 * 2,
+        verticesCount: 6 * 2 * 3,
     });
 
     return cubeLayout;

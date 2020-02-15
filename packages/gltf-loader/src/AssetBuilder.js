@@ -64,7 +64,7 @@ export default class AssetBuilder {
     async loadReferencedData(referencedData, referencedObject) {
         const {uri} = referencedData;
         const url = (new URL(uri, this.resourceURL.href)).href;
-        console.log(url);
+
         const resource = new Assets.Resource({
             vendor: this.resource.vendor,
             mimeType: MimeTypes.lookup(uri),

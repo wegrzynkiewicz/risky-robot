@@ -2,8 +2,8 @@ import VAOBufferAllocation from "./VAOBufferAllocation";
 import VAOAttributeAllocation from "./VAOAttributeAllocation";
 
 const glBufferMapper = {
-    "element_array": WebGLRenderingContext["ELEMENT_ARRAY_BUFFER"],
-    "array": WebGLRenderingContext["ARRAY_BUFFER"],
+    "element_array": WebGL2RenderingContext["ELEMENT_ARRAY_BUFFER"],
+    "array": WebGL2RenderingContext["ARRAY_BUFFER"],
 };
 
 export default class VAOBufferLayout {

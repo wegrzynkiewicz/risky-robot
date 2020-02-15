@@ -106,7 +106,7 @@ class BinaryTypes {
         instance.typeName = typeName;
         instance.byteLength = byteLength;
         instance.components = 1;
-        instance.openGLType = WebGLRenderingContext[openGLType];
+        instance.openGLType = WebGL2RenderingContext[openGLType];
         instance.openGLTypeName = openGLType;
         instance.openGLTypeStride = byteLength;
         instance.arrayType = typedArrays[`${arrayType}${bitSize}Array`];

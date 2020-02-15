@@ -4,7 +4,7 @@ import VAOBufferLayout from "./VAOBufferLayout";
 
 const primitivesType = {
     "triangle": {
-        glType: WebGLRenderingContext["TRIANGLES"],
+        glType: WebGL2RenderingContext["TRIANGLES"],
         glTypeName: "TRIANGLES",
         calculateVerticesCount: elements => elements * 3,
     },

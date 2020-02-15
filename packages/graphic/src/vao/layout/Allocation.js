@@ -1,33 +1,26 @@
 const primitivesType = {
-    "point": {
-        openGLPrimitiveType: WebGLRenderingContext["POINTS"],
-        openGLPrimitiveTypeName: "POINTS",
-        calculateVerticesCount: elements => elements,
+    [WebGL2RenderingContext["POINTS"]]: {
+        calculateElementsCount: vertices => vertices,
     },
-    "triangle": {
-        openGLPrimitiveType: WebGLRenderingContext["TRIANGLES"],
-        openGLPrimitiveTypeName: "TRIANGLES",
-        calculateVerticesCount: elements => elements * 3,
+    [WebGL2RenderingContext["TRIANGLES"]]: {
+        calculateElementsCount: vertices => vertices / 3,
     },
 };
 
 export default class Allocation {
 
-    constructor({primitive, elementsCount}) {
-        const {openGLPrimitiveType, openGLPrimitiveTypeName, calculateVerticesCount} = primitivesType[primitive];
+    constructor({openGLPrimitiveType, verticesCount}) {
 
-        if (openGLPrimitiveTypeName === undefined) {
-            throw new Error("Invalid  allocation primitive type.");
-        }
-
-        this.elementsCount = parseInt(elementsCount);
-        if (isNaN(this.elementsCount)) {
+        if (openGLPrimitiveType === undefined) {
             throw new Error("Invalid  allocation primitive type.");
         }
 
         this.openGLPrimitiveType = openGLPrimitiveType;
-        this.openGLPrimitiveTypeName = openGLPrimitiveTypeName;
-        this.primitive = primitive;
-        this.verticesCount = calculateVerticesCount(elementsCount);
+
+        this.verticesCount = parseInt(verticesCount);
+        if (isNaN(this.verticesCount)) {
+            throw new Error("Invalid  allocation primitive type.");
+        }
+        this.elementsCount = primitivesType[openGLPrimitiveType].calculateElementsCount(this.verticesCount);
     }
 }

@@ -57,7 +57,7 @@ describe("ArrayBufferBlueprint", function () {
 
         const allocation = new Allocation({
             primitive: "triangle",
-            elementsCount: 2,
+            verticesCount: 6,
         });
 
         const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
@@ -139,7 +139,7 @@ describe("ArrayBufferBlueprint", function () {
 
         const allocation = new Allocation({
             primitive: "triangle",
-            elementsCount: 10,
+            verticesCount: 30,
         });
 
         const bufferLayout = bufferBlueprint.createBufferLayout({allocation});

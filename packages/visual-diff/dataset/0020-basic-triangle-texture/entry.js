@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const system = Frontend.createBasicSystem({window, canvas});
 
     const vaoLayout = Graphic.VAOLayout.createBasicLayout({
-        primitive: "triangle",
-        elementsCount: 1,
+        openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
+        verticesCount: 3,
         indices: false,
         attributes: [
             {buffer: "primary", batch: 0, name: "a_Position", type: "vec3<f32>"},

@@ -1,7 +1,8 @@
 export default class BinaryAccessor {
 
-    constructor({dataView, type, byteOffset, byteStride}) {
+    constructor({count, dataView, type, byteOffset, byteStride}) {
         this.type = type;
+        this.count = count === undefined ? Infinity : count;
         this.dataView = dataView;
         this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
         this.byteStride = byteStride === undefined ? type.byteLength : byteStride;

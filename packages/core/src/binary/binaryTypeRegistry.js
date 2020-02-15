@@ -147,7 +147,7 @@ const binaryTypeRegistry = new class TypeRegistry {
             'byteLength': {value: byteLength},
 
             'components': {value: 1},
-            'glType': {value: WebGLRenderingContext[glType]},
+            'glType': {value: WebGL2RenderingContext[glType]},
             'glTypeName': {value: glType},
             'glTypeStride': {value: byteLength},
 

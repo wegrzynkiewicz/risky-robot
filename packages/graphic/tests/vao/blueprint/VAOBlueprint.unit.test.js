@@ -39,7 +39,7 @@ describe("VAOLayoutBlueprint", function () {
 
         const layout = blueprint.createLayout({
             primitive: "triangle",
-            elementsCount: 4,
+            verticesCount: 12,
         });
     });
 });

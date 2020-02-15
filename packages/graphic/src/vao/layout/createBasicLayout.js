@@ -4,7 +4,7 @@ import AttributeBlueprint from "../blueprint/AttributeBlueprint";
 import ElementBufferBlueprint from "../blueprint/ElementBufferBlueprint";
 import VAOLayoutBlueprint from "../blueprint/VAOLayoutBlueprint";
 
-export default function createBasicLayout({primitive, elementsCount, indices, attributes}) {
+export default function createBasicLayout({openGLPrimitiveType, verticesCount, indices, attributes}) {
 
     const batchesMap = {};
     for (const {buffer: bufferName, batch: batchNumber, ...attributeOptions} of attributes) {
@@ -35,7 +35,7 @@ export default function createBasicLayout({primitive, elementsCount, indices, at
     }
 
     const blueprint = new VAOLayoutBlueprint({buffers});
-    const layout = blueprint.createLayout({primitive, elementsCount});
+    const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount});
 
     return layout;
 }

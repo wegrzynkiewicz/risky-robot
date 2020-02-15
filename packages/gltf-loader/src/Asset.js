@@ -98,29 +98,48 @@ export default class Asset {
     createPrimitive(primitiveData) {
         const {attributes, indices, material, mode, targets} = primitiveData;
 
-        const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
-            batches: [
-                new VAOLayoutBlueprint.AttributeBatch({
-                    attributes: [
-                        new VAOLayoutBlueprint.Attribute({
-                            name: "a_Position",
-                            type: "vec3<f32>"
-                        }),
-                        new VAOLayoutBlueprint.Attribute({
-                            name: "a_TexCoords",
-                            type: "vec2<f32>"
+        if (!attributes["POSITION"]) {
+            return;
+        }
+
+        const blueprint = new VAOLayoutBlueprint({
+            buffers: [
+                new VAOLayoutBlueprint.ArrayBuffer({
+                    name: "primary",
+                    batches: [
+                        new VAOLayoutBlueprint.AttributeBatch({
+                            attributes: [
+                                new VAOLayoutBlueprint.Attribute({
+                                    name: "a_Position",
+                                    type: "vec3<f32>"
+                                }),
+                            ],
                         }),
                     ],
                 }),
-            ]
+            ],
         });
+
+        const positionAccessorData = this.gltfData.accessors[attributes["POSITION"]];
+        const openGLPrimitiveType = mode || 4;
+        const verticesCount = positionAccessorData.count;
+        const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount});
 
         for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
             const attributeName = this.translateAttributeName(attributeKey);
             const accessor = this.createAccessor(accessorNumber);
+
+
         }
+
+
+        const primitive = new Graphic.Primitive({vao, material});
+
     }
 
+    /**
+     * @return {Accessor}
+     */
     createAccessor(accessorNumber) {
 
         const accessorData = this.gltfData.accessors[accessorNumber];
@@ -147,6 +166,7 @@ export default class Asset {
 
         const accessor  = new Binary.Accessor({
             type,
+            count,
             dataView,
             byteOffset: bufferViewByteOffset + accessorByteOffset,
             byteStride,
@@ -177,31 +197,5 @@ export default class Asset {
         }
 
         return mapped;
-    }
-}
-
-
-class Accessor {
-
-    constructor({arrayBuffer, type, count, byteOffset, byteStride}) {
-        this.arrayBuffer = arrayBuffer;
-        this.type = type;
-        this.count = count;
-        this.byteOffset = byteOffset;
-        this.byteStride = byteStride;
-    }
-
-    calculateOffset(index) {
-        return this.byteOffset + (this.byteStride * index);
-    }
-
-    write(dataView, index, source) {
-        const offset = this.calculateOffset(index);
-        this.type.write(dataView, offset, source);
-    }
-
-    read(dataView, index, destination) {
-        const offset = this.calculateOffset(index);
-        return this.type.read(dataView, offset, destination);
     }
 }
