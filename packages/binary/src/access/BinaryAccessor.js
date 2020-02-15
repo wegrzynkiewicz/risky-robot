@@ -21,4 +21,15 @@ export default class BinaryAccessor {
         const offset = this.calculateOffset(index);
         return this.type.read(this.dataView, offset, destination);
     }
+
+    getTypedArray(index) {
+        const {type, dataView} = this;
+        const offset = this.calculateOffset(index);
+        const arrayBuffer = dataView.buffer;
+        const byteOffset = dataView.byteOffset + offset;
+        const elementsCount = type.components;
+        const typedArray = new type.arrayType(arrayBuffer, byteOffset, elementsCount);
+
+        return typedArray;
+    }
 }

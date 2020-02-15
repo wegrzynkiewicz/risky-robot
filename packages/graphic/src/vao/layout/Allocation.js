@@ -9,7 +9,7 @@ const primitivesType = {
 
 export default class Allocation {
 
-    constructor({openGLPrimitiveType, verticesCount}) {
+    constructor({openGLPrimitiveType, verticesCount, indicesCount}) {
 
         if (openGLPrimitiveType === undefined) {
             throw new Error("Invalid  allocation primitive type.");
@@ -21,6 +21,12 @@ export default class Allocation {
         if (isNaN(this.verticesCount)) {
             throw new Error("Invalid  allocation primitive type.");
         }
+
+        this.indicesCount = parseInt(indicesCount);
+        if (isNaN(this.verticesCount)) {
+            throw new Error("Invalid  allocation primitive type.");
+        }
+
         this.elementsCount = primitivesType[openGLPrimitiveType].calculateElementsCount(this.verticesCount);
     }
 }

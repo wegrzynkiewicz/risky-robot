@@ -11,10 +11,11 @@ export default class AttributeLayout {
         this.byteOffset = byteOffset;
     }
 
-    createAccessor(dataView) {
+    createAccessor({dataView, count}) {
         return new Binary.Accessor({
-            dataView: dataView,
+            count: count,
             type: this.type,
+            dataView: dataView,
             byteOffset: this.byteOffset,
             byteStride: this.byteStride,
         });

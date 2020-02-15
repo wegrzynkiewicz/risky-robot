@@ -18,15 +18,6 @@ export default class ArrayBufferLayout {
         return attributeLayouts;
     }
 
-    createAccessor({name, dataView}) {
-        try {
-            const attributeLayout = this.getAttributeLayoutByName(name);
-            return attributeLayout.createAccessor(dataView);
-        } catch (error) {
-            throw new Error(`Not found Accessor named (${accessorName})`);
-        }
-    }
-
     getAttributeLayoutByName(attributeLayoutName) {
         for (const {attributeLayoutMap} of this.attributeBatchLayoutSet.values()) {
             if (attributeLayoutMap.has(attributeLayoutName)) {

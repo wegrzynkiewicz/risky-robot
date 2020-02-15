@@ -29,6 +29,10 @@ const readStatic = function (dataView, offset) {
     return this.dataViewGetter.call(dataView, offset, true);
 };
 
+const createTypedArray = function (elementsCount) {
+    return new this.arrayType(this.components * elementsCount);
+};
+
 const openGLIntegerMapper = [
     {power: 0, openGLType: "BYTE", arrayTypePrefix: ""},
     {power: 1, openGLType: "SHORT", arrayTypePrefix: ""},
@@ -103,9 +107,13 @@ class BinaryTypes {
 
         const instance = createInstance();
 
+        instance.scalar = true;
         instance.typeName = typeName;
         instance.byteLength = byteLength;
         instance.components = 1;
+        instance.axisType = null;
+        instance.axisLength = 0;
+        instance.axisByteLength = 0;
         instance.openGLType = WebGL2RenderingContext[openGLType];
         instance.openGLTypeName = openGLType;
         instance.openGLTypeStride = byteLength;
@@ -114,6 +122,7 @@ class BinaryTypes {
         instance.dataViewSetter = DataView.prototype[`set${dataViewType}`];
         instance.write = writeStatic;
         instance.read = readStatic;
+        instance.createTypedArray = createTypedArray;
 
         this.types[typeName] = instance;
         staticTypes.push(instance);
@@ -125,6 +134,7 @@ class BinaryTypes {
 
         const instance = createInstance();
 
+        instance.scalar = false;
         instance.typeName = genericTypeName;
         instance.byteLength = genericByteLength;
         instance.components = axisLength;
@@ -139,6 +149,7 @@ class BinaryTypes {
         instance.dataViewSetter = staticType.dataViewSetter;
         instance.write = writeGeneric;
         instance.read = readGeneric;
+        instance.createTypedArray = createTypedArray;
 
         this.types[genericTypeName] = instance;
     }

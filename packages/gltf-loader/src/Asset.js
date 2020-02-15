@@ -102,39 +102,37 @@ export default class Asset {
             return;
         }
 
-        const blueprint = new VAOLayoutBlueprint({
-            buffers: [
-                new VAOLayoutBlueprint.ArrayBuffer({
-                    name: "primary",
-                    batches: [
-                        new VAOLayoutBlueprint.AttributeBatch({
-                            attributes: [
-                                new VAOLayoutBlueprint.Attribute({
-                                    name: "a_Position",
-                                    type: "vec3<f32>"
-                                }),
-                            ],
-                        }),
-                    ],
-                }),
-            ],
-        });
-
-        const positionAccessorData = this.gltfData.accessors[attributes["POSITION"]];
-        const openGLPrimitiveType = mode || 4;
-        const verticesCount = positionAccessorData.count;
-        const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount});
+        const layout = this.createLayout(primitiveData);
+        const count = layout.allocation.verticesCount;
+        const primaryBuffer = layout.getBufferLayout("primary");
+        const dataView = primaryBuffer.createDataView();
 
         for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
             const attributeName = this.translateAttributeName(attributeKey);
-            const accessor = this.createAccessor(accessorNumber);
+            const sourceAccessor = this.createAccessor(accessorNumber);
+            const attributeLayout = primaryBuffer.getAttributeLayoutByName(attributeName);
+            const destinationAccessor = attributeLayout.createAccessor({dataView, count});
 
+            for (let i = 0; i < count; i++) {
+                const typedArray = sourceAccessor.getTypedArray(i);
+                destinationAccessor.write(i, typedArray);
+            }
+        }
 
+        if (indices) {
+            const indicesBuffer = layout.getBufferLayout("indices");
+            const sourceAccessor = this.createAccessor(indices);
+            const attributeLayout = indicesBuffer.getAttributeLayoutByName(attributeName);
+            const destinationAccessor = attributeLayout.createAccessor({dataView, count});
+
+            for (let i = 0; i < count; i++) {
+                const typedArray = sourceAccessor.getTypedArray(i);
+                destinationAccessor.write(i, typedArray);
+            }
         }
 
 
         const primitive = new Graphic.Primitive({vao, material});
-
     }
 
     /**
@@ -164,7 +162,7 @@ export default class Asset {
 
         const dataView = new DataView(this.referencedData.buffers[bufferNumber].data);
 
-        const accessor  = new Binary.Accessor({
+        const accessor = new Binary.Accessor({
             type,
             count,
             dataView,
@@ -197,5 +195,49 @@ export default class Asset {
         }
 
         return mapped;
+    }
+
+    createLayout(primitiveData) {
+        const {attributes, indices, mode} = primitiveData;
+
+        const attributeBlueprints = [];
+        for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
+            const attributeName = this.translateAttributeName(attributeKey);
+            const sourceAccessor = this.createAccessor(accessorNumber);
+
+            const attributeBlueprint = new VAOLayoutBlueprint.Attribute({
+                name: attributeName,
+                type: sourceAccessor.type.typeName
+            });
+
+            attributeBlueprints.push(attributeBlueprint);
+        }
+
+        const buffers = [];
+        const primaryBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
+            name: "primary",
+            batches: [
+                new VAOLayoutBlueprint.AttributeBatch({
+                    attributes: attributeBlueprints,
+                }),
+            ],
+        });
+        buffers.push(primaryBlueprint);
+
+        if (indices) {
+            const indicesBlueprint = new VAOLayoutBlueprint.ElementArrayBuffer({
+                name: "indices",
+            });
+            buffers.push(indicesBlueprint);
+        }
+
+        const blueprint = new VAOLayoutBlueprint({buffers});
+
+        const positionAccessorData = this.gltfData.accessors[attributes["POSITION"]];
+        const openGLPrimitiveType = mode || 4;
+        const verticesCount = positionAccessorData.count;
+        const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount});
+
+        return layout;
     }
 }

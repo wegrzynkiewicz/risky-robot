@@ -7,7 +7,8 @@ export default class ElementBufferLayout {
         this.openGLBufferTypeName = 'ELEMENT_ARRAY_BUFFER';
     }
 
-    getIndexAccessor() {
+    getAccessor() {
+
     }
 
     createDataView() {

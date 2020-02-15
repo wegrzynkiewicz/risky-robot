@@ -22,12 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const bufferLayout = vaoLayout.getBufferLayout("primary");
     const dataView = bufferLayout.createDataView();
 
-    const positionAccessor = bufferLayout.createAccessor({name: "a_Position", dataView});
+    const positionAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Position");
+    const positionAccessor = positionAttributeLayout.createAccessor({dataView});
     positionAccessor.write(0, [-0.5, -0.5, 0]);
     positionAccessor.write(1, [0.5, -0.5, 0]);
     positionAccessor.write(2, [-0.5, 0.5, 0]);
 
-    const colorAccessor = bufferLayout.createAccessor({name: "a_Color", dataView});
+    const colorAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Color");
+    const colorAccessor = colorAttributeLayout.createAccessor({dataView});
     colorAccessor.write(0, [1, 0, 0]);
     colorAccessor.write(1, [0, 1, 0]);
     colorAccessor.write(2, [0, 0, 1]);
