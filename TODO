@@ -1,6 +1,6 @@
 // TODO: universal shader
 // TODO: texture manager
-// TODO: scene manager
+// TODO: [x] scene manager
 // TODO: animator manager
 // TODO: bone shaders
 // TODO: uniform buffers
