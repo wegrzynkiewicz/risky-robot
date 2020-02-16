@@ -1,20 +1,27 @@
-import AssetResourceLoader from "./AssetResourceLoader";
-import AssetModelExtractor from "./AssetModelExtractor";
+import GLTFContentLoader from "./content/GLTFContentLoader";
+import GLTFAssetExtractor from "./assets/GLTFAssetExtractor";
 
 export default class GLTFManager {
 
     constructor({resourceManager}) {
         this.resourceManager = resourceManager;
+        this.contents = new Map();
     }
 
-    async load(resource) {
+    async loadContent(resource) {
         const {resourceManager} = this;
 
-        const assetResourceLoader = new AssetResourceLoader({resource, resourceManager});
-        const {gltfData, referencedData} = await assetResourceLoader.load();
+        const gltfContentLoader = new GLTFContentLoader({resource, resourceManager});
+        const gltfContent = await gltfContentLoader.load();
 
-        const assetModelExtractor = new AssetModelExtractor({gltfData, resource, referencedData});
-        const assetx = await assetModelExtractor.extract();
+        this.contents.set(resource.url, gltfContent);
+
+        return gltfContent;
+    }
+
+    async extractAsset({view, gltfContent}) {
+        const gltfAssetExtractor = new GLTFAssetExtractor({view, gltfContent});
+        const asset = await gltfAssetExtractor.extractAsset();
 
         return asset;
     }

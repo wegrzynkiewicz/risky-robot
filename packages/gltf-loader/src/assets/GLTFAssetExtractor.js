@@ -1,20 +1,22 @@
 import * as Graphic from "robo24-graphic";
 import accessorTypeTranslate from "./accessorTypeTranlate";
 import * as Binary from "robo24-binary";
+import GLTFAsset from "./GLTFAsset";
 
-export default class AssetModelExtractor {
+export default class GLTFAssetExtractor {
 
-    constructor({gltfData, referencedData, resource, bufferManager}) {
-        this.gltfData = gltfData;
-        this.resource = resource;
-        this.images = referencedData.images;
-        this.buffers = referencedData.buffers;
+    constructor({view, gltfContent}) {
+        this.view = view;
+        this.gltfContent = gltfContent;
+
+        this.images = [...gltfContent.referencedData.images];
+        this.buffers = [...gltfContent.referencedData.buffers];
         this.accessors = [];
         this.meshes = [];
     }
 
-    async extract() {
-        const {gltfData} = this;
+    async extractAsset() {
+        const {gltfData} = this.gltfContent;
 
         for (const accessorNumber of Object.keys(gltfData.accessors) || []) {
             this.accessors.push(this.createAccessor(accessorNumber));
@@ -23,6 +25,15 @@ export default class AssetModelExtractor {
         for (const meshNumber of Object.keys(gltfData.meshes) || []) {
             this.meshes.push(this.createMesh(meshNumber));
         }
+
+        const asset = new GLTFAsset({
+            gltfData,
+            images: [...this.images],
+            buffers: [...this.buffers],
+            meshes: [...this.meshes],
+        });
+
+        return asset;
     }
 
     createSkin(skinNumber) {
@@ -30,7 +41,7 @@ export default class AssetModelExtractor {
     }
 
     createMesh(meshNumber) {
-        let meshData = this.gltfData.meshes[meshNumber];
+        let meshData = this.gltfContent.gltfData.meshes[meshNumber];
         let {primitives, weights, name} = meshData;
 
         primitives = primitives.map(this.createPrimitive, this);
@@ -41,16 +52,44 @@ export default class AssetModelExtractor {
     }
 
     createPrimitive(primitiveData) {
-        const {attributes, indices, material, mode, targets} = primitiveData;
+        const {attributes, material, mode} = primitiveData;
 
-        if (!attributes["POSITION"]) {
+        if (attributes["POSITION"] === undefined) {
             return;
         }
 
-        const layout = this.createLayout(primitiveData);
+        const layout = this.createPrimitiveLayout(primitiveData);
+        const verticesCount = layout.allocation.verticesCount;
+        const attributeBuffers = this.createAttributeBuffers({layout, primitiveData});
+        const indicesBuffer = this.createIndicesBuffer({layout, primitiveData});
+        const program = this.findCorrectProgram(primitiveData);
+
+        const vao = this.view.vaoManager.createVAO({
+            name: "test",
+            program,
+            layout,
+            attributeBuffers,
+            indicesBuffer,
+        });
+
+        const openGLPrimitiveType = mode || 4;
+        const primitive = new Graphic.Primitive({
+            vao,
+            program,
+            material,
+            verticesCount,
+            openGLPrimitiveType,
+        });
+
+        return primitive;
+    }
+
+    createAttributeBuffers({layout, primitiveData}) {
+        const {attributes} = primitiveData;
         const count = layout.allocation.verticesCount;
         const primaryBuffer = layout.getBufferLayout("primary");
         const dataView = primaryBuffer.createDataView();
+        const attributeBuffers = [];
 
         for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
             const attributeName = this.translateAttributeName(attributeKey);
@@ -62,29 +101,50 @@ export default class AssetModelExtractor {
                 const typedArray = sourceAccessor.getTypedArray(i);
                 destinationAccessor.write(i, typedArray);
             }
+
+            const buffer = this.view.bufferManager.createArrayBuffer({
+                name: "test",
+                bufferLayout: primaryBuffer,
+            });
+            buffer.setDataView(dataView);
+            attributeBuffers.push(buffer);
         }
 
-        if (indices) {
-            const indicesBuffer = layout.getBufferLayout("indices");
-            const dataView = indicesBuffer.createDataView();
-            const sourceAccessor = this.createAccessor(indices);
-            const count = sourceAccessor.count;
-            const destinationAccessor = indicesBuffer.createAccessor({dataView, count});
+        return attributeBuffers;
+    }
 
-            for (let i = 0; i < count; i++) {
-                const value = sourceAccessor.read(i);
-                destinationAccessor.write(i, value);
-            }
+    createIndicesBuffer({layout, primitiveData}) {
+        const {indices} = primitiveData;
+
+        if (indices === undefined) {
+            return null;
         }
 
-        const primitive = new Graphic.Primitive({vao, material});
+        const indicesBufferLayout = layout.getBufferLayout("indices");
+        const dataView = indicesBufferLayout.createDataView();
+        const sourceAccessor = this.createAccessor(indices);
+        const count = sourceAccessor.count;
+        const destinationAccessor = indicesBufferLayout.createAccessor({dataView, count});
+
+        for (let i = 0; i < count; i++) {
+            const value = sourceAccessor.read(i);
+            destinationAccessor.write(i, value);
+        }
+
+        const indicesBuffer = this.view.bufferManager.createElementBuffer({
+            name: "test",
+            bufferLayout: indicesBufferLayout,
+        });
+        indicesBuffer.setDataView(dataView);
+
+        return indicesBuffer;
     }
 
     /**
      * @return {Accessor}
      */
     createAccessor(accessorNumber) {
-        const accessorData = this.gltfData.accessors[accessorNumber];
+        const accessorData = this.gltfContent.gltfData.accessors[accessorNumber];
         const {
             bufferView: bufferViewNumber,
             byteOffset: accessorByteOffset,
@@ -93,7 +153,7 @@ export default class AssetModelExtractor {
             type: accessorType
         } = accessorData;
 
-        const bufferViewData = this.gltfData.bufferViews[bufferViewNumber];
+        const bufferViewData = this.gltfContent.gltfData.bufferViews[bufferViewNumber];
         const {
             buffer: bufferNumber,
             byteOffset: bufferViewByteOffset,
@@ -137,7 +197,7 @@ export default class AssetModelExtractor {
         return mapped;
     }
 
-    createLayout(primitiveData) {
+    createPrimitiveLayout(primitiveData) {
         const {attributes, indices, mode} = primitiveData;
 
         const attributeBlueprints = [];
@@ -164,7 +224,7 @@ export default class AssetModelExtractor {
         });
         buffers.push(primaryBlueprint);
 
-        if (indices) {
+        if (indices !== undefined) {
             const indicesBlueprint = new Graphic.VAOLayoutBlueprint.ElementArrayBuffer({
                 name: "indices",
             });
@@ -173,11 +233,17 @@ export default class AssetModelExtractor {
 
         const blueprint = new Graphic.VAOLayoutBlueprint({buffers});
 
-        const positionAccessorData = this.gltfData.accessors[attributes["POSITION"]];
+        const indicesAccessorData = this.gltfContent.gltfData.accessors[indices];
+        const indicesCount = indicesAccessorData.count;
+        const positionAccessorData = this.gltfContent.gltfData.accessors[attributes["POSITION"]];
         const openGLPrimitiveType = mode || 4;
         const verticesCount = positionAccessorData.count;
-        const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount});
+        const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount, indicesCount});
 
         return layout;
+    }
+
+    findCorrectProgram() {
+        return this.view.programManager.getProgramByName("solid"); // TODO: refactor
     }
 }

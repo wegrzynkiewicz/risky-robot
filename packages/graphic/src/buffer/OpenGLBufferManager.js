@@ -1,4 +1,5 @@
-import OpenGLBuffer from "./OpenGLBuffer";
+import OpenGLArrayBuffer from "./OpenGLArrayBuffer";
+import OpenGLElementBuffer from "./OpenGLElementBuffer";
 
 export default class BufferManager {
 
@@ -11,9 +12,16 @@ export default class BufferManager {
         return this.buffers[bufferName];
     }
 
-    createBuffer({name, type, bufferLayout}) {
+    createArrayBuffer({name, bufferLayout}) {
         const {openGL} = this.view;
-        const buffer = new OpenGLBuffer({openGL, name, type, bufferLayout});
+        const buffer = new OpenGLArrayBuffer({openGL, name, bufferLayout});
+        this.buffers[name] = buffer;
+        return buffer;
+    }
+
+    createElementBuffer({name, bufferLayout}) {
+        const {openGL} = this.view;
+        const buffer = new OpenGLElementBuffer({openGL, name, bufferLayout});
         this.buffers[name] = buffer;
         return buffer;
     }

@@ -1,16 +1,10 @@
-export default class OpenGLBuffer {
+export default class OpenGLElementBuffer {
 
-    constructor({openGL, name, type, bufferLayout}) {
-        const openGLBufferType = openGL[type];
-
-        if (openGLBufferType === undefined) {
-            throw new Error("Invalid buffer type.");
-        }
-
+    constructor({openGL, name, bufferLayout}) {
         this.name = name;
         this.openGL = openGL;
         this.openGLBufferPointer = openGL.createBuffer();
-        this.openGLBufferType = openGLBufferType;
+        this.openGLBufferType = WebGL2RenderingContext["ELEMENT_ARRAY_BUFFER"];
         this.bufferLayout = bufferLayout;
     }
 

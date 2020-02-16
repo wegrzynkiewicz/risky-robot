@@ -6,13 +6,6 @@ import * as GLTFLoader from "robo24-gltf-loader";
 
 export default function createBasicSystem({window, canvas}) {
 
-    const animationLoop = new AnimationLoop({window});
-
-    const sceneManager = new Graphic.SceneManager();
-
-    const scene = new Graphic.Scene({name: "primary-scene"});
-    scene.setParent(sceneManager);
-
     const camera = new Graphic.Camera();
     const fieldOfView = Graphic.radian(45);
     const aspect = canvas.width / canvas.height;
@@ -27,13 +20,17 @@ export default function createBasicSystem({window, canvas}) {
         height: canvas.height,
     });
 
+    const view = new Graphic.View({canvas});
+
+    const scene = new Graphic.Scene({name: "primary-scene"});
+    scene.setParent(view.sceneManager);
+
     const renderer = new Graphic.SingleCameraRenderer({
         camera,
         viewport,
         sceneNode: scene
     });
 
-    const view = new Graphic.View({canvas});
     const primaryRenderingTask = new Graphic.RenderingTask({
         enabled: true,
         weight: 1.0000,
@@ -44,16 +41,17 @@ export default function createBasicSystem({window, canvas}) {
     const resourceManager = new Assets.ResourceManager({window});
     const gltfManager = new GLTFLoader.GLTFManager({resourceManager});
 
+    const animationLoop = new AnimationLoop({window});
+
     const system = new System({
         window,
         view,
-        sceneManager,
         animationLoop,
         resourceManager,
         gltfManager,
     });
 
-    animationLoop.start();
+    system.animationLoop.start();
 
     return system;
 }

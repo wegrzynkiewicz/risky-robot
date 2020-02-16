@@ -21,7 +21,7 @@ export default class ElementBufferLayout {
     }
 
     createDataView() {
-        const buffer = new ArrayBuffer(this.bufferLength);
+        const buffer = new ArrayBuffer(this.byteLength);
         const dataView = new DataView(buffer);
 
         return dataView;

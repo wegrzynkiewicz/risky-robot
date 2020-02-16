@@ -11,9 +11,6 @@ export default class Program {
         this.attributeLocations = Object.create(null);
 
         this.openGLProgramPointer = this.openGL.createProgram();
-        if (process.env.INSPECTOR_METADATA_ENABLED) {
-            attachProgramInspectorData.call(this);
-        }
 
         this.link();
         this.bindLayoutLocation();
@@ -61,9 +58,3 @@ export default class Program {
         this.view.stateMachine.useProgram(this.openGLProgramPointer);
     }
 }
-
-function attachProgramInspectorData() {
-    const tag = this.openGLProgramPointer.__SPECTOR_Object_TAG || {};
-    tag.displayText += ", Name: " + this.name;
-}
-

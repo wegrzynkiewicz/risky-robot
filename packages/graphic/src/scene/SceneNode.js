@@ -24,9 +24,10 @@ let sceneNodeId = 0;
  */
 export default class SceneNode {
 
-    constructor({name}) {
+    constructor({name, target}) {
         this.sceneNodeId = sceneNodeId++;
         this.name = name;
+        this.target = target;
         this.parent = null;
         this.children = [];
         this.transformation = new Transformation();

@@ -14,9 +14,6 @@ export default class Shader {
         this.shaderContent = shaderContent;
 
         this.openGLShaderPointer = openGL.createShader(openGLShaderType);
-        if (process.env.INSPECTOR_METADATA_ENABLED) {
-            attachShaderInspectorData.call(this);
-        }
     }
 
     compile() {
@@ -42,9 +39,3 @@ export default class Shader {
         this.openGLShaderPointer = null;
     }
 }
-
-function attachShaderInspectorData() {
-    const tag = this.openGLShaderPointer.__SPECTOR_Object_TAG || {};
-    tag.displayText += ", Name: " + this.name;
-}
-

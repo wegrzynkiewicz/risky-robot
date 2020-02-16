@@ -1,8 +1,7 @@
 export default class System {
 
-    constructor({view, sceneManager, animationLoop, resourceManager, gltfManager}) {
+    constructor({view, animationLoop, resourceManager, gltfManager}) {
         this.gltfManager = gltfManager;
-        this.sceneManager = sceneManager;
         this.resourceManager = resourceManager;
 
         this.view = view;
@@ -14,7 +13,7 @@ export default class System {
 
     loop(deltaTime) {
         this.context.deltaTime = deltaTime;
-        this.sceneManager.update(this, this.context);
+        this.view.sceneManager.update(this, this.context);
         this.view.render(this, this.context);
     }
 }

@@ -4,6 +4,7 @@ import ProgramManager from "../shader/ProgramManager";
 import RenderingFlow from "./RenderingFlow";
 import RenderingOrder from "./RenderingOrder";
 import VAOManager from "../vao/VAOManager";
+import SceneManager from "../scene/SceneManager";
 
 export default class View {
 
@@ -22,6 +23,7 @@ export default class View {
         this.vaoManager = new VAOManager({view});
         this.programManager = new ProgramManager({view});
         this.renderingOrder = new RenderingOrder();
+        this.sceneManager = new SceneManager();
     }
 
     render(system, context) {

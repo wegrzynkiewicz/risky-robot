@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         url: `/visual-diff/dataset/${config["suiteName"]}/model.${format}`,
     });
 
-    const asset = await system.gltfManager.load(resource);
-    const scene = asset.getScene(0);
+    const {gltfManager, view} = system;
+    const gltfContent = await gltfManager.loadContent(resource);
+    const asset = await gltfManager.extractAsset({view, gltfContent});
 
-    scene.debug(console.log);
+    const scene = asset.getScene(0);
 });

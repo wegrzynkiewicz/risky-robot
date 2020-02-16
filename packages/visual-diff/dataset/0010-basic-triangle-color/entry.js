@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
 
-    const vaoLayout = Graphic.VAOLayout.createBasicLayout({
+    const layout = Graphic.VAOLayout.createBasicLayout({
         openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
         verticesCount: 3,
         indices: false,
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
     });
 
-    const bufferLayout = vaoLayout.getBufferLayout("primary");
+    const bufferLayout = layout.getBufferLayout("primary");
     const dataView = bufferLayout.createDataView();
 
     const positionAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Position");
@@ -36,9 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const {bufferManager, vaoManager, programManager} = system.view;
 
-    const buffer = bufferManager.createBuffer({
+    const buffer = bufferManager.createArrayBuffer({
         name: "triangle",
-        type: "ARRAY_BUFFER",
         bufferLayout
     });
 
@@ -50,14 +49,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const vao = vaoManager.createVAO({
         name: "triangle",
         program,
-        vaoLayout,
-        buffers: [buffer],
+        layout,
+        attributeBuffers: [buffer],
     });
 
     system.animationLoop.on("frame", () => {
         program.use();
         vao.bind();
-        const {openGLPrimitiveType, verticesCount} = vao.vaoLayout.allocation;
+        const {openGLPrimitiveType, verticesCount} = vao.layout.allocation;
         system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
     });
 });

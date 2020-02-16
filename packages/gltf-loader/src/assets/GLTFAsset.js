@@ -1,27 +1,20 @@
 import * as Graphic from "robo24-graphic";
-import * as Binary from "robo24-binary";
-import VAOLayoutBlueprint from "../../graphic/src/vao/blueprint/VAOLayoutBlueprint";
-import accessorTypeTranslate from "./accessorTypeTranlate";
 
-export default class Asset {
+export default class GLTFAsset {
 
-    constructor({gltfData, referencedData}) {
-        if (!gltfData) {
-            throw new Error("Invalid GLTF data.");
-        }
+    constructor({gltfData, meshes, buffers, images}) {
         this.gltfData = gltfData;
-        this.referencedData = referencedData;
-    }
-
-    getScene(sceneNumber) {
-        const scene = this.createScene(sceneNumber);
-        return scene;
+        this.meshes = meshes;
+        this.images = images;
+        this.buffers = buffers;
     }
 
     createScene(sceneNumber) {
         const scene = this.gltfData.scenes[sceneNumber];
         const {nodes} = scene;
-        const sceneNode = new Graphic.SceneNode({name: `GLTFScene/${sceneNumber}`});
+        const sceneNode = new Graphic.SceneNode({
+            name: `GLTFScene/${sceneNumber}`
+        });
         for (const nodeNumber of nodes) {
             const node = this.createSceneNode(nodeNumber);
             node.setParent(sceneNode);
@@ -44,7 +37,13 @@ export default class Asset {
             weights
         } = node;
 
-        const sceneNode = new Graphic.SceneNode({name});
+        let target = null;
+
+        if (meshNumber !== undefined) {
+            target = this.meshes[meshNumber];
+        }
+
+        const sceneNode = new Graphic.SceneNode({name, target});
 
         if (children && children.length > 0) {
             for (const childNodeNumber of children) {
@@ -67,14 +66,6 @@ export default class Asset {
                 transformation.scale.set(scale);
             }
             transformation.updateLocalMatrix();
-        }
-
-        if (skin !== undefined) {
-            this.createSkin(skin);
-        }
-
-        if (meshNumber !== undefined) {
-            this.createMesh(meshNumber);
         }
 
         return sceneNode;

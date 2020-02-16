@@ -1,8 +1,8 @@
-import Asset from "./Asset";
 import MimeTypes from "mime-types";
 import * as Assets from "robo24-assets";
+import GLTFContent from "./GLTFContent";
 
-export default class AssetResourceLoader {
+export default class GLTFContentLoader {
 
     constructor({resource, resourceManager}) {
         this.resource = resource;
@@ -25,9 +25,9 @@ export default class AssetResourceLoader {
         const response = await resourceManager.download(resource);
         const gltfData = await response.json();
         const referencedData = await this.extractData(gltfData);
-        const asset = new Asset({resource, gltfData, referencedData});
 
-        return asset;
+        const content = new GLTFContent({resource, gltfData, referencedData});
+        return content;
     }
 
     async loadBinary() {
