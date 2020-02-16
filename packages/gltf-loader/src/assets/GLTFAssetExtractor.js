@@ -41,22 +41,30 @@ export default class GLTFAssetExtractor {
     }
 
     createMesh(meshNumber) {
-        let meshData = this.gltfContent.gltfData.meshes[meshNumber];
-        let {primitives, weights, name} = meshData;
+        const meshData = this.gltfContent.gltfData.meshes[meshNumber];
+        const {primitives, weights, name} = meshData;
 
-        primitives = primitives.map(this.createPrimitive, this);
+        const primitiveObjects = [];
+        for (const primitive of primitives) {
+            if (primitive.attributes["POSITION"] === undefined) {
+                return;
+            }
+            const primitiveObject = this.createPrimitive(primitive);
+            primitiveObjects.push(primitiveObject);
+        }
 
-        const mesh = new Graphic.Mesh({name, primitives, weights});
+        const mesh = new Graphic.Mesh({
+            name,
+            primitives: primitiveObjects,
+            weights
+        });
 
         return mesh;
     }
 
     createPrimitive(primitiveData) {
-        const {attributes, material, mode} = primitiveData;
-
-        if (attributes["POSITION"] === undefined) {
-            return;
-        }
+        const {view} = this;
+        const {material, mode} = primitiveData;
 
         const layout = this.createPrimitiveLayout(primitiveData);
         const verticesCount = layout.allocation.verticesCount;
@@ -64,10 +72,10 @@ export default class GLTFAssetExtractor {
         const indicesBuffer = this.createIndicesBuffer({layout, primitiveData});
         const program = this.findCorrectProgram(primitiveData);
 
-        const vao = this.view.vaoManager.createVAO({
+        const vao = view.vaoManager.createVAO({
             name: "test",
-            program,
             layout,
+            program,
             attributeBuffers,
             indicesBuffer,
         });
@@ -75,6 +83,7 @@ export default class GLTFAssetExtractor {
         const openGLPrimitiveType = mode || 4;
         const primitive = new Graphic.Primitive({
             vao,
+            view,
             program,
             material,
             verticesCount,
@@ -157,7 +166,6 @@ export default class GLTFAssetExtractor {
         const {
             buffer: bufferNumber,
             byteOffset: bufferViewByteOffset,
-            byteLength: bufferViewByteLength,
             byteStride,
         } = bufferViewData;
 
@@ -234,7 +242,7 @@ export default class GLTFAssetExtractor {
         const blueprint = new Graphic.VAOLayoutBlueprint({buffers});
 
         const indicesAccessorData = this.gltfContent.gltfData.accessors[indices];
-        const indicesCount = indicesAccessorData.count;
+        const indicesCount = indicesAccessorData === undefined ? 0 : indicesAccessorData.count;
         const positionAccessorData = this.gltfContent.gltfData.accessors[attributes["POSITION"]];
         const openGLPrimitiveType = mode || 4;
         const verticesCount = positionAccessorData.count;

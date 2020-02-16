@@ -4,4 +4,10 @@ export default class Mesh {
         this.name = name;
         this.primitives = [...primitives];
     }
+
+    render(system, context) {
+        for (const primitive of this.primitives) {
+            primitive.render(system, context);
+        }
+    }
 }

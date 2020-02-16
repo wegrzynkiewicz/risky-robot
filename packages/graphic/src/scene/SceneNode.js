@@ -78,6 +78,9 @@ export default class SceneNode {
     }
 
     render(system, context) {
+        if (this.target) {
+            this.target.render(system, context);
+        }
         for (const child of this.children) {
             child.render(system, context);
         }

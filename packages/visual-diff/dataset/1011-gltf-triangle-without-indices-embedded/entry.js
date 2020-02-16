@@ -1,4 +1,6 @@
 import * as Frontend from "robo24-frontend";
+import vertexShaderContent from "../../common/shaders/solid.vert";
+import fragmentShaderContent from "../../common/shaders/solid.frag";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const canvas = document.getElementById("canvas");
@@ -13,8 +15,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const {gltfManager, view} = system;
+    view.programManager.registerShaderContent("solid", vertexShaderContent, fragmentShaderContent);
+
     const gltfContent = await gltfManager.loadContent(resource);
     const asset = await gltfManager.extractAsset({view, gltfContent});
 
-    const scene = asset.getScene(0);
+    const sceneNode = asset.createScene(0);
+    const primaryScene = system.view.sceneManager.find(n => n.name === "primary-scene");
+    sceneNode.setParent(primaryScene);
+
+    Frontend.Graphic.printSceneNode(system.view.sceneManager);
 });

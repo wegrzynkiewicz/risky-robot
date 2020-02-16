@@ -1,10 +1,17 @@
 export default class Primitive {
 
-    constructor({openGLPrimitiveType, verticesCount, program, vao, material}) {
+    constructor({view, openGLPrimitiveType, verticesCount, program, vao, material}) {
         this.vao = vao;
-        this.verticesCount = verticesCount;
+        this.view = view;
         this.program = program;
         this.material = material;
+        this.verticesCount = verticesCount;
         this.openGLPrimitiveType = openGLPrimitiveType;
+    }
+
+    render(system) {
+        this.program.use();
+        // TODO: prepare material
+        this.vao.render(system);
     }
 }

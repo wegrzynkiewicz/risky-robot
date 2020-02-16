@@ -24,18 +24,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     const primaryScene = system.view.sceneManager.find(n => n.name === "primary-scene");
     sceneNode.setParent(primaryScene);
 
-    const node = sceneNode.children[0];
-
     Frontend.Graphic.printSceneNode(system.view.sceneManager);
-
-    console.log(node);
-
-    system.animationLoop.on("frame", () => {
-        node.target.primitives[0].program.use();
-        const vao = node.target.primitives[0].vao;
-        vao.bind();
-        const {openGLPrimitiveType, verticesCount} = vao.layout.allocation;
-        // openGL.uniform1iv(program.uniformLocations['textureSampler']);
-        system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
-    });
 });
