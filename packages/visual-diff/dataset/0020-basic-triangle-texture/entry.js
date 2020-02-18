@@ -38,10 +38,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const buffer = bufferManager.createArrayBuffer({
         name: "triangle",
+        usage: WebGL2RenderingContext["STATIC_DRAW"],
         bufferLayout
     });
 
-    buffer.setDataView(dataView);
+    buffer.setBufferData(dataView);
 
     programManager.registerShaderContent("triangle", vertexShaderContent, fragmentShaderContent);
     const program = programManager.getProgramByName("triangle");

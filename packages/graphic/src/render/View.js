@@ -1,5 +1,5 @@
 import createStateMachine from "../state/createStateMachine";
-import OpenGLBufferManager from "../buffer/OpenGLBufferManager";
+import OpenGLBufferManager from "../buffer/BufferManager";
 import ProgramManager from "../shader/ProgramManager";
 import RenderingFlow from "./RenderingFlow";
 import RenderingOrder from "./RenderingOrder";

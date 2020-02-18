@@ -113,9 +113,10 @@ export default class GLTFAssetExtractor {
 
             const buffer = this.view.bufferManager.createArrayBuffer({
                 name: "test",
+                usage: WebGL2RenderingContext["STATIC_DRAW"],
                 bufferLayout: primaryBuffer,
             });
-            buffer.setDataView(dataView);
+            buffer.setBufferData(dataView);
             attributeBuffers.push(buffer);
         }
 
@@ -140,11 +141,12 @@ export default class GLTFAssetExtractor {
             destinationAccessor.write(i, value);
         }
 
-        const indicesBuffer = this.view.bufferManager.createElementBuffer({
+        const indicesBuffer = this.view.bufferManager.createElementArrayBuffer({
             name: "test",
+            usage: WebGL2RenderingContext["STATIC_DRAW"],
             bufferLayout: indicesBufferLayout,
         });
-        indicesBuffer.setDataView(dataView);
+        indicesBuffer.setBufferData(dataView);
 
         return indicesBuffer;
     }
