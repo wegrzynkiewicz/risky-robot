@@ -2,12 +2,12 @@ import ArrayBufferLayout from "../layout/ArrayBufferLayout";
 
 export default class ArrayBufferBlueprint {
 
-    constructor({name, schema, batches}) {
+    constructor({name, batches}) {
         if (!Array.isArray(batches)) {
             throw new Error("Property batches must be array");
         }
         this.name = name;
-        this.batchBlueprints = batches;
+        this.batchBlueprints = [...batches];
     }
 
     createBufferLayout({allocation}) {

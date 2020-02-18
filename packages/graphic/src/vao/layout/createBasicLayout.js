@@ -4,7 +4,7 @@ import AttributeBlueprint from "../blueprint/AttributeBlueprint";
 import ElementBufferBlueprint from "../blueprint/ElementBufferBlueprint";
 import VAOLayoutBlueprint from "../blueprint/VAOLayoutBlueprint";
 
-export default function createBasicLayout({openGLPrimitiveType, verticesCount, indices, attributes}) {
+export default function createBasicLayout({openGLPrimitiveType, verticesCount, indicesCount, attributes}) {
 
     const batchesMap = {};
     for (const {buffer: bufferName, batch: batchNumber, ...attributeOptions} of attributes) {
@@ -27,7 +27,7 @@ export default function createBasicLayout({openGLPrimitiveType, verticesCount, i
         buffers.push(bufferBlueprint);
     }
 
-    if (indices) {
+    if (!isNaN(parseInt(indicesCount))) {
         const indicesBuffer = new ElementBufferBlueprint({
             name: "indices",
         });
@@ -35,7 +35,7 @@ export default function createBasicLayout({openGLPrimitiveType, verticesCount, i
     }
 
     const blueprint = new VAOLayoutBlueprint({buffers});
-    const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount});
+    const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount, indicesCount});
 
     return layout;
 }

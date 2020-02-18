@@ -1,3 +1,5 @@
+// TODO: create universal shader
+
 export default class Shader {
 
     constructor({name, type, openGL, shaderContent}) {

@@ -7,7 +7,6 @@ export default class ElementBufferLayout {
         this.type = type;
         this.byteOffset = byteOffset;
         this.byteLength = byteLength;
-        this.openGLBufferType = WebGL2RenderingContext['ELEMENT_ARRAY_BUFFER'];
     }
 
     createAccessor({dataView, count}) {

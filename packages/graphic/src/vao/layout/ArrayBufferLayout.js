@@ -4,8 +4,6 @@ export default class ArrayBufferLayout {
         this.name = name;
         this.byteLength = byteLength;
         this.attributeBatchLayoutSet = new Set();
-        this.openGLBufferType = WebGL2RenderingContext["ARRAY_BUFFER"];
-        this.openGLBufferTypeName = "ARRAY_BUFFER";
     }
 
     getAttributeLayouts() {

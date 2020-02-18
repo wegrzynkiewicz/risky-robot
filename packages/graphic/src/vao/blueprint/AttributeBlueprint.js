@@ -25,7 +25,8 @@ export default class AttributeBlueprint {
         });
     }
 
-    calculateTotalByteLength({verticesCount, primitiveCount}) {
+    calculateTotalByteLength(allocation) {
+        const {verticesCount, primitiveCount} = allocation;
         const {byteLength} = this.type;
         if (this.divisor === 0) {
             return byteLength * verticesCount;

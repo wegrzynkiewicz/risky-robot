@@ -3,7 +3,7 @@ export default class VAO {
     constructor({view, program, layout, name, attributeBuffers, indicesBuffer}) {
         this.name = name;
         this.view = view;
-        this.byteOffset = 0;
+        this.offset = 0;
         this.layout = layout;
         this.program = program;
         this.openGLVAOPointer = view.openGL.createVertexArray();
@@ -16,16 +16,17 @@ export default class VAO {
     render() {
         this.bind();
         if (this.indicesBuffer) {
+            const {byteLength, openGLType} = this.indicesBuffer.bufferLayout.type;
             this.view.openGL.drawElements(
                 this.layout.allocation.openGLPrimitiveType,
                 this.layout.allocation.verticesCount,
-                this.indicesBuffer.bufferLayout.type.openGLType,
-                this.byteOffset,
+                openGLType,
+                this.offset * byteLength,
             );
         } else {
             this.view.openGL.drawArrays(
                 this.layout.allocation.openGLPrimitiveType,
-                this.byteOffset,
+                this.offset,
                 this.layout.allocation.verticesCount,
             );
         }

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const layout = Graphic.VAOLayout.createBasicLayout({
         openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
         verticesCount: 3,
-        indices: false,
+        indicesCount: 0,
         attributes: [
             {buffer: "primary", batch: 0, name: "a_Position", type: "vec3<f32>"},
             {buffer: "primary", batch: 0, name: "a_TexCoords", type: "vec2<f32>"},
