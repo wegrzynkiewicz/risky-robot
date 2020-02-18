@@ -1,1 +1,3 @@
-import webgl_mock from "webgl-mock";
+import {registerGlobals} from "robo24-webgl2-mock";
+
+registerGlobals();

@@ -8,10 +8,9 @@ const expectedTypes = [
 ];
 
 describe("binaryTypeRegistry", function () {
-    const binaryTypes = new BinaryTypes();
     for (let expectedType of expectedTypes) {
         it(`should contain valid (${expectedType.name}) type`, function () {
-            const actualType = binaryTypes.getTypeByName(expectedType.name);
+            const actualType = BinaryTypes.getTypeByName(expectedType.name);
             assert.strictEqual(actualType.typeName, expectedType.name);
             assert.strictEqual(actualType.byteLength, expectedType.byteLength);
             assert.strictEqual(actualType.components, expectedType.components);

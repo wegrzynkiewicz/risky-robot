@@ -10,8 +10,8 @@
     "test": "tests"
   },
   "dependencies": {
-    "events": "^3.0.0",
-    "gl-matrix": "^3.1.0",
+    "events": "^3.1.0",
+    "gl-matrix": "^3.2.1",
     "raw-loader": "^3.1.0",
     "robo24-core": "file:../core"
   },
@@ -19,8 +19,8 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "webgl-mock": "^0.1.7",
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9"
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
   },
   "files": [
     "src"

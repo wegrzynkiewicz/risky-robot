@@ -13,6 +13,7 @@
     "src"
   ],
   "devDependencies": {
+    "robo24-webgl2-mock": "file:../webgl2-mock",
     "webgl-mock": "^0.1.7"
   }
 }
