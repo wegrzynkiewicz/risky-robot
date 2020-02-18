@@ -1,7 +1,9 @@
-export default class BinaryAccessor {
+import {BinaryTypes} from "../binary";
+
+export default class BinaryTypeAccessor {
 
     constructor({count, dataView, type, byteOffset, byteStride}) {
-        this.type = type;
+        this.type = BinaryTypes.resolve(type);
         this.count = count === undefined ? Infinity : count;
         this.dataView = dataView;
         this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
@@ -9,6 +11,9 @@ export default class BinaryAccessor {
     }
 
     calculateOffset(index) {
+        if (index > this.count) {
+            throw new Error("Range error.");
+        }
         return this.byteOffset + (this.byteStride * index);
     }
 

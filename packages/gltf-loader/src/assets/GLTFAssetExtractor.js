@@ -1,6 +1,6 @@
 import * as Graphic from "robo24-graphic";
 import accessorTypeTranslate from "./accessorTypeTranlate";
-import * as Binary from "robo24-binary";
+import {BinaryTypes, BinaryTypeAccessor} from "robo24-binary";
 import GLTFAsset from "./GLTFAsset";
 
 export default class GLTFAssetExtractor {
@@ -152,7 +152,7 @@ export default class GLTFAssetExtractor {
     }
 
     /**
-     * @return {Accessor}
+     * @return {BinaryTypeAccessor}
      */
     createAccessor(accessorNumber) {
         const accessorData = this.gltfContent.gltfData.accessors[accessorNumber];
@@ -172,11 +172,11 @@ export default class GLTFAssetExtractor {
         } = bufferViewData;
 
         const typeName = accessorTypeTranslate(accessorType, componentType);
-        const type = Binary.types.getTypeByName(typeName);
+        const type = BinaryTypes.resolve(typeName);
 
         const dataView = new DataView(this.buffers[bufferNumber].data);
 
-        const accessor = new Binary.Accessor({
+        const accessor = new BinaryTypeAccessor({
             type,
             count,
             dataView,

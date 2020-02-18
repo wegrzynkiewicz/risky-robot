@@ -9,4 +9,4 @@ mocha \
   --exit \
   --require esm \
   --require "${PROJECT_DIR}/tests/bootstrap.js" \
-  "${PROJECT_DIR}/tests/**/*.test.js"
+  "${PROJECT_DIR}/tests/**/*.unit.test.js"

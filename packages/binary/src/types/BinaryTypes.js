@@ -1,5 +1,7 @@
 import typedArrays from "./typedArrays";
 
+const binaryTypeSymbol = Symbol("BinaryType");
+
 const createInstance = function () {
     const creator = new Function(`return {};`);
     return creator();
@@ -108,6 +110,7 @@ class BinaryTypes {
         const instance = createInstance();
 
         instance.scalar = true;
+        instance.generic = false;
         instance.typeName = typeName;
         instance.byteLength = byteLength;
         instance.components = 1;
@@ -120,6 +123,7 @@ class BinaryTypes {
         instance.arrayType = typedArrays[`${arrayType}${bitSize}Array`];
         instance.dataViewGetter = DataView.prototype[`get${dataViewType}`];
         instance.dataViewSetter = DataView.prototype[`set${dataViewType}`];
+        instance[binaryTypeSymbol] = true;
         instance.write = writeStatic;
         instance.read = readStatic;
         instance.createTypedArray = createTypedArray;
@@ -135,6 +139,7 @@ class BinaryTypes {
         const instance = createInstance();
 
         instance.scalar = false;
+        instance.generic = true;
         instance.typeName = genericTypeName;
         instance.byteLength = genericByteLength;
         instance.components = axisLength;
@@ -147,11 +152,24 @@ class BinaryTypes {
         instance.arrayType = staticType.arrayType;
         instance.dataViewGetter = staticType.dataViewGetter;
         instance.dataViewSetter = staticType.dataViewSetter;
+        instance[binaryTypeSymbol] = true;
         instance.write = writeGeneric;
         instance.read = readGeneric;
         instance.createTypedArray = createTypedArray;
 
         this.types[genericTypeName] = instance;
+    }
+
+    resolve(type) {
+        if (typeof type === "string") {
+            return this.getTypeByName(type);
+        }
+
+        if (type[binaryTypeSymbol] === true) {
+            return type;
+        }
+
+        throw new Error("Cannot resolve type.");
     }
 
     getTypeByName(typeName) {
