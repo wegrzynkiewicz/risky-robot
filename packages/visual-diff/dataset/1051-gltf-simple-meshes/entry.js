@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const format = config["suiteName"].indexOf("binary") === -1 ? "gltf" : "glb";
     const resource = new Frontend.Assets.Resource({
         vendor: "@base",
-        mimeType: "model/gltf+json",
         url: `/visual-diff/dataset/${config["suiteName"]}/model.${format}`,
     });
 

@@ -1,8 +1,10 @@
+import path from "path";
+
 export default class Resource {
 
-    constructor({vendor, version, mimeType, url}) {
+    constructor({vendor, version, url}) {
         this.vendor = vendor;
-        this.mimeType = mimeType;
+        this.extension = path.extname(url).slice(1);
         this.version = version;
         this.url = url;
     }

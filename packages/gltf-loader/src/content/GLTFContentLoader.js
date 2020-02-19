@@ -1,4 +1,3 @@
-import MimeTypes from "mime-types";
 import * as Assets from "robo24-assets";
 import GLTFContent from "./GLTFContent";
 
@@ -11,9 +10,9 @@ export default class GLTFContentLoader {
     }
 
     async load() {
-        if (this.resource.mimeType === "model/gltf+json") {
+        if (this.resource.extension === "gltf") {
             return this.loadJSON();
-        } else if (this.resource.mimeType === "model/gltf-binary") {
+        } else if (this.resource.extension === "glb") {
             return this.loadBinary();
         } else {
             throw new Error("Unknown GLTF format. Unknown MimeType.")
@@ -67,7 +66,6 @@ export default class GLTFContentLoader {
 
         const resource = new Assets.Resource({
             vendor: this.resource.vendor,
-            mimeType: MimeTypes.lookup(uri),
             url,
         });
         referencedObject.resource = resource;
