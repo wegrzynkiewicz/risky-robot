@@ -1,6 +1,6 @@
 import * as Graphic from "robo24-graphic";
+import * as Binary from "robo24-binary";
 import accessorTypeTranslate from "./accessorTypeTranlate";
-import {BinaryTypes, BinaryTypeAccessor} from "robo24-binary";
 import GLTFAsset from "./GLTFAsset";
 
 export default class GLTFAssetExtractor {
@@ -105,11 +105,7 @@ export default class GLTFAssetExtractor {
             const sourceAccessor = this.createAccessor(accessorNumber);
             const attributeLayout = primaryBuffer.getAttributeLayoutByName(attributeName);
             const destinationAccessor = attributeLayout.createAccessor({dataView, count});
-
-            for (let i = 0; i < count; i++) {
-                const typedArray = sourceAccessor.getTypedArray(i);
-                destinationAccessor.write(i, typedArray);
-            }
+            destinationAccessor.copyFromAccessor(sourceAccessor);
 
             const buffer = this.view.bufferManager.createArrayBuffer({
                 name: "test",
@@ -152,7 +148,7 @@ export default class GLTFAssetExtractor {
     }
 
     /**
-     * @return {BinaryTypeAccessor}
+     * @return {Binary.ComponentAccessor}
      */
     createAccessor(accessorNumber) {
         const accessorData = this.gltfContent.gltfData.accessors[accessorNumber];
@@ -172,11 +168,11 @@ export default class GLTFAssetExtractor {
         } = bufferViewData;
 
         const typeName = accessorTypeTranslate(accessorType, componentType);
-        const type = BinaryTypes.resolve(typeName);
+        const type = Binary.types.resolve(typeName);
 
         const dataView = new DataView(this.buffers[bufferNumber].data);
 
-        const accessor = new BinaryTypeAccessor({
+        const accessor = new Binary.ComponentAccessor({
             type,
             count,
             dataView,
@@ -217,7 +213,7 @@ export default class GLTFAssetExtractor {
 
             const attributeBlueprint = new Graphic.VAOLayoutBlueprint.Attribute({
                 name: attributeName,
-                type: sourceAccessor.type.typeName
+                type: sourceAccessor.type,
             });
 
             attributeBlueprints.push(attributeBlueprint);

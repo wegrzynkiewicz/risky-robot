@@ -1,11 +1,11 @@
-import {BinaryTypes} from "robo24-binary";
+import * as Binary from "robo24-binary";
 import ElementBufferLayout from "../layout/ElementBufferLayout";
 
 export default class ElementBufferBlueprint {
 
     constructor({name}) {
         this.name = name;
-        this.type = BinaryTypes.resolve("u16");
+        this.type = Binary.types.resolve("u16");
     }
 
     createBufferLayout({allocation}) {

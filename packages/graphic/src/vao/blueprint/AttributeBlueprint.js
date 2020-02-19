@@ -1,13 +1,13 @@
-import {BinaryTypes} from "robo24-binary";
+import * as Binary from "robo24-binary";
 import AttributeLayout from "../layout/AttributeLayout";
 
 export default class AttributeBlueprint {
 
     constructor({name, type, normalize, divisor}) {
         this.name = name;
-        this.type = BinaryTypes.getTypeByName(type);
+        this.type = Binary.types.resolve(type);
         if (!this.type.openGLTypeName) {
-            throw new Error(`Cannot use type (${type}) in vertex attribute`);
+            throw new Error(`Cannot use type (${this.type.name}) in vertex attribute`);
         }
         this.normalize = normalize === undefined ? false : normalize;
         this.divisor = divisor === undefined ? 0 : divisor;

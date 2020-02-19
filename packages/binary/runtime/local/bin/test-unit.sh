@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo "test";
-
 CURRENT_DIR="$(dirname "$0")"
 PROJECT_DIR="$(realpath "$(dirname "$0")/../../..")"
 

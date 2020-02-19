@@ -1,6 +1,6 @@
-import {BinaryTypes} from "../binary";
+import {TypeRepository} from "../binary";
 
-export default class BinaryStructureAccessor {
+export default class StructureAccessor {
 
     constructor({count, dataView, structure, byteOffset, byteStride}) {
         this.count = count === undefined ? 1 : count;

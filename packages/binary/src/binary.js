@@ -1,4 +1,12 @@
-export {default as BinaryTypeAccessor} from "./access/BinaryTypeAccessor";
-export {default as BinaryComponent} from "./types/BinaryComponent";
-export {default as BinaryStructure} from "./types/BinaryStructure";
-export {default as BinaryTypes} from "./types/BinaryTypes";
+import TypeGenerator from "./types/TypeGenerator";
+import TypeRepository from "./types/TypeRepository";
+
+const binaryTypes = new TypeRepository();
+const binaryTypesGenerator = new TypeGenerator(binaryTypes);
+
+export {TypeGenerator};
+export {TypeRepository};
+export {binaryTypes as types};
+export {default as ComponentAccessor} from "./access/ComponentAccessor";
+export {default as Component} from "./structute/Component";
+export {default as Structure} from "./structute/Structure";

@@ -1,5 +1,5 @@
 import assert from "assert";
-import BinaryTypes from "../../src/types/BinaryTypes.js";
+import * as Binary from "../..";
 
 const expectedTypes = [
     {name: "f32", byteLength: 4, components: 1},
@@ -10,8 +10,8 @@ const expectedTypes = [
 describe("BinaryTypes", function () {
     for (let expectedType of expectedTypes) {
         it(`should contain valid (${expectedType.name}) type`, function () {
-            const actualType = BinaryTypes.getTypeByName(expectedType.name);
-            assert.strictEqual(actualType.typeName, expectedType.name);
+            const actualType = Binary.types.getTypeByName(expectedType.name);
+            assert.strictEqual(actualType.name, expectedType.name);
             assert.strictEqual(actualType.byteLength, expectedType.byteLength);
             assert.strictEqual(actualType.components, expectedType.components);
         });
@@ -19,8 +19,8 @@ describe("BinaryTypes", function () {
 
     for (let expectedType of expectedTypes) {
         it(`resolve types by name (${expectedType.name})`, function () {
-            const actualType = BinaryTypes.resolve(expectedType.name);
-            assert.strictEqual(actualType.typeName, expectedType.name);
+            const actualType = Binary.types.resolve(expectedType.name);
+            assert.strictEqual(actualType.name, expectedType.name);
             assert.strictEqual(actualType.byteLength, expectedType.byteLength);
             assert.strictEqual(actualType.components, expectedType.components);
         });

@@ -1,17 +1,17 @@
-import BinaryTypes from "../types/BinaryTypes";
-import BinaryTypeAccessor from "../access/BinaryTypeAccessor";
+import * as Binary from "../binary";
+import ComponentAccessor from "../access/ComponentAccessor";
 
-export default class BinaryComponent {
+export default class Component {
 
     constructor({name, type, count}) {
         this.name = name;
         this.count = count === undefined ? 1 : count;
-        this.type = BinaryTypes.resolve(type);
+        this.type = Binary.types.resolve(type);
     }
 
     createAccessor({dataView, byteOffset, byteStride}) {
         const {count, type} = this;
-        return new BinaryTypeAccessor({
+        return new ComponentAccessor({
             dataView,
             count,
             type,

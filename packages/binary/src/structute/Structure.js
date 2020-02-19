@@ -1,8 +1,8 @@
-import {BinaryComponent} from "../binary";
+import Component from "./Component";
 
-const mapComponents = component => new BinaryComponent(component);
+const mapComponents = component => new Component(component);
 
-export default class BinaryStructure {
+export default class Structure {
 
     constructor({name, count, components}) {
         this.name = name;
@@ -15,7 +15,7 @@ export default class BinaryStructure {
     }
 
     static compose({name, components}) {
-        return new BinaryStructure({
+        return new Structure({
             name,
             components: components.map(mapComponents)
         });

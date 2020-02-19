@@ -1,4 +1,4 @@
-import {BinaryTypeAccessor} from "robo24-binary";
+import * as Binary from "robo24-binary";
 
 export default class AttributeLayout {
 
@@ -12,7 +12,7 @@ export default class AttributeLayout {
     }
 
     createAccessor({dataView, count}) {
-        return new BinaryTypeAccessor({
+        return new Binary.ComponentAccessor({
             count: count,
             type: this.type,
             dataView: dataView,

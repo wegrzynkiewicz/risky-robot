@@ -1,9 +1,9 @@
 import assert from "assert";
-import BinaryStructure from "../../src/types/BinaryStructure";
+import Structure from "../../src/structute/Structure";
 
 describe("BinaryStructure", function () {
     it(`should contain valid type`, function () {
-        const structure = BinaryStructure.compose({
+        const structure = Structure.compose({
             name: "matrices",
             components: [
                 {name: "u_Projection", type: "mat4<f32>"},
