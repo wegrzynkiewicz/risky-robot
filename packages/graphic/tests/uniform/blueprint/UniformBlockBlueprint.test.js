@@ -1,35 +1,41 @@
 import assert from "assert";
+import * as Binary from "robo24-binary";
+import * as Graphic from "../../..";
 
 describe("VAOLayoutBlueprint", function () {
     it("should create valid layout object", function () {
 
-        const structure = new UniformBlockBlueprint.Structure({
+        const lightStructure = new Binary.Structure({
             name: "Light",
-            variables: [
-                new UniformBlockBlueprint.Variable({
+            components: [
+                new Binary.Component({
                     name: "position",
                     type: "vec3<f32>",
                 }),
-                new UniformBlockBlueprint.Variable({
+                new Binary.Component({
                     name: "color",
                     type: "vec3<f32>",
                 }),
             ],
         });
 
-        const blueprint = new UniformBlockBlueprint({
+        const uniformBlockStructure = new Binary.Structure({
             name: "TestBlock",
-            variables: [
-                new UniformBlockBlueprint.Variable({
+            components: [
+                new Binary.Component({
                     name: "ColorRed",
                     type: "vec3<f32>",
                 }),
-                new UniformBlockBlueprint.Array({
+                new Binary.Component({
                     name: "light",
                     type: structure,
-                    elements: 3,
+                    count: 3,
                 }),
             ],
+        });
+
+        const blueprint = new Graphic.UniformBlockBlueprint({
+            structure: uniformBlockStructure,
         });
 
         const layout = blueprint.createLayout({

@@ -3,6 +3,7 @@ import TypeRepository from "./types/TypeRepository";
 
 const binaryTypes = new TypeRepository();
 const binaryTypesGenerator = new TypeGenerator(binaryTypes);
+binaryTypesGenerator.generate();
 
 export {TypeGenerator};
 export {TypeRepository};

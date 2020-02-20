@@ -32,7 +32,7 @@ export function registerGlobals() {
     global.WebGLUniformLocation = emptyCallback;
 
     // WebGL 2.0
-    global.WebGL2RenderingContext = emptyCallback;
+    global.WebGL2RenderingContext = WebGLRenderingContext;
     global.WebGLSync = emptyCallback;
     global.WebGLTransformFeedback = emptyCallback;
     global.WebGLSampler = emptyCallback;

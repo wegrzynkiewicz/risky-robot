@@ -19,3 +19,5 @@ export {default as TextureParameters} from "./texture/TextureParameters";
 export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, radian} from "./math";
 export {default as VAOLayout} from "./vao/layout/VAOLayout";
 export {default as VAOLayoutBlueprint} from "./vao/blueprint/VAOLayoutBlueprint";
+
+export {default as UniformBlockBlueprint} from "./uniform/blueprint/UniformBlockBlueprint";

@@ -1,15 +1,6 @@
-import createBasicLayout from "./createBasicLayout";
+export default class UniformBlockLayout {
 
-export default class VAOLayout {
-
-    constructor({allocation}) {
-        this.allocation = allocation;
-        this.bufferLayoutMap = new Map();
-    }
-
-    getBufferLayout(bufferName) {
-        return this.bufferLayoutMap.get(bufferName);
+    constructor({uniformBlueprint}) {
+        this.uniformBlueprint = uniformBlueprint;
     }
 }
-
-VAOLayout.createBasicLayout = createBasicLayout;

@@ -16,6 +16,10 @@ export default class AbstractType {
         this.dataViewSetterMethod = DataView.prototype[`set${dataViewTypeName}`];
     }
 
+    get isStructure() {
+        return false;
+    }
+
     get [typeSymbol]() {
         return true;
     }
@@ -33,7 +37,7 @@ export default class AbstractType {
         return typedArray;
     }
 
-    createTypedArray(...args) {
-        return new this.arrayTypeConstructor(...args);
+    createTypedArray(count = 0) {
+        return new this.arrayTypeConstructor(this.components * count);
     };
 }

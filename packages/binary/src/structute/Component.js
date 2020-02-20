@@ -9,6 +9,22 @@ export default class Component {
         this.type = Binary.types.resolve(type);
     }
 
+    get isScalar() {
+        return false;
+    }
+
+    get isGeneric() {
+        return false;
+    }
+
+    get isStructure() {
+        return false;
+    }
+
+    get byteLength() {
+        return this.type.byteLength;
+    }
+
     createAccessor({dataView, byteOffset, byteStride}) {
         const {count, type} = this;
         return new ComponentAccessor({

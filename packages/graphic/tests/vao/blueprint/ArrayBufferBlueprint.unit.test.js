@@ -56,7 +56,7 @@ describe("ArrayBufferBlueprint", function () {
         });
 
         const allocation = new Allocation({
-            primitive: "triangle",
+            openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
             verticesCount: 6,
         });
 
@@ -138,7 +138,7 @@ describe("ArrayBufferBlueprint", function () {
         });
 
         const allocation = new Allocation({
-            primitive: "triangle",
+            openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
             verticesCount: 30,
         });
 

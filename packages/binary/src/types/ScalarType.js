@@ -6,11 +6,11 @@ export default class ScalarType extends AbstractType {
         super(options);
     }
 
-    get static() {
+    get isScalar() {
         return true;
     }
 
-    get generic() {
+    get isGeneric() {
         return false;
     }
 

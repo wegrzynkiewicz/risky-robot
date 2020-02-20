@@ -4,10 +4,21 @@ layout(location=0) in vec3 a_Position;
 layout(location=1) in vec3 a_Normal;
 
 uniform highp mat4 u_viewMatrix;
+
+struct Light {
+    lowp float test1;
+    lowp float test2;
+    lowp vec4 color;
+};
+
 uniform TestBlock {
-    highp mat4 u_viewMatrix1;
-    highp mat4 u_modelMatrix;
-    highp mat4 u_projectionMatrix;
+    lowp float floaty[2];
+    Light light[2];
+    lowp float test1;
+    lowp mat4 u_viewMatrix1;
+    Light lightx[2];
+    lowp mat4 u_modelMatrix;
+    lowp mat4 u_projectionMatrix;
 };
 
 out vec3 v_fragmentPosition;

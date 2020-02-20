@@ -18,7 +18,9 @@ export default class TypeGenerator {
     constructor(binaryTypes) {
         this.binaryTypes = binaryTypes;
         this.staticTypes = [];
+    }
 
+    generate() {
         for (let {power, openGLTypeName, arrayTypePrefix} of openGLIntegerMapper) {
             this.createStaticType({
                 char: "s",

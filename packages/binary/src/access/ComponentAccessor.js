@@ -63,7 +63,7 @@ export default class ComponentAccessor {
         }
 
         const elementsCount = count * type.components;
-        const typedArray = type.createTypedArray(
+        const typedArray = new type.typedArray(
             dataView.buffer,
             dataView.byteOffset + byteOffset,
             elementsCount
@@ -78,7 +78,7 @@ export default class ComponentAccessor {
         const arrayBuffer = dataView.buffer;
         const byteOffset = dataView.byteOffset + offset;
         const elementsCount = type.components;
-        const typedArray = type.createTypedArray(
+        const typedArray = new type.arrayTypeConstructor(
             arrayBuffer,
             byteOffset,
             elementsCount

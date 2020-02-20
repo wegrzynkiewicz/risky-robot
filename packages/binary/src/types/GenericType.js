@@ -7,11 +7,11 @@ export default class GenericType extends AbstractType {
         this.axisType = axisType;
     }
 
-    get static() {
+    get isScalar() {
         return false;
     }
 
-    get generic() {
+    get isGeneric() {
         return true;
     }
 

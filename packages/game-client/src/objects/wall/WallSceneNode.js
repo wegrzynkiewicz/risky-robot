@@ -46,12 +46,34 @@ export default class WallSceneNode extends SceneNode {
         const blockSize_1 = gl.getActiveUniformBlockParameter(program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
         console.log('blockSize_1', blockSize_1);
 
-        const uniformIndices_1 = gl.getUniformIndices(program, ["u_projectionMatrix", "u_modelMatrix", "u_viewMatrix1"]);
+        const indicesName = [
+            "floaty",
+            "light[0].test1",
+            "light[0].test2",
+            "light[0].color",
+            "light[1].test1",
+            "light[1].test2",
+            "light[1].color",
+            "u_viewMatrix1",
+            "lightx[0].test1",
+            "lightx[0].test2",
+            "lightx[0].color",
+            "lightx[1].test1",
+            "lightx[1].test2",
+            "lightx[1].color",
+            "u_projectionMatrix",
+            "u_modelMatrix",
+        ];
+        const uniformIndices_1 = gl.getUniformIndices(program, indicesName);
         //const uniformIndices_1 = gl.getUniformIndices(program, ["u_modelMatrix1"]);
+
+
         console.log('uniformIndices_1', uniformIndices_1);
 
         this.uniformOffsets_1 = gl.getActiveUniforms(program, uniformIndices_1, gl.UNIFORM_OFFSET);
         console.log('uniformOffsets_1', this.uniformOffsets_1);
+
+        indicesName.map((e, i) => {console.log(this.uniformOffsets_1[i], e)});
 
         const uboArray = new ArrayBuffer(blockSize_1);
         this.dataview = new DataView(uboArray);

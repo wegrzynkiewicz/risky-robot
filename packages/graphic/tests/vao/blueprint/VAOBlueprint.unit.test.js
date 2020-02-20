@@ -38,7 +38,7 @@ describe("VAOLayoutBlueprint", function () {
         });
 
         const layout = blueprint.createLayout({
-            primitive: "triangle",
+            openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
             verticesCount: 12,
         });
     });
