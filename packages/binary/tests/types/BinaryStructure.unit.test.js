@@ -1,10 +1,10 @@
 import assert from "assert";
-import Structure from "../../src/structute/Structure";
+import * as Binary from "../..";
 
 describe("BinaryStructure", function () {
 
     it(`should create simple structure`, function () {
-        const structure = Structure.compose({
+        const structure = Binary.Structure.compose({
             name: "data",
             components: [
                 {name: "matrix", type: "mat3<u32>"},
@@ -27,5 +27,29 @@ describe("BinaryStructure", function () {
         accessor['vector'].write(0, typedArray);
         assert.strictEqual(dataView.getUint32(36, true), 0x2);
         assert.strictEqual(dataView.getUint32(40, true), 0x2);
+    });
+
+    it(`should create nested structure`, function () {
+
+        const lightStructure = Binary.Structure.compose({
+            name: "Light",
+            components: [
+                {name: "position", type: "vec3<f32>"},
+                {name: "color", type: "vec3<f32>"},
+            ],
+        });
+
+        const structure = Binary.Structure.compose({
+            name: "Block",
+            components: [
+                {name: "ambient", type: "vec3<f32>"},
+                {name: "light", type: structure, count: 2},
+            ],
+        });
+
+        const dataView = structure.createDataView();
+        const accessor = structure.createAccessor({dataView});
+        assert.strictEqual(dataView.byteLength, 12 + (12 + 12) * 2);
+        assert.strictEqual(accessor['ambient'].type.byteLength, 12);
     });
 });
