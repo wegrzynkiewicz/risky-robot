@@ -1,26 +1,21 @@
 export default class StructureAccessor {
 
-    constructor({count, dataView, structure, byteOffset, byteStride}) {
-        this.count = count === undefined ? 1 : count;
+    constructor({dataView, structure, byteOffset}) {
         this.dataView = dataView;
-        this.structure = structure;
         this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
-        this.byteStride = byteStride === undefined ? structure.byteLength : byteStride;
         this.byteLength = 0;
-        this.componentAccessors = [];
-        this.createComponentAccessors();
+        this.createComponentAccessors(structure);
     }
 
-    createComponentAccessors() {
+    createComponentAccessors(structure) {
         let byteLength = 0;
         let byteOffset = this.byteOffset;
-        for (const component of this.structure.components) {
+        for (const component of structure.components) {
             const componentAccessor = component.createAccessor({
                 dataView: this.dataView,
                 byteOffset,
             });
             byteOffset += component.byteLength;
-            this.componentAccessors.push(componentAccessor);
             this[component.name] = componentAccessor;
         }
 

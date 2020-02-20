@@ -3,12 +3,10 @@ import StructureAccessor from "../access/StructureAccessor";
 
 const mapComponents = component => new Component(component);
 
-
 export default class Structure {
 
-    constructor({name, count, components}) {
+    constructor({name, components}) {
         this.name = name;
-        this.count = count === undefined ? 1 : count;
         this.components = [...components];
         this.byteLength = this.calculateByteLength();
     }
@@ -33,13 +31,11 @@ export default class Structure {
         return byteLength;
     }
 
-    createAccessor({dataView, byteOffset = undefined, byteStride = undefined}) {
+    createAccessor({dataView, byteOffset = undefined}) {
         const structureAccessor = new StructureAccessor({
             dataView,
-            count: this.count,
             structure: this,
             byteOffset,
-            byteStride,
         });
         return structureAccessor;
     }

@@ -43,7 +43,7 @@ describe("BinaryStructure", function () {
             name: "Block",
             components: [
                 {name: "ambient", type: "vec3<f32>"},
-                {name: "light", type: structure, count: 2},
+                {name: "light", type: lightStructure, count: 2},
             ],
         });
 
@@ -51,5 +51,6 @@ describe("BinaryStructure", function () {
         const accessor = structure.createAccessor({dataView});
         assert.strictEqual(dataView.byteLength, 12 + (12 + 12) * 2);
         assert.strictEqual(accessor['ambient'].type.byteLength, 12);
+        assert.strictEqual(accessor['light'].type.byteLength, 24);
     });
 });

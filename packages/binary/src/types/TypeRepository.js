@@ -19,6 +19,10 @@ export default class TypeRepository {
             return type;
         }
 
+        if (type.isStructure === true) {
+            return type;
+        }
+
         throw new Error("Cannot resolve type.");
     }
 

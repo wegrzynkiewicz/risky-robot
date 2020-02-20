@@ -11,6 +11,8 @@ struct Light {
     lowp vec4 color;
 };
 
+uniform Light lights[4];
+
 uniform TestBlock {
     lowp float floaty[2];
     Light light[2];

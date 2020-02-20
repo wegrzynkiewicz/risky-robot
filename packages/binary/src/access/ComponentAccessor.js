@@ -1,4 +1,5 @@
 import * as Binary from "../binary";
+import StructureAccessor from "./StructureAccessor";
 
 export default class ComponentAccessor {
 
@@ -25,6 +26,16 @@ export default class ComponentAccessor {
     read(index, destinationTypedArray, destinationByteOffset = 0) {
         const sourceByteOffset = this.calculateOffset(index);
         return this.type.read(this.dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset);
+    }
+
+    item(index) {
+        const byteOffset = this.calculateOffset(index);
+        const structureAccessor = new StructureAccessor({
+            dataView,
+            structure: this.type, // TODO: refactor
+            byteOffset,
+        });
+        return structureAccessor;
     }
 
     copyFromAccessor(sourceAccessor) {
@@ -63,7 +74,7 @@ export default class ComponentAccessor {
         }
 
         const elementsCount = count * type.components;
-        const typedArray = new type.typedArray(
+        const typedArray = new type.arrayTypeConstructor(
             dataView.buffer,
             dataView.byteOffset + byteOffset,
             elementsCount

@@ -7,6 +7,7 @@ export default class Component {
         this.name = name;
         this.count = count === undefined ? 1 : count;
         this.type = Binary.types.resolve(type);
+        this.byteLength = this.calculateByteLength();
     }
 
     get isScalar() {
@@ -21,8 +22,8 @@ export default class Component {
         return false;
     }
 
-    get byteLength() {
-        return this.type.byteLength;
+    calculateByteLength() {
+        return this.type.byteLength * this.count;
     }
 
     createAccessor({dataView, byteOffset, byteStride}) {
