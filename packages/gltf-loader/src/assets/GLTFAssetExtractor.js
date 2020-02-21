@@ -131,11 +131,7 @@ export default class GLTFAssetExtractor {
         const sourceAccessor = this.createAccessor(indices);
         const count = sourceAccessor.count;
         const destinationAccessor = indicesBufferLayout.createAccessor({dataView, count});
-
-        for (let i = 0; i < count; i++) {
-            const value = sourceAccessor.read(i);
-            destinationAccessor.write(i, value);
-        }
+        destinationAccessor.copyFromAccessor(sourceAccessor);
 
         const indicesBuffer = this.view.bufferManager.createElementArrayBuffer({
             name: "test",
@@ -172,7 +168,7 @@ export default class GLTFAssetExtractor {
 
         const dataView = new DataView(this.buffers[bufferNumber].data);
 
-        const accessor = new Binary.TypeAccessor({
+        const accessor = new Binary.TypeListAccessor({
             type,
             count,
             dataView,

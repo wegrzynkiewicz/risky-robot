@@ -10,7 +10,7 @@ export default class ElementBufferLayout {
     }
 
     createAccessor({dataView, count}) {
-        return new Binary.TypeAccessor({
+        return new Binary.TypeListAccessor({
             count: count,
             type: this.type,
             dataView: dataView,

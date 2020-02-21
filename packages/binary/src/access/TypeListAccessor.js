@@ -1,5 +1,4 @@
 import * as Binary from "../binary";
-import StructureAccessor from "./StructureAccessor";
 
 export default class TypeListAccessor {
 
@@ -33,6 +32,10 @@ export default class TypeListAccessor {
     }
 
     copyFromAccessor(sourceAccessor) {
+        if (!(sourceAccessor instanceof TypeListAccessor)) {
+            throw new Error("Cannot copy data from different types list accessor.");
+        }
+
         const {byteStride, type, count} = sourceAccessor;
         const isSourceCompact = byteStride === type.byteLength;
         const isDestinationCompact = this.byteStride === this.type.byteLength;
@@ -50,7 +53,7 @@ export default class TypeListAccessor {
         } else {
             for (let i = 0; i < count; i++) {
                 const typedArray = sourceAccessor.getTypedArray(i);
-                this.write(i, typedArray);
+                this.writeElement(i, typedArray);
             }
         }
     }
@@ -66,7 +69,7 @@ export default class TypeListAccessor {
             throw new Error("Cannot get full typed array then byteStride is not equal byteLength.");
         }
 
-        const elementsCount = count * type.components;
+        const elementsCount = count * type.axisLength;
         const typedArray = new type.arrayTypeConstructor(
             dataView.buffer,
             dataView.byteOffset + byteOffset,
@@ -81,7 +84,7 @@ export default class TypeListAccessor {
         const offset = this.calculateOffset(index);
         const arrayBuffer = dataView.buffer;
         const byteOffset = dataView.byteOffset + offset;
-        const elementsCount = type.components;
+        const elementsCount = type.axisLength;
         const typedArray = new type.arrayTypeConstructor(
             arrayBuffer,
             byteOffset,

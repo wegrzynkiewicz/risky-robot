@@ -21,6 +21,9 @@ export default class TypeAccessor {
     }
 
     copyFromAccessor(sourceAccessor) {
+        if (!(sourceAccessor instanceof TypeAccessor)) {
+            throw new Error("Cannot copy data from different types list accessor.");
+        }
         const destinationTypedArray = this.getTypedArray();
         const typedArray = sourceAccessor.getTypedArray();
         destinationTypedArray.set(typedArray);
