@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const positionAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Position");
     const positionAccessor = positionAttributeLayout.createAccessor({dataView});
-    positionAccessor.write(0, [-0.5, -0.5, 0]);
-    positionAccessor.write(1, [0.5, -0.5, 0]);
-    positionAccessor.write(2, [-0.5, 0.5, 0]);
+    positionAccessor.writeElement(0, [-0.5, -0.5, 0]);
+    positionAccessor.writeElement(1, [0.5, -0.5, 0]);
+    positionAccessor.writeElement(2, [-0.5, 0.5, 0]);
 
     const {bufferManager, vaoManager, programManager} = view;
 

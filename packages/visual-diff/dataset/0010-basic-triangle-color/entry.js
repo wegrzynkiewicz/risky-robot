@@ -24,15 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const positionAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Position");
     const positionAccessor = positionAttributeLayout.createAccessor({dataView});
-    positionAccessor.write(0, [-0.5, -0.5, 0]);
-    positionAccessor.write(1, [0.5, -0.5, 0]);
-    positionAccessor.write(2, [-0.5, 0.5, 0]);
+    positionAccessor.writeElement(0, [-0.5, -0.5, 0]);
+    positionAccessor.writeElement(1, [0.5, -0.5, 0]);
+    positionAccessor.writeElement(2, [-0.5, 0.5, 0]);
 
     const colorAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Color");
     const colorAccessor = colorAttributeLayout.createAccessor({dataView});
-    colorAccessor.write(0, [1, 0, 0]);
-    colorAccessor.write(1, [0, 1, 0]);
-    colorAccessor.write(2, [0, 0, 1]);
+    colorAccessor.writeElement(0, [1, 0, 0]);
+    colorAccessor.writeElement(1, [0, 1, 0]);
+    colorAccessor.writeElement(2, [0, 0, 1]);
 
     const {bufferManager, vaoManager, programManager} = system.view;
 

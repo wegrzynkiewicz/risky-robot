@@ -12,7 +12,7 @@ export default class AttributeLayout {
     }
 
     createAccessor({dataView, count}) {
-        return new Binary.TypeAccessor({
+        return new Binary.TypeListAccessor({
             count: count,
             type: this.type,
             dataView: dataView,
@@ -22,11 +22,11 @@ export default class AttributeLayout {
     }
 
     bindAttributeLocationPointer(openGL, attributeLocationPointer) {
-        const {components, openGLType} = this.type;
+        const {axisLength, openGLType} = this.type;
         if (openGLType === openGL.FLOAT || this.normalize) {
             openGL.vertexAttribPointer(
                 attributeLocationPointer,
-                components,
+                axisLength,
                 openGLType,
                 this.normalize,
                 this.byteStride,
@@ -35,7 +35,7 @@ export default class AttributeLayout {
         } else {
             openGL.vertexAttribIPointer(
                 attributeLocationPointer,
-                components,
+                axisLength,
                 openGLType,
                 this.byteStride,
                 this.byteOffset

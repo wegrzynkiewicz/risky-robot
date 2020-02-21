@@ -20,4 +20,8 @@ export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, radian} from "./ma
 export {default as VAOLayout} from "./vao/layout/VAOLayout";
 export {default as VAOLayoutBlueprint} from "./vao/blueprint/VAOLayoutBlueprint";
 
-export {default as UniformBlockBlueprint} from "./uniform/blueprint/UniformBlockBlueprint";
+export {default as UniformBlock} from "./uniform/block/UniformBlock";
+export {default as UniformBlockBlueprint} from "./uniform/block/UniformBlockBlueprint";
+export {default as UniformBlockLayout} from "./uniform/block/UniformBlockLayout";
+export {default as UniformBlockManager} from "./uniform/block/UniformBlockManager";
+export {default as UniformBuffer} from "./uniform/buffer/UniformBuffer";

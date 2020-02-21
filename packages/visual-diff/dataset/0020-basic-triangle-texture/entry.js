@@ -24,15 +24,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const positionAttributeLayout = bufferLayout.getAttributeLayoutByName("a_Position");
     const positionAccessor = positionAttributeLayout.createAccessor({dataView});
-    positionAccessor.write(0, [-0.5, -0.5, 0]);
-    positionAccessor.write(1, [0.5, -0.5, 0]);
-    positionAccessor.write(2, [-0.5, 0.5, 0]);
+    positionAccessor.writeElement(0, [-0.5, -0.5, 0]);
+    positionAccessor.writeElement(1, [0.5, -0.5, 0]);
+    positionAccessor.writeElement(2, [-0.5, 0.5, 0]);
 
     const textureCoordsAttributeLayout = bufferLayout.getAttributeLayoutByName("a_TexCoords");
     const textureCoordsAccessor = textureCoordsAttributeLayout.createAccessor({dataView});
-    textureCoordsAccessor.write(0, [0, 0.5]);
-    textureCoordsAccessor.write(1, [0.5, 0.5]);
-    textureCoordsAccessor.write(2, [0, 0]);
+    textureCoordsAccessor.writeElement(0, [0, 0.5]);
+    textureCoordsAccessor.writeElement(1, [0.5, 0.5]);
+    textureCoordsAccessor.writeElement(2, [0, 0]);
 
     const {bufferManager, vaoManager, programManager} = system.view;
 

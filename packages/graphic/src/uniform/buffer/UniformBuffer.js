@@ -1,4 +1,4 @@
-import AbstractBuffer from "../buffer/AbstractBuffer";
+import AbstractBuffer from "../../buffer/AbstractBuffer";
 
 const openGLBufferType = WebGL2RenderingContext["UNIFORM_BUFFER"];
 
