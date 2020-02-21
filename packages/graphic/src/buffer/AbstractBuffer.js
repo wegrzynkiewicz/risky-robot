@@ -2,13 +2,12 @@ let bufferId = 0;
 
 export default class AbstractBuffer {
 
-    constructor({view, name, openGLBufferType, usage}) {
+    constructor({view, name, usage}) {
         this.name = name;
         this.view = view;
         this.usage = usage;
         this.bufferId = bufferId++;
         this.openGLBufferPointer = view.openGL.createBuffer();
-        this.openGLBufferType = openGLBufferType;
     }
 
     bind() {

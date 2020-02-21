@@ -5,38 +5,24 @@ import * as Graphic from "../../..";
 describe("VAOLayoutBlueprint", function () {
     it("should create valid layout object", function () {
 
-        const lightStructure = new Binary.Structure({
+        const lightStructure = Binary.Structure.compose({
             name: "Light",
             components: [
-                new Binary.Component({
-                    name: "position",
-                    type: "vec3<f32>",
-                }),
-                new Binary.Component({
-                    name: "color",
-                    type: "vec3<f32>",
-                }),
+                {name: "position", type: "vec3<f32>"},
+                {name: "color", type: "vec3<f32>"},
             ],
         });
 
-        const uniformBlockStructure = new Binary.Structure({
+        const structure = Binary.Structure.compose({
             name: "TestBlock",
             components: [
-                new Binary.Component({
-                    name: "ColorRed",
-                    type: "vec3<f32>",
-                }),
-                new Binary.Component({
-                    name: "light",
-                    type: structure,
-                    count: 3,
-                }),
+                {name: "strength", type: "f32"},
+                {name: "ambient", type: "vec3<f32>"},
+                {name: "light", type: lightStructure, count: 3},
             ],
         });
 
-        const blueprint = new Graphic.UniformBlockBlueprint({
-            structure: uniformBlockStructure,
-        });
+        const blueprint = new Graphic.UniformBlockBlueprint({structure});
 
         const layout = blueprint.createLayout({
             primitive: "triangle",

@@ -1,11 +1,13 @@
 import AbstractBuffer from "./AbstractBuffer";
 
-const openGLBufferType = WebGL2RenderingContext["ARRAY_BUFFER"];
-
 export default class ArrayBuffer extends AbstractBuffer {
 
     constructor({view, name, usage, bufferLayout}) {
-        super({view, name, usage, openGLBufferType});
+        super({view, name, usage});
         this.bufferLayout = bufferLayout;
+    }
+
+    get openGLBufferType() {
+        return WebGL2RenderingContext["ARRAY_BUFFER"];
     }
 }
