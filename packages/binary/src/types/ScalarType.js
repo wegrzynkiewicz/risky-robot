@@ -6,14 +6,6 @@ export default class ScalarType extends AbstractType {
         super(options);
     }
 
-    get isScalar() {
-        return true;
-    }
-
-    get isGeneric() {
-        return false;
-    }
-
     write(dataView, destinationByteOffset, value) {
         this.dataViewSetterMethod.call(dataView, destinationByteOffset, value, true);
     };

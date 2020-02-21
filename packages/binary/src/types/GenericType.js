@@ -7,21 +7,21 @@ export default class GenericType extends AbstractType {
         this.axisType = axisType;
     }
 
-    get isScalar() {
-        return false;
-    }
-
-    get isGeneric() {
-        return true;
-    }
-
     write(dataView, destinationByteOffset, sourceTypedArray, sourceByteOffset = 0) {
-        const destination = this.getTypedArray(dataView, destinationByteOffset);
-        destination.set(sourceTypedArray, sourceByteOffset);
+        const destinationTypedArray = new this.arrayTypeConstructor(
+            dataView.buffer,
+            dataView.byteOffset + destinationByteOffset,
+            this.axisLength,
+        );
+        destinationTypedArray.set(sourceTypedArray, sourceByteOffset);
     };
 
     read(dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset = 0) {
-        const sourceTypedArray = this.getTypedArray(dataView, sourceByteOffset);
+        const sourceTypedArray = new this.arrayTypeConstructor(
+            dataView.buffer,
+            dataView.byteOffset + sourceByteOffset,
+            this.axisLength,
+        );
         destinationTypedArray.set(sourceTypedArray, destinationByteOffset);
         return destinationTypedArray;
     };

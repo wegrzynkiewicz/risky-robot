@@ -1,43 +1,54 @@
+import List from "./List";
 import Component from "./Component";
 import StructureAccessor from "../access/StructureAccessor";
+import StructureListAccessor from "../access/StructureListAccessor";
 
-const mapComponents = component => new Component(component);
+const mapComponents = data => new (data.count === undefined ? Component : List)(data);
+
+function calculateByteLength(components) {
+    let byteLength = 0;
+    for (const component of components) {
+        byteLength += component.byteLength;
+    }
+    return byteLength;
+}
 
 export default class Structure {
 
     constructor({name, components}) {
         this.name = name;
+        this.axisLength = 1;
+        this.byteLength = calculateByteLength(components);
         this.components = [...components];
-        this.byteLength = this.calculateByteLength();
     }
 
-    get isScalar() {
-        return false;
-    }
+    write(dataView, destinationByteOffset, sourceTypedArray, sourceByteOffset = 0) {
+        // TODO: structure write
+        destinationTypedArray.set(sourceTypedArray, sourceByteOffset);
+    };
 
-    get isGeneric() {
-        return false;
-    }
-
-    get isStructure() {
-        return true;
-    }
-
-    calculateByteLength() {
-        let byteLength = 0;
-        for (const component of this.components) {
-            byteLength += component.byteLength;
-        }
-        return byteLength;
-    }
+    read(dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset = 0) {
+        // TODO: structure read
+        destinationTypedArray.set(sourceTypedArray, destinationByteOffset);
+        return destinationTypedArray;
+    };
 
     createAccessor({dataView, byteOffset = undefined}) {
-        const structureAccessor = new StructureAccessor({
+        return new StructureAccessor({
             dataView,
             structure: this,
             byteOffset,
         });
-        return structureAccessor;
+    }
+
+    createListAccessor({dataView, count, byteOffset, byteStride}) {
+        return new StructureListAccessor({
+            dataView,
+            count,
+            structure: this,
+            byteOffset,
+            byteStride,
+        });
     }
 
     createDataView() {
@@ -46,6 +57,10 @@ export default class Structure {
 
         return dataView;
     }
+
+    createTypedArray() {
+        throw new Error("Cannot create typed array on structure.")
+    };
 
     static compose({name, components}) {
         const structure = new Structure({

@@ -77,7 +77,7 @@ export default class TypeGenerator {
         const type = new ScalarType({
             name,
             byteLength,
-            components: 1,
+            axisLength: 1,
             openGLTypeName,
             arrayTypeName: `${arrayType}${bitSize}Array`,
             dataViewTypeName,
@@ -95,7 +95,7 @@ export default class TypeGenerator {
             name,
             axisType,
             byteLength,
-            components: axisLength,
+            axisLength,
             openGLTypeName: axisType.openGLTypeName,
             arrayTypeName: axisType.arrayTypeName,
             dataViewTypeName: axisType.dataViewTypeName,

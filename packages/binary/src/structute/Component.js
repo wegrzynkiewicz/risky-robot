@@ -1,37 +1,31 @@
 import * as Binary from "../binary";
-import ComponentAccessor from "../access/ComponentAccessor";
+import TypeAccessor from "../access/TypeAccessor";
+import TypeListAccessor from "../access/TypeListAccessor";
 
 export default class Component {
 
-    constructor({name, type, count}) {
+    constructor({name, type}) {
         this.name = name;
-        this.count = count === undefined ? 1 : count;
         this.type = Binary.types.resolve(type);
-        this.byteLength = this.calculateByteLength();
     }
 
-    get isScalar() {
-        return false;
+    get byteLength() {
+        return this.type.byteLength;
     }
 
-    get isGeneric() {
-        return false;
+    createAccessor({dataView, byteOffset}) {
+        return new TypeAccessor({
+            dataView,
+            type: this.type,
+            byteOffset,
+        });
     }
 
-    get isStructure() {
-        return false;
-    }
-
-    calculateByteLength() {
-        return this.type.byteLength * this.count;
-    }
-
-    createAccessor({dataView, byteOffset, byteStride}) {
-        const {count, type} = this;
-        return new ComponentAccessor({
+    createListAccessor({dataView, count, byteOffset, byteStride}) {
+        return new TypeListAccessor({
             dataView,
             count,
-            type,
+            type: this,
             byteOffset,
             byteStride,
         });

@@ -148,7 +148,7 @@ export default class GLTFAssetExtractor {
     }
 
     /**
-     * @return {Binary.ComponentAccessor}
+     * @return {Binary.TypeAccessor}
      */
     createAccessor(accessorNumber) {
         const accessorData = this.gltfContent.gltfData.accessors[accessorNumber];
@@ -172,7 +172,7 @@ export default class GLTFAssetExtractor {
 
         const dataView = new DataView(this.buffers[bufferNumber].data);
 
-        const accessor = new Binary.ComponentAccessor({
+        const accessor = new Binary.TypeAccessor({
             type,
             count,
             dataView,

@@ -1,14 +1,18 @@
 import * as Binary from "../binary";
 import StructureAccessor from "./StructureAccessor";
 
-export default class ComponentAccessor {
+export default class TypeListAccessor {
 
     constructor({count, dataView, type, byteOffset, byteStride}) {
         this.type = Binary.types.resolve(type);
-        this.count = count === undefined ? Infinity : count;
+        this.count = count;
         this.dataView = dataView;
         this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
         this.byteStride = byteStride === undefined ? type.byteLength : byteStride;
+    }
+
+    get byteLength() {
+        return this.type.byteLength * this.count;
     }
 
     calculateOffset(index) {
@@ -18,24 +22,14 @@ export default class ComponentAccessor {
         return this.byteOffset + (this.byteStride * index);
     }
 
-    write(index, sourceTypedArray, sourceByteOffset = 0) {
+    writeElement(index, sourceTypedArray, sourceByteOffset = 0) {
         const destinationByteOffset = this.calculateOffset(index);
         this.type.write(this.dataView, destinationByteOffset, sourceTypedArray, sourceByteOffset);
     }
 
-    read(index, destinationTypedArray, destinationByteOffset = 0) {
+    readElement(index, destinationTypedArray, destinationByteOffset = 0) {
         const sourceByteOffset = this.calculateOffset(index);
         return this.type.read(this.dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset);
-    }
-
-    item(index) {
-        const byteOffset = this.calculateOffset(index);
-        const structureAccessor = new StructureAccessor({
-            dataView,
-            structure: this.type, // TODO: refactor
-            byteOffset,
-        });
-        return structureAccessor;
     }
 
     copyFromAccessor(sourceAccessor) {
@@ -47,7 +41,6 @@ export default class ComponentAccessor {
             const destinationTypedArray = this.getFullTypedArray();
             const sourceTypedArray = sourceAccessor.getFullTypedArray();
             destinationTypedArray.set(sourceTypedArray);
-            console.log(destinationTypedArray);
         } else if (isDestinationCompact) {
             const destinationTypedArray = this.getFullTypedArray();
             for (let i = 0; i < count; i++) {

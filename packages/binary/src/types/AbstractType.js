@@ -1,12 +1,14 @@
-import typeSymbol from "./typeSymbol";
 import typedArrays from "./typedArrays";
+import TypeAccessor from "../access/TypeAccessor";
+import TypeListAccessor from "../access/TypeListAccessor";
 
 export default class AbstractType {
 
-    constructor({name, byteLength, components, openGLTypeName, arrayTypeName, dataViewTypeName}) {
+    constructor({name, byteLength, axisLength, openGLTypeName, arrayTypeName, dataViewTypeName}) {
         this.name = name;
-        this.components = components;
+        this.axisLength = axisLength;
         this.byteLength = byteLength;
+
         this.openGLType = openGLTypeName ? WebGL2RenderingContext[openGLTypeName] : null;
         this.openGLTypeName = openGLTypeName ? openGLTypeName : null;
         this.arrayTypeName = arrayTypeName ? arrayTypeName : null;
@@ -16,28 +18,32 @@ export default class AbstractType {
         this.dataViewSetterMethod = DataView.prototype[`set${dataViewTypeName}`];
     }
 
-    get isStructure() {
-        return false;
-    }
-
-    get [typeSymbol]() {
-        return true;
-    }
-
-    getTypedArray(dataView, offset) {
-        const arrayBuffer = dataView.buffer;
-        const byteOffset = dataView.byteOffset + offset;
-        const elementsCount = this.components;
-        const typedArray = new this.arrayTypeConstructor(
-            arrayBuffer,
+    createAccessor({dataView, byteOffset}) {
+        return new TypeAccessor({
+            dataView,
+            type: this,
             byteOffset,
-            elementsCount
-        );
-
-        return typedArray;
+        });
     }
 
-    createTypedArray(count = 0) {
-        return new this.arrayTypeConstructor(this.components * count);
+    createListAccessor({dataView, count, byteOffset, byteStride}) {
+        return new TypeListAccessor({
+            dataView,
+            count,
+            type: this,
+            byteOffset,
+            byteStride,
+        });
+    }
+
+    createDataView() {
+        const buffer = new ArrayBuffer(this.byteLength);
+        const dataView = new DataView(buffer);
+
+        return dataView;
+    }
+
+    createTypedArray(count) {
+        return new this.arrayTypeConstructor(this.axisLength * count);
     };
 }

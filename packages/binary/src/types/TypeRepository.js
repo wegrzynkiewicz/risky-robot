@@ -1,4 +1,5 @@
-import typeSymbol from "./typeSymbol";
+import AbstractType from "./AbstractType";
+import Structure from "../structute/Structure";
 
 export default class TypeRepository {
 
@@ -15,11 +16,11 @@ export default class TypeRepository {
             return this.getTypeByName(type);
         }
 
-        if (type[typeSymbol] === true) {
+        if (type instanceof AbstractType) {
             return type;
         }
 
-        if (type.isStructure === true) {
+        if (type instanceof Structure) {
             return type;
         }
 
