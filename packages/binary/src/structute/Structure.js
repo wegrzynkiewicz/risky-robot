@@ -33,7 +33,7 @@ export default class Structure {
         return destinationTypedArray;
     };
 
-    createAccessor({dataView, byteOffset = undefined}) {
+    createAccessor({dataView, byteOffset}) {
         return new StructureAccessor({
             dataView,
             structure: this,
