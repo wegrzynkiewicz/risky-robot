@@ -31,13 +31,13 @@ const start = async () => {
     //Graphic.Matrix4.lookAt(modelMatrix, [1, 1, 1], [0, 0, 0], [0, 1, 0]);
     console.log(modelMatrix);
 
+    const uniformBlock = program.getUniformBlockByName("Matrices");
+
     const uniformBuffer = view.uniformBufferManager.createUniformBuffer({
         name: "Matrices",
         usage: WebGL2RenderingContext['STREAM_DRAW'],
     });
-    uniformBuffer.setBufferData(modelMatrix);
 
-    const uniformBlock = program.getUniformBlockByName("Matrices");
     const uniformBindingPoint = view.uniformBlockManager.createBindingPoint({
         blockName: "Matrices",
         uniformBuffer,
@@ -45,6 +45,7 @@ const start = async () => {
     uniformBlock.setUniformBindingPoint(uniformBindingPoint);
 
     const bufferData = uniformBlock.createBufferData();
+    uniformBuffer.setBufferData(bufferData.dataView);
     console.log(bufferData);
 
     const gltfContent = await gltfManager.loadContent(resource);
