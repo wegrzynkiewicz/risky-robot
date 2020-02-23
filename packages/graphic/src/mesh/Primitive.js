@@ -11,6 +11,8 @@ export default class Primitive {
 
     render(system) {
         this.program.use();
+        this.view.uniformBlockManager.checkUniformBlockBinding(this.program);
+
         // TODO: prepare material
         this.vao.render(system);
     }

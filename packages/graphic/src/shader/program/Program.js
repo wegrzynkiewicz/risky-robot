@@ -1,5 +1,6 @@
 import Attribute from "../attribute/Attribute";
-import * as Binary from "robo24-binary";
+import UniformBlock from "../../uniform/block/UniformBlock";
+import Uniform from "../../uniform/Uniform";
 
 export default class Program {
 
@@ -7,6 +8,7 @@ export default class Program {
         this.attributes = [];
         this.fragmentShader = fragmentShader;
         this.name = name;
+        this.uniformBlocks = [];
         this.uniforms = [];
         this.vertexShader = vertexShader;
         this.view = view;
@@ -15,8 +17,9 @@ export default class Program {
         this.attachShader(this.vertexShader);
         this.attachShader(this.fragmentShader);
         this.linkProgram();
-        this.bindAttributeLocations();
-        this.bindUniformLocations();
+        this.bindAttributes();
+        this.bindUniforms();
+        this.bindUniformBlocks();
     }
 
     attachShader(shader) {
@@ -26,7 +29,7 @@ export default class Program {
         );
     }
 
-    bindAttributeLocations() {
+    bindAttributes() {
         const attributeCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_ATTRIBUTES']);
         for (let i = 0; i < attributeCount; ++i) {
             const info = this.view.openGL.getActiveAttrib(this.openGLProgramPointer, i);
@@ -36,20 +39,38 @@ export default class Program {
             );
             const attribute = new Attribute({
                 name: info.name,
-                type: Binary.translateUniformType(info.type),
+                openGLUniformType: info.type,
+                size: info.size,
                 location,
             });
             this.attributes.push(attribute);
         }
     }
 
-    bindUniformLocations() {
-        for (const uniform of this.uniforms) {
-            const uniformLocation = this.view.openGL.getUniformLocation(
-                this.openGLProgramPointer,
-                uniform.name
-            );
-            uniform.location = uniformLocation;
+    bindUniformBlocks() {
+        const uniformBlocksCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_UNIFORM_BLOCKS']);
+        for (let i = 0; i < uniformBlocksCount; i++) {
+            const uniformBlock = new UniformBlock({
+                blockIndex: i,
+                program: this,
+                view: this.view,
+            });
+            this.uniformBlocks.push(uniformBlock);
+        }
+    }
+
+    bindUniforms() {
+        const uniformsCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_UNIFORMS']);
+        for (let i = 0; i < uniformsCount; i++) {
+            const info = this.getActiveUniform(i);
+            const uniform = new Uniform({
+                name: info.name,
+                program: this,
+                size: info.size,
+                openGLUniformType: info.type,
+                view: this.view,
+            });
+            this.uniforms.push(uniform);
         }
     }
 
@@ -60,6 +81,10 @@ export default class Program {
         this.fragmentShader = null;
     }
 
+    getActiveUniform(index) {
+        return this.view.openGL.getActiveUniform(this.openGLProgramPointer, index);
+    }
+
     getAttributeByName(attributeName) {
         for (const attribute of this.attributes) {
             if (attribute.name === attributeName) {
@@ -67,6 +92,15 @@ export default class Program {
             }
         }
         throw new Error(`Attribute named (${attributeName}) not found`);
+    }
+
+    getUniformBlockByName(blockName) {
+        for (const uniformBlock of this.uniformBlocks) {
+            if (uniformBlock.name === blockName) {
+                return uniformBlock;
+            }
+        }
+        throw new Error(`Uniform block named (${blockName}) not found`);
     }
 
     getProgramInfoLog() {

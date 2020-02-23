@@ -27,12 +27,13 @@ export {default as loadImage} from "./texture/loadImage";
 export {default as Texture2D} from "./texture/Texture2D";
 export {default as TextureParameters} from "./texture/TextureParameters";
 
-export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, radian} from "./math";
+export {default as UniformBlock} from "./uniform/block/UniformBlock";
+export {default as UniformBindingPoint} from "./uniform/block/UniformBindingPoint";
+export {default as UniformBlockManager} from "./uniform/block/UniformBlockManager";
+export {default as UniformBuffer} from "./uniform/buffer/UniformBuffer";
+export {default as UniformBufferManager} from "./uniform/buffer/UniformBufferManager";
+
 export {default as VAOLayout} from "./vao/layout/VAOLayout";
 export {default as VAOLayoutBlueprint} from "./vao/blueprint/VAOLayoutBlueprint";
 
-export {default as UniformBlock} from "./uniform/block/UniformBlock";
-export {default as UniformBlockBlueprint} from "./uniform/block/UniformBlockBlueprint";
-export {default as UniformBlockLayout} from "./uniform/block/UniformBlockLayout";
-export {default as UniformBlockManager} from "./uniform/block/UniformBlockManager";
-export {default as UniformBuffer} from "./uniform/buffer/UniformBuffer";
+export {Vector2, Vector3, Vector4, Matrix2, Matrix3, Matrix4, radian} from "./math";

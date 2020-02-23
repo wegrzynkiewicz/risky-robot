@@ -2,9 +2,11 @@ import * as Binary from "robo24-binary";
 
 export default class Attribute {
 
-    constructor({location, name, type}) {
+    constructor({location, name, size, openGLUniformType}) {
         this.location = location;
         this.name = name;
-        this.type = Binary.types.resolve(type);
+        this.size = size;
+        this.openGLUniformType = openGLUniformType;
+        this.type = Binary.translateUniformType(openGLUniformType);
     }
 }

@@ -5,7 +5,7 @@ import fragmentShaderContent from "./shader.frag";
 
 const {Graphic} = Frontend;
 
-document.addEventListener("DOMContentLoaded", () => {
+const start = async () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
     const {view} = system;
@@ -61,4 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const {openGLPrimitiveType, verticesCount} = vao.layout.allocation;
         system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
     });
-});
+};
+
+document.addEventListener("DOMContentLoaded", () => setImmediate(start));

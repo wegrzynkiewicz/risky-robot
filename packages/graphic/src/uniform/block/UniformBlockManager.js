@@ -1,38 +1,60 @@
-import UniformBlock from "./UniformBlock";
-import UniformBuffer from "../buffer/UniformBuffer";
+import UniformBindingPoint from "./UniformBindingPoint";
 
 export default class UniformBlockManager {
 
     constructor({view}) {
         this.view = view;
-        this.vaos = Object.create(null);
+
+        this.uniformBindingPoints = new Map();
+
+        this.maxUniformBufferBindings = this.view.openGL.getParameter(
+            WebGL2RenderingContext["MAX_UNIFORM_BUFFER_BINDINGS"]
+        );
+
+        this.activeBindingPoints = new Array(this.maxUniformBufferBindings);
     }
 
-    adjustUniformBlock({program, structure}) {
-        const {view} = this;
+    checkUniformBlockBinding(program) {
+        for (const uniformBlock of program.uniformBlocks) {
+            const {uniformBindingPoint} = uniformBlock;
+            if (!uniformBindingPoint) {
+                throw new Error("Unexpected uniform block binding.");
+            }
 
+            if (uniformBindingPoint.bindingIndex === null) {
+                const bindingIndex = this.findOptimalBindingIndex();
+                uniformBindingPoint.bindingIndex = bindingIndex;
+                uniformBindingPoint.bufferBinding();
+                this.activeBindingPoints[bindingIndex] = uniformBindingPoint;
+            }
 
-        const uniformBlockLayout = null;
+            if (uniformBlock.bindingIndex !== uniformBindingPoint.bindingIndex) {
+                uniformBlock.uniformBlockBinding(uniformBindingPoint.bindingIndex);
+            }
+        }
+    }
 
-        const uniformBuffer = new UniformBuffer({
-            view,
-            name: `${structure.name.toLowerCase()}-buffer`,
-            usage: WebGL2RenderingContext["STREAM_DRAW"],
+    createBindingPoint({blockName, uniformBuffer, byteOffset, byteLength}) {
+        const uniformBindingPoint = new UniformBindingPoint({
+            uniformBuffer,
+            byteOffset,
+            byteLength,
         });
-
-
-        constructor({name, view, program, uniformBlockLayout, uniformBuffer});
-
-        const vao = new UniformBlock({view, name, program, layout, attributeBuffers, indicesBuffer});
+        this.uniformBindingPoints.set(blockName, uniformBindingPoint);
+        return uniformBindingPoint;
     }
 
-    createUniformBlock({program, structure}) {
+    findOptimalBindingIndex() {
+        for (let i = 0; i < this.maxUniformBufferBindings; i++) {
+            const bindingPoint = this.activeBindingPoints[i];
+            if (!bindingPoint) {
+                return i;
+            }
+        }
 
-    }
-
-    createVAO({name, program, layout, attributeBuffers, indicesBuffer}) {
-        const {view} = this;
-        this.vaos[name] = vao;
-        return vao;
+        // TODO: better algorithm to find unused binding points
+        const lastBindingIndex = this.maxUniformBufferBindings - 1;
+        bindingPoint[lastBindingIndex].clearBindingIndex();
+        return lastBindingIndex;
     }
 }

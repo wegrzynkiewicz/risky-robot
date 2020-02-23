@@ -5,7 +5,7 @@ import fragmentShaderContent from "./shader.frag";
 
 const {Graphic} = Frontend;
 
-document.addEventListener("DOMContentLoaded", async () => {
+const start = async () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
     const {view} = system;
@@ -85,4 +85,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         // openGL.uniform1iv(program.uniformLocations['textureSampler']);
         system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
     });
-});
+};
+
+document.addEventListener("DOMContentLoaded", () => setImmediate(start));

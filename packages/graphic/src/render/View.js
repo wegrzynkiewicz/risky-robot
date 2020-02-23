@@ -6,6 +6,8 @@ import RenderingOrder from "./RenderingOrder";
 import VAOManager from "../vao/VAOManager";
 import SceneManager from "../scene/SceneManager";
 import ShaderManager from "../shader/shader/ShaderManager";
+import UniformBlockManager from "../uniform/block/UniformBlockManager";
+import UniformBufferManager from "../uniform/buffer/UniformBufferManager";
 
 export default class View {
 
@@ -25,6 +27,8 @@ export default class View {
         this.sceneManager = new SceneManager();
         this.shaderManager = new ShaderManager({view});
         this.stateMachine = createStateMachine(this.openGL);
+        this.uniformBlockManager = new UniformBlockManager({view});
+        this.uniformBufferManager = new UniformBufferManager({view});
         this.vaoManager = new VAOManager({view});
     }
 
