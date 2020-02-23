@@ -1,9 +1,8 @@
-import List from "./List";
 import Component from "./Component";
 import StructureAccessor from "../access/StructureAccessor";
 import StructureListAccessor from "../access/StructureListAccessor";
 
-const mapComponents = data => new (data.count === undefined ? Component : List)(data);
+const mapComponents = data => new Component(data);
 
 function calculateByteLength(components) {
     let byteLength = 0;

@@ -1,5 +1,6 @@
 import AbstractType from "./AbstractType";
 import Structure from "../structute/Structure";
+import Component from "../structute/Component";
 
 export default class TypeRepository {
 
@@ -21,6 +22,10 @@ export default class TypeRepository {
         }
 
         if (type instanceof Structure) {
+            return type;
+        }
+
+        if (type instanceof Component) {
             return type;
         }
 

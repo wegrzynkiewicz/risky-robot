@@ -14,7 +14,6 @@ export {default as TypeAccessor} from "./access/TypeAccessor";
 export {default as TypeListAccessor} from "./access/TypeListAccessor";
 
 export {default as Component} from "./structute/Component";
-export {default as List} from "./structute/List";
 export {default as Structure} from "./structute/Structure";
 
 export {default as AbstractType} from "./types/AbstractType";

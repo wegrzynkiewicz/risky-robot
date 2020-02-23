@@ -1,3 +1,5 @@
+import * as Binary from "robo24-binary";
+
 let uniformBlockId = 0;
 
 export default class UniformBlock {
@@ -39,9 +41,13 @@ export default class UniformBlock {
         }
     }
 
-    setUniformBindingPoint(uniformBindingPoint) {
-        uniformBindingPoint.uniformBlocks.add(this);
-        this.uniformBindingPoint = uniformBindingPoint;
+    createBufferData() {
+        const structure = new Binary.Structure({
+            name: this.name,
+            components: this.uniforms.map(uniform => uniform.createBinaryComponent()),
+        });
+        const bufferData = Binary.BufferData.createFromStructure(structure);
+        return bufferData;
     }
 
     getActiveUniformBlockName() {
@@ -57,6 +63,11 @@ export default class UniformBlock {
             this.blockIndex,
             parameterCode
         );
+    }
+
+    setUniformBindingPoint(uniformBindingPoint) {
+        uniformBindingPoint.uniformBlocks.add(this);
+        this.uniformBindingPoint = uniformBindingPoint;
     }
 
     uniformBlockBinding(bindingIndex) {

@@ -25,8 +25,8 @@ const start = async () => {
 
     const modelMatrix = Graphic.Matrix4.create();
 
-    Graphic.Matrix4.translate(modelMatrix, modelMatrix, [0.4, 0.5, 0]);
-    Graphic.Matrix4.rotateX(modelMatrix, modelMatrix, Math.asin(Graphic.radian(-50)));
+    Graphic.Matrix4.translate(modelMatrix, modelMatrix, [0.4, 1, 0]);
+    Graphic.Matrix4.rotateX(modelMatrix, modelMatrix, Math.asin(Graphic.radian(-30)));
     // Graphic.Matrix4.rotateY(modelMatrix, modelMatrix, Graphic.radian(35));
     //Graphic.Matrix4.lookAt(modelMatrix, [1, 1, 1], [0, 0, 0], [0, 1, 0]);
     console.log(modelMatrix);
@@ -43,6 +43,9 @@ const start = async () => {
         uniformBuffer,
     });
     uniformBlock.setUniformBindingPoint(uniformBindingPoint);
+
+    const bufferData = uniformBlock.createBufferData();
+    console.log(bufferData);
 
     const gltfContent = await gltfManager.loadContent(resource);
     const asset = await gltfManager.extractAsset({view, gltfContent});

@@ -29,6 +29,11 @@ export default class Uniform {
         );
     }
 
+    createBinaryComponent() {
+        const {byteOffset, name, size: count, type} = this;
+        return new Binary.Component({byteOffset, count, name, type});
+    }
+
     getIndex() {
         const [index] = this.view.openGL.getUniformIndices(
             this.program.openGLProgramPointer,
