@@ -2,10 +2,11 @@ import * as Binary from "robo24-binary";
 
 export default class AttributeLayout {
 
-    constructor({name, type, divisor, normalize, byteStride, byteOffset}) {
+    constructor({name, type, divisor, location, normalize, byteStride, byteOffset}) {
         this.name = name;
         this.type = type;
         this.divisor = divisor;
+        this.location = location;
         this.normalize = normalize;
         this.byteStride = byteStride;
         this.byteOffset = byteOffset;
@@ -21,22 +22,21 @@ export default class AttributeLayout {
         });
     }
 
-    bindAttributeLocationPointer(openGL, attributeLocationPointer) {
-        const {axisLength, openGLType} = this.type;
-        if (openGLType === openGL.FLOAT || this.normalize) {
-            openGL.vertexAttribPointer(
-                attributeLocationPointer,
-                axisLength,
-                openGLType,
+    bindAttributeLocation(view) {
+        if (this.type.openGLType === WebGL2RenderingContext['FLOAT'] || this.normalize) {
+            view.openGL.vertexAttribPointer(
+                this.location,
+                this.type.axisLength,
+                this.type.openGLType,
                 this.normalize,
                 this.byteStride,
                 this.byteOffset
             );
         } else {
-            openGL.vertexAttribIPointer(
-                attributeLocationPointer,
-                axisLength,
-                openGLType,
+            view.openGL.vertexAttribIPointer(
+                this.location,
+                this.type.axisLength,
+                this.type.openGLType,
                 this.byteStride,
                 this.byteOffset
             );
@@ -44,8 +44,8 @@ export default class AttributeLayout {
 
         // TODO: add default attribute value
 
-        openGL.vertexAttribDivisor(
-            attributeLocationPointer,
+        view.openGL.vertexAttribDivisor(
+            this.location,
             this.divisor
         );
     }

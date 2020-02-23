@@ -1,7 +1,10 @@
+import * as Binary from "robo24-binary";
+
 export default class Attribute {
 
-    constructor({name}) {
+    constructor({location, name, type}) {
+        this.location = location;
         this.name = name;
-        this.location = 0;
+        this.type = Binary.types.resolve(type);
     }
 }

@@ -3,8 +3,8 @@ import * as Binary from "robo24-binary";
 
 export default class AttributeBatchBlueprint {
 
-    constructor({attributes}) {
-        this.attributeBlueprints = [...attributes];
+    constructor({attributeBlueprints}) {
+        this.attributeBlueprints = [...attributeBlueprints];
     }
 
     calculateByteStride() {

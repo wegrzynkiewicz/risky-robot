@@ -1,13 +1,17 @@
+import Attribute from "../attribute/Attribute";
+import * as Binary from "robo24-binary";
+
 export default class Program {
 
-    constructor({name, view, attributes, vertexShader, fragmentShader}) {
-        this.name = name;
-        this.view = view;
-        this.attributes = attributes;
-        this.vertexShader = vertexShader;
+    constructor({fragmentShader, name, vertexShader, view}) {
+        this.attributes = [];
         this.fragmentShader = fragmentShader;
-        this.openGLProgramPointer = this.view.openGL.createProgram();
+        this.name = name;
+        this.uniforms = [];
+        this.vertexShader = vertexShader;
+        this.view = view;
 
+        this.openGLProgramPointer = this.view.openGL.createProgram();
         this.attachShader(this.vertexShader);
         this.attachShader(this.fragmentShader);
         this.linkProgram();
@@ -23,19 +27,29 @@ export default class Program {
     }
 
     bindAttributeLocations() {
-        for (const attribute of this.attributes) {
-            const attributeLocation = this.view.openGL.getAttribLocation(
+        const attributeCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_ATTRIBUTES']);
+        for (let i = 0; i < attributeCount; ++i) {
+            const info = this.view.openGL.getActiveAttrib(this.openGLProgramPointer, i);
+            const location = this.view.openGL.getAttribLocation(
                 this.openGLProgramPointer,
-                attribute.name
+                info.name
             );
-            attribute.location = attributeLocation;
+            const attribute = new Attribute({
+                name: info.name,
+                type: Binary.translateUniformType(info.type),
+                location,
+            });
+            this.attributes.push(attribute);
         }
     }
 
     bindUniformLocations() {
-        for (const attribute of this.uniforms) {
-            const uniformLocation = openGL.getUniformLocation(openGLProgramPointer, uniformName);
-            this.uniformLocations[uniformName] = uniformLocation;
+        for (const uniform of this.uniforms) {
+            const uniformLocation = this.view.openGL.getUniformLocation(
+                this.openGLProgramPointer,
+                uniform.name
+            );
+            uniform.location = uniformLocation;
         }
     }
 
@@ -44,6 +58,15 @@ export default class Program {
         this.openGLProgramPointer = null;
         this.vertexShader = null;
         this.fragmentShader = null;
+    }
+
+    getAttributeByName(attributeName) {
+        for (const attribute of this.attributes) {
+            if (attribute.name === attributeName) {
+                return attribute;
+            }
+        }
+        throw new Error(`Attribute named (${attributeName}) not found`);
     }
 
     getProgramInfoLog() {

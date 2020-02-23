@@ -9,6 +9,17 @@ export {default as Scene} from "./scene/Scene";
 export {default as SceneNode} from "./scene/SceneNode";
 export {default as SceneManager} from "./scene/SceneManager";
 
+export {default as Attribute} from "./shader/attribute/Attribute";
+export {default as ShaderContent} from "./shader/content/ShaderContent";
+export {default as ShaderContentManager} from "./shader/content/ShaderContentManager";
+export {default as ContentProgramFactory} from "./shader/program/ContentProgramFactory";
+export {default as Program} from "./shader/program/Program";
+export {default as ProgramManager} from "./shader/program/ProgramManager";
+export {default as AbstractShader} from "./shader/shader/AbstractShader";
+export {default as FragmentShader} from "./shader/shader/FragmentShader";
+export {default as ShaderManager} from "./shader/shader/ShaderManager";
+export {default as VertexShader} from "./shader/shader/VertexShader";
+
 export {default as Mesh} from "./mesh/Mesh";
 export {default as Primitive} from "./mesh/Primitive";
 

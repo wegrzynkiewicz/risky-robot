@@ -8,14 +8,15 @@ const {Graphic} = Frontend;
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
+    const {view} = system;
 
     const layout = Graphic.VAOLayout.createBasicLayout({
         openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
         verticesCount: 3,
         indicesCount: 0,
         attributes: [
-            {buffer: "primary", batch: 0, name: "a_Position", type: "vec3<f32>"},
-            {buffer: "primary", batch: 0, name: "a_Color", type: "vec3<f32>"},
+            {buffer: "primary", batch: 0, location: 0, name: "a_Position", type: "vec3<f32>"},
+            {buffer: "primary", batch: 0, location: 1, name: "a_Color", type: "vec3<f32>"},
         ],
     });
 
@@ -34,18 +35,21 @@ document.addEventListener("DOMContentLoaded", () => {
     colorAccessor.writeElement(1, [0, 1, 0]);
     colorAccessor.writeElement(2, [0, 0, 1]);
 
-    const {bufferManager, vaoManager, programManager} = system.view;
+    const {bufferManager, vaoManager} = system.view;
 
     const buffer = bufferManager.createArrayBuffer({
         name: "triangle",
         usage: WebGL2RenderingContext["STATIC_DRAW"],
-        bufferLayout,
+        bufferLayout
     });
-
     buffer.setBufferData(dataView);
 
-    programManager.registerShaderContent("triangle", vertexShaderContent, fragmentShaderContent);
-    const program = programManager.getProgramByName("triangle");
+    const programFactory = new Graphic.ContentProgramFactory({view});
+    const program = programFactory.createProgram({
+        name: "triangle",
+        fragment: fragmentShaderContent,
+        vertex: vertexShaderContent,
+    });
 
     const vao = vaoManager.createVAO({
         name: "triangle",

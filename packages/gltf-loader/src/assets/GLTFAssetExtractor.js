@@ -66,11 +66,11 @@ export default class GLTFAssetExtractor {
         const {view} = this;
         const {material, mode} = primitiveData;
 
-        const layout = this.createPrimitiveLayout(primitiveData);
+        const program = this.findCorrectProgram(primitiveData);
+        const layout = this.createPrimitiveLayout(program, primitiveData);
         const verticesCount = layout.allocation.verticesCount;
         const attributeBuffers = this.createAttributeBuffers({layout, primitiveData});
-        const indicesBuffer = this.createIndicesBuffer({layout, primitiveData});
-        const program = this.findCorrectProgram(primitiveData);
+        const indicesBuffer = this.createElementBuffer({layout, primitiveData});
 
         const vao = view.vaoManager.createVAO({
             name: "test",
@@ -96,21 +96,25 @@ export default class GLTFAssetExtractor {
     createAttributeBuffers({layout, primitiveData}) {
         const {attributes} = primitiveData;
         const count = layout.allocation.verticesCount;
-        const primaryBuffer = layout.getBufferLayout("primary");
-        const dataView = primaryBuffer.createDataView();
+
         const attributeBuffers = [];
-
-        for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
-            const attributeName = this.translateAttributeName(attributeKey);
-            const sourceAccessor = this.createAccessor(accessorNumber);
-            const attributeLayout = primaryBuffer.getAttributeLayoutByName(attributeName);
-            const destinationAccessor = attributeLayout.createAccessor({dataView, count});
-            destinationAccessor.copyFromAccessor(sourceAccessor);
-
+        for (const attributeBufferLayout of layout.attributeBufferLayouts) {
+            const dataView = attributeBufferLayout.createDataView();
+            for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
+                try {
+                    const attributeName = this.translateAttributeName(attributeKey);
+                    const sourceAccessor = this.createAccessor(accessorNumber);
+                    const attributeLayout = attributeBufferLayout.getAttributeLayoutByName(attributeName);
+                    const destinationAccessor = attributeLayout.createAccessor({dataView, count});
+                    destinationAccessor.copyFromAccessor(sourceAccessor);
+                } catch (error) {
+                    console.warn(error);
+                }
+            }
             const buffer = this.view.bufferManager.createArrayBuffer({
                 name: "test",
                 usage: WebGL2RenderingContext["STATIC_DRAW"],
-                bufferLayout: primaryBuffer,
+                bufferLayout: attributeBufferLayout,
             });
             buffer.setBufferData(dataView);
             attributeBuffers.push(buffer);
@@ -119,24 +123,23 @@ export default class GLTFAssetExtractor {
         return attributeBuffers;
     }
 
-    createIndicesBuffer({layout, primitiveData}) {
+    createElementBuffer({layout, primitiveData}) {
         const {indices} = primitiveData;
 
         if (indices === undefined) {
             return null;
         }
 
-        const indicesBufferLayout = layout.getBufferLayout("indices");
-        const dataView = indicesBufferLayout.createDataView();
+        const dataView = layout.elementBufferLayout.createDataView();
         const sourceAccessor = this.createAccessor(indices);
         const count = sourceAccessor.count;
-        const destinationAccessor = indicesBufferLayout.createAccessor({dataView, count});
+        const destinationAccessor = layout.elementBufferLayout.createAccessor({dataView, count});
         destinationAccessor.copyFromAccessor(sourceAccessor);
 
         const indicesBuffer = this.view.bufferManager.createElementArrayBuffer({
             name: "test",
             usage: WebGL2RenderingContext["STATIC_DRAW"],
-            bufferLayout: indicesBufferLayout,
+            bufferLayout: layout.elementBufferLayout,
         });
         indicesBuffer.setBufferData(dataView);
 
@@ -199,41 +202,49 @@ export default class GLTFAssetExtractor {
         return mapped;
     }
 
-    createPrimitiveLayout(primitiveData) {
+    createPrimitiveLayout(program, primitiveData) {
         const {attributes, indices, mode} = primitiveData;
 
         const attributeBlueprints = [];
         for (const [attributeKey, accessorNumber] of Object.entries(attributes)) {
-            const attributeName = this.translateAttributeName(attributeKey);
-            const sourceAccessor = this.createAccessor(accessorNumber);
+            try {
+                const attributeName = this.translateAttributeName(attributeKey);
+                const attribute = program.getAttributeByName(attributeName);
+                const sourceAccessor = this.createAccessor(accessorNumber);
 
-            const attributeBlueprint = new Graphic.VAOLayoutBlueprint.Attribute({
-                name: attributeName,
-                type: sourceAccessor.type,
-            });
+                const attributeBlueprint = new Graphic.VAOLayoutBlueprint.Attribute({
+                    name: attributeName,
+                    type: sourceAccessor.type,
+                    location: attribute.location,
+                });
 
-            attributeBlueprints.push(attributeBlueprint);
+                attributeBlueprints.push(attributeBlueprint);
+            } catch (error) {
+                console.warn(error);
+            }
         }
 
-        const buffers = [];
         const primaryBlueprint = new Graphic.VAOLayoutBlueprint.ArrayBuffer({
             name: "primary",
-            batches: [
+            batchBlueprints: [
                 new Graphic.VAOLayoutBlueprint.AttributeBatch({
-                    attributes: attributeBlueprints,
+                    attributeBlueprints,
                 }),
             ],
         });
-        buffers.push(primaryBlueprint);
+        const attributeBufferBlueprints = [primaryBlueprint];
 
+        let elementBufferBlueprint = null;
         if (indices !== undefined) {
-            const indicesBlueprint = new Graphic.VAOLayoutBlueprint.ElementArrayBuffer({
+            elementBufferBlueprint = new Graphic.VAOLayoutBlueprint.ElementArrayBuffer({
                 name: "indices",
             });
-            buffers.push(indicesBlueprint);
         }
 
-        const blueprint = new Graphic.VAOLayoutBlueprint({buffers});
+        const blueprint = new Graphic.VAOLayoutBlueprint({
+            attributeBufferBlueprints,
+            elementBufferBlueprint
+        });
 
         const indicesAccessorData = this.gltfContent.gltfData.accessors[indices];
         const indicesCount = indicesAccessorData === undefined ? 0 : indicesAccessorData.count;

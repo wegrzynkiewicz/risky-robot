@@ -1,10 +1,11 @@
 import createStateMachine from "../state/createStateMachine";
 import OpenGLBufferManager from "../buffer/BufferManager";
-import ProgramManager from "../shader/ProgramManager";
+import ProgramManager from "../shader/program/ProgramManager";
 import RenderingFlow from "./RenderingFlow";
 import RenderingOrder from "./RenderingOrder";
 import VAOManager from "../vao/VAOManager";
 import SceneManager from "../scene/SceneManager";
+import ShaderManager from "../shader/shader/ShaderManager";
 
 export default class View {
 
@@ -17,18 +18,17 @@ export default class View {
         }
 
         const view = this;
-        this.stateMachine = createStateMachine(this.openGL);
-        this.renderingFlow = new RenderingFlow();
         this.bufferManager = new OpenGLBufferManager({view});
-        this.vaoManager = new VAOManager({view});
         this.programManager = new ProgramManager({view});
+        this.renderingFlow = new RenderingFlow();
         this.renderingOrder = new RenderingOrder();
         this.sceneManager = new SceneManager();
+        this.shaderManager = new ShaderManager({view});
+        this.stateMachine = createStateMachine(this.openGL);
+        this.vaoManager = new VAOManager({view});
     }
 
     render(system, context) {
-        context.view = this;
-        context.renderingOrder = this.renderingOrder;
         this.renderingFlow.render(system, context);
     }
 }

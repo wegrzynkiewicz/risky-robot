@@ -8,8 +8,7 @@ const {Graphic} = Frontend;
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("canvas");
     const system = Frontend.createBasicSystem({window, canvas});
-
-    const {view, sceneManager} = system;
+    const {view} = system;
 
     const layout = Graphic.VAOLayout.createBasicLayout({
         openGLPrimitiveType: WebGL2RenderingContext["TRIANGLES"],
@@ -29,18 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
     positionAccessor.writeElement(1, [0.5, -0.5, 0]);
     positionAccessor.writeElement(2, [-0.5, 0.5, 0]);
 
-    const {bufferManager, vaoManager, programManager} = view;
+    const {bufferManager, vaoManager} = view;
 
     const buffer = bufferManager.createArrayBuffer({
         name: "triangle",
         usage: WebGL2RenderingContext["STATIC_DRAW"],
         bufferLayout
     });
-
     buffer.setBufferData(dataView);
 
-    programManager.registerShaderContent("triangle", vertexShaderContent, fragmentShaderContent);
-    const program = programManager.getProgramByName("triangle");
+    const programFactory = new Graphic.ContentProgramFactory({view});
+    const program = programFactory.createProgram({
+        name: "triangle",
+        fragment: fragmentShaderContent,
+        vertex: vertexShaderContent,
+    });
 
     const vao = vaoManager.createVAO({
         name: "triangle",

@@ -14,7 +14,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const {gltfManager, view} = system;
-    view.programManager.registerShaderContent("solid", vertexShaderContent, fragmentShaderContent);
+
+    const programFactory = new Frontend.Graphic.ContentProgramFactory({view});
+    programFactory.createProgram({
+        name: "solid",
+        fragment: fragmentShaderContent,
+        vertex: vertexShaderContent,
+    });
 
     const gltfContent = await gltfManager.loadContent(resource);
     const asset = await gltfManager.extractAsset({view, gltfContent});

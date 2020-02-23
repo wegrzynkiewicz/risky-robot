@@ -41,18 +41,12 @@ export default class VAO {
     }
 
     link() {
-        const {openGL} = this.view;
-
         this.bind();
         for (let attributeBuffer of this.attributeBuffers) {
             attributeBuffer.bind();
             for (let attributeLayout of attributeBuffer.bufferLayout.getAttributeLayouts()) {
-                const attributeLocationPointer = this.program.attributeLocations[attributeLayout.name];
-                if (attributeLocationPointer < 0 || attributeLocationPointer === undefined) {
-                    continue;
-                }
-                attributeLayout.bindAttributeLocationPointer(openGL, attributeLocationPointer);
-                openGL.enableVertexAttribArray(attributeLocationPointer);
+                attributeLayout.bindAttributeLocation(this.view);
+                this.view.openGL.enableVertexAttribArray(attributeLayout.location);
             }
         }
 

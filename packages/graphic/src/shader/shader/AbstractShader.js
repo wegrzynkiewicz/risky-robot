@@ -1,17 +1,20 @@
 export default class AbstractShader {
 
-    constructor({name, view, shaderContent}) {
+    constructor({name, shaderContent, view}) {
         this.name = name;
+        this.shaderContent = shaderContent;
         this.view = view;
+
         this.openGLShaderPointer = this.view.openGL.createShader(this.openGLShaderType);
         this.shaderSource(shaderContent.content);
+        this.compileShader();
     }
 
     compileShader() {
         this.view.openGL.compileShader(this.openGLShaderPointer);
         if (!this.getShaderParameter(WebGL2RenderingContext['COMPILE_STATUS'])) {
             const message = this.getShaderInfoLog();
-            this.delete();
+            this.deleteShader();
             throw new Error(`An error occurred compiling the shaders: ${message}`);
         }
     }

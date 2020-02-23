@@ -7,20 +7,21 @@ import VAOLayout from "../layout/VAOLayout";
 
 export default class VAOLayoutBlueprint {
 
-    constructor({buffers}) {
-        if (!Array.isArray(buffers)) {
-            throw new Error("Property buffers must be array");
-        }
-        this.bufferBlueprints = [...buffers];
+    constructor({attributeBufferBlueprints, elementBufferBlueprint}) {
+        this.attributeBufferBlueprints = [...attributeBufferBlueprints];
+        this.elementBufferBlueprint = elementBufferBlueprint;
     }
 
     createLayout({openGLPrimitiveType, verticesCount, indicesCount}) {
         const allocation = new Allocation({openGLPrimitiveType, verticesCount, indicesCount});
         const layout = new VAOLayout({allocation});
 
-        for (let bufferBlueprint of this.bufferBlueprints) {
-            const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
-            layout.bufferLayoutMap.set(bufferLayout.name, bufferLayout);
+        for (let attributeBufferBlueprint of this.attributeBufferBlueprints) {
+            layout.createBufferLayout(attributeBufferBlueprint);
+        }
+
+        if (this.elementBufferBlueprint) {
+            layout.createBufferLayout(this.elementBufferBlueprint);
         }
 
         return layout;

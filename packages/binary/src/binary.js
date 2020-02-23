@@ -20,6 +20,7 @@ export {default as Structure} from "./structute/Structure";
 export {default as AbstractType} from "./types/AbstractType";
 export {default as GenericType} from "./types/GenericType";
 export {default as ScalarType} from "./types/ScalarType";
+export {default as translateUniformType} from "./types/translateUniformType";
 export {default as typedArrays} from "./types/typedArrays";
 export {TypeGenerator};
 export {TypeRepository};
