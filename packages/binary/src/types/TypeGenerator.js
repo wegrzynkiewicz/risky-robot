@@ -5,12 +5,12 @@ const openGLIntegerMapper = [
     {power: 0, openGLTypeName: "BYTE", arrayTypePrefix: ""},
     {power: 1, openGLTypeName: "SHORT", arrayTypePrefix: ""},
     {power: 2, openGLTypeName: "INT", arrayTypePrefix: ""},
-    {power: 3, openGLTypeName: undefined, arrayTypePrefix: "Big"},
+    {power: 3, openGLTypeName: null, arrayTypePrefix: "Big"},
 ];
 
 const openGLFloatMapper = [
     {power: 2, openGLTypeName: "FLOAT"},
-    {power: 3, openGLTypeName: undefined},
+    {power: 3, openGLTypeName: null},
 ];
 
 export default class TypeGenerator {
@@ -31,7 +31,7 @@ export default class TypeGenerator {
             this.createStaticType({
                 char: "u",
                 power,
-                openGLTypeName: `UNSIGNED_${openGLTypeName}`,
+                openGLTypeName: openGLTypeName === null ? null : `UNSIGNED_${openGLTypeName}`,
                 arrayType: `${arrayTypePrefix}Uint`
             });
         }
@@ -56,6 +56,17 @@ export default class TypeGenerator {
             }
         }
 
+        for (let vectorWidth = 2; vectorWidth <= 4; vectorWidth++) {
+            for (let axisTypeName of ['f32', 's32', 'u32']) {
+                this.createGenericType({
+                    prefix: 'std140_vec',
+                    width: vectorWidth,
+                    axisLength: 4,
+                    axisType: this.binaryTypes.getTypeByName(axisTypeName),
+                });
+            }
+        }
+
         for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
             for (let axisType of this.staticTypes) {
                 this.createGenericType({
@@ -63,6 +74,17 @@ export default class TypeGenerator {
                     width: matrixWidth,
                     axisLength: matrixWidth ** 2,
                     axisType,
+                });
+            }
+        }
+
+        for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
+            for (let axisTypeName of ['f32', 's32', 'u32']) {
+                this.createGenericType({
+                    prefix: 'std140_mat',
+                    width: matrixWidth,
+                    axisLength: matrixWidth << 2,
+                    axisType: this.binaryTypes.getTypeByName(axisTypeName),
                 });
             }
         }

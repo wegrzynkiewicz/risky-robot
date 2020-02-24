@@ -1,6 +1,4 @@
 import * as Binary from "../binary";
-import TypeAccessor from "../access/TypeAccessor";
-import TypeListAccessor from "../access/TypeListAccessor";
 
 export default class Component {
 

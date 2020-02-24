@@ -45,8 +45,8 @@ const start = async () => {
     uniformBlock.setUniformBindingPoint(uniformBindingPoint);
 
     const bufferData = uniformBlock.createBufferData();
+    bufferData.accessor.fields['u_modelMatrix'].write(modelMatrix);
     uniformBuffer.setBufferData(bufferData.dataView);
-    console.log(bufferData);
 
     const gltfContent = await gltfManager.loadContent(resource);
     const asset = await gltfManager.extractAsset({view, gltfContent});
