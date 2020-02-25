@@ -19,7 +19,7 @@ export default class VAO {
             const {byteLength, openGLType} = this.indicesBuffer.bufferLayout.type;
             this.view.openGL.drawElements(
                 this.layout.allocation.openGLPrimitiveType,
-                this.layout.allocation.verticesCount,
+                this.layout.allocation.indicesCount,
                 openGLType,
                 this.offset * byteLength,
             );

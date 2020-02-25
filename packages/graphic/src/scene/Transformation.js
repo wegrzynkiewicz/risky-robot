@@ -47,6 +47,6 @@ export default class Transformation {
     }
 
     updateModelMatrix(parentModelMatrix) {
-        Matrix4.multiply(this.modelMatrix, parentModelMatrix, this.modelMatrix);
+        Matrix4.multiply(this.modelMatrix, parentModelMatrix, this.localMatrix);
     }
 }

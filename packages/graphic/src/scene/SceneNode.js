@@ -66,6 +66,9 @@ export default class SceneNode {
     }
 
     update(system, context) {
+        if (this.parent) {
+            this.transformation.updateModelMatrix(this.parent.transformation.modelMatrix);
+        }
         for (const child of this.children) {
             child.update(system, context);
         }
@@ -79,6 +82,8 @@ export default class SceneNode {
 
     render(system, context) {
         if (this.target) {
+            window.bufferData.accessor.fields['u_modelMatrix'].write(this.transformation.modelMatrix);
+            window.uniformBuffer.setBufferData(window.bufferData.dataView);
             this.target.render(system, context);
         }
         for (const child of this.children) {
