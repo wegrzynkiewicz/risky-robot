@@ -13,7 +13,9 @@ export default class View {
 
     constructor({canvas}) {
         this.canvas = canvas;
-        this.openGL = canvas.getContext('webgl2');
+        this.openGL = canvas.getContext('webgl2', {
+            desynchronized: true,
+        });
 
         if (!this.openGL) {
             throw new Error('Unable to initialize WebGL2. Your browser or machine may not support it.');

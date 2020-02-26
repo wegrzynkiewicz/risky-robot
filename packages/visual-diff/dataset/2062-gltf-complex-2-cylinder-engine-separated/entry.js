@@ -17,8 +17,14 @@ const start = async () => {
     const {gltfManager, view} = system;
 
     const programFactory = new Frontend.Graphic.ContentProgramFactory({view});
-    const program = programFactory.createProgram({
+    window.program = programFactory.createProgram({
         name: "solid",
+        fragment: fragmentShaderContent,
+        vertex: vertexShaderContent,
+    });
+
+    window.program2 = programFactory.createProgram({
+        name: "solid2",
         fragment: fragmentShaderContent,
         vertex: vertexShaderContent,
     });
@@ -63,9 +69,9 @@ const start = async () => {
     let x = 0;
     let y = 0;
 
-    system.animationLoop.on("frame", () => {
-        x += 0.5;
-        y += 0.1;
+    system.animationLoop.on("frame", (deltaTime) => {
+        x += 80 * deltaTime;
+        y += 20 * deltaTime;
         Graphic.Matrix4.identity(viewMatrix);
         // Graphic.Matrix4.translate(modelMatrix, modelMatrix, [0.5, 0.5, 0]);
         Graphic.Matrix4.rotateX(viewMatrix, viewMatrix, Graphic.radian(x));
