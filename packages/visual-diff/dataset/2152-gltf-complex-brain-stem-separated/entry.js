@@ -43,7 +43,10 @@ const start = async () => {
     const projectionMatrix = Graphic.Matrix4.create();
     const viewMatrix = Graphic.Matrix4.create();
 
-    Graphic.Matrix4.ortho(projectionMatrix, -500, 500, 500, -500, -500, 500);
+    Graphic.Matrix4.translate(viewMatrix, viewMatrix, [0,0.8,0]);
+
+    const n = 1.1;
+    Graphic.Matrix4.ortho(projectionMatrix, -n, n, n, -n, -n*8, n*8);
     bufferData.accessor.fields['u_projectionMatrix'].write(projectionMatrix);
     bufferData.accessor.fields['u_viewMatrix'].write(viewMatrix);
     bufferData.accessor.fields['u_modelMatrix'].write(modelMatrix);
@@ -64,9 +67,10 @@ const start = async () => {
     let y = 0;
 
     system.animationLoop.on("frame", (deltaTime) => {
-        x += 80 * deltaTime;
-        y += 20 * deltaTime;
+        x += 20 * deltaTime;
+        y += 30 * deltaTime;
         Graphic.Matrix4.identity(viewMatrix);
+        Graphic.Matrix4.translate(viewMatrix, viewMatrix, [0,0.6,0]);
         // Graphic.Matrix4.translate(modelMatrix, modelMatrix, [0.5, 0.5, 0]);
         Graphic.Matrix4.rotateX(viewMatrix, viewMatrix, Graphic.radian(x));
         Graphic.Matrix4.rotateY(viewMatrix, viewMatrix, Graphic.radian(y));
