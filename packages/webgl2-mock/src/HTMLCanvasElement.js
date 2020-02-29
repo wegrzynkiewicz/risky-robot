@@ -1,5 +1,5 @@
-import CanvasRenderingContext2D from "./CanvasRenderingContext2D";
-import WebGLRenderingContext from "./WebGLRenderingContext";
+import CanvasRenderingContext2D from './CanvasRenderingContext2D';
+import WebGLRenderingContext from './WebGLRenderingContext';
 
 export default class HTMLCanvasElement {
 
@@ -16,8 +16,9 @@ export default class HTMLCanvasElement {
             case 'webgl2':
             case 'experimental-webgl':
                 return new WebGLRenderingContext(this);
+            default:
+                throw new Error('DomainError');
         }
-        return null;
-    };
-}
+    }
 
+}
