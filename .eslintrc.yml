@@ -83,8 +83,9 @@ rules:
     - error
   func-style:
     - error
+    - declaration
   function-call-argument-newline:
-    - error
+    - off
   function-paren-newline:
     - error
   generator-star-spacing:
@@ -383,7 +384,7 @@ rules:
   no-undef-init:
     - error
   no-undefined:
-    - error
+    - off
   no-underscore-dangle:
     - error
   no-unexpected-multiline:
@@ -444,6 +445,7 @@ rules:
     - error
   one-var:
     - error
+    - never
   one-var-declaration-per-line:
     - error
   operator-assignment:

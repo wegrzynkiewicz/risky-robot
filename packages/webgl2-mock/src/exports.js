@@ -1,15 +1,15 @@
-import CanvasRenderingContext2D from "./CanvasRenderingContext2D";
-import HTMLCanvasElement from "./HTMLCanvasElement";
-import ImageData from "./ImageData";
-import Image from "./Image";
-import WebGLRenderingContext from "./WebGLRenderingContext";
+import CanvasRenderingContext2D from './CanvasRenderingContext2D';
+import HTMLCanvasElement from './HTMLCanvasElement';
+import Image from './Image';
+import ImageData from './ImageData';
+import WebGLRenderingContext from './WebGLRenderingContext';
 
-const emptyCallback = function () {
+function emptyCallback() {
     return undefined;
-};
+}
 
 export function registerGlobals() {
-    // canvas
+    // Canvas
     global.HTMLCanvasElement = HTMLCanvasElement;
     global.CanvasRenderingContext2D = CanvasRenderingContext2D;
     global.ImageData = ImageData;
@@ -40,8 +40,10 @@ export function registerGlobals() {
 }
 
 export function createOpenGLInstance() {
-    const canvas = new HTMLCanvasElement(640, 480);
-    const openGL = canvas.getContext("webgl2");
+    const width = 640;
+    const height = 480;
+    const canvas = new HTMLCanvasElement(width, height);
+    const openGL = canvas.getContext('webgl2');
 
     return openGL;
 }
