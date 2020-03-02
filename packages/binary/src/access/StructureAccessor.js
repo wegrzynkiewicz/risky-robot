@@ -1,15 +1,3 @@
-function createComponentAccessors() {
-    let byteOffset = this.byteOffset;
-    for (const component of this.structure.components) {
-        const componentAccessor = component.createAccessor({
-            dataView: this.dataView,
-            byteOffset,
-        });
-        byteOffset += component.byteLength;
-        this.fields[component.name] = componentAccessor;
-    }
-}
-
 export default class StructureAccessor {
 
     constructor({dataView, structure, byteOffset}) {
@@ -17,11 +5,23 @@ export default class StructureAccessor {
         this.structure = structure;
         this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
         this.fields = Object.create(null);
-        createComponentAccessors.call(this);
+        this.createComponentAccessors();
     }
 
     get byteLength() {
         return this.structure.byteLength;
+    }
+
+    createComponentAccessors() {
+        let {byteOffset} = this;
+        for (const component of this.structure.components) {
+            const componentAccessor = component.createAccessor({
+                byteOffset,
+                dataView: this.dataView,
+            });
+            byteOffset += component.byteLength;
+            this.fields[component.name] = componentAccessor;
+        }
     }
 
     write(sourceTypedArray, sourceByteOffset = 0) {

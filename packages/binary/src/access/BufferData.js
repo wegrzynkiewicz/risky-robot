@@ -8,10 +8,13 @@ export default class BufferData {
     static createFromStructure(structure) {
         const dataView = structure.createDataView();
         const accessor = structure.createAccessor({
+            byteOffset: 0,
             dataView,
-            byteOffset: 0
         });
 
-        return new BufferData({dataView, accessor});
+        return new BufferData({
+            accessor,
+            dataView,
+        });
     }
 }
