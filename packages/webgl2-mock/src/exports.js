@@ -33,6 +33,8 @@ export function registerGlobals() {
 
     // WebGL 2.0
     global.WebGL2RenderingContext = WebGLRenderingContext;
+
+    // eslint-disable-next-line no-sync
     global.WebGLSync = emptyCallback;
     global.WebGLTransformFeedback = emptyCallback;
     global.WebGLSampler = emptyCallback;

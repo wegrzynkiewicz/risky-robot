@@ -1,5 +1,5 @@
-const elements = 2 ** 16;
-const index = 2 ** 16 - 4;
+const elements = 65536;
+const index = 65532;
 
 export function mapRead() {
     const map = new Map();

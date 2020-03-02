@@ -103,7 +103,7 @@ rules:
   id-blacklist:
     - error
   id-length:
-    - error
+    - off
   id-match:
     - error
   implicit-arrow-linebreak:
@@ -145,6 +145,7 @@ rules:
     - error
   max-statements:
     - error
+    - 40
   max-statements-per-line:
     - error
   multiline-comment-style:
@@ -322,7 +323,7 @@ rules:
   no-path-concat:
     - error
   no-plusplus:
-    - error
+    - off
   no-process-env:
     - error
   no-process-exit:

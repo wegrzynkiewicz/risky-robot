@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 function identity(out) {
     out[0] = 1;
     out[1] = 0;
@@ -19,7 +21,7 @@ function identity(out) {
 }
 
 export function tdlMath_array() {
-    const multiply = function (out, a, b) {
+    function multiply(out, a, b) {
         const a00 = a[0x0], a01 = a[0x1], a02 = a[0x2], a03 = a[0x3];
         const a10 = a[0x4], a11 = a[0x5], a12 = a[0x6], a13 = a[0x7];
         const a20 = a[0x8], a21 = a[0x9], a22 = a[0xa], a23 = a[0xb];
@@ -46,7 +48,8 @@ export function tdlMath_array() {
         out[0xd] = a30 * b01 + a31 * b11 + a32 * b21 + a33 * b31;
         out[0xe] = a30 * b02 + a31 * b12 + a32 * b22 + a33 * b32;
         out[0xf] = a30 * b03 + a31 * b13 + a32 * b23 + a33 * b33;
-    };
+    }
+
     const array1 = identity([]);
     const array2 = identity([]);
     const output = [];
