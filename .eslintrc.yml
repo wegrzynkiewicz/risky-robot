@@ -454,10 +454,7 @@ rules:
   operator-linebreak:
     - error
   padded-blocks:
-    - error
-    - blocks: never
-      classes: always
-      switches: never
+    - off
   padding-line-between-statements:
     - error
   prefer-arrow-callback:

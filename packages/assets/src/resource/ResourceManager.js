@@ -6,7 +6,8 @@ export default class ResourceManager {
 
     async download(resource) {
         const url = this.resolveURL(resource);
-        return await fetch(url);
+        const data = await fetch(url.toString());
+        return data;
     }
 
     resolveURL(resource) {
