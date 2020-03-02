@@ -14,7 +14,7 @@ class FloatBufferBuilder {
     }
 
     add(plus) {
-        const vertex = plus.split("").map(c => parseFloat(`${c}0.5`));
+        const vertex = plus.split('').map(c => parseFloat(`${c}0.5`));
         this.vertices.push(vertex);
     }
 
@@ -34,40 +34,40 @@ export default {
         const builder = new FloatBufferBuilder(6 * 6 * 6);
 
         // top
-        builder.add("-++");
-        builder.add("+++");
-        builder.add("++-");
-        builder.add("-+-");
+        builder.add('-++');
+        builder.add('+++');
+        builder.add('++-');
+        builder.add('-+-');
 
         // bottom
-        builder.add("---");
-        builder.add("+--");
-        builder.add("+-+");
-        builder.add("--+");
+        builder.add('---');
+        builder.add('+--');
+        builder.add('+-+');
+        builder.add('--+');
 
         // front
-        builder.add("--+");
-        builder.add("+-+");
-        builder.add("+++");
-        builder.add("-++");
+        builder.add('--+');
+        builder.add('+-+');
+        builder.add('+++');
+        builder.add('-++');
 
         // back
-        builder.add("+--");
-        builder.add("---");
-        builder.add("-+-");
-        builder.add("++-");
+        builder.add('+--');
+        builder.add('---');
+        builder.add('-+-');
+        builder.add('++-');
 
         // left
-        builder.add("---");
-        builder.add("--+");
-        builder.add("-++");
-        builder.add("-+-");
+        builder.add('---');
+        builder.add('--+');
+        builder.add('-++');
+        builder.add('-+-');
 
         // right
-        builder.add("+-+");
-        builder.add("+--");
-        builder.add("++-");
-        builder.add("+++");
+        builder.add('+-+');
+        builder.add('+--');
+        builder.add('++-');
+        builder.add('+++');
 
         builder.generate();
 

@@ -1,4 +1,4 @@
-import Message from "../Message";
+import Message from '../Message';
 
 export default class MessageJSONSerializer {
 
@@ -8,9 +8,9 @@ export default class MessageJSONSerializer {
 
     serialize(message) {
         const object = {
-            "name": this.actionRepository.getNameByCode(message.code),
-            "id": message.id,
-            "data": message.action,
+            'name': this.actionRepository.getNameByCode(message.code),
+            'id': message.id,
+            'data': message.action,
         };
         const json = JSON.stringify(object);
         return json;
@@ -21,7 +21,7 @@ export default class MessageJSONSerializer {
         const {name: messageName, id, data: actionContent} = object;
 
         if (messageName === undefined) {
-            throw new Error("Cannot deserialize");
+            throw new Error('Cannot deserialize');
         }
 
         const code = this.actionRepository.getCodeByName(messageName);

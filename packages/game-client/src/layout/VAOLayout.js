@@ -1,11 +1,11 @@
-import VAOAllocation from "./VAOAllocation";
-import VAOAttributeLayout from "./VAOAttributeLayout";
-import VAOBufferLayout from "./VAOBufferLayout";
+import VAOAllocation from './VAOAllocation';
+import VAOAttributeLayout from './VAOAttributeLayout';
+import VAOBufferLayout from './VAOBufferLayout';
 
 const primitivesType = {
-    "triangle": {
-        glType: WebGL2RenderingContext["TRIANGLES"],
-        glTypeName: "TRIANGLES",
+    'triangle': {
+        glType: WebGL2RenderingContext['TRIANGLES'],
+        glTypeName: 'TRIANGLES',
         calculateVerticesCount: elements => elements * 3,
     },
 };
@@ -15,11 +15,11 @@ export default class VAOLayout {
     constructor({primitive, buffers}) {
 
         if (!Array.isArray(buffers)) {
-            throw new Error("Property buffers must be array");
+            throw new Error('Property buffers must be array');
         }
 
         if (primitivesType[primitive] === undefined) {
-            throw new Error("Invalid VAO allocation primitive type.");
+            throw new Error('Invalid VAO allocation primitive type.');
         }
 
         this.bufferLayouts = buffers;

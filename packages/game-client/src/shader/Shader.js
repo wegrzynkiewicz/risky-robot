@@ -1,5 +1,5 @@
-const regexUniform = new RegExp("^uniform(?:[\\w+ ])* (?<uniform>\\w+);$", "mg");
-const regexAttribute = new RegExp("(?<attribute>a_\\w+);$", "mg");
+const regexUniform = new RegExp('^uniform(?:[\\w+ ])* (?<uniform>\\w+);$', 'mg');
+const regexAttribute = new RegExp('(?<attribute>a_\\w+);$', 'mg');
 
 const shaders = {
     vertex: WebGL2RenderingContext.VERTEX_SHADER,

@@ -1,7 +1,7 @@
-import getOrthographicMatrix from "./graphic/getOrthographicMatrix";
-import getIsometricMatrix from "./graphic/getIsometricMatrix";
-import * as glMatrix from "gl-matrix";
-import * as glHelper from "./helpers/glHelper";
+import getOrthographicMatrix from './graphic/getOrthographicMatrix';
+import getIsometricMatrix from './graphic/getIsometricMatrix';
+import * as glMatrix from 'gl-matrix';
+import * as glHelper from './helpers/glHelper';
 
 export default class IsometricCamera {
 

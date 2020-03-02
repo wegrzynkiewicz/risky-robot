@@ -1,5 +1,5 @@
-import ArrayBuffer from "./ArrayBuffer";
-import ElementArrayBuffer from "./ElementArrayBuffer";
+import ArrayBuffer from './ArrayBuffer';
+import ElementArrayBuffer from './ElementArrayBuffer';
 
 export default class BufferManager {
 

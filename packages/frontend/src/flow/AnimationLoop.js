@@ -1,4 +1,4 @@
-import EventEmitter from "events"
+import EventEmitter from 'events'
 
 export default class AnimationLoop extends EventEmitter {
 
@@ -26,7 +26,7 @@ export default class AnimationLoop extends EventEmitter {
         this.previousTimestampSeconds = currentTimestampSeconds;
 
         if (deltaTime !== 0.0) {
-            this.emit("frame", deltaTime);
+            this.emit('frame', deltaTime);
             this.requestID = this.window.requestAnimationFrame(this.loop);
         }
     }

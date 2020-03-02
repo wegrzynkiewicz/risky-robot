@@ -1,7 +1,7 @@
-import Program from "./Program";
-import FragmentShader from "../shader/FragmentShader";
-import ShaderContent from "../content/ShaderContent";
-import VertexShader from "../shader/VertexShader";
+import Program from './Program';
+import FragmentShader from '../shader/FragmentShader';
+import ShaderContent from '../content/ShaderContent';
+import VertexShader from '../shader/VertexShader';
 
 function createShader(name, content, constructor) {
     const shaderContent = new ShaderContent({

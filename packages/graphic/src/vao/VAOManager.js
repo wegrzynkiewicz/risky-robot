@@ -1,4 +1,4 @@
-import VAO from "./VAO";
+import VAO from './VAO';
 
 export default class VAOManager {
 

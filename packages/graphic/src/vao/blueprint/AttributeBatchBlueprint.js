@@ -1,5 +1,5 @@
-import AttributeBatchLayout from "../layout/AttributeBatchLayout";
-import * as Binary from "robo24-binary";
+import AttributeBatchLayout from '../layout/AttributeBatchLayout';
+import * as Binary from 'robo24-binary';
 
 export default class AttributeBatchBlueprint {
 
@@ -16,7 +16,7 @@ export default class AttributeBatchBlueprint {
             const {type} = attributeBlueprint;
             const paddingType = type instanceof Binary.GenericType ? type.axisType: type;
             if (blockStride % paddingType.byteLength !== 0) {
-                throw new Error("Invalid stride or offset data pack");
+                throw new Error('Invalid stride or offset data pack');
             }
         }
         return blockStride;
@@ -27,7 +27,7 @@ export default class AttributeBatchBlueprint {
             const expectedDivisor = this.attributeBlueprints[0].divisor;
             for (let attributeBlueprint of this.attributeBlueprints) {
                 if (attributeBlueprint.divisor !== expectedDivisor) {
-                    throw new Error("Cannot merge interleaved attributes with different divisor property");
+                    throw new Error('Cannot merge interleaved attributes with different divisor property');
                 }
             }
         }

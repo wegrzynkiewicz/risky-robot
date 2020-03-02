@@ -2,14 +2,14 @@ const colorRatio = 1.0 / 255.0;
 
 const assertColorElement = (color) => {
     if (color < 0.0) {
-        throw new Error("Color element cannot be lesser then 0.0");
+        throw new Error('Color element cannot be lesser then 0.0');
     }
     if (color > 1.0) {
-        throw new Error("Color element cannot be greater then 1.0");
+        throw new Error('Color element cannot be greater then 1.0');
     }
 };
 
-const hexRegex = new RegExp("^\#([A-Fa-f0-9]+)$");
+const hexRegex = new RegExp('^\#([A-Fa-f0-9]+)$');
 
 export default class Color {
 
@@ -54,7 +54,7 @@ export default class Color {
     static fromHex(colorHex) {
         const matches = hexRegex.exec(colorHex);
         if (!matches) {
-            throw new Error("Invalid color hex");
+            throw new Error('Invalid color hex');
         }
         const hex = matches[1];
         const r = parseInt(hex.charAt(0) + hex.charAt(1), 16) * colorRatio;

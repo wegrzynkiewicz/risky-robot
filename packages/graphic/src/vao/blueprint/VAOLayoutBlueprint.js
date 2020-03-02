@@ -1,9 +1,9 @@
-import Allocation from "../layout/Allocation";
-import ArrayBufferBlueprint from "./ArrayBufferBlueprint";
-import AttributeBatchBlueprint from "./AttributeBatchBlueprint";
-import AttributeBlueprint from "./AttributeBlueprint";
-import ElementBufferBlueprint from "./ElementBufferBlueprint";
-import VAOLayout from "../layout/VAOLayout";
+import Allocation from '../layout/Allocation';
+import ArrayBufferBlueprint from './ArrayBufferBlueprint';
+import AttributeBatchBlueprint from './AttributeBatchBlueprint';
+import AttributeBlueprint from './AttributeBlueprint';
+import ElementBufferBlueprint from './ElementBufferBlueprint';
+import VAOLayout from '../layout/VAOLayout';
 
 export default class VAOLayoutBlueprint {
 

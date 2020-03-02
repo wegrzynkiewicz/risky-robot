@@ -27,7 +27,7 @@ glob.sync('./dataset/**/entry.js').map(filepath => {
 });
 
 module.exports = {
-    mode: process.env.NODE_ENV || "development",
+    mode: process.env.NODE_ENV || 'development',
     entry: {
         index: './src/entry/index.js',
         ...entries,
@@ -41,7 +41,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/entry/index.ejs',
             filename: 'index.html',
-            chunks: ["index"],
+            chunks: ['index'],
             config: JSON.stringify({
                 dataset: dataset
             }),
@@ -57,12 +57,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: new RegExp("\\.(vert|frag)$"),
+                test: new RegExp('\\.(vert|frag)$'),
                 use: 'raw-loader',
             },
             {
-                test: new RegExp("\\.html$"),
-                loader: "html-loader"
+                test: new RegExp('\\.html$'),
+                loader: 'html-loader'
             }
         ]
     },
@@ -72,7 +72,7 @@ module.exports = {
                 commons: {
                     minSize: 0,
                     test: /core/,
-                    name: "commons",
+                    name: 'commons',
                     chunks: 'all'
                 }
             }

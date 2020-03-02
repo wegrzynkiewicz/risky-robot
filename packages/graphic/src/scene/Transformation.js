@@ -1,4 +1,4 @@
-import {Matrix4} from "../math";
+import {Matrix4} from '../math';
 
 const bpe = Float32Array.BYTES_PER_ELEMENT;
 const arrayBufferLength = (3 + 4 + 3 + 16 + 16) * bpe;

@@ -1,4 +1,4 @@
-import * as glMatrix from "gl-matrix";
+import * as glMatrix from 'gl-matrix';
 
 export default function getOrthographicMatrix(width, height) {
 

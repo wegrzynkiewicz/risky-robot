@@ -1,6 +1,6 @@
-import SceneNode from "../../scene/SceneNode";
-import cube from "../legacyCube/cube";
-import * as glMatrix from "gl-matrix";
+import SceneNode from '../../scene/SceneNode';
+import cube from '../legacyCube/cube';
+import * as glMatrix from 'gl-matrix';
 
 export default class ChunkSceneNode extends SceneNode {
 
@@ -9,7 +9,7 @@ export default class ChunkSceneNode extends SceneNode {
 
         const {openGL: gl} = game;
 
-        this.shader = game.shaderManager.getShaderByName("chunk");
+        this.shader = game.shaderManager.getShaderByName('chunk');
 
         this.modelMatrix = glMatrix.mat4.create();
         glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, [0, 64, 0]);

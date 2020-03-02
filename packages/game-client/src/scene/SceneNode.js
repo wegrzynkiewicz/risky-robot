@@ -76,7 +76,7 @@ export default class SceneNode {
     }
 
     debug(writer, depth = 0) {
-        const space = "  ".repeat(depth);
+        const space = '  '.repeat(depth);
         const id = this.id ? `#${this.id} ` : '';
         const type = Object.getPrototypeOf(this).constructor.name;
         writer(`${space}${type} ${id}`);

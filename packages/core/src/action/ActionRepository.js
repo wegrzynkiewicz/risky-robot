@@ -1,4 +1,4 @@
-import Action from "./Action";
+import Action from './Action';
 
 export default class ActionRepository {
 
@@ -10,7 +10,7 @@ export default class ActionRepository {
     register(actionConstructor) {
         const options = actionConstructor.prototype[Action.symbol];
         if (!options) {
-            throw new Error("Cannot resister no bind action");
+            throw new Error('Cannot resister no bind action');
         }
         const {name, code} = options;
         this.actionNames[name] = actionConstructor;

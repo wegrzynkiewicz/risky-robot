@@ -1,6 +1,6 @@
-import typeRegistry from "./binaryTypeRegistry";
+import typeRegistry from './binaryTypeRegistry';
 
-const regex = new RegExp(`(?<mainType>\\w+)(?:<(?<subType>\\w+)>)?(?:\\[(?<count>\\w*)\\])?`);
+const regex = new RegExp('(?<mainType>\\w+)(?:<(?<subType>\\w+)>)?(?:\\[(?<count>\\w*)\\])?');
 
 export default class BinaryDescriptor {
 
@@ -58,4 +58,4 @@ export default class BinaryDescriptor {
     }
 }
 
-BinaryDescriptor.symbol = Symbol("BinaryDescriptor");
+BinaryDescriptor.symbol = Symbol('BinaryDescriptor');

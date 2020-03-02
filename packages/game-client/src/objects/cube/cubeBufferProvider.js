@@ -1,5 +1,5 @@
-import cubeVAOLayout from "./cubeVAOLayout";
-import cubeVertexDataset from "./cubeVertexDataset";
+import cubeVAOLayout from './cubeVAOLayout';
+import cubeVertexDataset from './cubeVertexDataset';
 
 export default function cubeBufferProvider() {
     const verticesCount = cubeVAOLayout.vertices;
@@ -7,7 +7,7 @@ export default function cubeBufferProvider() {
     const vaoAllocation = bufferLayout.createVAOAllocation(cubeVAOLayout);
     const dataView = vaoAllocation.createArrayBufferByDataView();
 
-    const positionAllocation = vaoAllocation.getAttributeAllocationByName("a_Position");
+    const positionAllocation = vaoAllocation.getAttributeAllocationByName('a_Position');
     let verticesIndex = 0;
     for (let i = 0; i < 6; i++) {
         for (let index of [0, 1, 2, 0, 2, 3]) {
@@ -17,7 +17,7 @@ export default function cubeBufferProvider() {
     }
 
     const colorBuffer = new Uint8Array([127, 127, 127]);
-    const colorAllocation = vaoAllocation.getAttributeAllocationByName("a_Color");
+    const colorAllocation = vaoAllocation.getAttributeAllocationByName('a_Color');
     for (let i = 0; i < verticesCount; i++) {
         colorAllocation.write(dataView, i, colorBuffer);
     }

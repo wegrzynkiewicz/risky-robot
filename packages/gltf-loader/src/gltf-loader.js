@@ -1,1 +1,1 @@
-export {default as GLTFManager} from "./GLTFManager"
+export {default as GLTFManager} from './GLTFManager'

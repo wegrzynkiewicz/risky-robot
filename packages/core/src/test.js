@@ -1,4 +1,4 @@
-import zlib from "zlib";
+import zlib from 'zlib';
 
 const buffer = new ArrayBuffer(65536);
 const dataView = new DataView(buffer);

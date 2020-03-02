@@ -60,23 +60,23 @@ export default class ProxyCreator {
 
     createEnableStateProxy() {
         const modifier = function () {
-            this.state["ENABLED"] = Object.create(null);
-            this.proxies["enable"] = (enumerable) => {
-                const values = this.state["ENABLED"];
+            this.state['ENABLED'] = Object.create(null);
+            this.proxies['enable'] = (enumerable) => {
+                const values = this.state['ENABLED'];
                 if (values[enumerable] !== true) {
                     values[enumerable] = true;
                     this.openGL.enable(enumerable);
                 }
             };
-            this.proxies["disable"] = (enumerable) => {
-                const values = this.state["ENABLED"];
+            this.proxies['disable'] = (enumerable) => {
+                const values = this.state['ENABLED'];
                 if (values[enumerable] !== false) {
                     values[enumerable] = false;
                     this.openGL.disable(enumerable);
                 }
             };
-            this.proxies["isEnabled"] = (enumerable) => {
-                const values = this.state["ENABLED"];
+            this.proxies['isEnabled'] = (enumerable) => {
+                const values = this.state['ENABLED'];
                 let value = values[enumerable];
                 if (value === undefined) {
                     value = this.openGL.isEnabled(enumerable);

@@ -1,1 +1,1 @@
-import webgl_mock from "webgl-mock";
+import webgl_mock from 'webgl-mock';

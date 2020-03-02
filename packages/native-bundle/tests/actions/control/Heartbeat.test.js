@@ -1,23 +1,23 @@
-import assert from "assert";
-import MessageBinarySerializer from "../../../../core/src/network/communication/serialization/MessageBinarySerializer";
-import Heartbeat from "../../../src/actions/control/Heartbeat";
-import Message from "../../../../core/src/network/communication/Message";
+import assert from 'assert';
+import MessageBinarySerializer from '../../../../core/src/network/communication/serialization/MessageBinarySerializer';
+import Heartbeat from '../../../src/actions/control/Heartbeat';
+import Message from '../../../../core/src/network/communication/Message';
 
 const messageRegistryMock = {
     getConstructorByCode: code => Heartbeat,
 };
 const serializer = new MessageBinarySerializer(messageRegistryMock);
 
-describe("Heartbeat", function () {
+describe('Heartbeat', function () {
 
-    it("serialize", function () {
+    it('serialize', function () {
         const heartbeat = Message.createFromAction(new Heartbeat());
         const arrayBuffer = serializer.serialize(heartbeat);
 
         assert.strictEqual(arrayBuffer.byteLength, 4);
     });
 
-    it("deserialize", function () {
+    it('deserialize', function () {
         const arrayBuffer = new ArrayBuffer(4);
         const dataView = new DataView(arrayBuffer);
         dataView.setUint16(0, 0x0001, true);

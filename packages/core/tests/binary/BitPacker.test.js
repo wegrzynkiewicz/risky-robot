@@ -1,25 +1,25 @@
-import BitPacker from "../../src/binary/BitPacker";
-import assert from "assert";
+import BitPacker from '../../src/binary/BitPacker';
+import assert from 'assert';
 
-const spaceRegex = new RegExp("[^01]", "g");
-const chunkRegex = new RegExp(".{1,8}", "g");
+const spaceRegex = new RegExp('[^01]', 'g');
+const chunkRegex = new RegExp('.{1,8}', 'g');
 
 function assertBit(actual, expected) {
     const bitArray = new Uint8Array(actual);
     const actualMaskBytes = [];
     for (let i = 0; i < bitArray.length; i++) {
-        const bitByteRepresentation = bitArray[i].toString(2).padStart(8, "0");
+        const bitByteRepresentation = bitArray[i].toString(2).padStart(8, '0');
         actualMaskBytes.push(bitByteRepresentation);
     }
-    const actualMask = actualMaskBytes.join(" ");
-    const expectedCleanBits = expected.replace(spaceRegex, "");
-    const exceptedMask = expectedCleanBits.match(chunkRegex).join(" ");
+    const actualMask = actualMaskBytes.join(' ');
+    const expectedCleanBits = expected.replace(spaceRegex, '');
+    const exceptedMask = expectedCleanBits.match(chunkRegex).join(' ');
 
     assert.strictEqual(actualMask, exceptedMask);
 }
 
-describe("BitPacker", function () {
-    it(`should write bit from buffer`, function () {
+describe('BitPacker', function () {
+    it('should write bit from buffer', function () {
         const arrayBuffer = new ArrayBuffer(6);
         const dataView = new DataView(arrayBuffer);
         const bitPacker = new BitPacker(dataView);
@@ -45,6 +45,6 @@ describe("BitPacker", function () {
         bitPacker.pack(4, 0b0011);
         bitPacker.flush();
 
-        assertBit(arrayBuffer, "10111101 10101011 11111000 11111100 10101011 10110011");
+        assertBit(arrayBuffer, '10111101 10101011 11111000 11111100 10101011 10110011');
     });
 });

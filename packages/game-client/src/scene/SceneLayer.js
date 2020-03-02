@@ -1,4 +1,4 @@
-import SceneNode from "./SceneNode"
+import SceneNode from './SceneNode'
 
 export default class SceneLayer extends SceneNode {
     constructor(options) {

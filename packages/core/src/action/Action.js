@@ -13,4 +13,4 @@ export default class Action {
     }
 }
 
-Action.symbol = Symbol("Action");
+Action.symbol = Symbol('Action');

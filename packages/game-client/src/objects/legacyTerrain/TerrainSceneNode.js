@@ -1,6 +1,6 @@
-import SceneNode from "../../scene/SceneNode";
-import Terrain from "./Terrain";
-import * as glMatrix from "gl-matrix";
+import SceneNode from '../../scene/SceneNode';
+import Terrain from './Terrain';
+import * as glMatrix from 'gl-matrix';
 
 export default class TerrainSceneNode extends SceneNode {
     
@@ -9,7 +9,7 @@ export default class TerrainSceneNode extends SceneNode {
 
         const {openGL: gl} = game;
 
-        this.shader = game.shaderManager.getShaderByName("terrain");
+        this.shader = game.shaderManager.getShaderByName('terrain');
 
         this.modelMatrix = glMatrix.mat4.create();
         glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, [1.0, -4.0, 1.0]);

@@ -1,4 +1,4 @@
-import ArrayBufferLayout from "../layout/ArrayBufferLayout";
+import ArrayBufferLayout from '../layout/ArrayBufferLayout';
 
 export default class ArrayBufferBlueprint {
 

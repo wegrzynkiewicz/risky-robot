@@ -8,7 +8,7 @@ export default class System {
         this.context = Object.create(null);
 
         this.animationLoop = animationLoop;
-        this.animationLoop.on("frame", this.loop.bind(this));
+        this.animationLoop.on('frame', this.loop.bind(this));
     }
 
     loop(deltaTime) {

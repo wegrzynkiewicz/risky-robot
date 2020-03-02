@@ -1,8 +1,8 @@
-import WebSocket from "ws";
-import MessageSerializer from "../../lib/network/communication/serialization/MessageSerializer";
-import actionRegistry from "../../lib/logic/actions/actionRegistry";
-import Heartbeat from "../../lib/actions/control/Heartbeat";
-import Message from "../../lib/network/communication/Message";
+import WebSocket from 'ws';
+import MessageSerializer from '../../lib/network/communication/serialization/MessageSerializer';
+import actionRegistry from '../../lib/logic/actions/actionRegistry';
+import Heartbeat from '../../lib/actions/control/Heartbeat';
+import Message from '../../lib/network/communication/Message';
 
 const webSocketServer = new WebSocket.Server({
     port: 8080,
@@ -32,7 +32,7 @@ let connections = [];
 const send = function () {
     for (let con of connections) {
         con.send(JSON.stringify({
-            command: "positions",
+            command: 'positions',
             players
         }));
     }

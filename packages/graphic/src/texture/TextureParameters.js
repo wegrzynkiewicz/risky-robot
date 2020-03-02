@@ -1,11 +1,11 @@
 export default class TextureParameters {
 
     constructor() {
-        this.magnifyingFilter = "LINEAR";
-        this.minifyingFilter = "LINEAR";
-        this.wrapS = "REPEAT";
-        this.wrapT = "REPEAT";
-        this.wrapR = "REPEAT";
+        this.magnifyingFilter = 'LINEAR';
+        this.minifyingFilter = 'LINEAR';
+        this.wrapS = 'REPEAT';
+        this.wrapT = 'REPEAT';
+        this.wrapR = 'REPEAT';
     }
 
     apply({openGL, openGLTextureType}) {

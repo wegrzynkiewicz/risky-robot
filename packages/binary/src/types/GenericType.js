@@ -1,4 +1,4 @@
-import AbstractType from "./AbstractType";
+import AbstractType from './AbstractType';
 
 export default class GenericType extends AbstractType {
 

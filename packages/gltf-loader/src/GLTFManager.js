@@ -1,5 +1,5 @@
-import GLTFContentLoader from "./content/GLTFContentLoader";
-import GLTFAssetExtractor from "./assets/GLTFAssetExtractor";
+import GLTFContentLoader from './content/GLTFContentLoader';
+import GLTFAssetExtractor from './assets/GLTFAssetExtractor';
 
 export default class GLTFManager {
 

@@ -1,8 +1,8 @@
-import AnimationLoop from "../flow/AnimationLoop";
-import System from "./System";
-import * as Graphic from "robo24-graphic";
-import * as Assets from "robo24-assets";
-import * as GLTFLoader from "robo24-gltf-loader";
+import AnimationLoop from '../flow/AnimationLoop';
+import System from './System';
+import * as Graphic from 'robo24-graphic';
+import * as Assets from 'robo24-assets';
+import * as GLTFLoader from 'robo24-gltf-loader';
 
 export default function createBasicSystem({window, canvas}) {
 
@@ -22,7 +22,7 @@ export default function createBasicSystem({window, canvas}) {
 
     const view = new Graphic.View({canvas});
 
-    const scene = new Graphic.Scene({name: "primary-scene"});
+    const scene = new Graphic.Scene({name: 'primary-scene'});
     scene.setParent(view.sceneManager);
 
     const renderer = new Graphic.SingleCameraRenderer({

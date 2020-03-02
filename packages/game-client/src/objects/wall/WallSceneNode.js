@@ -1,7 +1,7 @@
-import SceneNode from "../../scene/SceneNode";
-import * as glMatrix from "gl-matrix";
-import WallVAOGenerator from "../../wall/WallVAOGenerator";
-import VAOCreator from "../../layout/VAOCreator";
+import SceneNode from '../../scene/SceneNode';
+import * as glMatrix from 'gl-matrix';
+import WallVAOGenerator from '../../wall/WallVAOGenerator';
+import VAOCreator from '../../layout/VAOCreator';
 
 const set = function (dataview, offset, array, number) {
     for (let i = 0; i < number; i++) {
@@ -20,7 +20,7 @@ export default class WallSceneNode extends SceneNode {
         this.modelMatrix = glMatrix.mat4.create();
         this.modelMatrix = glMatrix.mat4.translate(this.modelMatrix, this.modelMatrix, [-8.0, 8.0, -5.0]);
 
-        this.shader = game.shaderManager.getShaderByName("wall");
+        this.shader = game.shaderManager.getShaderByName('wall');
 
         const {vaoAllocation, wallVAOGenerator, dataView} = WallVAOGenerator;
 
@@ -34,19 +34,19 @@ export default class WallSceneNode extends SceneNode {
             shader: this.shader,
             vaoAllocation,
             buffers: {
-                "vertices": buffer,
+                'vertices': buffer,
             },
         });
 
         const gl = openGL;
         const program = this.shader.program;
 
-        const blockIndex_1 = gl.getUniformBlockIndex(program, "TestBlock");
+        const blockIndex_1 = gl.getUniformBlockIndex(program, 'TestBlock');
         console.log('blockIndex_1', blockIndex_1);
         const blockSize_1 = gl.getActiveUniformBlockParameter(program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
         console.log('blockSize_1', blockSize_1);
 
-        const uniformIndices_1 = gl.getUniformIndices(program, ["u_projectionMatrix", "u_modelMatrix", "u_viewMatrix1"]);
+        const uniformIndices_1 = gl.getUniformIndices(program, ['u_projectionMatrix', 'u_modelMatrix', 'u_viewMatrix1']);
         //const uniformIndices_1 = gl.getUniformIndices(program, ["u_modelMatrix1"]);
         console.log('uniformIndices_1', uniformIndices_1);
 

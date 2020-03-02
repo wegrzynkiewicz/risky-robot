@@ -1,4 +1,4 @@
-import SimplexNoise from "simplex-noise";
+import SimplexNoise from 'simplex-noise';
 
 const TAU = 2 * Math.PI;
 

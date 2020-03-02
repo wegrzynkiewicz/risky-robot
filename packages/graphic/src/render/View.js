@@ -1,13 +1,13 @@
-import createStateMachine from "../state/createStateMachine";
-import OpenGLBufferManager from "../buffer/BufferManager";
-import ProgramManager from "../shader/program/ProgramManager";
-import RenderingFlow from "./RenderingFlow";
-import RenderingOrder from "./RenderingOrder";
-import VAOManager from "../vao/VAOManager";
-import SceneManager from "../scene/SceneManager";
-import ShaderManager from "../shader/shader/ShaderManager";
-import UniformBlockManager from "../uniform/block/UniformBlockManager";
-import UniformBufferManager from "../uniform/buffer/UniformBufferManager";
+import createStateMachine from '../state/createStateMachine';
+import OpenGLBufferManager from '../buffer/BufferManager';
+import ProgramManager from '../shader/program/ProgramManager';
+import RenderingFlow from './RenderingFlow';
+import RenderingOrder from './RenderingOrder';
+import VAOManager from '../vao/VAOManager';
+import SceneManager from '../scene/SceneManager';
+import ShaderManager from '../shader/shader/ShaderManager';
+import UniformBlockManager from '../uniform/block/UniformBlockManager';
+import UniformBufferManager from '../uniform/buffer/UniformBufferManager';
 
 export default class View {
 

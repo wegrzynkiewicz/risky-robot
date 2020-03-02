@@ -1,16 +1,16 @@
-import Stage from "../Stage";
-import Game from "../Game";
+import Stage from '../Stage';
+import Game from '../Game';
 
 export default class GameStage extends Stage {
 
     constructor() {
         super();
         this.game = new Game();
-        this.name = "game";
+        this.name = 'game';
     }
 
     async init(previousStage, app, {game_id}) {
-        const rootElement = document.getElementById("root");
+        const rootElement = document.getElementById('root');
         // rootElement.innerHTML = "";
         // rootElement.prepend(this.game.canvas.element);
         await this.game.init();

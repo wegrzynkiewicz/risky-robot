@@ -1,4 +1,4 @@
-import * as glMatrix from "gl-matrix";
+import * as glMatrix from 'gl-matrix';
 
 const CHUNK_SIZE = 8;
 
@@ -196,7 +196,7 @@ const debugIndices = function () {
     for (let point of obj.vertices()) {
         process.stdout.write(`${point} `);
         if (i % 3 === 0) {
-            process.stdout.write(` - `);
+            process.stdout.write(' - ');
         }
         if (i % 6 === 0) {
             console.log('')

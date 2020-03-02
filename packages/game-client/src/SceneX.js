@@ -1,5 +1,5 @@
-import Terrain from "./Terrain";
-import getIsometricMatrix from "./graphic/getIsometricMatrix";
+import Terrain from './Terrain';
+import getIsometricMatrix from './graphic/getIsometricMatrix';
 
 function initBuffers() {
 
@@ -36,7 +36,7 @@ export default class SceneX {
     constructor(options) {
         Object.assign(this, options);
         this.openGL = this.canvas.openGL;
-        this.programInfo = this.shaderManager.getShaderByName("terrain");
+        this.programInfo = this.shaderManager.getShaderByName('terrain');
         this.buffers = initBuffers.call(this);
         this.previousTimestamp = 0;
 

@@ -1,7 +1,7 @@
-import * as Graphic from "robo24-graphic";
-import * as Binary from "robo24-binary";
-import accessorTypeTranslate from "./accessorTypeTranlate";
-import GLTFAsset from "./GLTFAsset";
+import * as Graphic from 'robo24-graphic';
+import * as Binary from 'robo24-binary';
+import accessorTypeTranslate from './accessorTypeTranlate';
+import GLTFAsset from './GLTFAsset';
 
 export default class GLTFAssetExtractor {
 
@@ -46,7 +46,7 @@ export default class GLTFAssetExtractor {
 
         const primitiveObjects = [];
         for (const primitive of primitives) {
-            if (primitive.attributes["POSITION"] === undefined) {
+            if (primitive.attributes['POSITION'] === undefined) {
                 return;
             }
             const primitiveObject = this.createPrimitive(primitive);
@@ -73,7 +73,7 @@ export default class GLTFAssetExtractor {
         const indicesBuffer = this.createElementBuffer({layout, primitiveData});
 
         const vao = view.vaoManager.createVAO({
-            name: "test",
+            name: 'test',
             layout,
             program,
             attributeBuffers,
@@ -112,8 +112,8 @@ export default class GLTFAssetExtractor {
                 }
             }
             const buffer = this.view.bufferManager.createArrayBuffer({
-                name: "test",
-                usage: WebGL2RenderingContext["STATIC_DRAW"],
+                name: 'test',
+                usage: WebGL2RenderingContext['STATIC_DRAW'],
                 bufferLayout: attributeBufferLayout,
             });
             buffer.setBufferData(dataView);
@@ -137,8 +137,8 @@ export default class GLTFAssetExtractor {
         destinationAccessor.copyFromAccessor(sourceAccessor);
 
         const indicesBuffer = this.view.bufferManager.createElementArrayBuffer({
-            name: "test",
-            usage: WebGL2RenderingContext["STATIC_DRAW"],
+            name: 'test',
+            usage: WebGL2RenderingContext['STATIC_DRAW'],
             bufferLayout: layout.elementBufferLayout,
         });
         indicesBuffer.setBufferData(dataView);
@@ -184,13 +184,13 @@ export default class GLTFAssetExtractor {
 
     translateAttributeName(attributeKey) {
         const map = {
-            "POSITION": "a_Position",
-            "NORMAL": "a_Normal",
-            "TANGENT": "a_Tangent",
-            "TEXCOORD_0": "a_TexCoords",
-            "COLOR_0": "a_Color",
-            "JOINTS_0": "a_Joints",
-            "WEIGHTS_0": "a_Weights",
+            'POSITION': 'a_Position',
+            'NORMAL': 'a_Normal',
+            'TANGENT': 'a_Tangent',
+            'TEXCOORD_0': 'a_TexCoords',
+            'COLOR_0': 'a_Color',
+            'JOINTS_0': 'a_Joints',
+            'WEIGHTS_0': 'a_Weights',
         };
 
         const mapped = map[attributeKey];
@@ -225,7 +225,7 @@ export default class GLTFAssetExtractor {
         }
 
         const primaryBlueprint = new Graphic.VAOLayoutBlueprint.ArrayBuffer({
-            name: "primary",
+            name: 'primary',
             batchBlueprints: [
                 new Graphic.VAOLayoutBlueprint.AttributeBatch({
                     attributeBlueprints,
@@ -237,7 +237,7 @@ export default class GLTFAssetExtractor {
         let elementBufferBlueprint = null;
         if (indices !== undefined) {
             elementBufferBlueprint = new Graphic.VAOLayoutBlueprint.ElementArrayBuffer({
-                name: "indices",
+                name: 'indices',
             });
         }
 
@@ -248,7 +248,7 @@ export default class GLTFAssetExtractor {
 
         const indicesAccessorData = this.gltfContent.gltfData.accessors[indices];
         const indicesCount = indicesAccessorData === undefined ? 0 : indicesAccessorData.count;
-        const positionAccessorData = this.gltfContent.gltfData.accessors[attributes["POSITION"]];
+        const positionAccessorData = this.gltfContent.gltfData.accessors[attributes['POSITION']];
         const openGLPrimitiveType = mode || 4;
         const verticesCount = positionAccessorData.count;
         const layout = blueprint.createLayout({openGLPrimitiveType, verticesCount, indicesCount});
@@ -257,6 +257,6 @@ export default class GLTFAssetExtractor {
     }
 
     findCorrectProgram() {
-        return this.view.programManager.getProgramByName("solid"); // TODO: refactor
+        return this.view.programManager.getProgramByName('solid'); // TODO: refactor
     }
 }

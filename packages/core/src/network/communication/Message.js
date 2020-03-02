@@ -1,5 +1,5 @@
-import Action from "../../action/Action";
-import BinaryDescriptor from "../../binary/BinaryDescriptor";
+import Action from '../../action/Action';
+import BinaryDescriptor from '../../binary/BinaryDescriptor';
 
 export default class Message {
 
@@ -12,7 +12,7 @@ export default class Message {
     static createFromAction(action) {
         const {code} = action[Action.symbol];
         if (!code) {
-            throw new Error("Cannot create message object");
+            throw new Error('Cannot create message object');
         }
         const message = new Message({code, action});
         return message;
@@ -21,8 +21,8 @@ export default class Message {
 
 BinaryDescriptor.bind(Message, {
     properties: [
-        {type: "u16", property: "code"},
-        {type: "u16", property: "id"},
+        {type: 'u16', property: 'code'},
+        {type: 'u16', property: 'id'},
     ],
 });
 

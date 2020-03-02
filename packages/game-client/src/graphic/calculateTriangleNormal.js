@@ -1,4 +1,4 @@
-import * as glMatrix from "gl-matrix";
+import * as glMatrix from 'gl-matrix';
 
 export default function calculateNormal (a, b, c) {
     const s1 = glMatrix.vec3.create();

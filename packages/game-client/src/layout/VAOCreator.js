@@ -1,4 +1,4 @@
-import VAO from "./VAO";
+import VAO from './VAO';
 
 export default class VAOCreator {
 
@@ -51,7 +51,7 @@ export default class VAOCreator {
             }
 
             openGLVAOPointer.__SPECTOR_Metadata = {
-                "Allocation": allocation,
+                'Allocation': allocation,
                 ...bufferAllocations
             };
         }

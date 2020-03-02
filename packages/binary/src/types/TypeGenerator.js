@@ -1,15 +1,15 @@
-import ScalarType from "./ScalarType";
-import GenericType from "./GenericType";
+import ScalarType from './ScalarType';
+import GenericType from './GenericType';
 
 const openGLIntegerMapper = [
-    {power: 0, openGLTypeName: "BYTE", arrayTypePrefix: ""},
-    {power: 1, openGLTypeName: "SHORT", arrayTypePrefix: ""},
-    {power: 2, openGLTypeName: "INT", arrayTypePrefix: ""},
-    {power: 3, openGLTypeName: null, arrayTypePrefix: "Big"},
+    {power: 0, openGLTypeName: 'BYTE', arrayTypePrefix: ''},
+    {power: 1, openGLTypeName: 'SHORT', arrayTypePrefix: ''},
+    {power: 2, openGLTypeName: 'INT', arrayTypePrefix: ''},
+    {power: 3, openGLTypeName: null, arrayTypePrefix: 'Big'},
 ];
 
 const openGLFloatMapper = [
-    {power: 2, openGLTypeName: "FLOAT"},
+    {power: 2, openGLTypeName: 'FLOAT'},
     {power: 3, openGLTypeName: null},
 ];
 
@@ -23,13 +23,13 @@ export default class TypeGenerator {
     generate() {
         for (let {power, openGLTypeName, arrayTypePrefix} of openGLIntegerMapper) {
             this.createStaticType({
-                char: "s",
+                char: 's',
                 power,
                 openGLTypeName,
                 arrayType: `${arrayTypePrefix}Int`
             });
             this.createStaticType({
-                char: "u",
+                char: 'u',
                 power,
                 openGLTypeName: openGLTypeName === null ? null : `UNSIGNED_${openGLTypeName}`,
                 arrayType: `${arrayTypePrefix}Uint`
@@ -38,10 +38,10 @@ export default class TypeGenerator {
 
         for (let {power, openGLTypeName} of openGLFloatMapper) {
             this.createStaticType({
-                char: "f",
+                char: 'f',
                 power,
                 openGLTypeName,
-                arrayType: "Float"
+                arrayType: 'Float'
             });
         }
 

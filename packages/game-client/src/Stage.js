@@ -1,4 +1,4 @@
-import EventEmitter from "./helpers/EventEmitter"
+import EventEmitter from './helpers/EventEmitter'
 
 export default class Stage extends EventEmitter {
 
@@ -8,14 +8,14 @@ export default class Stage extends EventEmitter {
     }
 
     async close(nextStage, app, args) {
-        this.emit("close", nextStage, app, args);
+        this.emit('close', nextStage, app, args);
     }
 
     async init(previousStage, app, args) {
-        this.emit("init", previousStage, app, args);
+        this.emit('init', previousStage, app, args);
     }
 
     processKeyboard(event) {
-        throw new Error("Not implemented");
+        throw new Error('Not implemented');
     }
 }

@@ -1,4 +1,4 @@
-import UniformBuffer from "../buffer/UniformBuffer";
+import UniformBuffer from '../buffer/UniformBuffer';
 
 export default class UniformBufferManager {
 

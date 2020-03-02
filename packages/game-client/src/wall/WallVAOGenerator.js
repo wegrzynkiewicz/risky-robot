@@ -1,6 +1,6 @@
-import wallTestingRegionData from "./wallTestingRegionData";
-import VAOLayout from "../layout/VAOLayout";
-import WallMeshesGenerator from "./WallMeshesGenerator";
+import wallTestingRegionData from './wallTestingRegionData';
+import VAOLayout from '../layout/VAOLayout';
+import WallMeshesGenerator from './WallMeshesGenerator';
 
 const chunkReader = {
     getValue(chunk, x, y, z) {
@@ -25,26 +25,26 @@ const orientations = [
 ];
 
 const vaoLayout = new VAOLayout({
-    primitive: "triangle",
+    primitive: 'triangle',
     buffers: [
         new VAOLayout.Buffer({
-            name: "vertices",
-            type: "array",
-            schema: "abc",
+            name: 'vertices',
+            type: 'array',
+            schema: 'abc',
             attributes: [
-                new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_TexCoords", type: "vec2<f32>"}),
-                new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}),
+                new VAOLayout.Attribute({name: 'a_Position', type: 'vec3<f32>'}),
+                new VAOLayout.Attribute({name: 'a_TexCoords', type: 'vec2<f32>'}),
+                new VAOLayout.Attribute({name: 'a_Normal', type: 'vec3<f32>'}),
             ],
         }),
     ],
 });
 
 const vaoAllocation = vaoLayout.createVAOAllocation(8600);
-const vaoBufferAllocation = vaoAllocation.getVAOBufferAllocationByName("vertices");
+const vaoBufferAllocation = vaoAllocation.getVAOBufferAllocationByName('vertices');
 const dataView = vaoBufferAllocation.createArrayBufferByDataView();
-const a_Position = vaoBufferAllocation.getAttributeAllocationByName("a_Position");
-const a_Normal = vaoBufferAllocation.getAttributeAllocationByName("a_Normal");
+const a_Position = vaoBufferAllocation.getAttributeAllocationByName('a_Position');
+const a_Normal = vaoBufferAllocation.getAttributeAllocationByName('a_Normal');
 
 const wallMeshesGenerator = new WallMeshesGenerator({bevel: 0.3, flat: true});
 const meshes = wallMeshesGenerator.generateWallMeshes();

@@ -1,6 +1,6 @@
-import Component from "./Component";
-import StructureAccessor from "../access/StructureAccessor";
-import StructureListAccessor from "../access/StructureListAccessor";
+import Component from './Component';
+import StructureAccessor from '../access/StructureAccessor';
+import StructureListAccessor from '../access/StructureListAccessor';
 
 const mapComponents = data => new Component(data);
 
@@ -58,7 +58,7 @@ export default class Structure {
     }
 
     createTypedArray() {
-        throw new Error("Cannot create typed array on structure.")
+        throw new Error('Cannot create typed array on structure.')
     };
 
     static compose({name, components}) {

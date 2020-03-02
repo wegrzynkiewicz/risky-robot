@@ -1,6 +1,6 @@
-import SceneNode from "../../scene/SceneNode";
-import pivotData from "./pivotData";
-import * as glMatrix from "gl-matrix";
+import SceneNode from '../../scene/SceneNode';
+import pivotData from './pivotData';
+import * as glMatrix from 'gl-matrix';
 
 export default class PivotSceneNode extends SceneNode {
 
@@ -9,7 +9,7 @@ export default class PivotSceneNode extends SceneNode {
 
         const {openGL: gl} = game;
 
-        this.shader = game.shaderManager.getShaderByName("pivot");
+        this.shader = game.shaderManager.getShaderByName('pivot');
 
         this.modelMatrix = glMatrix.mat4.create();
         glMatrix.mat4.scale(this.modelMatrix, this.modelMatrix, [1.0, 1.0, 1.0]);

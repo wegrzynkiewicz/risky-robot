@@ -1,8 +1,8 @@
-import ArrayBufferBlueprint from "../blueprint/ArrayBufferBlueprint";
-import AttributeBatchBlueprint from "../blueprint/AttributeBatchBlueprint";
-import AttributeBlueprint from "../blueprint/AttributeBlueprint";
-import ElementBufferBlueprint from "../blueprint/ElementBufferBlueprint";
-import VAOLayoutBlueprint from "../blueprint/VAOLayoutBlueprint";
+import ArrayBufferBlueprint from '../blueprint/ArrayBufferBlueprint';
+import AttributeBatchBlueprint from '../blueprint/AttributeBatchBlueprint';
+import AttributeBlueprint from '../blueprint/AttributeBlueprint';
+import ElementBufferBlueprint from '../blueprint/ElementBufferBlueprint';
+import VAOLayoutBlueprint from '../blueprint/VAOLayoutBlueprint';
 
 export default function createBasicLayout({attributes, openGLPrimitiveType, verticesCount, indicesCount}) {
 
@@ -31,7 +31,7 @@ export default function createBasicLayout({attributes, openGLPrimitiveType, vert
     indicesCount = parseInt(indicesCount);
     if (!isNaN(indicesCount) && indicesCount > 0) {
         elementBufferLayout = new ElementBufferBlueprint({
-            name: "indices",
+            name: 'indices',
         });
     }
 

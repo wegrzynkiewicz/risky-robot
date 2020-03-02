@@ -1,18 +1,18 @@
-import VAOLayout from "../../layout/VAOLayout";
+import VAOLayout from '../../layout/VAOLayout';
 
 const cubeVAOLayout = new VAOLayout({
     buffers: [
         new VAOLayout.ArrayBufferBlueprint({
-            name: "primary",
-            schema: "ab/c",
+            name: 'primary',
+            schema: 'ab/c',
             attributes: [
-                new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}),
-                new VAOLayout.Attribute({name: "a_Color", type: "vec3<u8>", normalize: true}),
+                new VAOLayout.Attribute({name: 'a_Position', type: 'vec3<f32>'}),
+                new VAOLayout.Attribute({name: 'a_Normal', type: 'vec3<f32>'}),
+                new VAOLayout.Attribute({name: 'a_Color', type: 'vec3<u8>', normalize: true}),
             ],
         }),
         new VAOLayout.ElementBuffer({
-            name: "indices",
+            name: 'indices',
         }),
     ],
 });
@@ -20,19 +20,19 @@ const cubeVAOLayout = new VAOLayout({
 new VAOLayout({
     buffers: [
         new VAOLayout.ArrayBufferBlueprint({
-            name: "primary",
+            name: 'primary',
             batches: [
                 new VAOLayout.AttributeBatch({
                     attributes: [
-                        new VAOLayout.Attribute({name: "a_Position", type: "vec3<f32>"}),
-                        new VAOLayout.Attribute({name: "a_Normal", type: "vec3<f32>"}),
+                        new VAOLayout.Attribute({name: 'a_Position', type: 'vec3<f32>'}),
+                        new VAOLayout.Attribute({name: 'a_Normal', type: 'vec3<f32>'}),
                     ],
                 }),
-                new VAOLayout.Attribute({name: "a_Color", type: "vec3<u8>", normalize: true}),
+                new VAOLayout.Attribute({name: 'a_Color', type: 'vec3<u8>', normalize: true}),
             ],
         }),
         new VAOLayout.ElementBuffer({
-            name: "indices",
+            name: 'indices',
         }),
     ],
 });
@@ -41,23 +41,23 @@ new VAOLayout({
 export default cubeVAOLayout;
 
 const test = {
-    "bufferView": 0,
-    "byteOffset": 112356,
-    "componentType": 5123,
-    "count": 8964,
-    "max": [
+    'bufferView': 0,
+    'byteOffset': 112356,
+    'componentType': 5123,
+    'count': 8964,
+    'max': [
         1939
     ],
-    "min": [
+    'min': [
         0
     ],
-    "type": "SCALAR"
+    'type': 'SCALAR'
 };
 
 const test2 = {
-    "buffer": 0,
-    "byteOffset": 0,
-    "byteLength": 1340232,
-    "byteStride": 12,
-    "target": 34962
+    'buffer': 0,
+    'byteOffset': 0,
+    'byteLength': 1340232,
+    'byteStride': 12,
+    'target': 34962
 };

@@ -1,5 +1,5 @@
-import * as glMatrix from "gl-matrix";
-import * as glHelper from "../helpers/glHelper";
+import * as glMatrix from 'gl-matrix';
+import * as glHelper from '../helpers/glHelper';
 
 export default function getIsometricMatrix(x, y) {
 

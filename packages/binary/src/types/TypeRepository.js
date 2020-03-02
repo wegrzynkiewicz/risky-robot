@@ -1,6 +1,6 @@
-import AbstractType from "./AbstractType";
-import Structure from "../structute/Structure";
-import Component from "../structute/Component";
+import AbstractType from './AbstractType';
+import Structure from '../structute/Structure';
+import Component from '../structute/Component';
 
 export default class TypeRepository {
 
@@ -13,7 +13,7 @@ export default class TypeRepository {
     }
 
     resolve(type) {
-        if (typeof type === "string") {
+        if (typeof type === 'string') {
             return this.getTypeByName(type);
         }
 
@@ -29,7 +29,7 @@ export default class TypeRepository {
             return type;
         }
 
-        throw new Error("Cannot resolve type.");
+        throw new Error('Cannot resolve type.');
     }
 
     getTypeByName(typeName) {

@@ -1,4 +1,4 @@
-import Benchmark from "benchmark";
+import Benchmark from 'benchmark';
 
 (async function () {
     const suite = new Benchmark.Suite();

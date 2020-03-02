@@ -1,7 +1,7 @@
-import {createOpenGLInstance} from "robo24-webgl2-mock";
+import {createOpenGLInstance} from 'robo24-webgl2-mock';
 
-describe("Shader", function () {
-    it("should create valid instance", function () {
+describe('Shader', function () {
+    it('should create valid instance', function () {
 
     });
 });

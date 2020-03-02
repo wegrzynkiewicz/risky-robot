@@ -1,4 +1,4 @@
-import * as Binary from "../binary";
+import * as Binary from '../binary';
 
 export default class TypeListAccessor {
 
@@ -16,7 +16,7 @@ export default class TypeListAccessor {
 
     calculateOffset(index) {
         if (index > this.count) {
-            throw new Error("Range error.");
+            throw new Error('Range error.');
         }
         return this.byteOffset + (this.byteStride * index);
     }
@@ -33,7 +33,7 @@ export default class TypeListAccessor {
 
     copyFromAccessor(sourceAccessor) {
         if (!(sourceAccessor instanceof TypeListAccessor)) {
-            throw new Error("Cannot copy data from different types list accessor.");
+            throw new Error('Cannot copy data from different types list accessor.');
         }
 
         const {byteStride, type, count} = sourceAccessor;
@@ -62,11 +62,11 @@ export default class TypeListAccessor {
         const {type, count, dataView, byteOffset} = this;
 
         if (count === Infinity) {
-            throw new Error("Cannot get full typed array then infinity accessor.");
+            throw new Error('Cannot get full typed array then infinity accessor.');
         }
 
         if (this.byteStride !== type.byteLength) {
-            throw new Error("Cannot get full typed array then byteStride is not equal byteLength.");
+            throw new Error('Cannot get full typed array then byteStride is not equal byteLength.');
         }
 
         const elementsCount = count * type.axisLength;

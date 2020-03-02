@@ -1,38 +1,38 @@
-import emitVertexDataset from "./emitVertexDataset";
-import VAOLayoutBlueprint from "../../vao/blueprint/VertexLayoutBlueprint";
+import emitVertexDataset from './emitVertexDataset';
+import VAOLayoutBlueprint from '../../vao/blueprint/VertexLayoutBlueprint';
 
 function getCubeBufferLayout() {
     const cubeBlueprint = new VAOLayoutBlueprint({
         buffers: [
             new VAOLayoutBlueprint.ArrayBuffer({
-                name: "primary",
+                name: 'primary',
                 batches: [
                     new VAOLayoutBlueprint.AttributeBatch({
                         attributes: [
                             new VAOLayoutBlueprint.Attribute({
-                                name: "a_Position_0",
-                                type: "vec3<f32>"
+                                name: 'a_Position_0',
+                                type: 'vec3<f32>'
                             }),
                             new VAOLayoutBlueprint.Attribute({
-                                name: "a_Normal_0",
-                                type: "vec3<f32>"
+                                name: 'a_Normal_0',
+                                type: 'vec3<f32>'
                             }),
                             new VAOLayoutBlueprint.Attribute({
-                                name: "a_TexCoords_0",
-                                type: "vec2<f32>"
+                                name: 'a_TexCoords_0',
+                                type: 'vec2<f32>'
                             }),
                         ],
                     }),
                 ],
             }),
             new VAOLayoutBlueprint.ElementArrayBuffer({
-                name: "indices",
+                name: 'indices',
             }),
         ],
     });
 
     const cubeLayout = cubeBlueprint.createLayout({
-        primitive: "triangle",
+        primitive: 'triangle',
         verticesCount: 6 * 2 * 3,
     });
 
@@ -44,11 +44,11 @@ const indicesOffsets = [0, 1, 2, 0, 2, 3];
 export default function generateSharpCubeGeometry() {
     const cubeLayout = getCubeBufferLayout();
 
-    const primaryBufferLayout = cubeLayout.getBufferLayout("primary");
+    const primaryBufferLayout = cubeLayout.getBufferLayout('primary');
     const primaryDataView = primaryBufferLayout.createDataView();
-    const vertexPositionAccessor = primaryBufferLayout.getAccessorByName("a_Position_0");
-    const vertexNormalAccessor = primaryBufferLayout.getAccessorByName("a_Normal_0");
-    const vertexTextureCordsAccessor = primaryBufferLayout.getAccessorByName("a_TexCoords_0");
+    const vertexPositionAccessor = primaryBufferLayout.getAccessorByName('a_Position_0');
+    const vertexNormalAccessor = primaryBufferLayout.getAccessorByName('a_Normal_0');
+    const vertexTextureCordsAccessor = primaryBufferLayout.getAccessorByName('a_TexCoords_0');
 
     let vertexIndex = 0;
     const put = (positionAxes, textureCoordsAxes, normalCodeAxes) => {
@@ -60,7 +60,7 @@ export default function generateSharpCubeGeometry() {
 
     emitVertexDataset(put);
 
-    const indicesBufferLayout = cubeLayout.getBufferLayout("indices");
+    const indicesBufferLayout = cubeLayout.getBufferLayout('indices');
     const indicesDataView = indicesBufferLayout.createDataView();
     const indicesAccessor = indicesBufferLayout.getIndexAccessor();
 

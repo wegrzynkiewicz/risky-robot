@@ -1,7 +1,7 @@
-import SceneNode from "../../scene/SceneNode";
-import * as glMatrix from "gl-matrix";
-import VAO from "../../layout/VAO";
-import worldBuffer from "./worldBuffer";
+import SceneNode from '../../scene/SceneNode';
+import * as glMatrix from 'gl-matrix';
+import VAO from '../../layout/VAO';
+import worldBuffer from './worldBuffer';
 
 export default class WorldSceneNode extends SceneNode {
 
@@ -10,7 +10,7 @@ export default class WorldSceneNode extends SceneNode {
 
         const {openGL} = game;
 
-        this.shader = game.shaderManager.getShaderByName("world");
+        this.shader = game.shaderManager.getShaderByName('world');
 
         const {vaoLayout, dataView} = worldBuffer;
 

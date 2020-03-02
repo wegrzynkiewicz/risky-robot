@@ -1,7 +1,7 @@
-import SceneNode from "../../scene/SceneNode";
-import planeData from "./planeData";
-import loadTexture from "../../graphic/loadTexture";
-import * as glMatrix from "gl-matrix";
+import SceneNode from '../../scene/SceneNode';
+import planeData from './planeData';
+import loadTexture from '../../graphic/loadTexture';
+import * as glMatrix from 'gl-matrix';
 
 export default class TankSceneNode extends SceneNode {
 
@@ -10,7 +10,7 @@ export default class TankSceneNode extends SceneNode {
 
         const {openGL: gl} = game;
 
-        this.shader = game.shaderManager.getShaderByName("tank");
+        this.shader = game.shaderManager.getShaderByName('tank');
 
         this.modelMatrix = glMatrix.mat4.create();
         glMatrix.mat4.scale(this.modelMatrix, this.modelMatrix, [1.0, 1.0, 1.0]);

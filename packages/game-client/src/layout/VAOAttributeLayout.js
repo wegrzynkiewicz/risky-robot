@@ -1,4 +1,4 @@
-import Core from "robo24-core";
+import Core from 'robo24-core';
 
 export default class VAOAttributeLayout {
 

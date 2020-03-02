@@ -1,4 +1,4 @@
-import AbstractBuffer from "./AbstractBuffer";
+import AbstractBuffer from './AbstractBuffer';
 
 export default class ElementArrayBuffer extends AbstractBuffer {
 
@@ -8,6 +8,6 @@ export default class ElementArrayBuffer extends AbstractBuffer {
     }
 
     get openGLBufferType() {
-        return WebGL2RenderingContext["ELEMENT_ARRAY_BUFFER"];
+        return WebGL2RenderingContext['ELEMENT_ARRAY_BUFFER'];
     }
 }

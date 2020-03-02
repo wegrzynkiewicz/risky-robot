@@ -1,9 +1,9 @@
-import VAOBufferAllocation from "./VAOBufferAllocation";
-import VAOAttributeAllocation from "./VAOAttributeAllocation";
+import VAOBufferAllocation from './VAOBufferAllocation';
+import VAOAttributeAllocation from './VAOAttributeAllocation';
 
 const glBufferMapper = {
-    "element_array": WebGL2RenderingContext["ELEMENT_ARRAY_BUFFER"],
-    "array": WebGL2RenderingContext["ARRAY_BUFFER"],
+    'element_array': WebGL2RenderingContext['ELEMENT_ARRAY_BUFFER'],
+    'array': WebGL2RenderingContext['ARRAY_BUFFER'],
 };
 
 export default class VAOBufferLayout {
@@ -11,12 +11,12 @@ export default class VAOBufferLayout {
     constructor({name, type, schema, attributes}) {
 
         if (!Array.isArray(attributes)) {
-            throw new Error("Property attributes must be array");
+            throw new Error('Property attributes must be array');
         }
 
         this.glBufferType = glBufferMapper[type];
         if (this.glBufferType === undefined) {
-            throw new Error("Invalid buffer type");
+            throw new Error('Invalid buffer type');
         }
 
         this.name = name;
@@ -60,20 +60,20 @@ export default class VAOBufferLayout {
         }
         for (let {vaoAttributeLayout} of block) {
             if (blockStride % vaoAttributeLayout.type.glTypeStride !== 0) {
-                throw new Error("Invalid stride or offset data pack");
+                throw new Error('Invalid stride or offset data pack');
             }
         }
         return blockStride;
     }
 
     parseSchema() {
-        const chars = this.schema.split("");
+        const chars = this.schema.split('');
         const blocks = [[]];
         let blockCounter = 0;
         let attributeCounter = 0;
 
         for (let char of chars) {
-            if (char === "/") {
+            if (char === '/') {
                 blockCounter++;
                 blocks[blockCounter] = [];
                 continue;
@@ -81,7 +81,7 @@ export default class VAOBufferLayout {
 
             const vaoAttributeLayout = this.attributes[attributeCounter];
             if (vaoAttributeLayout === undefined) {
-                throw new Error("Invalid schema. Not enough attributes.");
+                throw new Error('Invalid schema. Not enough attributes.');
             }
 
             blocks[blockCounter].push({char, vaoAttributeLayout});
@@ -89,7 +89,7 @@ export default class VAOBufferLayout {
         }
 
         if (this.attributes[attributeCounter] !== undefined) {
-            throw new Error("Invalid schema. Too many attributes.");
+            throw new Error('Invalid schema. Too many attributes.');
         }
 
         return blocks;

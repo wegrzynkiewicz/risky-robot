@@ -4,7 +4,7 @@ export default class Texture2D {
 
         const openGLTextureInternalFormat = openGL[internalFormat];
         if (openGLTextureInternalFormat === undefined) {
-            throw new Error("Invalid texture internal format.");
+            throw new Error('Invalid texture internal format.');
         }
 
         this.name = name;
@@ -13,7 +13,7 @@ export default class Texture2D {
         this.openGL = openGL;
         this.openGLTexturePointer = openGL.createTexture();
         this.openGLTextureType = openGL['TEXTURE_2D'];
-        this.openGLTextureTypeName = "TEXTURE_2D";
+        this.openGLTextureTypeName = 'TEXTURE_2D';
         this.openGLTextureInternalFormat = openGLTextureInternalFormat;
         this.openGLTextureInternalFormatName = internalFormat;
         this.parameters = parameters;
@@ -26,12 +26,12 @@ export default class Texture2D {
     putData({level, format, type, data}) {
         const openGLDataFormat = this.openGL[format];
         if (openGLDataFormat === undefined) {
-            throw new Error("Invalid texture data format.");
+            throw new Error('Invalid texture data format.');
         }
 
         const openGLDataType = this.openGL[type];
         if (openGLDataType === undefined) {
-            throw new Error("Invalid texture data type.");
+            throw new Error('Invalid texture data type.');
         }
 
         this.bind();

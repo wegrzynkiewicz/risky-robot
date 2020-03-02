@@ -1,5 +1,5 @@
-const regexUniform = new RegExp("(?<name>u_\\w+);$", "mg");
-const regexAttribute = new RegExp("(?<name>a_\\w+);$", "mg");
+const regexUniform = new RegExp('(?<name>u_\\w+);$', 'mg');
+const regexAttribute = new RegExp('(?<name>a_\\w+);$', 'mg');
 
 function findNames(array, regex, content) {
     while (true) {

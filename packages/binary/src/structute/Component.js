@@ -1,4 +1,4 @@
-import * as Binary from "../binary";
+import * as Binary from '../binary';
 
 export default class Component {
 

@@ -1,8 +1,8 @@
-import SceneNode from "../../scene/SceneNode";
-import cube from "./cube";
-import * as glMatrix from "gl-matrix";
-import terrainOrientationUniformBuffer from "../../terrainOrientationUniformBuffer";
-import terrainGenerator from "../../terrainGenerator";
+import SceneNode from '../../scene/SceneNode';
+import cube from './cube';
+import * as glMatrix from 'gl-matrix';
+import terrainOrientationUniformBuffer from '../../terrainOrientationUniformBuffer';
+import terrainGenerator from '../../terrainGenerator';
 
 export default class CubeSceneNode extends SceneNode {
 
@@ -11,7 +11,7 @@ export default class CubeSceneNode extends SceneNode {
 
         const {openGL: gl} = game;
 
-        this.shader = game.shaderManager.getShaderByName("cube");
+        this.shader = game.shaderManager.getShaderByName('cube');
 
         this.modelMatrix = glMatrix.mat4.create();
 
@@ -36,10 +36,10 @@ export default class CubeSceneNode extends SceneNode {
         // var uniformOffsets_2 = gl.getActiveUniforms(program, uniformIndices_2, gl.UNIFORM_OFFSET);
         // wtu.glErrorShouldBe(gl, gl.NO_ERROR, "should be able to query uniform block information without error");
 
-        const blockIndex_1 = gl.getUniformBlockIndex(this.shader.program, "UniformBlock");
+        const blockIndex_1 = gl.getUniformBlockIndex(this.shader.program, 'UniformBlock');
         const blockSize_1 = gl.getActiveUniformBlockParameter(this.shader.program, blockIndex_1, gl.UNIFORM_BLOCK_DATA_SIZE);
         const uniformIndices_1 = gl.getUniformIndices(this.shader.program, [
-            "offsets[0]",
+            'offsets[0]',
         ]);
         const uniformOffsets_1 = gl.getActiveUniforms(this.shader.program, uniformIndices_1, gl.UNIFORM_OFFSET);
 

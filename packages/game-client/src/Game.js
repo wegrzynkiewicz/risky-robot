@@ -1,12 +1,12 @@
 // import Network from "./Network";
-import Canvas from "./Canvas";
-import createSceneManager from "./scene/createSceneManager";
-import ShaderManager from "./shader/ShaderManager";
-import shaderRegistry from "./shader/shaderRegistry";
-import Keyboard from "./Keyboard";
-import IsometricCamera from "./IsometricCamera";
-import * as glHelper from "./helpers/glHelper";
-import FreeFPSCamera from "./FreeFPSCamera";
+import Canvas from './Canvas';
+import createSceneManager from './scene/createSceneManager';
+import ShaderManager from './shader/ShaderManager';
+import shaderRegistry from './shader/shaderRegistry';
+import Keyboard from './Keyboard';
+import IsometricCamera from './IsometricCamera';
+import * as glHelper from './helpers/glHelper';
+import FreeFPSCamera from './FreeFPSCamera';
 
 export default class Game {
 
@@ -49,8 +49,8 @@ export default class Game {
 
     processKeyboard(event, app) {
 
-        window.document.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowUp") {
+        window.document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
                 this.network.sendMessage(new Move({
                     entityId: 4,
                     position: glHelper.vec3(1.0, 0.0, 0.0),
@@ -59,8 +59,8 @@ export default class Game {
             }
         });
 
-        window.document.addEventListener("keyup", (event) => {
-            if (event.key === "ArrowUp") {
+        window.document.addEventListener('keyup', (event) => {
+            if (event.key === 'ArrowUp') {
                 this.network.sendMessage(new Move({
                     entityId: 4,
                     position: glHelper.vec3(0.0, 0.0, 0.0),

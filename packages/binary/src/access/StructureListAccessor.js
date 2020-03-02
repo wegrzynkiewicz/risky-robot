@@ -27,7 +27,7 @@ export default class StructureListAccessor {
 
     calculateOffset(index) {
         if (index > this.count) {
-            throw new Error("Range error.");
+            throw new Error('Range error.');
         }
         return this.byteOffset + (this.byteStride * index);
     }

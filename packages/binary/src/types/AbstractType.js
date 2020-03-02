@@ -1,6 +1,6 @@
-import typedArrays from "./typedArrays";
-import TypeAccessor from "../access/TypeAccessor";
-import TypeListAccessor from "../access/TypeListAccessor";
+import typedArrays from './typedArrays';
+import TypeAccessor from '../access/TypeAccessor';
+import TypeListAccessor from '../access/TypeListAccessor';
 
 export default class AbstractType {
 

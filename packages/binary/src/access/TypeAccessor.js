@@ -1,4 +1,4 @@
-import * as Binary from "../binary";
+import * as Binary from '../binary';
 
 export default class TypeAccessor {
 
@@ -22,7 +22,7 @@ export default class TypeAccessor {
 
     copyFromAccessor(sourceAccessor) {
         if (!(sourceAccessor instanceof TypeAccessor)) {
-            throw new Error("Cannot copy data from different types list accessor.");
+            throw new Error('Cannot copy data from different types list accessor.');
         }
         const destinationTypedArray = this.getTypedArray();
         const typedArray = sourceAccessor.getTypedArray();

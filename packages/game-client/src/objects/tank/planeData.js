@@ -1,10 +1,10 @@
-import VertexBuffer from "../../graphic/VertexBuffer";
+import VertexBuffer from '../../graphic/VertexBuffer';
 
 const vertex = new VertexBuffer({
     vertices: 6,
     attributes: [
-        {name: "a_Position", components: 3, type: "f32"},
-        {name: "a_TexCoords", components: 2, type: "f32"},
+        {name: 'a_Position', components: 3, type: 'f32'},
+        {name: 'a_TexCoords', components: 2, type: 'f32'},
     ],
 });
 

@@ -1,9 +1,9 @@
-import SceneNode from "../../scene/SceneNode";
-import cube from "../legacyCube/cube";
-import * as glMatrix from "gl-matrix";
-import cubeVAOLayout from "./cubeVAOLayout";
-import cubeBufferProvider from "./cubeBufferProvider";
-import VAO from "../../layout/VAO";
+import SceneNode from '../../scene/SceneNode';
+import cube from '../legacyCube/cube';
+import * as glMatrix from 'gl-matrix';
+import cubeVAOLayout from './cubeVAOLayout';
+import cubeBufferProvider from './cubeBufferProvider';
+import VAO from '../../layout/VAO';
 
 export default class CubeSceneNode extends SceneNode {
 
@@ -12,7 +12,7 @@ export default class CubeSceneNode extends SceneNode {
 
         const {openGL} = game;
 
-        this.shader = game.shaderManager.getShaderByName("cube");
+        this.shader = game.shaderManager.getShaderByName('cube');
 
         const dataBuffer = cubeBufferProvider();
         const buffer = openGL.createBuffer();

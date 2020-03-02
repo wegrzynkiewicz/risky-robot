@@ -1,5 +1,5 @@
-import * as Binary from "robo24-binary";
-import AttributeLayout from "../layout/AttributeLayout";
+import * as Binary from 'robo24-binary';
+import AttributeLayout from '../layout/AttributeLayout';
 
 export default class AttributeBlueprint {
 

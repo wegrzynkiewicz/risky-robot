@@ -1,4 +1,4 @@
-import AbstractBuffer from "../../buffer/AbstractBuffer";
+import AbstractBuffer from '../../buffer/AbstractBuffer';
 
 export default class UniformBuffer extends AbstractBuffer {
 
@@ -7,7 +7,7 @@ export default class UniformBuffer extends AbstractBuffer {
     }
 
     get openGLBufferType() {
-        return WebGL2RenderingContext["UNIFORM_BUFFER"];
+        return WebGL2RenderingContext['UNIFORM_BUFFER'];
     }
 
     bindBufferBase(uniformBindingPoint) {

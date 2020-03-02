@@ -1,4 +1,4 @@
-import Core from "robo24-core";
+import Core from 'robo24-core';
 
 export default class Introduce {
     constructor({name, color}) {
@@ -9,6 +9,6 @@ export default class Introduce {
 
 Core.Action.bind(Introduce, {
     code: 0x02,
-    name: "introduce",
-    type: "json",
+    name: 'introduce',
+    type: 'json',
 });

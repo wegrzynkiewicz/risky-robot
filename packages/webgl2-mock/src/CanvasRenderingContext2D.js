@@ -1,4 +1,4 @@
-import ImageData from "./ImageData";
+import ImageData from './ImageData';
 
 export default class CanvasRenderingContext2D {
 

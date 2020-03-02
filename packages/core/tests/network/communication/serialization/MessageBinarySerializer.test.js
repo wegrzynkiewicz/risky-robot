@@ -1,8 +1,8 @@
-import assert from "assert";
-import Action from "../../../../src/action/Action";
-import MessageBinarySerializer from "../../../../src/network/communication/serialization/MessageBinarySerializer";
-import BinaryDescriptor from "../../../../src/binary/BinaryDescriptor";
-import Message from "../../../../src/network/communication/Message";
+import assert from 'assert';
+import Action from '../../../../src/action/Action';
+import MessageBinarySerializer from '../../../../src/network/communication/serialization/MessageBinarySerializer';
+import BinaryDescriptor from '../../../../src/binary/BinaryDescriptor';
+import Message from '../../../../src/network/communication/Message';
 
 class ExampleAction {
     constructor() {
@@ -14,15 +14,15 @@ class ExampleAction {
 
 Action.bind(ExampleAction, {
     code: 0x00e4,
-    name: "example",
-    type: "binary",
+    name: 'example',
+    type: 'binary',
 });
 
 BinaryDescriptor.bind(ExampleAction, {
     properties: [
-        {type: "u16", property: "static"},
-        {type: "vec3<u16>", property: "vector"},
-        {type: "mat2<f32>", property: "matrix"},
+        {type: 'u16', property: 'static'},
+        {type: 'vec3<u16>', property: 'vector'},
+        {type: 'mat2<f32>', property: 'matrix'},
     ],
 });
 
@@ -34,9 +34,9 @@ const serializer = new MessageBinarySerializer(actionRegistryMock);
 const message = Message.createFromAction(action);
 const messageByteSize = message[BinaryDescriptor.symbol].getTotalByteSize(message);
 
-describe("MessageBinarySerializer", function () {
+describe('MessageBinarySerializer', function () {
 
-    it("serialize example message", function () {
+    it('serialize example message', function () {
         const arrayBuffer = serializer.serialize(message);
         const messageDataView = new DataView(arrayBuffer, 0, messageByteSize);
         const actionDataView = new DataView(arrayBuffer, messageByteSize);
@@ -48,13 +48,13 @@ describe("MessageBinarySerializer", function () {
         assert.strictEqual(actionDataView.getUint16(2, true), 1);
         assert.strictEqual(actionDataView.getUint16(4, true), 2);
         assert.strictEqual(actionDataView.getUint16(6, true), 3);
-        assert.strictEqual(actionDataView.getFloat32(8, true).toFixed(4), "1.1000");
-        assert.strictEqual(actionDataView.getFloat32(12, true).toFixed(4), "2.2000");
-        assert.strictEqual(actionDataView.getFloat32(16, true).toFixed(4), "3.3000");
-        assert.strictEqual(actionDataView.getFloat32(20, true).toFixed(4), "4.4000");
+        assert.strictEqual(actionDataView.getFloat32(8, true).toFixed(4), '1.1000');
+        assert.strictEqual(actionDataView.getFloat32(12, true).toFixed(4), '2.2000');
+        assert.strictEqual(actionDataView.getFloat32(16, true).toFixed(4), '3.3000');
+        assert.strictEqual(actionDataView.getFloat32(20, true).toFixed(4), '4.4000');
     });
 
-    it("deserialize example message", function () {
+    it('deserialize example message', function () {
         const arrayBuffer = new ArrayBuffer(messageByteSize + 24);
         const messageDataView = new DataView(arrayBuffer, 0, messageByteSize);
         const actionDataView = new DataView(arrayBuffer, messageByteSize);
@@ -79,9 +79,9 @@ describe("MessageBinarySerializer", function () {
         assert.strictEqual(message.action.vector[0], 4);
         assert.strictEqual(message.action.vector[1], 5);
         assert.strictEqual(message.action.vector[2], 6);
-        assert.strictEqual(message.action.matrix[0].toFixed(4), "5.5000");
-        assert.strictEqual(message.action.matrix[1].toFixed(4), "6.6000");
-        assert.strictEqual(message.action.matrix[2].toFixed(4), "7.7000");
-        assert.strictEqual(message.action.matrix[3].toFixed(4), "8.8000");
+        assert.strictEqual(message.action.matrix[0].toFixed(4), '5.5000');
+        assert.strictEqual(message.action.matrix[1].toFixed(4), '6.6000');
+        assert.strictEqual(message.action.matrix[2].toFixed(4), '7.7000');
+        assert.strictEqual(message.action.matrix[3].toFixed(4), '8.8000');
     });
 });

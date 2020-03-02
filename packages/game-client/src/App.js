@@ -1,9 +1,9 @@
-import InitStage from "./stages/InitStages";
-import StartStage from "./stages/StartStage";
-import GameStage from "./stages/GameStage";
-import LoadingStage from "./stages/LoadingStage";
-import EventEmitter from "./helpers/EventEmitter";
-import Game from "./Game";
+import InitStage from './stages/InitStages';
+import StartStage from './stages/StartStage';
+import GameStage from './stages/GameStage';
+import LoadingStage from './stages/LoadingStage';
+import EventEmitter from './helpers/EventEmitter';
+import Game from './Game';
 
 export default class App extends EventEmitter {
 
@@ -38,10 +38,10 @@ export default class App extends EventEmitter {
     }
 
     registerListeners() {
-        document.addEventListener("keypress", this.inputKeyboard.bind(this));
-        document.addEventListener("keydown", this.inputKeyboard.bind(this));
-        document.addEventListener("keyup", this.inputKeyboard.bind(this));
-        document.addEventListener("mousemove", this.inputMouse.bind(this));
+        document.addEventListener('keypress', this.inputKeyboard.bind(this));
+        document.addEventListener('keydown', this.inputKeyboard.bind(this));
+        document.addEventListener('keyup', this.inputKeyboard.bind(this));
+        document.addEventListener('mousemove', this.inputMouse.bind(this));
     }
 
     async initialize() {

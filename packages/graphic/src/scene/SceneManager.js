@@ -1,10 +1,10 @@
-import SceneNode from "./SceneNode"
+import SceneNode from './SceneNode'
 
 export default class SceneManager extends SceneNode {
 
     constructor() {
         super({
-            name: "manager",
+            name: 'manager',
         });
     }
 }

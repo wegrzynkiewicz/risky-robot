@@ -1,6 +1,6 @@
-import getPerspectiveMatrix from "./graphic/getPerspectiveMatrix";
-import * as glMatrix from "gl-matrix";
-import * as glHelper from "./helpers/glHelper";
+import getPerspectiveMatrix from './graphic/getPerspectiveMatrix';
+import * as glMatrix from 'gl-matrix';
+import * as glHelper from './helpers/glHelper';
 
 export default class FreeFPSCamera {
 

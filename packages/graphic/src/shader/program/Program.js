@@ -1,6 +1,6 @@
-import Attribute from "../attribute/Attribute";
-import UniformBlock from "../../uniform/block/UniformBlock";
-import Uniform from "../../uniform/Uniform";
+import Attribute from '../attribute/Attribute';
+import UniformBlock from '../../uniform/block/UniformBlock';
+import Uniform from '../../uniform/Uniform';
 
 export default class Program {
 

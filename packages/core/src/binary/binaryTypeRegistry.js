@@ -5,15 +5,15 @@ const createConstructor = function () {
 };
 
 const typedArrays = {
-    "Int8Array": Int8Array,
-    "Uint8Array": Uint8Array,
-    "Uint8ClampedArray": Uint8ClampedArray,
-    "Int16Array": Int16Array,
-    "Uint16Array": Uint16Array,
-    "Int32Array": Int32Array,
-    "Uint32Array": Uint32Array,
-    "Float32Array": Float32Array,
-    "Float64Array": Float64Array,
+    'Int8Array': Int8Array,
+    'Uint8Array': Uint8Array,
+    'Uint8ClampedArray': Uint8ClampedArray,
+    'Int16Array': Int16Array,
+    'Uint16Array': Uint16Array,
+    'Int32Array': Int32Array,
+    'Uint32Array': Uint32Array,
+    'Float32Array': Float32Array,
+    'Float64Array': Float64Array,
 };
 
 const encodeGeneric = function (dataView, instance) {
@@ -78,14 +78,14 @@ const getByteLength = function () {
 };
 
 const glIntegerMapper = [
-    {power: 0, glType: "BYTE", arrayTypePrefix: ""},
-    {power: 1, glType: "SHORT", arrayTypePrefix: ""},
-    {power: 2, glType: "INT", arrayTypePrefix: ""},
-    {power: 3, glType: undefined, arrayTypePrefix: "Big"},
+    {power: 0, glType: 'BYTE', arrayTypePrefix: ''},
+    {power: 1, glType: 'SHORT', arrayTypePrefix: ''},
+    {power: 2, glType: 'INT', arrayTypePrefix: ''},
+    {power: 3, glType: undefined, arrayTypePrefix: 'Big'},
 ];
 
 const glFloatMapper = [
-    {power: 2, glType: "FLOAT"},
+    {power: 2, glType: 'FLOAT'},
     {power: 3, glType: undefined},
 ];
 
@@ -98,13 +98,13 @@ const binaryTypeRegistry = new class TypeRegistry {
 
         for (let {power, glType, arrayTypePrefix} of glIntegerMapper) {
             this.createStaticType({
-                char: "s",
+                char: 's',
                 power,
                 glType,
                 arrayType: `${arrayTypePrefix}Int`
             });
             this.createStaticType({
-                char: "u",
+                char: 'u',
                 power,
                 glType: `UNSIGNED_${glType}`,
                 arrayType: `${arrayTypePrefix}Uint`
@@ -113,10 +113,10 @@ const binaryTypeRegistry = new class TypeRegistry {
 
         for (let {power, glType} of glFloatMapper) {
             this.createStaticType({
-                char: "f",
+                char: 'f',
                 power,
                 glType,
-                arrayType: "Float"
+                arrayType: 'Float'
             });
         }
 
@@ -128,7 +128,7 @@ const binaryTypeRegistry = new class TypeRegistry {
 
         for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
             for (let staticType of staticTypes) {
-                this.createGenericType("mat", matrixWidth, matrixWidth ** 2, staticType)
+                this.createGenericType('mat', matrixWidth, matrixWidth ** 2, staticType)
             }
         }
     }

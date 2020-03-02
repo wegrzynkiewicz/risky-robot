@@ -1,10 +1,10 @@
-import assert from "assert";
-import sinon from "sinon";
-import createStateMachine from "../../src/state/createStateMachine";
+import assert from 'assert';
+import sinon from 'sinon';
+import createStateMachine from '../../src/state/createStateMachine';
 
-describe("StateMachine", function () {
+describe('StateMachine', function () {
 
-    it("should contain valid enable state modifier", function () {
+    it('should contain valid enable state modifier', function () {
         const enable = sinon.fake();
         const disable = sinon.fake();
         const stateMachine = createStateMachine({enable, disable});
@@ -25,7 +25,7 @@ describe("StateMachine", function () {
         assert.strictEqual(enable.callCount, 3);
     });
 
-    it("should contain valid color state modifier", function () {
+    it('should contain valid color state modifier', function () {
         const clearColor = sinon.fake();
         const stateMachine = createStateMachine({clearColor});
 

@@ -9,8 +9,8 @@ export default function createIndexDecoderFunction ({widthBitShift, heightBitShi
         z: (index % ${perSquareElements}) >> ${widthBitShift}
     }`;
 
-    const indexDecoderFunction = new Function("index", content);
-    Object.defineProperty(indexDecoderFunction, 'name', {value: "indexDecode", writable: false});
+    const indexDecoderFunction = new Function('index', content);
+    Object.defineProperty(indexDecoderFunction, 'name', {value: 'indexDecode', writable: false});
 
     return indexDecoderFunction;
 };

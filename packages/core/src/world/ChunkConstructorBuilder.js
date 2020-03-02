@@ -1,8 +1,8 @@
-import createIndexEncoderFunction from "./createIndexEncoderFunction";
-import createIndexDecoderFunction from "./createIndexDecoderFunction";
-import Chunk from "./Chunk";
+import createIndexEncoderFunction from './createIndexEncoderFunction';
+import createIndexDecoderFunction from './createIndexDecoderFunction';
+import Chunk from './Chunk';
 
-const createChunkConstructor = new Function ("Chunk", "return class extends Chunk {};");
+const createChunkConstructor = new Function ('Chunk', 'return class extends Chunk {};');
 
 export default class ChunkConstructorBuilder {
 

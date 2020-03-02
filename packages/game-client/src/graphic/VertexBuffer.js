@@ -1,7 +1,7 @@
 const ratioColor = 1.0 / 255.0;
 
 const types = {
-    "f32": {
+    'f32': {
         byteSize: 4,
     },
 };

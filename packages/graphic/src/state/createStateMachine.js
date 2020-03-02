@@ -1,21 +1,21 @@
-import ProxyCreator from "./ProxyCreator";
+import ProxyCreator from './ProxyCreator';
 
 const proxyCreator = new ProxyCreator();
 proxyCreator.createEnableStateProxy();
 
-proxyCreator.createColorStateProxy("BLEND_COLOR", "blendColor");
-proxyCreator.createBoxStateProxy("X_BLEND_FUNC", "blendFunc");
+proxyCreator.createColorStateProxy('BLEND_COLOR', 'blendColor');
+proxyCreator.createBoxStateProxy('X_BLEND_FUNC', 'blendFunc');
 
-proxyCreator.createColorStateProxy("COLOR_CLEAR_VALUE", "clearColor");
+proxyCreator.createColorStateProxy('COLOR_CLEAR_VALUE', 'clearColor');
 
-proxyCreator.createValueStateProxy("DEPTH_CLEAR_VALUE", "clearDepth");
-proxyCreator.createValueStateProxy("DEPTH_FUNC", "depthFunc");
+proxyCreator.createValueStateProxy('DEPTH_CLEAR_VALUE', 'clearDepth');
+proxyCreator.createValueStateProxy('DEPTH_FUNC', 'depthFunc');
 
-proxyCreator.createValueStateProxy("FRONT_FACE", "frontFace");
-proxyCreator.createValueStateProxy("CULL_FACE_MODE", "cullFace");
+proxyCreator.createValueStateProxy('FRONT_FACE', 'frontFace');
+proxyCreator.createValueStateProxy('CULL_FACE_MODE', 'cullFace');
 
-proxyCreator.createValueStateProxy("USE_PROGRAM", "useProgram");
-proxyCreator.createValueStateProxy("BIND_VERTEX_ARRAY", "bindVertexArray");
+proxyCreator.createValueStateProxy('USE_PROGRAM', 'useProgram');
+proxyCreator.createValueStateProxy('BIND_VERTEX_ARRAY', 'bindVertexArray');
 
 class StateMachine {
     constructor(openGL) {
@@ -31,7 +31,7 @@ const proxyHandler = {
         const {openGL, proxies} = target;
         const value = openGL[name];
 
-        if (typeof value !== "function") {
+        if (typeof value !== 'function') {
             return value;
         }
 

@@ -1,5 +1,5 @@
-import * as Assets from "robo24-assets";
-import GLTFContent from "./GLTFContent";
+import * as Assets from 'robo24-assets';
+import GLTFContent from './GLTFContent';
 
 export default class GLTFContentLoader {
 
@@ -10,12 +10,12 @@ export default class GLTFContentLoader {
     }
 
     async load() {
-        if (this.resource.extension === "gltf") {
+        if (this.resource.extension === 'gltf') {
             return this.loadJSON();
-        } else if (this.resource.extension === "glb") {
+        } else if (this.resource.extension === 'glb') {
             return this.loadBinary();
         } else {
-            throw new Error("Unknown GLTF format. Unknown MimeType.")
+            throw new Error('Unknown GLTF format. Unknown MimeType.')
         }
     }
 

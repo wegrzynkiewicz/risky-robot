@@ -1,6 +1,6 @@
-import Message from "../Message";
-import BinaryDescriptor from "../../../binary/BinaryDescriptor";
-import Action from "../../../action/Action";
+import Message from '../Message';
+import BinaryDescriptor from '../../../binary/BinaryDescriptor';
+import Action from '../../../action/Action';
 
 export default class MessageBinarySerializer {
 
@@ -13,7 +13,7 @@ export default class MessageBinarySerializer {
     serialize(message) {
         const actionBinaryDescriptor = message.action[BinaryDescriptor.symbol];
         if (!actionBinaryDescriptor) {
-            throw new Error("Invalid message descriptor");
+            throw new Error('Invalid message descriptor');
         }
         const actionByteSize = actionBinaryDescriptor.getTotalByteSize(message);
 
@@ -30,7 +30,7 @@ export default class MessageBinarySerializer {
 
     deserialize(arrayBuffer) {
         if (arrayBuffer.byteLength < this.messageByteSize) {
-            throw new Error("Invalid array buffer");
+            throw new Error('Invalid array buffer');
         }
 
         const message = new Message({});
@@ -38,14 +38,14 @@ export default class MessageBinarySerializer {
         this.messageBinaryDescriptor.decode(messageDataView, message);
 
         if (!message.code) {
-            throw new Error("Invalid action code");
+            throw new Error('Invalid action code');
         }
 
         const actionConstructor = this.messageRegistry.getConstructorByCode(message.code);
         const actionBinaryDescriptor = actionConstructor.prototype[BinaryDescriptor.symbol];
 
         if (!actionBinaryDescriptor) {
-            throw new Error("Invalid action descriptor");
+            throw new Error('Invalid action descriptor');
         }
 
         const action = new actionConstructor();

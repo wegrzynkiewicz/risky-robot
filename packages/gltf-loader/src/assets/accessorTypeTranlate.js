@@ -31,7 +31,7 @@ export default function accessorTypeTranslate(type, componentType) {
         throw new Error(`Not found accessor component type named (${normalizedComponentType})`);
     }
 
-    if (translatedType === "") {
+    if (translatedType === '') {
         return translatedComponentType;
     }
 

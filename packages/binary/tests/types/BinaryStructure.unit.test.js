@@ -1,15 +1,15 @@
-import assert from "assert";
-import * as Binary from "../..";
+import assert from 'assert';
+import * as Binary from '../..';
 
-describe("BinaryStructure", function () {
+describe('BinaryStructure', function () {
 
-    it(`should create simple structure`, function () {
+    it('should create simple structure', function () {
         const structure = Binary.Structure.compose({
-            name: "data",
+            name: 'data',
             components: [
-                {name: "matrix", type: "mat3<u32>"},
-                {name: "vector", type: "vec2<u32>"},
-                {name: "scalar", type: "u32"},
+                {name: 'matrix', type: 'mat3<u32>'},
+                {name: 'vector', type: 'vec2<u32>'},
+                {name: 'scalar', type: 'u32'},
             ],
         });
 
@@ -29,30 +29,30 @@ describe("BinaryStructure", function () {
         assert.strictEqual(dataView.getUint32(40, true), 0x2);
     });
 
-    it(`should create nested structure`, function () {
+    it('should create nested structure', function () {
 
         const triangleStructure = Binary.Structure.compose({
-            name: "Triangle",
+            name: 'Triangle',
             components: [
-                {name: "position", type: "vec3<u32>", count: 2},
-                {name: "normal", type: "vec3<f32>", count: 2},
+                {name: 'position', type: 'vec3<u32>', count: 2},
+                {name: 'normal', type: 'vec3<f32>', count: 2},
             ],
         });
 
         const lightStructure = Binary.Structure.compose({
-            name: "Light",
+            name: 'Light',
             components: [
-                {name: "position", type: "vec3<f32>"},
-                {name: "color", type: "vec3<f32>"},
-                {name: "triangle", type: triangleStructure, count: 2},
+                {name: 'position', type: 'vec3<f32>'},
+                {name: 'color', type: 'vec3<f32>'},
+                {name: 'triangle', type: triangleStructure, count: 2},
             ],
         });
 
         const structure = Binary.Structure.compose({
-            name: "Block",
+            name: 'Block',
             components: [
-                {name: "ambient", type: "vec3<f32>"},
-                {name: "light", type: lightStructure, count: 2},
+                {name: 'ambient', type: 'vec3<f32>'},
+                {name: 'light', type: lightStructure, count: 2},
             ],
         });
 

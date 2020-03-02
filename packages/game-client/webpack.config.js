@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: "development",
+    mode: 'development',
     entry: './src/entry/start.js',
     watch: true,
     output: {
@@ -21,12 +21,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: new RegExp("\\.(vert|frag)$"),
+                test: new RegExp('\\.(vert|frag)$'),
                 use: 'raw-loader',
             },
             {
-                test: new RegExp("\\.html$"),
-                loader: "html-loader"
+                test: new RegExp('\\.html$'),
+                loader: 'html-loader'
             }
         ]
     }
