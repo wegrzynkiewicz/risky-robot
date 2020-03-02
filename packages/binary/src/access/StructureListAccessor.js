@@ -1,14 +1,3 @@
-function createItemsAccessors() {
-    let byteOffset = this.byteOffset;
-    for (let i = 0; i < this.count; i++) {
-        this.items[i] = this.structure.createAccessor({
-            dataView: this.dataView,
-            byteOffset,
-        });
-        byteOffset += this.byteStride;
-    }
-}
-
 export default class StructureListAccessor {
 
     constructor({dataView, count, byteOffset, byteStride, structure}) {
@@ -18,7 +7,7 @@ export default class StructureListAccessor {
         this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
         this.byteStride = byteStride === undefined ? structure.byteLength : byteStride;
         this.items = [];
-        createItemsAccessors.call(this);
+        this.createItemsAccessors(this);
     }
 
     get byteLength() {
@@ -29,7 +18,19 @@ export default class StructureListAccessor {
         if (index > this.count) {
             throw new Error('Range error.');
         }
-        return this.byteOffset + (this.byteStride * index);
+        return this.byteOffset + this.byteStride * index;
+    }
+
+    createItemsAccessors() {
+        let {byteOffset} = this;
+        const {count, dataView, structure} = this;
+        for (let i = 0; i < count; i++) {
+            this.items[i] = structure.createAccessor({
+                byteOffset,
+                dataView,
+            });
+            byteOffset += this.byteStride;
+        }
     }
 
     writeElement(index, sourceTypedArray, sourceByteOffset = 0) {
@@ -48,10 +49,10 @@ export default class StructureListAccessor {
         const arrayBuffer = dataView.buffer;
         const byteOffset = dataView.byteOffset + offset;
         const elementsCount = type.components;
-        const typedArray = new type.arrayTypeConstructor(
+        const typedArray = new type.ArrayType(
             arrayBuffer,
             byteOffset,
-            elementsCount
+            elementsCount,
         );
 
         return typedArray;

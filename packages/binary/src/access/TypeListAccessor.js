@@ -70,7 +70,7 @@ export default class TypeListAccessor {
         }
 
         const elementsCount = count * type.axisLength;
-        const typedArray = new type.arrayTypeConstructor(
+        const typedArray = new type.ArrayType(
             dataView.buffer,
             dataView.byteOffset + byteOffset,
             elementsCount
@@ -85,7 +85,7 @@ export default class TypeListAccessor {
         const arrayBuffer = dataView.buffer;
         const byteOffset = dataView.byteOffset + offset;
         const elementsCount = type.axisLength;
-        const typedArray = new type.arrayTypeConstructor(
+        const typedArray = new type.ArrayType(
             arrayBuffer,
             byteOffset,
             elementsCount

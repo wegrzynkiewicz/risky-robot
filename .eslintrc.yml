@@ -285,7 +285,7 @@ rules:
   no-misleading-character-class:
     - error
   no-mixed-operators:
-    - error
+    - off
   no-mixed-requires:
     - error
   no-mixed-spaces-and-tabs:

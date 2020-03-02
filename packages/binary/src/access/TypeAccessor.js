@@ -31,7 +31,7 @@ export default class TypeAccessor {
 
     getTypedArray() {
         const {type, byteOffset, dataView} = this;
-        const typedArray = new type.arrayTypeConstructor(
+        const typedArray = new type.ArrayType(
             dataView.buffer,
             dataView.byteOffset + byteOffset,
             type.components,

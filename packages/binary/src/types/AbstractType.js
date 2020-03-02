@@ -1,6 +1,6 @@
-import typedArrays from './typedArrays';
 import TypeAccessor from '../access/TypeAccessor';
 import TypeListAccessor from '../access/TypeListAccessor';
+import typedArrays from './typedArrays';
 
 export default class AbstractType {
 
@@ -12,7 +12,7 @@ export default class AbstractType {
         this.openGLType = openGLTypeName ? WebGL2RenderingContext[openGLTypeName] : null;
         this.openGLTypeName = openGLTypeName ? openGLTypeName : null;
         this.arrayTypeName = arrayTypeName ? arrayTypeName : null;
-        this.arrayTypeConstructor = arrayTypeName ? typedArrays[arrayTypeName] : null;
+        this.ArrayType = arrayTypeName ? typedArrays[arrayTypeName] : null;
         this.dataViewTypeName = dataViewTypeName;
         this.dataViewGetterMethod = DataView.prototype[`get${dataViewTypeName}`];
         this.dataViewSetterMethod = DataView.prototype[`set${dataViewTypeName}`];
@@ -44,6 +44,6 @@ export default class AbstractType {
     }
 
     createTypedArray(count) {
-        return new this.arrayTypeConstructor(this.axisLength * count);
+        return new this.ArrayType(this.axisLength * count);
     };
 }

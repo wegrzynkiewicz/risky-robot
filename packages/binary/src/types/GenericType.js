@@ -8,7 +8,7 @@ export default class GenericType extends AbstractType {
     }
 
     write(dataView, destinationByteOffset, sourceTypedArray, sourceByteOffset = 0) {
-        const destinationTypedArray = new this.arrayTypeConstructor(
+        const destinationTypedArray = new this.ArrayType(
             dataView.buffer,
             dataView.byteOffset + destinationByteOffset,
             this.axisLength,
@@ -17,7 +17,7 @@ export default class GenericType extends AbstractType {
     };
 
     read(dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset = 0) {
-        const sourceTypedArray = new this.arrayTypeConstructor(
+        const sourceTypedArray = new this.ArrayType(
             dataView.buffer,
             dataView.byteOffset + sourceByteOffset,
             this.axisLength,
