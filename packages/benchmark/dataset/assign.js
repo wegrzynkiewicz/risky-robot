@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export function deconstructing() {
     const constructor = class {
         constructor({x, y}) {

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const elements = 2 ** 16;
 
 export function mapWrite() {

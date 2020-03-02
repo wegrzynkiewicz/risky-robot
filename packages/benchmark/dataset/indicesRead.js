@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const elements = 65536;
 const index = 65532;
 
