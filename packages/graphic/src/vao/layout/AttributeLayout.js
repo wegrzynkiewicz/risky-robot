@@ -30,7 +30,7 @@ export default class AttributeLayout {
                 this.type.openGLType,
                 this.normalize,
                 this.byteStride,
-                this.byteOffset
+                this.byteOffset,
             );
         } else {
             view.openGL.vertexAttribIPointer(
@@ -38,7 +38,7 @@ export default class AttributeLayout {
                 this.type.axisLength,
                 this.type.openGLType,
                 this.byteStride,
-                this.byteOffset
+                this.byteOffset,
             );
         }
 
@@ -46,7 +46,7 @@ export default class AttributeLayout {
 
         view.openGL.vertexAttribDivisor(
             this.location,
-            this.divisor
+            this.divisor,
         );
     }
 }

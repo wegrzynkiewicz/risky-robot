@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             source() {
                 return `${this.name}.html`;
             },
-        }
+        },
     });
 
     new Vue({
@@ -19,6 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
                 dataset: config.dataset,
             };
-        }
+        },
     })
 });

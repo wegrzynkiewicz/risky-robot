@@ -49,7 +49,7 @@ export default class WallMeshesGenerator {
             // TODO: add mesh object
             const mesh = {
                 elements: triangles.length,
-                triangles
+                triangles,
             };
             meshes.push(mesh);
         }

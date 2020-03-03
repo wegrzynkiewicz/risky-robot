@@ -13,7 +13,7 @@ export default class GLTFAsset {
         const scene = this.gltfData.scenes[sceneNumber];
         const {nodes} = scene;
         const sceneNode = new Graphic.SceneNode({
-            name: `GLTFScene/${sceneNumber}`
+            name: `GLTFScene/${sceneNumber}`,
         });
         for (const nodeNumber of nodes) {
             const node = this.createSceneNode(nodeNumber);
@@ -34,7 +34,7 @@ export default class GLTFAsset {
             scale,
             skin,
             translation,
-            weights
+            weights,
         } = node;
 
         let target = null;

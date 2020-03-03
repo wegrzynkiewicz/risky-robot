@@ -83,7 +83,7 @@ export default class SceneX {
         mat4.mul(
             projectionMatrix,
             projectionMatrix,
-            isometric
+            isometric,
         );
 
         // Set the drawing position to the "identity" point, which is

@@ -15,7 +15,7 @@ export default function getPerspectiveMatrix(width, height) {
         fieldOfView,
         aspect,
         zNear,
-        zFar
+        zFar,
     );
 
     return projectionMatrix;

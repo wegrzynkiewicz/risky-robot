@@ -47,7 +47,7 @@ export default class GLTFContentLoader {
             for (const referencedData of referencedGLTFData) {
                 const referencedObject = {
                     data: null,
-                    resource: null
+                    resource: null,
                 };
                 referencedList.push(referencedObject);
                 const promise = this.loadReferencedData(referencedData, referencedObject);

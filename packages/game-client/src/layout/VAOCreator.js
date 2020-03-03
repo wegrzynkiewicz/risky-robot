@@ -10,7 +10,7 @@ export default class VAOCreator {
         const openGLVAOPointer = this.openGL.createVertexArray();
         const vao = new VAO({
             openGLVAOPointer,
-            vaoAllocation
+            vaoAllocation,
         });
 
         if (process.env.INSPECTOR_METADATA_ENABLED) {
@@ -52,7 +52,7 @@ export default class VAOCreator {
 
             openGLVAOPointer.__SPECTOR_Metadata = {
                 'Allocation': allocation,
-                ...bufferAllocations
+                ...bufferAllocations,
             };
         }
 
@@ -81,7 +81,7 @@ export default class VAOCreator {
                         vaoAttributeLayout.type.glType,
                         vaoAttributeLayout.normalize,
                         stride,
-                        offset
+                        offset,
                     );
                 } else {
                     this.openGL.vertexAttribIPointer(
@@ -89,14 +89,14 @@ export default class VAOCreator {
                         vaoAttributeLayout.type.components,
                         vaoAttributeLayout.type.glType,
                         stride,
-                        offset
+                        offset,
                     );
                 }
                 this.openGL.enableVertexAttribArray(attributeLocationPointer);
 
                 this.openGL.vertexAttribDivisor(
                     attributeLocationPointer,
-                    vaoAttributeLayout.divisor
+                    vaoAttributeLayout.divisor,
                 );
             }
         }

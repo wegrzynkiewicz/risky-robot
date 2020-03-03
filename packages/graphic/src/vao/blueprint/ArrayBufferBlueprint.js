@@ -10,14 +10,14 @@ export default class ArrayBufferBlueprint {
     createBufferLayout({allocation}) {
         const bufferLayout = new ArrayBufferLayout({
             name: this.name,
-            byteLength: this.calculateTotalByteLength(allocation)
+            byteLength: this.calculateTotalByteLength(allocation),
         });
 
         let batchOffset = 0;
         for (let batchBlueprint of this.batchBlueprints) {
             const batchAllocation = batchBlueprint.createAttributeBatchLayout({
                 allocation,
-                batchOffset
+                batchOffset,
             });
             const batchByteLength = batchBlueprint.calculateTotalByteLength(allocation);
             batchOffset += batchByteLength;

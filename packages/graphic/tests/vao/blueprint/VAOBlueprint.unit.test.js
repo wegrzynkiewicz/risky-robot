@@ -12,11 +12,11 @@ describe('VAOLayoutBlueprint', function () {
                             attributeBlueprint: [
                                 new VAOLayoutBlueprint.Attribute({
                                     name: 'a_Position',
-                                    type: 'vec3<f32>'
+                                    type: 'vec3<f32>',
                                 }),
                                 new VAOLayoutBlueprint.Attribute({
                                     name: 'a_Normal',
-                                    type: 'vec3<f32>'
+                                    type: 'vec3<f32>',
                                 }),
                             ],
                         }),
@@ -25,9 +25,9 @@ describe('VAOLayoutBlueprint', function () {
                                 new VAOLayoutBlueprint.Attribute({
                                     name: 'a_Color',
                                     type: 'vec3<u8>',
-                                    normalize: true
+                                    normalize: true,
                                 }),
-                            ]
+                            ],
                         }),
                     ],
                 }),

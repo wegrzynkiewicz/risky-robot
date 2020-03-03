@@ -40,7 +40,7 @@ export default class Color {
             Math.random(),
             Math.random(),
             Math.random(),
-            1.0
+            1.0,
         );
     }
 

@@ -90,7 +90,7 @@ const obj = {
                         verticesBuffer[vertexBufferIndex - 6],
                         verticesBuffer[vertexBufferIndex - 5],
                         verticesBuffer[vertexBufferIndex - 4],
-                    ]
+                    ],
                 );
 
                 for (let k = 0; k <= 2; k++) {
@@ -129,7 +129,7 @@ const obj = {
                         verticesBuffer[vertexBufferIndex - 6],
                         verticesBuffer[vertexBufferIndex - 5],
                         verticesBuffer[vertexBufferIndex - 4],
-                    ]
+                    ],
                 );
 
                 for (let k = 0; k <= 2; k++) {
@@ -188,7 +188,7 @@ const obj = {
         }
 
         return vertices;
-    }
+    },
 };
 
 const debugIndices = function () {

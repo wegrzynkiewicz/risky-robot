@@ -7,12 +7,12 @@ function assertAllocation(vaoAllocation, attributeName, expectedStride, expected
     assert.strictEqual(
         stride,
         expectedStride,
-        `Invalid stride attribute named (${attributeName})`
+        `Invalid stride attribute named (${attributeName})`,
     );
     assert.strictEqual(
         offset,
         expectedOffset,
-        `Invalid offset attribute named (${attributeName})`
+        `Invalid offset attribute named (${attributeName})`,
     );
 }
 

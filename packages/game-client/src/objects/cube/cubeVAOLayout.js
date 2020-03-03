@@ -46,12 +46,12 @@ const test = {
     'componentType': 5123,
     'count': 8964,
     'max': [
-        1939
+        1939,
     ],
     'min': [
-        0
+        0,
     ],
-    'type': 'SCALAR'
+    'type': 'SCALAR',
 };
 
 const test2 = {
@@ -59,5 +59,5 @@ const test2 = {
     'byteOffset': 0,
     'byteLength': 1340232,
     'byteStride': 12,
-    'target': 34962
+    'target': 34962,
 };

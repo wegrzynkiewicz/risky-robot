@@ -43,15 +43,15 @@ module.exports = {
             filename: 'index.html',
             chunks: ['index'],
             config: JSON.stringify({
-                dataset: dataset
+                dataset: dataset,
             }),
         }),
         ...plugins,
         new ScriptExtHtmlWebpackPlugin({
-            defaultAttribute: 'defer'
+            defaultAttribute: 'defer',
         }),
         new webpack.EnvironmentPlugin([
-            'INSPECTOR_METADATA_ENABLED'
+            'INSPECTOR_METADATA_ENABLED',
         ]),
     ],
     module: {
@@ -62,9 +62,9 @@ module.exports = {
             },
             {
                 test: new RegExp('\\.html$'),
-                loader: 'html-loader'
-            }
-        ]
+                loader: 'html-loader',
+            },
+        ],
     },
     optimization: {
         splitChunks: {
@@ -73,9 +73,9 @@ module.exports = {
                     minSize: 0,
                     test: /core/,
                     name: 'commons',
-                    chunks: 'all'
-                }
-            }
-        }
+                    chunks: 'all',
+                },
+            },
+        },
     },
 };

@@ -11,15 +11,15 @@ function getCubeBufferLayout() {
                         attributes: [
                             new VAOLayoutBlueprint.Attribute({
                                 name: 'a_Position_0',
-                                type: 'vec3<f32>'
+                                type: 'vec3<f32>',
                             }),
                             new VAOLayoutBlueprint.Attribute({
                                 name: 'a_Normal_0',
-                                type: 'vec3<f32>'
+                                type: 'vec3<f32>',
                             }),
                             new VAOLayoutBlueprint.Attribute({
                                 name: 'a_TexCoords_0',
-                                type: 'vec2<f32>'
+                                type: 'vec2<f32>',
                             }),
                         ],
                     }),

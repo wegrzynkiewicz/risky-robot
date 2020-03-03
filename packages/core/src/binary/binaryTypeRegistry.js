@@ -20,7 +20,7 @@ const encodeGeneric = function (dataView, instance) {
     const value = instance[this.propertyName];
     if (!value instanceof this.arrayType) {
         throw new Error(
-            `Cannot encode property named (${this.propertyName}) is not (${this.arrayType.name}) type`
+            `Cannot encode property named (${this.propertyName}) is not (${this.arrayType.name}) type`,
         );
     }
 
@@ -101,13 +101,13 @@ const binaryTypeRegistry = new class TypeRegistry {
                 char: 's',
                 power,
                 glType,
-                arrayType: `${arrayTypePrefix}Int`
+                arrayType: `${arrayTypePrefix}Int`,
             });
             this.createStaticType({
                 char: 'u',
                 power,
                 glType: `UNSIGNED_${glType}`,
-                arrayType: `${arrayTypePrefix}Uint`
+                arrayType: `${arrayTypePrefix}Uint`,
             });
         }
 
@@ -116,7 +116,7 @@ const binaryTypeRegistry = new class TypeRegistry {
                 char: 'f',
                 power,
                 glType,
-                arrayType: 'Float'
+                arrayType: 'Float',
             });
         }
 

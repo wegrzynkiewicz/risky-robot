@@ -8,12 +8,12 @@ function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expe
     assert.strictEqual(
         byteStride,
         expectedStride,
-        `Invalid stride attribute named (${attributeName}) expected (${expectedStride}) actual (${byteStride})`
+        `Invalid stride attribute named (${attributeName}) expected (${expectedStride}) actual (${byteStride})`,
     );
     assert.strictEqual(
         byteOffset,
         expectedOffset,
-        `Invalid offset attribute named (${attributeName}) expected (${expectedOffset}) actual (${byteOffset})`
+        `Invalid offset attribute named (${attributeName}) expected (${expectedOffset}) actual (${byteOffset})`,
     );
 }
 
@@ -26,11 +26,11 @@ describe('ArrayBufferBlueprint', function () {
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_Position',
-                            type: 'vec3<f32>'
+                            type: 'vec3<f32>',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_TexCoords',
-                            type: 'vec2<f32>'
+                            type: 'vec2<f32>',
                         }),
                     ],
                 }),
@@ -39,7 +39,7 @@ describe('ArrayBufferBlueprint', function () {
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_Normal',
                             type: 'vec3<f32>',
-                            divisor: 1
+                            divisor: 1,
                         }),
                     ],
                 }),
@@ -48,7 +48,7 @@ describe('ArrayBufferBlueprint', function () {
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_Color',
                             type: 'vec4<f32>',
-                            divisor: 2
+                            divisor: 2,
                         }),
                     ],
                 }),
@@ -73,15 +73,15 @@ describe('ArrayBufferBlueprint', function () {
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_Position',
-                            type: 'vec3<f32>'
+                            type: 'vec3<f32>',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_Normal',
-                            type: 'vec3<f32>'
+                            type: 'vec3<f32>',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_TexCoords',
-                            type: 'vec2<f32>'
+                            type: 'vec2<f32>',
                         }),
                     ],
                 }),
@@ -89,11 +89,11 @@ describe('ArrayBufferBlueprint', function () {
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_Color',
-                            type: 'vec4<f32>'
+                            type: 'vec4<f32>',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexNegativeColor',
-                            type: 'f32'
+                            type: 'f32',
                         }),
                     ],
                 }),
@@ -101,7 +101,7 @@ describe('ArrayBufferBlueprint', function () {
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexWeight',
-                            type: 's16'
+                            type: 's16',
                         }),
                     ],
                 }),
@@ -109,7 +109,7 @@ describe('ArrayBufferBlueprint', function () {
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexVisibility',
-                            type: 's8'
+                            type: 's8',
                         }),
                     ],
                 }),
@@ -117,19 +117,19 @@ describe('ArrayBufferBlueprint', function () {
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexAdditional1',
-                            type: 'u16'
+                            type: 'u16',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexAdditional2',
-                            type: 'u16'
+                            type: 'u16',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexAdditional3',
-                            type: 'u32'
+                            type: 'u32',
                         }),
                         new VAOLayoutBlueprint.Attribute({
                             name: 'a_VertexAdditional4',
-                            type: 'vec4<s16>'
+                            type: 'vec4<s16>',
                         }),
                     ],
                 }),

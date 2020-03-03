@@ -28,7 +28,7 @@ export default function createBasicSystem({window, canvas}) {
     const renderer = new Graphic.SingleCameraRenderer({
         camera,
         viewport,
-        sceneNode: scene
+        sceneNode: scene,
     });
 
     const primaryRenderingTask = new Graphic.RenderingTask({

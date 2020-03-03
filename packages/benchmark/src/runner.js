@@ -2,7 +2,7 @@ import Benchmark from 'benchmark';
 
 (async function () {
     const suite = new Benchmark.Suite();
-    const module = await import(process.argv[2]);
+    const module = await require(process.argv[2]);
     for (let testName of Object.keys(module)) {
         const provider = module[testName];
         const testFunction = provider();

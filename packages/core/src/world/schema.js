@@ -20,7 +20,7 @@ const region = {
 const regionHeader = {
     properties: [
         {type: 'u16', property: 'chunkCount'},
-        {type: 'blob', property: 'chunkHeaders'}
+        {type: 'blob', property: 'chunkHeaders'},
     ],
 };
 

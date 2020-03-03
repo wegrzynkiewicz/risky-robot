@@ -14,7 +14,7 @@ export default class VAOLayout {
 
     createBufferLayout(bufferBlueprint) {
         const bufferLayout = bufferBlueprint.createBufferLayout({
-            allocation: this.allocation
+            allocation: this.allocation,
         });
 
         if (bufferLayout instanceof ElementBufferLayout) {

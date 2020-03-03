@@ -16,22 +16,22 @@ export default class UniformBlock {
         this.name = this.getActiveUniformBlockName();
 
         this.bindingIndex = this.getActiveUniformBlockParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_BINDING']
+            WebGL2RenderingContext['UNIFORM_BLOCK_BINDING'],
         );
         this.byteLength = this.getActiveUniformBlockParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_DATA_SIZE']
+            WebGL2RenderingContext['UNIFORM_BLOCK_DATA_SIZE'],
         );
         this.activeUniformsCount = this.getActiveUniformBlockParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_ACTIVE_UNIFORMS']
+            WebGL2RenderingContext['UNIFORM_BLOCK_ACTIVE_UNIFORMS'],
         );
         this.activeUniformsIndices = this.getActiveUniformBlockParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES']
+            WebGL2RenderingContext['UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES'],
         );
         this.isReferencedByVertexShader = this.getActiveUniformBlockParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER']
+            WebGL2RenderingContext['UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER'],
         );
         this.isReferencedByFragmentShader = this.getActiveUniformBlockParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER']
+            WebGL2RenderingContext['UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER'],
         );
 
         for (const uniformIndex of this.activeUniformsIndices.values()) {
@@ -61,7 +61,7 @@ export default class UniformBlock {
         return this.view.openGL.getActiveUniformBlockParameter(
             this.program.openGLProgramPointer,
             this.blockIndex,
-            parameterCode
+            parameterCode,
         );
     }
 
@@ -75,7 +75,7 @@ export default class UniformBlock {
         return this.view.stateMachine.uniformBlockBinding(
             this.program.openGLProgramPointer,
             this.blockIndex,
-            this.bindingIndex
+            this.bindingIndex,
         );
     }
 }

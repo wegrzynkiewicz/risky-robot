@@ -12,7 +12,7 @@ export default class VertexBuffer {
         this.vertices = options.vertices;
         this.attributes = options.attributes.map(attribute => ({
             normalize: false,
-            ...attribute
+            ...attribute,
         }));
         this.calculateSize();
         this.arrayBuffer = new ArrayBuffer(this.byteSize);
@@ -60,7 +60,7 @@ export default class VertexBuffer {
         this.float(...axis);
         this.triangle.push({
             position: axis,
-            offset: this.offset
+            offset: this.offset,
         });
         this.offset += axis.length * 4;
 

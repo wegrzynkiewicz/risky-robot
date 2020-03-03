@@ -13,7 +13,7 @@ export default class ElementBufferBlueprint {
             name: this.name,
             type: this.type,
             byteOffset: 0,
-            byteLength: this.calculateTotalByteLength(allocation)
+            byteLength: this.calculateTotalByteLength(allocation),
         });
 
         return bufferLayout;

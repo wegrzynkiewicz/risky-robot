@@ -33,7 +33,7 @@ const start = async () => {
     const buffer = bufferManager.createArrayBuffer({
         name: 'triangle',
         usage: WebGL2RenderingContext['STATIC_DRAW'],
-        bufferLayout
+        bufferLayout,
     });
     buffer.setBufferData(dataView);
 

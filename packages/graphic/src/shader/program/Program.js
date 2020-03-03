@@ -25,7 +25,7 @@ export default class Program {
     attachShader(shader) {
         this.view.openGL.attachShader(
             this.openGLProgramPointer,
-            shader.openGLShaderPointer
+            shader.openGLShaderPointer,
         );
     }
 
@@ -35,7 +35,7 @@ export default class Program {
             const info = this.view.openGL.getActiveAttrib(this.openGLProgramPointer, i);
             const location = this.view.openGL.getAttribLocation(
                 this.openGLProgramPointer,
-                info.name
+                info.name,
             );
             const attribute = new Attribute({
                 name: info.name,
@@ -110,7 +110,7 @@ export default class Program {
     getProgramParameter(parameterCode) {
         return this.view.openGL.getProgramParameter(
             this.openGLProgramPointer,
-            parameterCode
+            parameterCode,
         );
     }
 

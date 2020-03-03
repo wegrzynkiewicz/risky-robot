@@ -26,13 +26,13 @@ export default class TypeGenerator {
                 char: 's',
                 power,
                 openGLTypeName,
-                arrayType: `${arrayTypePrefix}Int`
+                arrayType: `${arrayTypePrefix}Int`,
             });
             this.createStaticType({
                 char: 'u',
                 power,
                 openGLTypeName: openGLTypeName === null ? null : `UNSIGNED_${openGLTypeName}`,
-                arrayType: `${arrayTypePrefix}Uint`
+                arrayType: `${arrayTypePrefix}Uint`,
             });
         }
 
@@ -41,7 +41,7 @@ export default class TypeGenerator {
                 char: 'f',
                 power,
                 openGLTypeName,
-                arrayType: 'Float'
+                arrayType: 'Float',
             });
         }
 

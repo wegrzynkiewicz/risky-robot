@@ -43,7 +43,7 @@ const proxyHandler = {
         }
 
         return proxy;
-    }
+    },
 };
 
 export default function createStateMachine(openGL) {

@@ -90,5 +90,5 @@ export default {
         verticesBuffer[vertexBufferIndex++] = 1.0;
 
         return verticesBuffer;
-    }
+    },
 }

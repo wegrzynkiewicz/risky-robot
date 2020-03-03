@@ -127,7 +127,7 @@ const vaoLayout = new VAOLayout({
     primitive: 'triangle',
     buffers: [
         bufferLayout,
-    ]
+    ],
 });
 
 const colors = {

@@ -8,14 +8,14 @@ module.exports = {
     watch: true,
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'dist.js'
+        filename: 'dist.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './templates/index.html'
+            template: './templates/index.html',
         }),
         new webpack.EnvironmentPlugin([
-            'INSPECTOR_METADATA_ENABLED'
+            'INSPECTOR_METADATA_ENABLED',
         ]),
     ],
     module: {
@@ -26,8 +26,8 @@ module.exports = {
             },
             {
                 test: new RegExp('\\.html$'),
-                loader: 'html-loader'
-            }
-        ]
-    }
+                loader: 'html-loader',
+            },
+        ],
+    },
 };

@@ -72,5 +72,5 @@ export default {
         builder.generate();
 
         return builder.buffer;
-    }
+    },
 };

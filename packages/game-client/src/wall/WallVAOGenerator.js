@@ -15,7 +15,7 @@ const chunkReader = {
         }
 
         return chunk.getElementByAxis(x, y, z);
-    }
+    },
 };
 const orientations = [
     {bit: 0b1000, dx: 0, dz: 1},

@@ -13,19 +13,19 @@ export default class Uniform {
         this.index = this.getIndex();
 
         this.blockIndex = this.getActiveUniformParameter(
-            WebGL2RenderingContext['UNIFORM_BLOCK_INDEX']
+            WebGL2RenderingContext['UNIFORM_BLOCK_INDEX'],
         );
         this.byteOffset = this.getActiveUniformParameter(
-            WebGL2RenderingContext['UNIFORM_OFFSET']
+            WebGL2RenderingContext['UNIFORM_OFFSET'],
         );
         this.arrayByteStride = this.getActiveUniformParameter(
-            WebGL2RenderingContext['UNIFORM_ARRAY_STRIDE']
+            WebGL2RenderingContext['UNIFORM_ARRAY_STRIDE'],
         );
         this.matrixByteStride = this.getActiveUniformParameter(
-            WebGL2RenderingContext['UNIFORM_MATRIX_STRIDE']
+            WebGL2RenderingContext['UNIFORM_MATRIX_STRIDE'],
         );
         this.isRowMajor = this.getActiveUniformParameter(
-            WebGL2RenderingContext['UNIFORM_IS_ROW_MAJOR']
+            WebGL2RenderingContext['UNIFORM_IS_ROW_MAJOR'],
         );
     }
 

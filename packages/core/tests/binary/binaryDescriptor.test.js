@@ -11,7 +11,7 @@ describe('BinaryDescriptor', function () {
                 {type: 'u32', property: 'static'},
                 {type: 'vec3<u16>', property: 'vector'},
                 {type: 'mat4<f32>', property: 'matrix'},
-            ]
+            ],
         });
 
         const example = new Example();

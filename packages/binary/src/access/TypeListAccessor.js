@@ -73,7 +73,7 @@ export default class TypeListAccessor {
         const typedArray = new type.ArrayType(
             dataView.buffer,
             dataView.byteOffset + byteOffset,
-            elementsCount
+            elementsCount,
         );
 
         return typedArray;
@@ -88,7 +88,7 @@ export default class TypeListAccessor {
         const typedArray = new type.ArrayType(
             arrayBuffer,
             byteOffset,
-            elementsCount
+            elementsCount,
         );
 
         return typedArray;

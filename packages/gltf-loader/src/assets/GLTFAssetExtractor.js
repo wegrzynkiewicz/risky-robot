@@ -56,7 +56,7 @@ export default class GLTFAssetExtractor {
         const mesh = new Graphic.Mesh({
             name,
             primitives: primitiveObjects,
-            weights
+            weights,
         });
 
         return mesh;
@@ -156,7 +156,7 @@ export default class GLTFAssetExtractor {
             byteOffset: accessorByteOffset,
             componentType,
             count,
-            type: accessorType
+            type: accessorType,
         } = accessorData;
 
         const bufferViewData = this.gltfContent.gltfData.bufferViews[bufferViewNumber];
@@ -243,7 +243,7 @@ export default class GLTFAssetExtractor {
 
         const blueprint = new Graphic.VAOLayoutBlueprint({
             attributeBufferBlueprints,
-            elementBufferBlueprint
+            elementBufferBlueprint,
         });
 
         const indicesAccessorData = this.gltfContent.gltfData.accessors[indices];

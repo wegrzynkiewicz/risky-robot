@@ -64,7 +64,7 @@ export default class Structure {
     static compose({name, components}) {
         const structure = new Structure({
             name,
-            components: components.map(mapComponents)
+            components: components.map(mapComponents),
         });
         return structure;
     }

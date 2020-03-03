@@ -43,7 +43,7 @@ export default function createBasicLayout({attributes, openGLPrimitiveType, vert
     const layout = blueprint.createLayout({
         openGLPrimitiveType,
         verticesCount,
-        indicesCount
+        indicesCount,
     });
 
     return layout;

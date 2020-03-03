@@ -46,7 +46,7 @@ export default class Texture2D {
             border,
             openGLDataFormat,
             openGLDataType,
-            data
+            data,
         );
 
         console.log(this);

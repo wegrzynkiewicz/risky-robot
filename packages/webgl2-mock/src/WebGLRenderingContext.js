@@ -134,7 +134,7 @@ const functions = [
     'vertexAttrib4f',
     'vertexAttrib4fv',
     'vertexAttribPointer',
-    'viewport'
+    'viewport',
 ];
 
 const enums = {
@@ -434,7 +434,7 @@ const enums = {
     'UNPACK_PREMULTIPLY_ALPHA_WEBGL': 37441,
     'CONTEXT_LOST_WEBGL': 37442,
     'UNPACK_COLORSPACE_CONVERSION_WEBGL': 37443,
-    'BROWSER_DEFAULT_WEBGL': 37444
+    'BROWSER_DEFAULT_WEBGL': 37444,
 };
 
 const extensions = {
@@ -463,7 +463,7 @@ const extensions = {
     'EXT_color_buffer_half_float': null,
     'WEBGL_color_buffer_float': null,
     'EXT_sRGB': null,
-    'WEBGL_compressed_texture_etc1': null
+    'WEBGL_compressed_texture_etc1': null,
 };
 
 export default class WebGLRenderingContext {

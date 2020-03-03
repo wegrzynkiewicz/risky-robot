@@ -41,7 +41,7 @@ function cylindernoise(nx, ny) {
     return simplex.noise3D(
         manipulator * Math.cos(angle_x) / TAU,
         manipulator * Math.sin(angle_x) / TAU,
-        manipulator * ny
+        manipulator * ny,
     );
 }
 
@@ -52,7 +52,7 @@ function torusnoise(nx, ny, manip) {
         (manipulator + manip) * Math.cos(angle_x) / TAU,
         (manipulator + manip) * Math.sin(angle_x) / TAU,
         (manipulator + manip) * Math.cos(angle_y) / TAU,
-        (manipulator + manip) * Math.sin(angle_y) / TAU
+        (manipulator + manip) * Math.sin(angle_y) / TAU,
     );
     return (noise + 1.0) / 2.0;
 }
