@@ -13,5 +13,5 @@ export default function createIndexDecoderFunction ({widthBitShift, heightBitShi
     Object.defineProperty(indexDecoderFunction, 'name', {value: 'indexDecode', writable: false});
 
     return indexDecoderFunction;
-};
+}
 

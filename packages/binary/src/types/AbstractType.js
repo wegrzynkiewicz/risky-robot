@@ -20,19 +20,19 @@ export default class AbstractType {
 
     createAccessor({dataView, byteOffset}) {
         return new TypeAccessor({
+            byteOffset,
             dataView,
             type: this,
-            byteOffset,
         });
     }
 
     createListAccessor({dataView, count, byteOffset, byteStride}) {
         return new TypeListAccessor({
-            dataView,
-            count,
-            type: this,
             byteOffset,
             byteStride,
+            count,
+            dataView,
+            type: this,
         });
     }
 
@@ -45,5 +45,5 @@ export default class AbstractType {
 
     createTypedArray(count) {
         return new this.ArrayType(this.axisLength * count);
-    };
+    }
 }

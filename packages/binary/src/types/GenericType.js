@@ -14,7 +14,7 @@ export default class GenericType extends AbstractType {
             this.axisLength,
         );
         destinationTypedArray.set(sourceTypedArray, sourceByteOffset);
-    };
+    }
 
     read(dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset = 0) {
         const sourceTypedArray = new this.ArrayType(
@@ -24,5 +24,5 @@ export default class GenericType extends AbstractType {
         );
         destinationTypedArray.set(sourceTypedArray, destinationByteOffset);
         return destinationTypedArray;
-    };
+    }
 }

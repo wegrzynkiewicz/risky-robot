@@ -11,4 +11,4 @@ export default function calculateNormal (a, b, c) {
     glMatrix.vec3.normalize(s4, s3);
 
     return s4;
-};
+}

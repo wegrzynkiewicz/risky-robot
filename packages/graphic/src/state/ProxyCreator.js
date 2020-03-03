@@ -87,4 +87,4 @@ export default class ProxyCreator {
         };
         this.modifiers.push(modifier);
     }
-};
+}

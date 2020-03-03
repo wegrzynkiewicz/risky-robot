@@ -2,7 +2,9 @@ import Component from './Component';
 import StructureAccessor from '../access/StructureAccessor';
 import StructureListAccessor from '../access/StructureListAccessor';
 
-const mapComponents = data => new Component(data);
+function mapComponents(data) {
+    return new Component(data);
+}
 
 function calculateByteLength(components) {
     let byteLength = 0;
@@ -24,29 +26,29 @@ export default class Structure {
     write(dataView, destinationByteOffset, sourceTypedArray, sourceByteOffset = 0) {
         // TODO: structure write
         destinationTypedArray.set(sourceTypedArray, sourceByteOffset);
-    };
+    }
 
     read(dataView, sourceByteOffset, destinationTypedArray, destinationByteOffset = 0) {
         // TODO: structure read
         destinationTypedArray.set(sourceTypedArray, destinationByteOffset);
         return destinationTypedArray;
-    };
+    }
 
     createAccessor({dataView, byteOffset}) {
         return new StructureAccessor({
+            byteOffset,
             dataView,
             structure: this,
-            byteOffset,
         });
     }
 
     createListAccessor({dataView, count, byteOffset, byteStride}) {
         return new StructureListAccessor({
-            dataView,
-            count,
-            structure: this,
             byteOffset,
             byteStride,
+            count,
+            dataView,
+            structure: this,
         });
     }
 
@@ -58,13 +60,13 @@ export default class Structure {
     }
 
     createTypedArray() {
-        throw new Error('Cannot create typed array on structure.')
-    };
+        throw new Error('Cannot create typed array on structure.');
+    }
 
     static compose({name, components}) {
         const structure = new Structure({
-            name,
             components: components.map(mapComponents),
+            name,
         });
         return structure;
     }

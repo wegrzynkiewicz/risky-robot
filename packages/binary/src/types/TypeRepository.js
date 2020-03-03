@@ -1,6 +1,6 @@
 import AbstractType from './AbstractType';
-import Structure from '../structute/Structure';
 import Component from '../structute/Component';
+import Structure from '../structute/Structure';
 
 export default class TypeRepository {
 

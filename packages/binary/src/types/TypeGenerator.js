@@ -1,16 +1,38 @@
-import ScalarType from './ScalarType';
 import GenericType from './GenericType';
+import ScalarType from './ScalarType';
 
 const openGLIntegerMapper = [
-    {power: 0, openGLTypeName: 'BYTE', arrayTypePrefix: ''},
-    {power: 1, openGLTypeName: 'SHORT', arrayTypePrefix: ''},
-    {power: 2, openGLTypeName: 'INT', arrayTypePrefix: ''},
-    {power: 3, openGLTypeName: null, arrayTypePrefix: 'Big'},
+    {
+        arrayTypePrefix: '',
+        openGLTypeName: 'BYTE',
+        power: 0,
+    },
+    {
+        arrayTypePrefix: '',
+        openGLTypeName: 'SHORT',
+        power: 1,
+    },
+    {
+        arrayTypePrefix: '',
+        openGLTypeName: 'INT',
+        power: 2,
+    },
+    {
+        arrayTypePrefix: 'Big',
+        openGLTypeName: null,
+        power: 3,
+    },
 ];
 
 const openGLFloatMapper = [
-    {power: 2, openGLTypeName: 'FLOAT'},
-    {power: 3, openGLTypeName: null},
+    {
+        openGLTypeName: 'FLOAT',
+        power: 2,
+    },
+    {
+        openGLTypeName: null,
+        power: 3,
+    },
 ];
 
 export default class TypeGenerator {
@@ -21,72 +43,90 @@ export default class TypeGenerator {
     }
 
     generate() {
-        for (let {power, openGLTypeName, arrayTypePrefix} of openGLIntegerMapper) {
-            this.createStaticType({
-                char: 's',
-                power,
-                openGLTypeName,
-                arrayType: `${arrayTypePrefix}Int`,
-            });
-            this.createStaticType({
-                char: 'u',
-                power,
-                openGLTypeName: openGLTypeName === null ? null : `UNSIGNED_${openGLTypeName}`,
-                arrayType: `${arrayTypePrefix}Uint`,
-            });
-        }
+        this.generateStatic();
+        this.generateGeneric();
+        this.generateStd140();
+    }
 
-        for (let {power, openGLTypeName} of openGLFloatMapper) {
-            this.createStaticType({
-                char: 'f',
-                power,
-                openGLTypeName,
-                arrayType: 'Float',
-            });
-        }
-
+    generateStd140() {
         for (let vectorWidth = 2; vectorWidth <= 4; vectorWidth++) {
-            for (let axisType of this.staticTypes) {
+            for (const axisTypeName of [
+                'f32',
+                's32',
+                'u32',
+            ]) {
                 this.createGenericType({
-                    prefix: 'vec',
-                    width: vectorWidth,
-                    axisLength: vectorWidth,
-                    axisType,
-                });
-            }
-        }
-
-        for (let vectorWidth = 2; vectorWidth <= 4; vectorWidth++) {
-            for (let axisTypeName of ['f32', 's32', 'u32']) {
-                this.createGenericType({
-                    prefix: 'std140_vec',
-                    width: vectorWidth,
                     axisLength: 4,
                     axisType: this.binaryTypes.getTypeByName(axisTypeName),
+                    prefix: 'std140_vec',
+                    width: vectorWidth,
                 });
             }
         }
 
         for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
-            for (let axisType of this.staticTypes) {
+            for (const axisTypeName of [
+                'f32',
+                's32',
+                'u32',
+            ]) {
                 this.createGenericType({
-                    prefix: 'mat',
-                    width: matrixWidth,
-                    axisLength: matrixWidth ** 2,
-                    axisType,
-                });
-            }
-        }
-
-        for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
-            for (let axisTypeName of ['f32', 's32', 'u32']) {
-                this.createGenericType({
+                    axisLength: matrixWidth * 4,
+                    axisType: this.binaryTypes.getTypeByName(axisTypeName),
                     prefix: 'std140_mat',
                     width: matrixWidth,
-                    axisLength: matrixWidth << 2,
-                    axisType: this.binaryTypes.getTypeByName(axisTypeName),
                 });
             }
+        }
+    }
+
+    generateGeneric() {
+        for (let vectorWidth = 2; vectorWidth <= 4; vectorWidth++) {
+            for (const axisType of this.staticTypes) {
+                this.createGenericType({
+                    axisLength: vectorWidth,
+                    axisType,
+                    prefix: 'vec',
+                    width: vectorWidth,
+                });
+            }
+        }
+
+        for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
+            for (const axisType of this.staticTypes) {
+                this.createGenericType({
+                    axisLength: matrixWidth ** 2,
+                    axisType,
+                    prefix: 'mat',
+                    width: matrixWidth,
+                });
+            }
+        }
+    }
+
+    generateStatic() {
+        for (const {power, openGLTypeName, arrayTypePrefix} of openGLIntegerMapper) {
+            this.createStaticType({
+                arrayType: `${arrayTypePrefix}Int`,
+                char: 's',
+                openGLTypeName,
+                power,
+            });
+            this.createStaticType({
+                arrayType: `${arrayTypePrefix}Uint`,
+                char: 'u',
+                openGLTypeName: openGLTypeName === null ? null : `UNSIGNED_${openGLTypeName}`,
+                power,
+            });
+        }
+
+        for (const {power, openGLTypeName} of openGLFloatMapper) {
+            this.createStaticType({
+                arrayType: 'Float',
+                char: 'f',
+                openGLTypeName,
+                power,
+            });
         }
     }
 
@@ -97,12 +137,12 @@ export default class TypeGenerator {
         const dataViewTypeName = `${arrayType}${bitSize}`;
 
         const type = new ScalarType({
-            name,
-            byteLength,
-            axisLength: 1,
-            openGLTypeName,
             arrayTypeName: `${arrayType}${bitSize}Array`,
+            axisLength: 1,
+            byteLength,
             dataViewTypeName,
+            name,
+            openGLTypeName,
         });
 
         this.binaryTypes.registerType(type);
@@ -114,13 +154,13 @@ export default class TypeGenerator {
         const byteLength = axisLength * axisType.byteLength;
 
         const type = new GenericType({
-            name,
+            arrayTypeName: axisType.arrayTypeName,
+            axisLength,
             axisType,
             byteLength,
-            axisLength,
-            openGLTypeName: axisType.openGLTypeName,
-            arrayTypeName: axisType.arrayTypeName,
             dataViewTypeName: axisType.dataViewTypeName,
+            name,
+            openGLTypeName: axisType.openGLTypeName,
         });
 
         this.binaryTypes.registerType(type);

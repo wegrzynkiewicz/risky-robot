@@ -18,7 +18,7 @@ export default class TypeListAccessor {
         if (index > this.count) {
             throw new Error('Range error.');
         }
-        return this.byteOffset + (this.byteStride * index);
+        return this.byteOffset + this.byteStride * index;
     }
 
     writeElement(index, sourceTypedArray, sourceByteOffset = 0) {

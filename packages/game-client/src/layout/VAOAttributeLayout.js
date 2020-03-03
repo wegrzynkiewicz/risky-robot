@@ -28,4 +28,4 @@ export default class VAOAttributeLayout {
     read(dataView, offset) {
         return this.type.read(dataView, offset);
     }
-};
+}

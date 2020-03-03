@@ -35,4 +35,4 @@ export default class AttributeBlueprint {
         }
         return Math.ceil(byteLength * (primitiveCount / this.divisor));
     }
-};
+}

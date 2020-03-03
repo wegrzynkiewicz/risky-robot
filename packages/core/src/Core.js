@@ -12,7 +12,7 @@ export default class Core {
     constructor() {
         this.actionRegistry = new ActionRepository();
     }
-};
+}
 
 Core.Action = Action;
 Core.BinaryDescriptor = BinaryDescriptor;

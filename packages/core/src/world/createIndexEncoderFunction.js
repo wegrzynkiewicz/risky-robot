@@ -6,5 +6,5 @@ export default function createIndexEncoderFunction ({widthBitShift, heightBitShi
     Object.defineProperty(indexEncoderFunction, 'name', {value: 'indexEncode', writable: false});
 
     return indexEncoderFunction;
-};
+}
 

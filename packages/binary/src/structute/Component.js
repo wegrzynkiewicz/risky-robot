@@ -17,16 +17,16 @@ export default class Component {
     createAccessor({dataView, count, byteOffset, byteStride}) {
         if (this.count === 1) {
             return this.type.createAccessor({
-                dataView,
                 byteOffset: byteOffset ? byteOffset : this.byteOffset,
-            });
-        } else {
-            return this.type.createListAccessor({
                 dataView,
-                count: count ? count : this.count,
-                byteOffset: byteOffset ? byteOffset : this.byteOffset,
-                byteStride: byteStride ? byteStride : this.byteStride,
             });
         }
+
+        return this.type.createListAccessor({
+            byteOffset: byteOffset ? byteOffset : this.byteOffset,
+            byteStride: byteStride ? byteStride : this.byteStride,
+            count: count ? count : this.count,
+            dataView,
+        });
     }
 }
