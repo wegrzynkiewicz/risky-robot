@@ -19,5 +19,5 @@ function traverse(sceneNode, nodeStructure = '', childrenStructure = '') {
 export default function printSceneNode(sceneNode) {
     text = '';
     traverse(sceneNode);
-    process.stdout.write(text.toString());
+    console.log(text.toString());
 }
