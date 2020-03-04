@@ -1,7 +1,8 @@
 let text = '';
 
 function traverse(sceneNode, nodeStructure = '', childrenStructure = '') {
-    let {name, target, children, sceneNodeId} = sceneNode;
+    let {name, target} = sceneNode;
+    const {children, sceneNodeId} = sceneNode;
     name = name ? `${name} ` : '';
     target = target ? Object.getPrototypeOf(target).constructor.name : '';
     text += `${nodeStructure}#${sceneNodeId} ${name}${target}\n`;
@@ -18,5 +19,5 @@ function traverse(sceneNode, nodeStructure = '', childrenStructure = '') {
 export default function printSceneNode(sceneNode) {
     text = '';
     traverse(sceneNode);
-    console.log(text.toString());
+    process.stdout.write(text.toString());
 }

@@ -1,11 +1,12 @@
+// TODO: refactor
+
+import VAOLayoutBlueprint from '../../vao/blueprint/VAOLayoutBlueprint';
 import emitVertexDataset from './emitVertexDataset';
-import VAOLayoutBlueprint from '../../vao/blueprint/VertexLayoutBlueprint';
 
 function getCubeBufferLayout() {
     const cubeBlueprint = new VAOLayoutBlueprint({
         buffers: [
             new VAOLayoutBlueprint.ArrayBuffer({
-                name: 'primary',
                 batches: [
                     new VAOLayoutBlueprint.AttributeBatch({
                         attributes: [
@@ -24,6 +25,7 @@ function getCubeBufferLayout() {
                         ],
                     }),
                 ],
+                name: 'primary',
             }),
             new VAOLayoutBlueprint.ElementArrayBuffer({
                 name: 'indices',
@@ -51,12 +53,12 @@ export default function generateSharpCubeGeometry() {
     const vertexTextureCordsAccessor = primaryBufferLayout.getAccessorByName('a_TexCoords_0');
 
     let vertexIndex = 0;
-    const put = (positionAxes, textureCoordsAxes, normalCodeAxes) => {
+    function put(positionAxes, textureCoordsAxes, normalCodeAxes) {
         vertexPositionAccessor.write(primaryDataView, vertexIndex, positionAxes);
         vertexTextureCordsAccessor.write(primaryDataView, vertexIndex, textureCoordsAxes);
         vertexNormalAccessor.write(primaryDataView, vertexIndex, normalCodeAxes);
         vertexIndex++;
-    };
+    }
 
     emitVertexDataset(put);
 
@@ -64,10 +66,11 @@ export default function generateSharpCubeGeometry() {
     const indicesDataView = indicesBufferLayout.createDataView();
     const indicesAccessor = indicesBufferLayout.getIndexAccessor();
 
+    let indicesOrder = 0;
     for (let i = 0; i < 6; i++) {
-        for (let index of indicesOffsets) {
-            const vertexIndex = i * 4 + index;
-            indicesAccessor.write(indicesDataView, indicesOrder, vertexIndex);
+        for (const index of indicesOffsets) {
+            const vIndex = i * 4 + index;
+            indicesAccessor.write(indicesDataView, indicesOrder, vIndex);
             indicesOrder++;
         }
     }

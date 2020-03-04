@@ -2,8 +2,8 @@ import AbstractBuffer from './AbstractBuffer';
 
 export default class ArrayBuffer extends AbstractBuffer {
 
-    constructor({view, name, usage, bufferLayout}) {
-        super({view, name, usage});
+    constructor({bufferLayout, name, usage, view}) {
+        super({name, usage, view});
         this.bufferLayout = bufferLayout;
     }
 

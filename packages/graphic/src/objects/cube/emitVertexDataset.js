@@ -6,50 +6,52 @@ function mapping(char) {
             return 1.0;
         case '-':
             return -1.0;
+        default:
+            throw new Error('DomainError');
     }
 }
 
 function parse(...args) {
-    return args.map(arg => arg.split('').map(mapping));
+    return args.map((arg) => arg.split('').map(mapping));
 }
 
 export default function emitVertexDataset(callback) {
 
     const emit = (...args) => callback(...parse(...args));
 
-    // position, textureCords, normal, tangent
+    // Position, textureCords, normal, tangent
 
-    // top
+    // Top
     emit('-++', '0+', '0+0', '+00');
     emit('+++', '++', '0+0', '+00');
     emit('++-', '+0', '0+0', '+00');
     emit('-+-', '00', '0+0', '+00');
 
-    // down
+    // Down
     emit('---', '0+', '0-0', '-00');
     emit('+--', '++', '0-0', '-00');
     emit('+-+', '+0', '0-0', '-00');
     emit('--+', '00', '0-0', '-00');
 
-    // front
+    // Front
     emit('--+', '0+', '00-', '+00');
     emit('+-+', '++', '00-', '+00');
     emit('+++', '+0', '00-', '+00');
     emit('-++', '00', '00-', '+00');
 
-    // back
+    // Back
     emit('+--', '0+', '00+', '-00');
     emit('---', '++', '00+', '-00');
     emit('-+-', '+0', '00+', '-00');
     emit('++-', '00', '00+', '-00');
 
-    // left
+    // Left
     emit('---', '0+', '-00', '00-');
     emit('--+', '++', '-00', '00-');
     emit('-++', '+0', '-00', '00-');
     emit('-+-', '00', '-00', '00-');
 
-    // right
+    // Right
     emit('+-+', '0+', '+00', '00+');
     emit('+--', '++', '+00', '00+');
     emit('++-', '+0', '+00', '00+');

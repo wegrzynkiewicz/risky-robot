@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-
 import AbstractShader from './AbstractShader';
 
 export default class FragmentShader extends AbstractShader {

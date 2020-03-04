@@ -44,7 +44,7 @@ rules:
   capitalized-comments:
     - error
   class-methods-use-this:
-    - error
+    - off
   comma-dangle:
     - error
     - always-multiline
@@ -59,7 +59,7 @@ rules:
   consistent-return:
     - error
   consistent-this:
-    - error
+    - off
   constructor-super:
     - error
   curly:
@@ -180,7 +180,7 @@ rules:
   no-await-in-loop:
     - error
   no-bitwise:
-    - error
+    - off
   no-buffer-constructor:
     - error
   no-caller:

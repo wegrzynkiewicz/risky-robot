@@ -1,22 +1,5 @@
 import Transformation from './Transformation';
 
-function addChild(child) {
-    if (child.parent) {
-        removeChild.call(child.parent, child);
-    }
-    child.parent = this;
-    this.children.push(child);
-}
-
-function removeChild(child) {
-    const index = this.children.indexOf(child);
-    if (index === -1) {
-        return;
-    }
-    this.children.splice(index, 1);
-    child.parent = null;
-}
-
 let sceneNodeId = 0;
 
 /**
@@ -31,6 +14,14 @@ export default class SceneNode {
         this.parent = null;
         this.children = [];
         this.transformation = new Transformation();
+    }
+
+    addChild(child) {
+        if (child.parent) {
+            child.parent.removeChild(child);
+        }
+        child.parent = this;
+        this.children.push(child);
     }
 
     getRoot() {
@@ -58,10 +49,10 @@ export default class SceneNode {
 
     setParent(newParentNode) {
         if (this.parent) {
-            removeChild.call(this.parent, this);
+            this.parent.removeChild(this);
         }
         this.parent = null;
-        addChild.call(newParentNode, this);
+        newParentNode.addChild(this);
         this.parent = newParentNode;
     }
 
@@ -89,5 +80,15 @@ export default class SceneNode {
         for (const child of this.children) {
             child.render(system, context);
         }
+    }
+
+    /** @private */
+    removeChild(child) {
+        const index = this.children.indexOf(child);
+        if (index === -1) {
+            return;
+        }
+        this.children.splice(index, 1);
+        child.parent = null;
     }
 }

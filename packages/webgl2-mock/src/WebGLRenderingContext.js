@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-
 import enumerable from './enumerable';
 import extensions from './extensions';
 import functionNames from './functionNames';

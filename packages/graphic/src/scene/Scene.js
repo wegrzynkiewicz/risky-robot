@@ -15,8 +15,8 @@ export default class Scene extends SceneNode {
 
         stateMachine.frontFace(openGL.CCW);
         // TODO: implement model system with cull face mechanism
-        //stateMachine.cullFace(openGL.BACK);
-        //stateMachine.enable(openGL.CULL_FACE);
+        // stateMachine.cullFace(openGL.BACK);
+        // stateMachine.enable(openGL.CULL_FACE);
 
         stateMachine.blendFunc(openGL.SRC_ALPHA, openGL.ONE_MINUS_SRC_ALPHA);
         stateMachine.enable(openGL.BLEND);
