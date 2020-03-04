@@ -1,22 +1,29 @@
 import * as Frontend from 'robo24-frontend';
-
-import vertexShaderContent from './shader.vert';
 import fragmentShaderContent from './shader.frag';
+import vertexShaderContent from './shader.vert';
 
 const {Graphic} = Frontend;
 
-const start = async () => {
+function start() {
     const canvas = document.getElementById('canvas');
-    const system = Frontend.createBasicSystem({window, canvas});
+    const system = Frontend.createBasicSystem({
+        canvas,
+        window,
+    });
     const {view} = system;
 
     const layout = Graphic.VAOLayout.createBasicLayout({
-        openGLPrimitiveType: WebGL2RenderingContext['TRIANGLES'],
-        verticesCount: 3,
-        indicesCount: 0,
         attributes: [
-            {buffer: 'primary', batch: 0, name: 'a_Position', type: 'vec3<f32>'},
+            {
+                batch: 0,
+                buffer: 'primary',
+                name: 'a_Position',
+                type: 'vec3<f32>',
+            },
         ],
+        indicesCount: 0,
+        openGLPrimitiveType: WebGL2RenderingContext.TRIANGLES,
+        verticesCount: 3,
     });
 
     const bufferLayout = layout.getBufferLayout('primary');
@@ -31,29 +38,25 @@ const start = async () => {
     const {bufferManager, vaoManager} = view;
 
     const buffer = bufferManager.createArrayBuffer({
-        name: 'triangle',
-        usage: WebGL2RenderingContext['STATIC_DRAW'],
         bufferLayout,
+        name: 'triangle',
+        usage: WebGL2RenderingContext.STATIC_DRAW,
     });
     buffer.setBufferData(dataView);
 
     const programFactory = new Graphic.ContentProgramFactory({view});
     const program = programFactory.createProgram({
-        name: 'triangle',
         fragment: fragmentShaderContent,
+        name: 'triangle',
         vertex: vertexShaderContent,
     });
 
     const vao = vaoManager.createVAO({
+        attributeBuffers: [buffer],
+        layout,
         name: 'triangle',
         program,
-        layout,
-        attributeBuffers: [buffer],
     });
-
-    //const triangleSceneNode = new Graphic.ModelSceneNode({});
-    // const primaryScene = sceneManager.getSceneNodeByName("primary-scene");
-    //triangleSceneNode.setParent(primaryScene);
 
     system.animationLoop.on('frame', () => {
         program.use();
@@ -61,6 +64,6 @@ const start = async () => {
         const {openGLPrimitiveType, verticesCount} = vao.layout.allocation;
         system.view.openGL.drawArrays(openGLPrimitiveType, 0, verticesCount);
     });
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => setImmediate(start));

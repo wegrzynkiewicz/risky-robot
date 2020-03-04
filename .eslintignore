@@ -4,3 +4,4 @@ node_modules/
 # TODO: temporary dirs
 packages/core/
 packages/game-client/
+packages/visual-diff/dataset/
