@@ -1,3 +1,5 @@
+/* eslint-disable no-process-env */
+
 const glob = require('glob');
 const path = require('path');
 const webpack = require('webpack');
@@ -8,43 +10,65 @@ const plugins = [];
 const entries = {};
 const dataset = [];
 
-glob.sync('./dataset/**/entry.js').map(filepath => {
+for (const filepath of glob.sync('./dataset/**/entry.js')) {
     const suiteName = path.dirname(filepath).substr(10);
     entries[suiteName] = filepath;
 
     const plugin = new HtmlWebpackPlugin({
-        title: suiteName,
-        template: './src/entry/suite.ejs',
-        filename: `${suiteName}.html`,
         chunks: ['commons', suiteName],
-        config: JSON.stringify({
-            suiteName,
-        }),
+        config: JSON.stringify({suiteName}),
+        filename: `${suiteName}.html`,
+        template: './src/entry/suite.ejs',
+        title: suiteName,
     });
     plugins.push(plugin);
 
     dataset.push(suiteName);
-});
+}
 
 module.exports = {
-    mode: process.env.NODE_ENV || 'development',
     entry: {
         index: './src/entry/index.js',
         ...entries,
     },
-    watch: true,
+    externals: {
+        vue: 'Vue',
+    },
+    mode: process.env.NODE_ENV || 'development',
+    module: {
+        rules: [
+            {
+                test: new RegExp('\\.(?<ext>vert|frag)$', 'u'),
+                use: 'raw-loader',
+            },
+            {
+                loader: 'html-loader',
+                test: new RegExp('\\.html$', 'u'),
+            },
+        ],
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    chunks: 'all',
+                    minSize: 0,
+                    name: 'commons',
+                    test: new RegExp('core', 'u'),
+                },
+            },
+        },
+    },
     output: {
-        path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
+        path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/entry/index.ejs',
-            filename: 'index.html',
             chunks: ['index'],
-            config: JSON.stringify({
-                dataset: dataset,
-            }),
+            config: JSON.stringify({dataset}),
+            filename: 'index.html',
+            template: './src/entry/index.ejs',
         }),
         ...plugins,
         new ScriptExtHtmlWebpackPlugin({
@@ -54,28 +78,5 @@ module.exports = {
             'INSPECTOR_METADATA_ENABLED',
         ]),
     ],
-    module: {
-        rules: [
-            {
-                test: new RegExp('\\.(vert|frag)$'),
-                use: 'raw-loader',
-            },
-            {
-                test: new RegExp('\\.html$'),
-                loader: 'html-loader',
-            },
-        ],
-    },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    minSize: 0,
-                    test: /core/,
-                    name: 'commons',
-                    chunks: 'all',
-                },
-            },
-        },
-    },
+    watch: true,
 };

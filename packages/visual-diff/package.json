@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "robo24-core": "file:../core",
-    "robo24-frontend": "file:../frontend"
+    "robo24-frontend": "file:../frontend",
+    "vue": "^2.6.11"
   }
 }

@@ -16,6 +16,7 @@ rules:
     - error
   array-bracket-newline:
     - error
+    - consistent
   array-bracket-spacing:
     - error
   array-callback-return:
@@ -485,7 +486,7 @@ rules:
   prefer-promise-reject-errors:
     - error
   prefer-regex-literals:
-    - error
+    - off
   prefer-rest-params:
     - error
   prefer-spread:

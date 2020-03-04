@@ -1,8 +1,8 @@
-import AnimationLoop from '../flow/AnimationLoop';
-import System from './System';
-import * as Graphic from 'robo24-graphic';
 import * as Assets from 'robo24-assets';
 import * as GLTFLoader from 'robo24-gltf-loader';
+import * as Graphic from 'robo24-graphic';
+import AnimationLoop from '../flow/AnimationLoop';
+import System from './System';
 
 export default function createBasicSystem({window, canvas}) {
 
@@ -14,10 +14,10 @@ export default function createBasicSystem({window, canvas}) {
     Graphic.Matrix4.perspective(camera.projectionMatrix, fieldOfView, aspect, near, far);
 
     const viewport = new Graphic.Viewport({
+        height: canvas.height,
+        width: canvas.width,
         x: 0,
         y: 0,
-        width: canvas.width,
-        height: canvas.height,
     });
 
     const view = new Graphic.View({canvas});
@@ -27,14 +27,14 @@ export default function createBasicSystem({window, canvas}) {
 
     const renderer = new Graphic.SingleCameraRenderer({
         camera,
-        viewport,
         sceneNode: scene,
+        viewport,
     });
 
     const primaryRenderingTask = new Graphic.RenderingTask({
         enabled: true,
-        weight: 1.0000,
         renderer,
+        weight: 1.0000,
     });
     view.renderingFlow.registerTask(primaryRenderingTask);
 
@@ -44,11 +44,11 @@ export default function createBasicSystem({window, canvas}) {
     const animationLoop = new AnimationLoop({window});
 
     const system = new System({
-        window,
-        view,
         animationLoop,
-        resourceManager,
         gltfManager,
+        resourceManager,
+        view,
+        window,
     });
 
     system.animationLoop.start();
