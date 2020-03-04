@@ -525,6 +525,10 @@ rules:
     - error
   sort-keys:
     - error
+    - asc
+    - caseSensitive: false
+      natural: true
+      minKeys: 2
   sort-vars:
     - error
   space-before-blocks:

@@ -3,7 +3,6 @@ import Program from './Program';
 import ShaderContent from '../content/ShaderContent';
 import VertexShader from '../shader/VertexShader';
 
-
 export default class ContentProgramFactory {
 
     constructor({view}) {
@@ -11,8 +10,16 @@ export default class ContentProgramFactory {
     }
 
     createProgram({fragment, name, vertex}) {
-        const vertexShader = this.createShader(this, `${name}.vertex`, vertex, VertexShader);
-        const fragmentShader = this.createShader(this, `${name}.fragment`, fragment, FragmentShader);
+        const vertexShader = this.createShader({
+            content: vertex,
+            name: `${name}.vertex`,
+            ShaderConstructor: VertexShader,
+        });
+        const fragmentShader = this.createShader({
+            content: fragment,
+            name: `${name}.fragment`,
+            ShaderConstructor: FragmentShader,
+        });
         const program = new Program({
             fragmentShader,
             name,
@@ -25,12 +32,12 @@ export default class ContentProgramFactory {
     }
 
     /** @private */
-    createShader(name, content, constructor) {
+    createShader({content, name, ShaderConstructor}) {
         const shaderContent = new ShaderContent({
             content,
             name,
         });
-        const shader = new constructor({
+        const shader = new ShaderConstructor({
             name,
             shaderContent,
             view: this.view,
