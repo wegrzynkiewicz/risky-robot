@@ -4,8 +4,8 @@ import WebGLRenderingContext from './WebGLRenderingContext';
 export default class HTMLCanvasElement {
 
     constructor(width, height) {
-        this.width = width !== undefined ? width : 100;
-        this.height = height !== undefined ? height : 100;
+        this.width = width === undefined ? 100 : width;
+        this.height = height === undefined ? 100 : height;
     }
 
     getContext(arg) {
@@ -20,5 +20,4 @@ export default class HTMLCanvasElement {
                 throw new Error('DomainError');
         }
     }
-
 }

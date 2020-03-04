@@ -103,7 +103,7 @@ describe('BinaryStructure', () => {
         const accessor = structure.createAccessor({dataView});
         assert.strictEqual(dataView.byteLength, structureByteLength);
 
-        accessor.fields.light.items[1].fields.triangle.items[1].fields.position.writeElement(0, [1, 2, 3,]);
+        accessor.fields.light.items[1].fields.triangle.items[1].fields.position.writeElement(0, [1, 2, 3]);
         assert.strictEqual(dataView.getInt32(204, true), 1);
         assert.strictEqual(dataView.getInt32(208, true), 2);
         assert.strictEqual(dataView.getInt32(212, true), 3);

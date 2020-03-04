@@ -50,11 +50,7 @@ export default class TypeGenerator {
 
     generateStd140() {
         for (let vectorWidth = 2; vectorWidth <= 4; vectorWidth++) {
-            for (const axisTypeName of [
-                'f32',
-                's32',
-                'u32',
-            ]) {
+            for (const axisTypeName of ['f32', 's32', 'u32']) {
                 this.createGenericType({
                     axisLength: 4,
                     axisType: this.binaryTypes.getTypeByName(axisTypeName),
@@ -65,11 +61,7 @@ export default class TypeGenerator {
         }
 
         for (let matrixWidth = 2; matrixWidth <= 4; matrixWidth++) {
-            for (const axisTypeName of [
-                'f32',
-                's32',
-                'u32',
-            ]) {
+            for (const axisTypeName of ['f32', 's32', 'u32']) {
                 this.createGenericType({
                     axisLength: matrixWidth * 4,
                     axisType: this.binaryTypes.getTypeByName(axisTypeName),

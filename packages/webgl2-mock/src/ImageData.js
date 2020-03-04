@@ -1,16 +1,18 @@
 export default class ImageData {
 
-    constructor() {
-        switch (arguments.length) {
+    constructor(...args) {
+        switch (args.length) {
             case 2:
-                this.width = arguments[0];
-                this.height = arguments[1];
+                this.width = args[0];
+                this.height = args[1];
                 break;
             case 3:
-                this.data = new Uint8ClampedArray(arguments[0]);
-                this.width = arguments[1];
-                this.height = arguments[2];
+                this.data = new Uint8ClampedArray(args[0]);
+                this.width = args[1];
+                this.height = args[2];
                 break;
+            default:
+                throw new Error('DomainError');
         }
     }
 }

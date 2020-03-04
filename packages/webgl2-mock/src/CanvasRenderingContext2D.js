@@ -1,25 +1,30 @@
 import ImageData from './ImageData';
 
+const BYTES_PER_COLOR = 4;
+
 export default class CanvasRenderingContext2D {
 
     constructor(canvas) {
         this.canvas = canvas;
     }
 
-    drawImage() {
-        if (arguments.length === 5) {
-            this.canvas.width = arguments[3];
-            this.canvas.height = arguments[4];
-        } else if (arguments.length === 9) {
-            this.canvas.width = arguments[7];
-            this.canvas.height = arguments[8];
+    drawImage(...args) {
+        const {canvas} = this;
+        if (args.length === 5) {
+            canvas.width = args[3];
+            canvas.height = args[4];
+        } else if (args.length === 9) {
+            canvas.width = args[7];
+            canvas.height = args[8];
         }
     }
 
     getImageData() {
+        const {height, width} = this.canvas;
         return new ImageData(
-            new Array(this.canvas.width * this.canvas.height * 4),
-            this.canvas.width,
-            this.canvas.height);
+            new Array(width * height * BYTES_PER_COLOR),
+            width,
+            height,
+        );
     }
 }

@@ -1,15 +1,27 @@
-import assert from 'assert';
 import * as Binary from '../..';
+import assert from 'assert';
 
 const expectedTypes = [
-    {name: 'f32', byteLength: 4, axisLength: 1},
-    {name: 'vec3<s32>', byteLength: 12, axisLength: 3},
-    {name: 'mat4<u16>', byteLength: 32, axisLength: 16},
+    {
+        axisLength: 1,
+        byteLength: 4,
+        name: 'f32',
+    },
+    {
+        axisLength: 3,
+        byteLength: 12,
+        name: 'vec3<s32>',
+    },
+    {
+        axisLength: 16,
+        byteLength: 32,
+        name: 'mat4<u16>',
+    },
 ];
 
-describe('BinaryTypes', function () {
-    for (let expectedType of expectedTypes) {
-        it(`should contain valid (${expectedType.name}) type`, function () {
+describe('BinaryTypes', () => {
+    for (const expectedType of expectedTypes) {
+        it(`should contain valid (${expectedType.name}) type`, () => {
             const actualType = Binary.types.getTypeByName(expectedType.name);
             assert.strictEqual(actualType.name, expectedType.name);
             assert.strictEqual(actualType.byteLength, expectedType.byteLength);
@@ -17,8 +29,8 @@ describe('BinaryTypes', function () {
         });
     }
 
-    for (let expectedType of expectedTypes) {
-        it(`resolve types by name (${expectedType.name})`, function () {
+    for (const expectedType of expectedTypes) {
+        it(`resolve types by name (${expectedType.name})`, () => {
             const actualType = Binary.types.resolve(expectedType.name);
             assert.strictEqual(actualType.name, expectedType.name);
             assert.strictEqual(actualType.byteLength, expectedType.byteLength);
