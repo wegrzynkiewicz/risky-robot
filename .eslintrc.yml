@@ -91,6 +91,7 @@ rules:
     - off
   function-paren-newline:
     - error
+    - consistent
   generator-star-spacing:
     - error
   getter-return:
@@ -200,6 +201,7 @@ rules:
     - error
   no-constant-condition:
     - error
+    - checkLoops: false
   no-constructor-return:
     - error
   no-continue:
@@ -454,6 +456,7 @@ rules:
     - error
   object-property-newline:
     - error
+    - allowAllPropertiesOnSameLine: true
   object-shorthand:
     - error
   one-var:

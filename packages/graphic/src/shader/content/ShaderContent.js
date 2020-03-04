@@ -1,9 +1,10 @@
-const regexUniform = new RegExp('(?<name>u_\\w+);$', 'mg');
-const regexAttribute = new RegExp('(?<name>a_\\w+);$', 'mg');
+const regexUniform = new RegExp('(?<name>u_\\w+);$', 'mgu');
+const regexAttribute = new RegExp('(?<name>a_\\w+);$', 'mgu');
 
+// TODO: refactor
 function findNames(array, regex, content) {
     while (true) {
-        let matches = regex.exec(content);
+        const matches = regex.exec(content);
         if (matches === null) {
             break;
         }

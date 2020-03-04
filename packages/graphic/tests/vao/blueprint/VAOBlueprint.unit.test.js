@@ -1,12 +1,10 @@
-import assert from 'assert';
 import VAOLayoutBlueprint from '../../../src/vao/blueprint/VAOLayoutBlueprint';
 
-describe('VAOLayoutBlueprint', function () {
-    it('should create valid layout object', function () {
+describe('VAOLayoutBlueprint', () => {
+    it('should create valid layout object', () => {
         const blueprint = new VAOLayoutBlueprint({
             attributeBufferBlueprints: [
                 new VAOLayoutBlueprint.ArrayBuffer({
-                    name: 'primary',
                     batchBlueprints: [
                         new VAOLayoutBlueprint.AttributeBatch({
                             attributeBlueprint: [
@@ -24,12 +22,13 @@ describe('VAOLayoutBlueprint', function () {
                             attributeBlueprint: [
                                 new VAOLayoutBlueprint.Attribute({
                                     name: 'a_Color',
-                                    type: 'vec3<u8>',
                                     normalize: true,
+                                    type: 'vec3<u8>',
                                 }),
                             ],
                         }),
                     ],
+                    name: 'primary',
                 }),
                 new VAOLayoutBlueprint.ElementArrayBuffer({
                     name: 'indices',
@@ -37,10 +36,10 @@ describe('VAOLayoutBlueprint', function () {
             ],
         });
 
-        const layout = blueprint.createLayout({
-            openGLPrimitiveType: WebGL2RenderingContext['TRIANGLES'],
-            verticesCount: 12,
+        blueprint.createLayout({
             indicesCount: 4,
+            openGLPrimitiveType: WebGL2RenderingContext.TRIANGLES,
+            verticesCount: 12,
         });
     });
 });

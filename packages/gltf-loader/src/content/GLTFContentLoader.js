@@ -11,12 +11,13 @@ export default class GLTFContentLoader {
 
     async load() {
         if (this.resource.extension === 'gltf') {
-            return this.loadJSON();
+            const content = await this.loadJSON();
+            return content;
         } else if (this.resource.extension === 'glb') {
-            return this.loadBinary();
-        } else {
-            throw new Error('Unknown GLTF format. Unknown MimeType.')
+            const content = await this.loadBinary();
+            return content;
         }
+        throw new Error('Unknown GLTF format. Unknown MimeType.');
     }
 
     async loadJSON() {
@@ -25,13 +26,19 @@ export default class GLTFContentLoader {
         const gltfData = await response.json();
         const referencedData = await this.extractData(gltfData);
 
-        const content = new GLTFContent({resource, gltfData, referencedData});
+        const content = new GLTFContent({
+            gltfData,
+            referencedData,
+            resource,
+        });
         return content;
     }
 
     async loadBinary() {
         const response = await this.resourceManager.download(this.resource);
         const binaryData = await response.arrayBuffer();
+
+        return binaryData;
     }
 
     async extractData(gltfData) {
@@ -62,11 +69,11 @@ export default class GLTFContentLoader {
 
     async loadReferencedData(referencedData, referencedObject) {
         const {uri} = referencedData;
-        const url = (new URL(uri, this.resourceURL.href)).href;
+        const url = new URL(uri, this.resourceURL.href).href;
 
         const resource = new Assets.Resource({
-            vendor: this.resource.vendor,
             url,
+            vendor: this.resource.vendor,
         });
         referencedObject.resource = resource;
 

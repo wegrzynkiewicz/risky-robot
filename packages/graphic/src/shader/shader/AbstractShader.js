@@ -12,7 +12,7 @@ export default class AbstractShader {
 
     compileShader() {
         this.view.openGL.compileShader(this.openGLShaderPointer);
-        if (!this.getShaderParameter(WebGL2RenderingContext['COMPILE_STATUS'])) {
+        if (!this.getShaderParameter(WebGL2RenderingContext.COMPILE_STATUS)) {
             const message = this.getShaderInfoLog();
             this.deleteShader();
             throw new Error(`An error occurred compiling the shaders: ${message}`);
@@ -29,7 +29,7 @@ export default class AbstractShader {
     }
 
     getShaderParameter(parameterCode) {
-        return this.view.openGL.getShaderParameter(this.openGLShaderPointer, parameterCode)
+        return this.view.openGL.getShaderParameter(this.openGLShaderPointer, parameterCode);
     }
 
     shaderSource(shaderContent) {

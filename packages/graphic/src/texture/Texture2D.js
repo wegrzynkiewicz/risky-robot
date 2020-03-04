@@ -12,7 +12,7 @@ export default class Texture2D {
         this.height = height;
         this.openGL = openGL;
         this.openGLTexturePointer = openGL.createTexture();
-        this.openGLTextureType = openGL['TEXTURE_2D'];
+        this.openGLTextureType = openGL.TEXTURE_2D;
         this.openGLTextureTypeName = 'TEXTURE_2D';
         this.openGLTextureInternalFormat = openGLTextureInternalFormat;
         this.openGLTextureInternalFormatName = internalFormat;
@@ -48,10 +48,6 @@ export default class Texture2D {
             openGLDataType,
             data,
         );
-
-        console.log(this);
-
-        //this.openGL.generateMipmap(this.openGLTextureType);
     }
 
     applyParameters() {

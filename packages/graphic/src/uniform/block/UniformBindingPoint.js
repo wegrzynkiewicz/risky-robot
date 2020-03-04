@@ -1,11 +1,11 @@
 export default class UniformBindingPoint {
 
-    constructor({uniformBuffer, byteOffset, byteLength}) {
+    constructor({byteLength, byteOffset, uniformBuffer}) {
+        this.bindingIndex = null;
+        this.byteLength = byteLength;
+        this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
         this.uniformBlocks = new Set();
         this.uniformBuffer = uniformBuffer;
-        this.byteOffset = byteOffset === undefined ? 0 : byteOffset;
-        this.byteLength = byteLength;
-        this.bindingIndex = null;
     }
 
     bufferBinding() {

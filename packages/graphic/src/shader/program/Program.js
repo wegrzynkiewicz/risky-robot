@@ -1,6 +1,6 @@
 import Attribute from '../attribute/Attribute';
-import UniformBlock from '../../uniform/block/UniformBlock';
 import Uniform from '../../uniform/Uniform';
+import UniformBlock from '../../uniform/block/UniformBlock';
 
 export default class Program {
 
@@ -30,7 +30,7 @@ export default class Program {
     }
 
     bindAttributes() {
-        const attributeCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_ATTRIBUTES']);
+        const attributeCount = this.getProgramParameter(WebGL2RenderingContext.ACTIVE_ATTRIBUTES);
         for (let i = 0; i < attributeCount; ++i) {
             const info = this.view.openGL.getActiveAttrib(this.openGLProgramPointer, i);
             const location = this.view.openGL.getAttribLocation(
@@ -38,17 +38,17 @@ export default class Program {
                 info.name,
             );
             const attribute = new Attribute({
+                location,
                 name: info.name,
                 openGLUniformType: info.type,
                 size: info.size,
-                location,
             });
             this.attributes.push(attribute);
         }
     }
 
     bindUniformBlocks() {
-        const uniformBlocksCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_UNIFORM_BLOCKS']);
+        const uniformBlocksCount = this.getProgramParameter(WebGL2RenderingContext.ACTIVE_UNIFORM_BLOCKS);
         for (let i = 0; i < uniformBlocksCount; i++) {
             const uniformBlock = new UniformBlock({
                 blockIndex: i,
@@ -60,14 +60,14 @@ export default class Program {
     }
 
     bindUniforms() {
-        const uniformsCount = this.getProgramParameter(WebGL2RenderingContext['ACTIVE_UNIFORMS']);
+        const uniformsCount = this.getProgramParameter(WebGL2RenderingContext.ACTIVE_UNIFORMS);
         for (let i = 0; i < uniformsCount; i++) {
             const info = this.getActiveUniform(i);
             const uniform = new Uniform({
                 name: info.name,
+                openGLUniformType: info.type,
                 program: this,
                 size: info.size,
-                openGLUniformType: info.type,
                 view: this.view,
             });
             this.uniforms.push(uniform);
@@ -116,7 +116,7 @@ export default class Program {
 
     linkProgram() {
         this.view.openGL.linkProgram(this.openGLProgramPointer);
-        if (!this.getProgramParameter(WebGL2RenderingContext['LINK_STATUS'])) {
+        if (!this.getProgramParameter(WebGL2RenderingContext.LINK_STATUS)) {
             const message = this.getProgramInfoLog();
             this.deleteProgram();
             throw new Error(`Unable to initialize the shader program: ${message}`);

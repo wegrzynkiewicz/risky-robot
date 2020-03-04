@@ -2,11 +2,11 @@ import * as Graphic from 'robo24-graphic';
 
 export default class GLTFAsset {
 
-    constructor({gltfData, meshes, buffers, images}) {
-        this.gltfData = gltfData;
-        this.meshes = meshes;
-        this.images = images;
+    constructor({buffers, gltfData, images, meshes}) {
         this.buffers = buffers;
+        this.gltfData = gltfData;
+        this.images = images;
+        this.meshes = meshes;
     }
 
     createScene(sceneNumber) {

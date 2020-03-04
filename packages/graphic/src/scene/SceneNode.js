@@ -82,7 +82,7 @@ export default class SceneNode {
 
     render(system, context) {
         if (this.target) {
-            window.bufferData.accessor.fields['u_modelMatrix'].write(this.transformation.modelMatrix);
+            window.bufferData.accessor.fields.u_modelMatrix.write(this.transformation.modelMatrix);
             window.uniformBuffer.setBufferData(window.bufferData.dataView);
             this.target.render(system, context);
         }

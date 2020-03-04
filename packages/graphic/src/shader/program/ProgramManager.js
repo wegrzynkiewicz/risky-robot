@@ -2,18 +2,17 @@ export default class ProgramManager {
 
     constructor({view}) {
         this.view = view;
-        this.programs = Object.create(null);
+        this.programsMap = new Map();
     }
 
     getProgramByName(name) {
-        let program = this.programs[name];
-        if (program === undefined) {
+        if (!this.programsMap.has(name)) {
             throw new Error(`Program named (${name}) not found.`);
         }
-        return program;
+        return this.programsMap.get(name);
     }
 
     registerProgram(program) {
-        this.programs[program.name] = program;
+        this.programsMap.set(program.name, program);
     }
 }

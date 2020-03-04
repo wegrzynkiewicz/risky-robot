@@ -16,7 +16,7 @@ export default class VAOLayoutBlueprint {
         const allocation = new Allocation({openGLPrimitiveType, verticesCount, indicesCount});
         const layout = new VAOLayout({allocation});
 
-        for (let attributeBufferBlueprint of this.attributeBufferBlueprints) {
+        for (const attributeBufferBlueprint of this.attributeBufferBlueprints) {
             layout.createBufferLayout(attributeBufferBlueprint);
         }
 

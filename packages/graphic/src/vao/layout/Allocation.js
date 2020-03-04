@@ -1,9 +1,9 @@
 const primitivesType = {
-    [WebGL2RenderingContext['POINTS']]: {
-        calculatePrimitiveCount: vertices => vertices,
+    [WebGL2RenderingContext.POINTS]: {
+        calculatePrimitiveCount: (vertices) => vertices,
     },
-    [WebGL2RenderingContext['TRIANGLES']]: {
-        calculatePrimitiveCount: vertices => vertices / 3,
+    [WebGL2RenderingContext.TRIANGLES]: {
+        calculatePrimitiveCount: (vertices) => vertices / 3,
     },
 };
 
@@ -16,12 +16,12 @@ export default class Allocation {
             throw new Error('Invalid allocation primitive type.');
         }
 
-        this.verticesCount = parseInt(verticesCount);
+        this.verticesCount = parseInt(verticesCount, 10);
         if (isNaN(this.verticesCount)) {
             throw new Error('Invalid allocation vertices count.');
         }
 
-        this.indicesCount = parseInt(indicesCount);
+        this.indicesCount = parseInt(indicesCount, 10);
         if (isNaN(this.verticesCount)) {
             throw new Error('Invalid allocation indices count.');
         }

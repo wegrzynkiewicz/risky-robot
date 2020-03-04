@@ -9,7 +9,6 @@ export default class TextureParameters {
     }
 
     apply({openGL, openGLTextureType}) {
-        const {} = this;
         openGL.texParameteri(openGLTextureType, openGL.TEXTURE_MAG_FILTER, openGL[this.magnifyingFilter]);
         openGL.texParameteri(openGLTextureType, openGL.TEXTURE_MIN_FILTER, openGL[this.minifyingFilter]);
         openGL.texParameteri(openGLTextureType, openGL.TEXTURE_WRAP_S, openGL[this.wrapS]);

@@ -10,10 +10,10 @@ export default class ElementBufferBlueprint {
 
     createBufferLayout({allocation}) {
         const bufferLayout = new ElementBufferLayout({
+            byteLength: this.calculateTotalByteLength(allocation),
+            byteOffset: 0,
             name: this.name,
             type: this.type,
-            byteOffset: 0,
-            byteLength: this.calculateTotalByteLength(allocation),
         });
 
         return bufferLayout;

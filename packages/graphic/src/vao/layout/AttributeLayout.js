@@ -14,16 +14,16 @@ export default class AttributeLayout {
 
     createAccessor({dataView, count}) {
         return new Binary.TypeListAccessor({
-            count: count,
-            type: this.type,
-            dataView: dataView,
             byteOffset: this.byteOffset,
             byteStride: this.byteStride,
+            count,
+            dataView,
+            type: this.type,
         });
     }
 
     bindAttributeLocation(view) {
-        if (this.type.openGLType === WebGL2RenderingContext['FLOAT'] || this.normalize) {
+        if (this.type.openGLType === WebGL2RenderingContext.FLOAT || this.normalize) {
             view.openGL.vertexAttribPointer(
                 this.location,
                 this.type.axisLength,

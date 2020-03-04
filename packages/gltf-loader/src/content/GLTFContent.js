@@ -1,8 +1,8 @@
 export default class GLTFContent {
 
-    constructor({resource, gltfData, referencedData}) {
-        this.resource = resource;
+    constructor({gltfData, referencedData, resource}) {
         this.gltfData = gltfData;
         this.referencedData = referencedData;
+        this.resource = resource;
     }
 }

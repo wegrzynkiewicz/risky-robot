@@ -17,9 +17,9 @@ function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expe
     );
 }
 
-describe('ArrayBufferBlueprint', function () {
+describe('ArrayBufferBlueprint', () => {
 
-    it('should create valid ArrayBufferLayout object', function () {
+    it('should create valid ArrayBufferLayout object', () => {
         const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
             batches: [
                 new VAOLayoutBlueprint.AttributeBatch({
@@ -37,18 +37,18 @@ describe('ArrayBufferBlueprint', function () {
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
+                            divisor: 1,
                             name: 'a_Normal',
                             type: 'vec3<f32>',
-                            divisor: 1,
                         }),
                     ],
                 }),
                 new VAOLayoutBlueprint.AttributeBatch({
                     attributes: [
                         new VAOLayoutBlueprint.Attribute({
+                            divisor: 2,
                             name: 'a_Color',
                             type: 'vec4<f32>',
-                            divisor: 2,
                         }),
                     ],
                 }),
@@ -56,17 +56,21 @@ describe('ArrayBufferBlueprint', function () {
         });
 
         const allocation = new Allocation({
-            openGLPrimitiveType: WebGL2RenderingContext['TRIANGLES'],
+            openGLPrimitiveType: WebGL2RenderingContext.TRIANGLES,
             verticesCount: 6,
         });
 
         const bufferLayout = bufferBlueprint.createBufferLayout({allocation});
         const verticesCount = 6;
-        const expectedLength = v => (v * 12) + (v * 8) + (v / 3 * 12) + (v / 6 * 16);
+
+        function expectedLength(v) {
+            return v * 12 + v * 8 + v / 3 * 12 + v / 6 * 16;
+        }
+
         assert.strictEqual(bufferLayout.byteLength, expectedLength(verticesCount));
     });
 
-    it('should create valid complex ArrayBufferLayout object', function () {
+    it('should create valid complex ArrayBufferLayout object', () => {
         const bufferBlueprint = new VAOLayoutBlueprint.ArrayBuffer({
             batches: [
                 new VAOLayoutBlueprint.AttributeBatch({
@@ -138,7 +142,7 @@ describe('ArrayBufferBlueprint', function () {
         });
 
         const allocation = new Allocation({
-            openGLPrimitiveType: WebGL2RenderingContext['TRIANGLES'],
+            openGLPrimitiveType: WebGL2RenderingContext.TRIANGLES,
             verticesCount: 30,
         });
 
@@ -153,10 +157,10 @@ describe('ArrayBufferBlueprint', function () {
         assertAttributeLayout(bufferLayout, 'a_Color', 20, block1Offset);
         assertAttributeLayout(bufferLayout, 'a_VertexNegativeColor', 20, block1Offset + 16);
 
-        const block2Offset = block1Offset + (verticesCount * 20);
+        const block2Offset = block1Offset + verticesCount * 20;
         assertAttributeLayout(bufferLayout, 'a_VertexWeight', 2, block2Offset);
 
-        const block3Offset = block2Offset + (verticesCount * 2);
+        const block3Offset = block2Offset + verticesCount * 2;
         assertAttributeLayout(bufferLayout, 'a_VertexVisibility', 1, block3Offset);
 
         const block4Offset = block3Offset + verticesCount;

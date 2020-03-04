@@ -11,9 +11,16 @@ export default class VAOManager {
         return this.vaos[vaoName];
     }
 
-    createVAO({name, program, layout, attributeBuffers, indicesBuffer}) {
+    createVAO({attributeBuffers, indicesBuffer, layout, name, program}) {
         const {view} = this;
-        const vao = new VAO({view, name, program, layout, attributeBuffers, indicesBuffer});
+        const vao = new VAO({
+            attributeBuffers,
+            indicesBuffer,
+            layout,
+            name,
+            program,
+            view,
+        });
         this.vaos[name] = vao;
         return vao;
     }

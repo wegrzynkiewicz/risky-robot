@@ -8,7 +8,7 @@ export default class UniformBlockManager {
         this.uniformBindingPoints = new Map();
 
         this.maxUniformBufferBindings = this.view.openGL.getParameter(
-            WebGL2RenderingContext['MAX_UNIFORM_BUFFER_BINDINGS'],
+            WebGL2RenderingContext.MAX_UNIFORM_BUFFER_BINDINGS,
         );
 
         this.activeBindingPoints = new Array(this.maxUniformBufferBindings);

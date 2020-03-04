@@ -1,6 +1,6 @@
 export default class VAO {
 
-    constructor({view, program, layout, name, attributeBuffers, indicesBuffer}) {
+    constructor({attributeBuffers, indicesBuffer, layout, name, program, view,}) {
         this.name = name;
         this.view = view;
         this.offset = 0;
@@ -42,9 +42,9 @@ export default class VAO {
 
     link() {
         this.bind();
-        for (let attributeBuffer of this.attributeBuffers) {
+        for (const attributeBuffer of this.attributeBuffers) {
             attributeBuffer.bind();
-            for (let attributeLayout of attributeBuffer.bufferLayout.getAttributeLayouts()) {
+            for (const attributeLayout of attributeBuffer.bufferLayout.getAttributeLayouts()) {
                 attributeLayout.bindAttributeLocation(this.view);
                 this.view.openGL.enableVertexAttribArray(attributeLayout.location);
             }

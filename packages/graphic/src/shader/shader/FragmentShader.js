@@ -1,12 +1,14 @@
+/* eslint-disable class-methods-use-this */
+
 import AbstractShader from './AbstractShader';
 
-export default class VertexShader extends AbstractShader {
+export default class FragmentShader extends AbstractShader {
 
     constructor({name, shaderContent, view}) {
         super({name, shaderContent, view});
     }
 
     get openGLShaderType() {
-        return WebGL2RenderingContext['FRAGMENT_SHADER'];
+        return WebGL2RenderingContext.FRAGMENT_SHADER;
     }
 }

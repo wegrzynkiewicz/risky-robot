@@ -1,22 +1,8 @@
-import Program from './Program';
 import FragmentShader from '../shader/FragmentShader';
+import Program from './Program';
 import ShaderContent from '../content/ShaderContent';
 import VertexShader from '../shader/VertexShader';
 
-function createShader(name, content, constructor) {
-    const shaderContent = new ShaderContent({
-        name,
-        content,
-    });
-    const shader = new constructor({
-        name,
-        shaderContent,
-        view: this.view,
-    });
-    this.view.shaderManager.registerShader(shader);
-
-    return shader;
-}
 
 export default class ContentProgramFactory {
 
@@ -25,8 +11,8 @@ export default class ContentProgramFactory {
     }
 
     createProgram({fragment, name, vertex}) {
-        const vertexShader = createShader.call(this, `${name}.vertex`, vertex, VertexShader);
-        const fragmentShader = createShader.call(this, `${name}.fragment`, fragment, FragmentShader);
+        const vertexShader = this.createShader(this, `${name}.vertex`, vertex, VertexShader);
+        const fragmentShader = this.createShader(this, `${name}.fragment`, fragment, FragmentShader);
         const program = new Program({
             fragmentShader,
             name,
@@ -36,5 +22,21 @@ export default class ContentProgramFactory {
 
         this.view.programManager.registerProgram(program);
         return program;
+    }
+
+    /** @private */
+    createShader(name, content, constructor) {
+        const shaderContent = new ShaderContent({
+            content,
+            name,
+        });
+        const shader = new constructor({
+            name,
+            shaderContent,
+            view: this.view,
+        });
+        this.view.shaderManager.registerShader(shader);
+
+        return shader;
     }
 }

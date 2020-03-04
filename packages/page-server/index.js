@@ -8,6 +8,6 @@ app.use(express.static('../'));
 const hostname = '0.0.0.0';
 const port = 3000;
 
-const server = app.listen(port, hostname, () => {
-    console.log(`Example app listening on port ${port}!`)
+app.listen(port, hostname, () => {
+    process.stdout.write(`Example app listening on port ${port}!`);
 });

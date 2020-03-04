@@ -8,6 +8,6 @@ export default class ArrayBuffer extends AbstractBuffer {
     }
 
     get openGLBufferType() {
-        return WebGL2RenderingContext['ARRAY_BUFFER'];
+        return WebGL2RenderingContext.ARRAY_BUFFER;
     }
 }

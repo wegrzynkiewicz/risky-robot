@@ -1,7 +1,7 @@
-import createBasicLayout from './createBasicLayout';
-import ElementBufferLayout from './ElementBufferLayout';
 import ArrayBufferLayout from './ArrayBufferLayout';
 import Attribute from '../../shader/attribute/Attribute';
+import ElementBufferLayout from './ElementBufferLayout';
+import createBasicLayout from './createBasicLayout';
 
 export default class VAOLayout {
 

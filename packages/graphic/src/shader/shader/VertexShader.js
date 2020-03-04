@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+
 import AbstractShader from './AbstractShader';
 
 export default class VertexShader extends AbstractShader {
@@ -7,6 +9,6 @@ export default class VertexShader extends AbstractShader {
     }
 
     get openGLShaderType() {
-        return WebGL2RenderingContext['VERTEX_SHADER'];
+        return WebGL2RenderingContext.VERTEX_SHADER;
     }
 }

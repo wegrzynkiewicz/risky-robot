@@ -14,16 +14,16 @@ export default class AttributeBlueprint {
         this.divisor = divisor === undefined ? 0 : divisor;
     }
 
-    createAttributeAllocation({allocation, byteOffset, byteStride}) {
+    createAttributeAllocation({byteOffset, byteStride}) {
         const {type, name, location, normalize, divisor} = this;
         return new AttributeLayout({
-            name,
-            normalize,
-            divisor,
-            location,
-            type,
             byteOffset,
             byteStride,
+            divisor,
+            location,
+            name,
+            normalize,
+            type,
         });
     }
 

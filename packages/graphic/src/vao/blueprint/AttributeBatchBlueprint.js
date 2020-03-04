@@ -9,10 +9,10 @@ export default class AttributeBatchBlueprint {
 
     calculateByteStride() {
         let blockStride = 0;
-        for (let attributeBlueprint of this.attributeBlueprints) {
+        for (const attributeBlueprint of this.attributeBlueprints) {
             blockStride += attributeBlueprint.type.byteLength;
         }
-        for (let attributeBlueprint of this.attributeBlueprints) {
+        for (const attributeBlueprint of this.attributeBlueprints) {
             const {type} = attributeBlueprint;
             const paddingType = type instanceof Binary.GenericType ? type.axisType: type;
             if (blockStride % paddingType.byteLength !== 0) {
@@ -25,7 +25,7 @@ export default class AttributeBatchBlueprint {
     assertSameDivisor() {
         if (this.attributeBlueprints.length > 1) {
             const expectedDivisor = this.attributeBlueprints[0].divisor;
-            for (let attributeBlueprint of this.attributeBlueprints) {
+            for (const attributeBlueprint of this.attributeBlueprints) {
                 if (attributeBlueprint.divisor !== expectedDivisor) {
                     throw new Error('Cannot merge interleaved attributes with different divisor property');
                 }
@@ -38,12 +38,12 @@ export default class AttributeBatchBlueprint {
 
         const byteStride = this.calculateByteStride();
         const attributeBatchLayout = new AttributeBatchLayout({
-            byteOffset: batchOffset,
             byteLength: this.calculateTotalByteLength(allocation),
+            byteOffset: batchOffset,
         });
 
         let byteOffset = batchOffset;
-        for (let attributeBlueprint of this.attributeBlueprints) {
+        for (const attributeBlueprint of this.attributeBlueprints) {
             const {name, type} = attributeBlueprint;
             const attributeLayout = attributeBlueprint.createAttributeAllocation({
                 allocation,
@@ -59,7 +59,7 @@ export default class AttributeBatchBlueprint {
 
     calculateTotalByteLength(allocation) {
         let totalByteLength = 0;
-        for (let attributeBlueprint of this.attributeBlueprints) {
+        for (const attributeBlueprint of this.attributeBlueprints) {
             const attributeByteLength = attributeBlueprint.calculateTotalByteLength(allocation);
             totalByteLength += attributeByteLength;
         }

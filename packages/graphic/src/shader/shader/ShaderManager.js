@@ -2,18 +2,17 @@ export default class ShaderManager {
 
     constructor({view}) {
         this.view = view;
-        this.shaders = Object.create(null);
+        this.shadersMap = new Map();
     }
 
     registerShader(shader) {
-        this.shaders[shader.name] = shader;
+        this.shadersMap.set(shader.name, shader);
     }
 
     getShaderByName(name) {
-        let shader = this.shaders[name];
-        if (shader === undefined) {
+        if (!this.shadersMap.has(name)) {
             throw new Error(`Shader named (${name}) not found.`);
         }
-        return shader;
+        return this.shadersMap.get(name);
     }
 }
