@@ -1,6 +1,6 @@
 export default class VAO {
 
-    constructor({attributeBuffers, indicesBuffer, layout, name, program, view,}) {
+    constructor({attributeBuffers, indicesBuffer, layout, name, program, view}) {
         this.name = name;
         this.view = view;
         this.offset = 0;

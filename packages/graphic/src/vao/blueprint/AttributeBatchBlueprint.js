@@ -1,5 +1,5 @@
-import AttributeBatchLayout from '../layout/AttributeBatchLayout';
 import * as Binary from 'robo24-binary';
+import AttributeBatchLayout from '../layout/AttributeBatchLayout';
 
 export default class AttributeBatchBlueprint {
 
@@ -14,7 +14,7 @@ export default class AttributeBatchBlueprint {
         }
         for (const attributeBlueprint of this.attributeBlueprints) {
             const {type} = attributeBlueprint;
-            const paddingType = type instanceof Binary.GenericType ? type.axisType: type;
+            const paddingType = type instanceof Binary.GenericType ? type.axisType : type;
             if (blockStride % paddingType.byteLength !== 0) {
                 throw new Error('Invalid stride or offset data pack');
             }

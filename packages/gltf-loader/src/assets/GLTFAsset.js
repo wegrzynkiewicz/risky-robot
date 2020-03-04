@@ -23,12 +23,12 @@ export default class GLTFAsset {
     }
 
     createSceneNode(nodeNumber) {
-        let node = this.gltfData.nodes[nodeNumber];
-        let {
+        const node = this.gltfData.nodes[nodeNumber];
+        const {
             camera,
             children,
             matrix,
-            mesh: meshNumber,
+            mesh,
             name,
             rotation,
             scale,
@@ -39,8 +39,8 @@ export default class GLTFAsset {
 
         let target = null;
 
-        if (meshNumber !== undefined) {
-            target = this.meshes[meshNumber];
+        if (mesh !== undefined) {
+            target = this.meshes[mesh];
         }
 
         const sceneNode = new Graphic.SceneNode({name, target});

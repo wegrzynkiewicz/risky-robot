@@ -36,9 +36,9 @@ export default class UniformBlockManager {
 
     createBindingPoint({blockName, uniformBuffer, byteOffset, byteLength}) {
         const uniformBindingPoint = new UniformBindingPoint({
-            uniformBuffer,
-            byteOffset,
             byteLength,
+            byteOffset,
+            uniformBuffer,
         });
         this.uniformBindingPoints.set(blockName, uniformBindingPoint);
         return uniformBindingPoint;
@@ -54,7 +54,7 @@ export default class UniformBlockManager {
 
         // TODO: better algorithm to find unused binding points
         const lastBindingIndex = this.maxUniformBufferBindings - 1;
-        bindingPoint[lastBindingIndex].clearBindingIndex();
+        this.activeBindingPoints[lastBindingIndex].clearBindingIndex();
         return lastBindingIndex;
     }
 }

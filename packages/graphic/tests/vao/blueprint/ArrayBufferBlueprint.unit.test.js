@@ -1,6 +1,6 @@
-import assert from 'assert';
 import Allocation from '../../../src/vao/layout/Allocation';
 import VAOLayoutBlueprint from '../../../src/vao/blueprint/VAOLayoutBlueprint';
+import assert from 'assert';
 
 function assertAttributeLayout(bufferLayout, attributeName, expectedStride, expectedOffset) {
     const attributeLayout = bufferLayout.getAttributeLayoutByName(attributeName);
