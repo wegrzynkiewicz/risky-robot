@@ -1,7 +1,6 @@
 env:
   node: true
   mocha: true
-  browser: true
   es6: true
 globals:
   Atomics: false
@@ -10,7 +9,13 @@ parser: ''
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
-plugins: []
+plugins:
+  - import
+  - mocha
+extends:
+  - eslint:recommended
+  - plugin:import/recommended
+  - plugin:mocha/recommended
 rules:
   accessor-pairs:
     - error
@@ -38,7 +43,7 @@ rules:
   brace-style:
     - error
   callback-return:
-    - error
+    - off
   camelcase:
     - error
   capitalized-comments:
@@ -70,6 +75,7 @@ rules:
     - error
   dot-location:
     - error
+    - property
   dot-notation:
     - error
   eol-last:
@@ -147,7 +153,7 @@ rules:
       skipComments: true
   max-lines-per-function:
     - error
-    - max: 200
+    - max: 500
       skipBlankLines: true
       skipComments: true
       IIFEs: true
@@ -420,6 +426,7 @@ rules:
     - error
   no-unused-vars:
     - error
+    - args: none
   no-use-before-define:
     - error
   no-useless-call:
@@ -507,7 +514,7 @@ rules:
   require-atomic-updates:
     - error
   require-await:
-    - error
+    - off
   require-unicode-regexp:
     - error
   require-yield:
@@ -521,8 +528,9 @@ rules:
     - error
   semi-style:
     - error
+  # replaced by import/order
   sort-imports:
-    - error
+    - off
   sort-keys:
     - error
     - asc
@@ -535,7 +543,9 @@ rules:
     - error
   space-before-function-paren:
     - error
-    - never
+    - anonymous: always
+      named: never
+      asyncArrow: always
   space-in-parens:
     - error
   space-infix-ops:
@@ -572,3 +582,131 @@ rules:
   yoda:
     - error
 
+
+  mocha/handle-done-callback:
+    - error
+  mocha/max-top-level-suites:
+    - error
+    - limit: 1
+  mocha/no-async-describe:
+    - error
+  mocha/no-exclusive-tests:
+    - error
+  mocha/no-global-tests:
+    - error
+  mocha/no-hooks:
+    - error
+  mocha/no-hooks-for-single-case:
+    - error
+  mocha/no-identical-title:
+    - error
+  mocha/no-mocha-arrows:
+    - off
+  mocha/no-nested-tests:
+    - error
+  mocha/no-pending-tests:
+    - error
+  mocha/no-return-and-callback:
+    - error
+  mocha/no-return-from-async:
+    - error
+  mocha/no-setup-in-describe:
+    - error
+  mocha/no-sibling-hooks:
+    - error
+  mocha/no-skipped-tests:
+    - error
+  mocha/no-synchronous-tests:
+    - error
+  mocha/no-top-level-hooks:
+    - error
+  mocha/prefer-arrow-callback:
+    - error
+    - allowNamedFunctions: false
+      allowUnboundThis: false
+  mocha/valid-suite-description:
+    - off
+  mocha/valid-test-description:
+    - off
+
+
+  import/default:
+    - error
+  import/dynamic-import-chunkname:
+    - error
+  import/export:
+    - error
+  import/exports-last:
+    - error
+  import/extensions:
+    - error
+  import/first:
+    - error
+  import/group-exports:
+    - error
+  import/max-dependencies:
+    - error
+  import/named:
+    - error
+  import/namespace:
+    - error
+  import/newline-after-import:
+    - error
+  import/no-absolute-path:
+    - error
+  import/no-amd:
+    - error
+  import/no-anonymous-default-export:
+    - error
+  import/no-commonjs:
+    - error
+  import/no-cycle:
+    - error
+  import/no-default-export:
+    - error
+  import/no-deprecated:
+    - error
+  import/no-duplicates:
+    - error
+  import/no-dynamic-require:
+    - error
+  import/no-extraneous-dependencies:
+    - error
+  import/no-internal-modules:
+    - off
+  import/no-mutable-exports:
+    - error
+  import/no-named-as-default:
+    - error
+  import/no-named-as-default-member:
+    - error
+  import/no-named-default:
+    - error
+  import/no-named-export:
+    - off
+  import/no-namespace:
+    - error
+  import/no-nodejs-modules:
+    - off
+  import/no-relative-parent-imports:
+    - off
+  import/no-restricted-paths:
+    - error
+  import/no-self-import:
+    - error
+  import/no-unassigned-import:
+    - error
+  import/no-unresolved:
+    - error
+  import/no-unused-modules:
+    - error
+  import/no-useless-path-segments:
+    - error
+  import/no-webpack-loader-syntax:
+    - error
+  import/order:
+    - error
+  import/prefer-default-export:
+    - off
+  import/unambiguous:
+    - error
