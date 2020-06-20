@@ -2,10 +2,10 @@
 *.cache
 .env
 .idea
+
+dist
+build
 node_modules
 
 # TODO: temporary
 package-lock.json
-
-packages/game-client/dist
-packages/visual-diff/dist
