@@ -1,4 +1,4 @@
-import * as Binary from 'robo24-binary';
+import * as Binary from 'risky-robot-binary';
 import AttributeBatchLayout from '../layout/AttributeBatchLayout';
 
 export default class AttributeBatchBlueprint {

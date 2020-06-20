@@ -1,7 +1,7 @@
 {
-  "name": "robo24-binary",
+  "name": "risky-robot-binary",
   "version": "0.0.0",
-  "description": "robo24-binary",
+  "description": "risky-robot-binary",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/binary.js",
@@ -13,6 +13,6 @@
     "src"
   ],
   "devDependencies": {
-    "robo24-webgl2-mock": "file:../webgl2-mock"
+    "risky-robot-webgl2-mock": "file:../webgl2-mock"
   }
 }

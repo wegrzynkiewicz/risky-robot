@@ -1,4 +1,4 @@
-import * as Binary from 'robo24-binary';
+import * as Binary from 'risky-robot-binary';
 import AttributeLayout from '../layout/AttributeLayout';
 
 export default class AttributeBlueprint {

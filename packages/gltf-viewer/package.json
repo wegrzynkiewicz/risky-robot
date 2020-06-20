@@ -1,7 +1,7 @@
 {
-  "name": "robo24-gltf-viewer",
+  "name": "risky-robot-gltf-viewer",
   "version": "0.0.0",
-  "description": "robo24-gltf-viewer",
+  "description": "risky-robot-gltf-viewer",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/index.js",

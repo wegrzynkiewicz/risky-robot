@@ -1,5 +1,5 @@
-import * as Binary from 'robo24-binary';
-import * as Graphic from 'robo24-graphic';
+import * as Binary from 'risky-robot-binary';
+import * as Graphic from 'risky-robot-graphic';
 import GLTFAsset from './GLTFAsset';
 import accessorTypeTranslate from './accessorTypeTranlate';
 import translateAttributeName from './translateAttributeName';

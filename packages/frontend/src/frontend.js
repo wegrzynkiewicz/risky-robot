@@ -1,10 +1,10 @@
-import * as Assets from 'robo24-assets';
+import * as Assets from 'risky-robot-assets';
 export {Assets};
 
-import * as GLTFLoader from 'robo24-gltf-loader';
+import * as GLTFLoader from 'risky-robot-gltf-loader';
 export {GLTFLoader};
 
-import * as Graphic from 'robo24-graphic';
+import * as Graphic from 'risky-robot-graphic';
 export {Graphic};
 
 export {default as AnimationLoop} from './flow/AnimationLoop';

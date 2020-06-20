@@ -1,4 +1,4 @@
-import * as Graphic from 'robo24-graphic';
+import * as Graphic from 'risky-robot-graphic';
 
 export default class GLTFAsset {
 

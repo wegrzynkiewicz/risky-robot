@@ -1,4 +1,4 @@
-import * as Binary from 'robo24-binary';
+import * as Binary from 'risky-robot-binary';
 import ElementBufferLayout from '../layout/ElementBufferLayout';
 
 export default class ElementBufferBlueprint {

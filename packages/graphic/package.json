@@ -1,7 +1,7 @@
 {
-  "name": "robo24-graphic",
+  "name": "risky-robot-graphic",
   "version": "0.0.0",
-  "description": "robo24-graphic",
+  "description": "risky-robot-graphic",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/graphic.js",
@@ -14,10 +14,10 @@
   ],
   "dependencies": {
     "gl-matrix": "^3.2.1",
-    "robo24-binary": "file:../binary"
+    "risky-robot-binary": "file:../binary"
   },
   "devDependencies": {
-    "robo24-webgl2-mock": "file:../webgl2-mock",
+    "risky-robot-webgl2-mock": "file:../webgl2-mock",
     "sinon": "^8.1.1"
   }
 }

@@ -1,4 +1,4 @@
-import Core from 'robo24-core';
+import Core from 'risky-robot-core';
 import VAOLayout from '../../layout/VAOLayout';
 
 const noise = Core.NoiseGenerator;

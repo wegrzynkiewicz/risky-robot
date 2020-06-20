@@ -1,6 +1,6 @@
-import * as Assets from 'robo24-assets';
-import * as GLTFLoader from 'robo24-gltf-loader';
-import * as Graphic from 'robo24-graphic';
+import * as Assets from 'risky-robot-assets';
+import * as GLTFLoader from 'risky-robot-gltf-loader';
+import * as Graphic from 'risky-robot-graphic';
 import AnimationLoop from '../flow/AnimationLoop';
 import System from './System';
 

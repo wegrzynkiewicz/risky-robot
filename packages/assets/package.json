@@ -1,7 +1,7 @@
 {
-  "name": "robo24-assets",
+  "name": "risky-robot-assets",
   "version": "0.0.0",
-  "description": "robo24-assets",
+  "description": "risky-robot-assets",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/assets.js",

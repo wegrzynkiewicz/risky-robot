@@ -1,7 +1,7 @@
 {
-  "name": "robo24-frontend",
+  "name": "risky-robot-frontend",
   "version": "0.0.0",
-  "description": "robo24-frontend",
+  "description": "risky-robot-frontend",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/frontend.js",
@@ -14,9 +14,9 @@
   ],
   "dependencies": {
     "events": "^3.1.0",
-    "robo24-assets": "file:../assets",
-    "robo24-gltf-loader": "file:../gltf-loader",
-    "robo24-graphic": "file:../graphic"
+    "risky-robot-assets": "file:../assets",
+    "risky-robot-gltf-loader": "file:../gltf-loader",
+    "risky-robot-graphic": "file:../graphic"
   },
   "devDependencies": {
     "webgl-mock": "^0.1.7"

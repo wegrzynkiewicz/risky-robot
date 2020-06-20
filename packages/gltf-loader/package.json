@@ -1,7 +1,7 @@
 {
-  "name": "robo24-gltf-loader",
+  "name": "risky-robot-gltf-loader",
   "version": "0.0.0",
-  "description": "robo24-gltf-loader",
+  "description": "risky-robot-gltf-loader",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/gltf-loader.js",
@@ -14,8 +14,8 @@
   ],
   "dependencies": {
     "node-fetch": "^2.6.0",
-    "robo24-assets": "file:../assets",
-    "robo24-binary": "file:../binary",
-    "robo24-graphic": "file:../graphic"
+    "risky-robot-assets": "file:../assets",
+    "risky-robot-binary": "file:../binary",
+    "risky-robot-graphic": "file:../graphic"
   }
 }

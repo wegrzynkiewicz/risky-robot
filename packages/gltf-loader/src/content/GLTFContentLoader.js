@@ -1,4 +1,4 @@
-import * as Assets from 'robo24-assets';
+import * as Assets from 'risky-robot-assets';
 import GLTFContent from './GLTFContent';
 
 export default class GLTFContentLoader {

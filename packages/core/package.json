@@ -1,7 +1,7 @@
 {
-  "name": "robo24-core",
+  "name": "risky-robot-core",
   "version": "0.0.0",
-  "description": "robo24-core",
+  "description": "risky-robot-core",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/Core.js",

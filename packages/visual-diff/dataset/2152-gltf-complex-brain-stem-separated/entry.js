@@ -1,7 +1,7 @@
-import * as Frontend from 'robo24-frontend';
+import * as Frontend from 'risky-robot-frontend';
 import vertexShaderContent from './shader.vert';
 import fragmentShaderContent from './shader.frag';
-import {Graphic} from 'robo24-frontend';
+import {Graphic} from 'risky-robot-frontend';
 
 const start = async () => {
     const canvas = document.getElementById('canvas');

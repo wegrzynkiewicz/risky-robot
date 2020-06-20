@@ -1,7 +1,7 @@
 {
-  "name": "robo24-game-client",
+  "name": "risky-robot-game-client",
   "version": "0.0.0",
-  "description": "robo24-game-client",
+  "description": "risky-robot-game-client",
   "author": "",
   "license": "CC-BY-NC-4.0",
   "main": "src/game-client.js",
@@ -13,7 +13,7 @@
     "events": "^3.1.0",
     "gl-matrix": "^3.2.1",
     "raw-loader": "^3.1.0",
-    "robo24-core": "file:../core"
+    "risky-robot-core": "file:../core"
   },
   "devDependencies": {
     "html-loader": "^0.5.5",

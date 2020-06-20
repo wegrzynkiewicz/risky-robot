@@ -1,4 +1,4 @@
-import * as Frontend from 'robo24-frontend';
+import * as Frontend from 'risky-robot-frontend';
 import vertexShaderContent from '../../common/shaders/solid.vert';
 import fragmentShaderContent from '../../common/shaders/solid.frag';
 
